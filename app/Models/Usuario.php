@@ -42,14 +42,22 @@ class Usuario extends Authenticatable
     }
 
     public function login($correo, $contrasenha){
-
+        
         $SessionRow = Usuario::select('idUsuario','idPersona','idRol','correo','tieneAcceso','estado')
-        ->where('estado', '1')
+        ->whereRaw('correo = ' . encapsular($correo) . ' AND contrasenha = ' . encapsular($contrasenha)) 
         ->limit(1)
         ->get();
-        if(count($SessionRow)>0) {
-            session(['correo' => $SessionRow->correo]);
+        if(count($SessionRow) > 0) {
+            foreach($SessionRow as $row){
+                session(['idUsuario' => $row->idUsuario]);
+                session(['idPersona' => $row->idPersona]);
+                session(['idRol' => $row->idRol]);
+                session(['correo' => $row->correo]);
+                session(['tieneAcceso' => $row->tieneAcceso]);
+                session(['estado' => $row->estado]);
+            }
         }
+        return count($SessionRow);
         /*
         DB::statement('drop table users')
         $SessionRow = Usuario::select('idUsuario','idPersona','idRol','correo','tieneAcceso','estado')->get();

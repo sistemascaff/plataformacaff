@@ -13,13 +13,42 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $tableUsuario = (new Usuario())->getAllUsers();
-        return view('Usuario.inicio', ['tableUsuario' => $tableUsuario, 'retrocederDirectorioAssets' => 1]);
+        if(session('idRol') == 1){
+            $tableUsuario = (new Usuario())->getAllUsers();
+            return view('Usuario.inicio', ['tableUsuario' => $tableUsuario, 'retrocederDirectorioAssets' => 1]);
+        }
+        else{
+            return redirect()->route('login');
+        }
     }
     public function show($idUsuario)
     {
         $Usuario = (new Usuario())->details($idUsuario);
         return view('Usuario.detalle', ['Usuario' => $Usuario,'retrocederDirectorioAssets' => 2]);
+    }
+    public function verify(Request $request)
+    {
+        $Usuario = (new Usuario())->login($request->correo,$request->contrasenha);
+        if($Usuario > 0){
+            if(session('tieneAcceso') == 1){
+                return redirect()->route('usuarios.index');
+            }
+            else{
+                return redirect()->route('login');
+            }
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
+    public function signIn()
+    {
+        return view('login');
+    }
+    public function signOut()
+    {
+        (new Usuario())->logout();
+        return redirect()->route('login');
     }
 
     /**
@@ -35,7 +64,7 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**

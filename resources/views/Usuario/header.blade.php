@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PLATAFORMA | USUARIOS</title>
+  <title>{{tituloPagina()}} | USUARIOS</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -140,10 +140,18 @@
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fa fa-expand-arrows-alt"></i>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="fa fa-sign-out"></i>
         </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <span class="dropdown-item dropdown-header">{{session('correo')}}</span>
+          <div class="dropdown-divider"></div>
+          <a href="{{route('logout')}}" class="dropdown-item">
+            <i class="fa fa-sign-out"></i> CERRAR SESIÓN
+          </a>
+        </div>
       </li>
     </ul>
   </nav>
@@ -162,7 +170,7 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
-          <a href="{{route('usuarios.index')}}" class="d-block">USUARIO_NOMBRE</a>
+          <a href="{{route('usuarios.index')}}" class="d-block">{{session('correo')}}</a>
         </div>
       </div>
 

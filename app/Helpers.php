@@ -1,5 +1,13 @@
 <?php
 
+function tituloPagina(){
+    return "CAFF";
+}
+
+function versionApp(){
+    return "0.1 En desarrollo";
+}
+
 function retrocederDirectorio($valor){
     $cadena = "";
     for ($i=0; $i < $valor; $i++) {
@@ -8,8 +16,9 @@ function retrocederDirectorio($valor){
     return $cadena;
 }
 
-function versionApp(){
-    return "0.1 En desarrollo";
+function encapsular($string){
+    $string = "'" . $string . "'";
+    return $string;
 }
 
 /*

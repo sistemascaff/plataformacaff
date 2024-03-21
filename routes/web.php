@@ -13,16 +13,14 @@ use App\Http\Controllers\PersonaController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('login');
-})->name('login');
-
 // Agregar en este grupo todas las rutas que pertenezcan a esta clase.
 Route::controller(UsuarioController::class)->group(function(){
     /*get(URL web, método de controlador)->name(nombre para referenciar ruta)*/
+    Route::get('login','signIn')->name('login');
+    Route::post('verify','verify')->name('login.verify');
     Route::get('usuarios','index')->name('usuarios.index');
     Route::get('usuarios/{idUsuario}','show')->name('usuarios.details');
+    Route::get('logout','signOut')->name('logout');
 });
 Route::controller(PersonaController::class)->group(function(){
     Route::get('persona','index');
