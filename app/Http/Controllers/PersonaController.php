@@ -2,24 +2,17 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\Usuario;
+use App\Models\Persona;
 use Illuminate\Http\Request;
 
-class UsuarioController extends Controller
+class PersonaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $tableUsuario = (new Usuario())->getAllUsers();
-        return view('Usuario.inicio', ['tableUsuario' => $tableUsuario, 'retrocederDirectorioAssets' => 1]);
-    }
-    public function show($idUsuario)
-    {
-        $Usuario = (new Usuario())->details($idUsuario);
-        return view('Usuario.detalle', ['Usuario' => $Usuario,'retrocederDirectorioAssets' => 2]);
+        //
     }
 
     /**
@@ -41,12 +34,15 @@ class UsuarioController extends Controller
     /**
      * Display the specified resource.
      */
-    
+    public function show(Persona $persona)
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Usuario $usuario)
+    public function edit(Persona $persona)
     {
         //
     }
@@ -54,7 +50,7 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Usuario $usuario)
+    public function update(Request $request, Persona $persona)
     {
         //
     }
@@ -62,7 +58,7 @@ class UsuarioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Usuario $usuario)
+    public function destroy(Persona $persona)
     {
         //
     }
