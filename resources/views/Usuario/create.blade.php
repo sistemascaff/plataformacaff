@@ -6,12 +6,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="font-weight-bold">BIENVENIDO, USUARIO</h1>
+          <h1 class="font-weight-bold">REGISTRAR NUEVO USUARIO</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('usuarios.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item active">USUARIOS</li>
+            <li class="breadcrumb-item">USUARIOS</a></li>
+            <li class="breadcrumb-item active">{{$Titulos}}</li>
           </ol>
         </div>
       </div>
@@ -24,10 +25,12 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title font-weight-bold">USUARIOS</h3>
+        <h3 class="card-title font-weight-bold">{{$Titulos}}</h3>
       </div>
       <div class="card-body">
-        {{$Usuario->correo}}
+        <form action="{{route('usuarios.store')}}">
+
+        </form>
       </div>
       <!-- /.card-body -->
       <div class="card-footer">

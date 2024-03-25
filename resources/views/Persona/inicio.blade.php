@@ -34,41 +34,29 @@
             <table id="dataTable" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>idUsuario</th>
-                  <th>idPersona</th>
-                  <th>idRol</th>
-                  <th>correo</th>
-                  <th>contrasenha</th>
-                  <th>pinRecuperacion</th>
-                  <th>hashRecuperacion</th>
-                  <th>tieneAcceso</th>
-                  <th>estado</th>
-                  <th>fechaRegistro</th>
-                  <th>fechaActualizacion</th>
-                  <th>ultimaConexion</th>
-                  <th>idUsuarioResponsable</th>
+                  <th>AP. PATERNO</th>
+                  <th>AP. MATERNO</th>
+                  <th>NOMBRES</th>
+                  <th>FECHA NACIMIENTO</th>
+                  <th>SEXO</th>
+                  <th>IDIOMA</th>
+                  <th>C.I.</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($tableUsuario as $rowUsuario)
+                @foreach ($tablePersona as $rowPersona)
                   <tr>
-                    <td>{{$rowUsuario->idUsuario}}</td>
-                    <td>{{$rowUsuario->idPersona}}</td>
-                    <td>{{$rowUsuario->idRol}}</td>
-                    <td>{{$rowUsuario->correo}}</td>
-                    <td>{{$rowUsuario->contrasenha}}</td>
-                    <td>{{$rowUsuario->pinRecuperacion}}</td>
-                    <td>{{$rowUsuario->hashRecuperacion}}</td>
-                    <td>{{$rowUsuario->tieneAcceso}}</td>
-                    <td>{{$rowUsuario->estado}}</td>
-                    <td>{{$rowUsuario->fechaRegistro}}</td>
-                    <td>{{$rowUsuario->fechaActualizacion}}</td>
-                    <td>{{$rowUsuario->ultimaConexion}}</td>
-                    <td>{{$rowUsuario->idUsuarioResponsable}}</td>
+                    <td>{{$rowPersona->apellidoPaterno}}</td>
+                    <td>{{$rowPersona->apellidoMaterno}}</td>
+                    <td>{{$rowPersona->nombres}}</td>
+                    <td>{{formatoVistaFecha($rowPersona->fechaNacimiento)}}</td>
+                    <td>{{$rowPersona->sexo}}</td>
+                    <td>{{$rowPersona->idioma}}</td>
+                    <td>{{$rowPersona->documentoIdentificacion}}</td>
                     <td>
                       <div class="btn-group">
-                        <a class="btn btn-info" href="{{route('usuarios.details', $rowUsuario->idUsuario)}}">
+                        <a class="btn btn-info" href="{{route('usuarios.details', $rowPersona->idPersona)}}">
                           <i class="fa fa-eye"></i>
                         </a>
                       </div>

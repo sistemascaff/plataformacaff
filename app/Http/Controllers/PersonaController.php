@@ -12,7 +12,13 @@ class PersonaController extends Controller
      */
     public function index()
     {
-        //
+        if(session('idRol') == 1){
+            $tablePersona = (new Persona())->getAllUsers();
+            return view('Persona.inicio', ['tablePersona' => $tablePersona, 'retrocederDirectorioAssets' => 1]);
+        }
+        else{
+            return redirect()->route('login');
+        }
     }
 
     /**

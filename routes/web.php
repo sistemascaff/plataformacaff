@@ -18,12 +18,14 @@ Route::controller(UsuarioController::class)->group(function(){
     /*get(URL web, método de controlador)->name(nombre para referenciar ruta)*/
     Route::get('login','signIn')->name('login');
     Route::post('verify','verify')->name('login.verify');
-    Route::get('usuarios','index')->name('usuarios.index');
-    Route::get('usuarios/{idUsuario}','show')->name('usuarios.details');
     Route::get('logout','signOut')->name('logout');
+    Route::get('usuarios','index')->name('usuarios.index');
+    Route::get('usuarios/crear','new')->name('usuarios.create');
+    Route::post('usuarios/save','store')->name('usuarios.store');
+    Route::get('usuarios/{idUsuario}','show')->name('usuarios.details');
 });
 Route::controller(PersonaController::class)->group(function(){
-    Route::get('persona','index');
+    Route::get('personas','index')->name('personas.index');
 });
 /*
 Route::get('inicio/{modulo}/{accion?}', function($modulo, $accion = null) {

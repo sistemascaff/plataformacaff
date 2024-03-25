@@ -191,7 +191,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
+          <li class="nav-item {{ request()->is('usuarios') ? 'menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('usuarios') ? 'active' : '' }}">
               <i class="nav-icon fa fa-user"></i>
               <p>
@@ -208,6 +208,25 @@
               </li>
             </ul>
           </li>
+
+          <li class="nav-item {{ request()->is('personas') ? 'menu-open' : '' }}">
+            <a href="" class="nav-link {{ request()->is('personas') ? 'active' : '' }}">
+              <i class="nav-icon fa fa-male"></i>
+              <p>
+                PERSONAS
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('personas.index')}}" class="nav-link {{ request()->is('personas') ? 'active' : '' }}">
+                  <i class="fa fa-home nav-icon"></i>
+                  <p>Inicio </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

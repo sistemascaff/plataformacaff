@@ -8,9 +8,7 @@ use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
         if(session('idRol') == 1){
@@ -21,11 +19,16 @@ class UsuarioController extends Controller
             return redirect()->route('login');
         }
     }
+
     public function show($idUsuario)
     {
         $Usuario = (new Usuario())->details($idUsuario);
-        return view('Usuario.detalle', ['Usuario' => $Usuario,'retrocederDirectorioAssets' => 2]);
+        return view('Usuario.detalle', [
+            'Usuario' => $Usuario,
+            'retrocederDirectorioAssets' => 2
+        ]);
     }
+
     public function verify(Request $request)
     {
         $Usuario = (new Usuario())->login($request->correo,$request->contrasenha);
@@ -41,22 +44,24 @@ class UsuarioController extends Controller
             return redirect()->route('login');
         }
     }
+
     public function signIn()
     {
         return view('login');
     }
+
     public function signOut()
     {
         (new Usuario())->logout();
         return redirect()->route('login');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function new()
     {
-        //
+        return view('Usuario.create', [
+            'Titulos' => "NUEVO USUARIO",
+            'retrocederDirectorioAssets' => 2
+        ]);
     }
 
     /**
@@ -64,7 +69,7 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-
+        
     }
 
     /**

@@ -21,6 +21,9 @@ function encapsular($string){
     return $string;
 }
 
+function formatoVistaFecha($fecha){
+    return date('d/m/Y', strtotime($fecha));
+}
 /*
 function formatoDocente_GradoEstudios($valor)
     {
