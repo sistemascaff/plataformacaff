@@ -39,7 +39,7 @@
 <script>
   $(function(){
     $("#dataTable").DataTable({
-      "responsive": true, "lengthChange": true, "autoWidth": true,
+      "responsive": true, "lengthChange": true, "autoWidth": true, "order":[],
       "buttons": ["copy", "csv", "excel", "pdf", "colvis"]
     }).buttons().container().appendTo('#dataTable_wrapper .col-md-6:eq(0)');
   });

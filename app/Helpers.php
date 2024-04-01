@@ -21,8 +21,26 @@ function encapsular($string){
     return $string;
 }
 
+function formatoNullorEmpty($valor){
+    if (empty($valor) || is_null($valor)) {
+        return '-';
+    }
+    else{
+        return $valor;
+    }
+}
+
 function formatoVistaFecha($fecha){
     return date('d/m/Y', strtotime($fecha));
+}
+
+function formatoVistaFechayHora($fecha){
+    if (formatoNullorEmpty($fecha) == '-') {
+        return $fecha;
+    }
+    else{
+        return date('d/m/Y H:i:s', strtotime($fecha));
+    }
 }
 /*
 function formatoDocente_GradoEstudios($valor)

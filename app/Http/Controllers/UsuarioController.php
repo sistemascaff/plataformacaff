@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Usuario;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
@@ -34,6 +35,10 @@ class UsuarioController extends Controller
         $Usuario = (new Usuario())->login($request->correo,$request->contrasenha);
         if($Usuario > 0){
             if(session('tieneAcceso') == 1){
+                $Ultimaconexion = (new Usuario())->details(session('idUsuario'));
+                $Ultimaconexion->timestamps = false;
+                $Ultimaconexion->ultimaConexion = Carbon::now();
+                $Ultimaconexion->save();
                 return redirect()->route('usuarios.index');
             }
             else{

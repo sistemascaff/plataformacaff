@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CampoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PersonaController;
@@ -23,6 +24,15 @@ Route::controller(UsuarioController::class)->group(function(){
     Route::get('usuarios/crear','new')->name('usuarios.create');
     Route::post('usuarios/save','store')->name('usuarios.store');
     Route::get('usuarios/{idUsuario}','show')->name('usuarios.details');
+});
+Route::controller(CampoController::class)->group(function(){
+    Route::get('campos','index')->name('campos.index');
+    Route::get('campos/crear','new')->name('campos.create');
+    Route::post('campos','store')->name('campos.store');
+    Route::get('campos/{campo}','show')->name('campos.details');
+    Route::get('campos/{campo}/editar','edit')->name('campos.edit');
+    Route::put('campos/{campo}','update')->name('campos.update');
+    Route::put('campos','delete')->name('campos.delete');
 });
 Route::controller(PersonaController::class)->group(function(){
     Route::get('personas','index')->name('personas.index');
