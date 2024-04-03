@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campo;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 
 class CampoController extends Controller
@@ -22,9 +23,15 @@ class CampoController extends Controller
     {
         if (session('idRol') == 1) {
             $campo = (new Campo())->selectCampo($idCampo);
+            $usuario = (new Usuario())->selectUsuario($campo->idUsuario);
+            if (!$usuario) {
+                $usuario = new Usuario();
+                $usuario->correo = '';
+            }
             $Areas = (new Campo())->selectCampo_Areas($idCampo);
             return view('Campo.detalle', [
                 'campo' => $campo,
+                'usuario' => $usuario,
                 'Areas' => $Areas,
                 'retrocederDirectorioAssets' => 2
             ]);
@@ -67,7 +74,7 @@ class CampoController extends Controller
         if (session('idRol') == 1) {
             return view('Campo.update', [
                 'campo' => $campo,
-                'Titulos' => "MODIFICAR CAMPO",
+                'Titulos' => "EDITAR CAMPO",
                 'retrocederDirectorioAssets' => 3
             ]);
         }

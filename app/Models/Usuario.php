@@ -38,12 +38,8 @@ class Usuario extends Authenticatable
         */
     }
 
-    public function details($idUsuario){
+    public function selectUsuario($idUsuario){
         return Usuario::find($idUsuario);
-    }
-
-    public function insert($request){
-        
     }
 
     public function login($correo, $contrasenha){
@@ -63,13 +59,8 @@ class Usuario extends Authenticatable
             }
         }
         return count($sessionRow);
-        /*
-        DB::statement('drop table users')
-        $SessionRow = Usuario::select('idUsuario','idPersona','idRol','correo','tieneAcceso','estado')->get();
-        if ($SessionRow) {
-            //session(['correo' => $correo]);
-        }*/
     }
+    
     public function logout(){
         session()->flush();
     }

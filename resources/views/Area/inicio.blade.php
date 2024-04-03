@@ -10,8 +10,8 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('campos.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item active">CAMPOS</li>
+            <li class="breadcrumb-item"><a href="{{route('areas.index')}}">INICIO</a></li>
+            <li class="breadcrumb-item active">AREAS</li>
           </ol>
         </div>
       </div>
@@ -24,16 +24,17 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title font-weight-bold">CAMPOS</h3>
+        <h3 class="card-title font-weight-bold">AREAS</h3>
       </div>
       <div class="card-body">
-        <a href="{{route('campos.create')}}" class="btn btn-success">NUEVO REGISTRO</a>
+        <a href="{{route('areas.create')}}" class="btn btn-success">NUEVO REGISTRO</a>
         <br><br>
         <div class="row">
           <div class="col-md-12">
             <table id="dataTable" class="table table-bordered table-striped">
               <thead>
                 <tr>
+                  <th>AREA</th>
                   <th>CAMPO</th>
                   <th>F. REGISTRO</th>
                   <th>F. ACTUALIZACION</th>
@@ -42,21 +43,22 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($tableCampo as $rowCampo)
+                @foreach ($tableArea as $rowArea)
                   <tr>
-                    <td>{{$rowCampo->nombreCampo}}</td>
-                    <td>{{formatoVistaFechayHora($rowCampo->fechaRegistro)}}</td>
-                    <td>{{formatoVistaFechayHora($rowCampo->fechaActualizacion)}}</td>
-                    <td>{{formatoNullorEmpty($rowCampo->correo)}}</td>
+                    <td>{{$rowArea->nombreArea}}</td>
+                    <td>{{$rowArea->nombreCampo}}</td>
+                    <td>{{formatoVistaFechayHora($rowArea->fechaRegistro)}}</td>
+                    <td>{{formatoVistaFechayHora($rowArea->fechaActualizacion)}}</td>
+                    <td>{{formatoNullorEmpty($rowArea->correo)}}</td>
                     <td>
                       <div class="btn-group">
-                        <a class="btn btn-info" href="{{route('campos.details', $rowCampo->idCampo)}}">
+                        <a class="btn btn-info" href="{{route('areas.details', $rowArea->idArea)}}">
                           <i class="fa fa-eye"></i>
                         </a>
-                        <a class="btn btn-warning" href="{{route('campos.edit',$rowCampo->idCampo)}}">
+                        <a class="btn btn-warning" href="{{route('areas.edit',$rowArea->idArea)}}">
                           <i class="fa fa-pencil"></i>
                         </a>
-                        <a class="btn btn-danger eliminar-registro" data-toggle="modal" data-target="#modalDelete" data-id="{{$rowCampo->idCampo}}" data-nombre="{{$rowCampo->nombreCampo}}">
+                        <a class="btn btn-danger eliminar-registro" data-toggle="modal" data-target="#modalDelete" data-id="{{$rowArea->idArea}}" data-nombre="{{$rowArea->nombreArea}}">
                           <i class="fa fa-trash"></i>
                         </a>                      
                       </div>
@@ -89,10 +91,10 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
-          <form action="{{route('campos.delete')}}" method="POST">
+          <form action="{{route('areas.delete')}}" method="POST">
             @csrf
             @method('put')
-            <input type="hidden" id="id" name="idCampo" value="0">
+            <input type="hidden" id="id" name="idArea" value="0">
             <button type="submit" class="btn btn-danger">ELIMINAR</button>
           </form>
         </div>

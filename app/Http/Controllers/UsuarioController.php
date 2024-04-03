@@ -23,7 +23,7 @@ class UsuarioController extends Controller
 
     public function show($idUsuario)
     {
-        $Usuario = (new Usuario())->details($idUsuario);
+        $Usuario = (new Usuario())->selectUsuario($idUsuario);
         return view('Usuario.detalle', [
             'Usuario' => $Usuario,
             'retrocederDirectorioAssets' => 2
@@ -35,7 +35,7 @@ class UsuarioController extends Controller
         $Usuario = (new Usuario())->login($request->correo,$request->contrasenha);
         if($Usuario > 0){
             if(session('tieneAcceso') == 1){
-                $Ultimaconexion = (new Usuario())->details(session('idUsuario'));
+                $Ultimaconexion = (new Usuario())->selectUsuario(session('idUsuario'));
                 $Ultimaconexion->timestamps = false;
                 $Ultimaconexion->ultimaConexion = Carbon::now();
                 $Ultimaconexion->save();

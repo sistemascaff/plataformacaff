@@ -33,27 +33,6 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-          <i class="fa fa-search"></i>
-        </a>
-        <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fa fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fa fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </li>
 
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
@@ -146,9 +125,9 @@
           <i class="fa fa-sign-out"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">{{session('correo')}}</span>
+          <span class="dropdown-header">{{session('correo')}}</span>
           <div class="dropdown-divider"></div>
-          <a href="{{route('logout')}}" class="dropdown-item">
+          <a href="{{route('logout')}}" class="dropdown-item text-center">
             <i class="fa fa-sign-out"></i> CERRAR SESIÓN
           </a>
         </div>
@@ -169,6 +148,9 @@
     <div class="sidebar">
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{{retrocederDirectorio($retrocederDirectorioAssets)}}img/user.png" class="img-circle elevation-2" alt="{{session('correo')}}">
+        </div>
         <div class="info">
           <a href="{{route('usuarios.index')}}" class="d-block">{{session('correo')}}</a>
         </div>
@@ -227,8 +209,8 @@
             </ul>
           </li>
 
-          <li class="nav-item {{ request()->is('campos') ? 'menu-open' : '' }}">
-            <a href="" class="nav-link {{ request()->is('campos') ? 'active' : '' }}">
+          <li class="nav-item {{ request()->is('campos') ? 'menu-open' : (request()->is('areas') ? 'menu-open' : (request()->is('campos/*') ? 'menu-open' : '')) }}">
+            <a href="" class="nav-link {{ request()->is('campos') ? 'active' : (request()->is('areas') ? 'active' : (request()->is('campos/*') ? 'active' : '')) }}">
               <i class="nav-icon fa fa-bars"></i>
               <p>
                 CAMPOS
@@ -237,9 +219,17 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('campos.index')}}" class="nav-link {{ request()->is('campos') ? 'active' : '' }}">
+                <a href="{{route('campos.index')}}" class="nav-link {{ request()->is('campos') ? 'active' : (request()->is('campos/*') ? 'active' : '') }}">
                   <i class="fa fa-bars nav-icon"></i>
                   <p>CAMPOS</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('areas.index')}}" class="nav-link {{ request()->is('areas') ? 'active' : '' }}">
+                  <i class="fa fa-bars nav-icon"></i>
+                  <p>AREAS</p>
                 </a>
               </li>
             </ul>

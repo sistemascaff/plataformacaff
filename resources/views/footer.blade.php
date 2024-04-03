@@ -35,13 +35,24 @@
 <script src="{{retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/dist/js/adminlte.min.js"></script>
-<!-- DataTables specific script -->
+<!-- Script específico de los atributos de los dataTables -->
 <script>
   $(function(){
     $("#dataTable").DataTable({
-      "responsive": true, "lengthChange": true, "autoWidth": true, "order":[],
+      "responsive": true, "lengthChange": true, "autoWidth": true, "order":[], "pageLength": 50,
       "buttons": ["copy", "csv", "excel", "pdf", "colvis"]
     }).buttons().container().appendTo('#dataTable_wrapper .col-md-6:eq(0)');
+  });
+</script>
+<!-- Script específico para invocar un modal para eliminar un registro desde un dataTable -->
+<script>
+  $(document).ready(function() {
+    $('#dataTable').on('click', '.eliminar-registro', function() {
+          var id = $(this).data('id');
+          var nombre = $(this).data('nombre');
+          $('#modalDelete').find('input[id="id"]').val(id);
+          $('#modalDelete').find('#nombre').text(nombre);
+      });
   });
 </script>
 

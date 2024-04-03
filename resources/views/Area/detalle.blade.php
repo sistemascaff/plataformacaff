@@ -6,13 +6,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="font-weight-bold">{{$campo->nombreCampo}}</h1>
+          <h1 class="font-weight-bold">{{$area->nombreArea}}</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('usuarios.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item"><a href="{{route('campos.index')}}">CAMPOS</a></li>
-            <li class="breadcrumb-item active">{{$campo->nombreCampo}}</li>
+            <li class="breadcrumb-item"><a href="{{route('areas.index')}}">AREAS</a></li>
+            <li class="breadcrumb-item active">{{$area->nombreArea}}</li>
           </ol>
         </div>
       </div>
@@ -27,10 +27,10 @@
         <h3 class="card-title font-weight-bold">ACCIONES</h3>
         <br>
         <div class="btn-group">
-          <a class="btn btn-info" href="{{route('campos.index')}}">
+          <a class="btn btn-info" href="{{route('areas.index')}}">
             <i class="fa fa-arrow-left"></i> VOLVER
           </a>
-          <a class="btn btn-warning" href="{{route('campos.edit',$campo->idCampo)}}">
+          <a class="btn btn-warning" href="{{route('areas.edit',$area->idArea)}}">
             <i class="fa fa-pencil"></i> EDITAR
           </a>
           <a class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
@@ -43,21 +43,27 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group row">
+              <label for="inputEmail3" class="col-md-2 col-form-label">Area</label>
+              <div class="col-md-10">
+                <p class="form form-control">{{$area->nombreArea}}</p>
+              </div>
+            </div>
+            <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Campo</label>
               <div class="col-md-10">
-                <p class="form form-control">{{$campo->nombreCampo}}</p>
+                <a href="{{route('campos.details', $campo->idCampo)}}" class="form form-control font-weight-bold">{{$campo->nombreCampo}}</a>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Fecha de Registro</label>
               <div class="col-md-10">
-                <p class="form form-control">{{$campo->fechaRegistro}}</p>
+                <p class="form form-control">{{$area->fechaRegistro}}</p>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Fecha de Actualizacion</label>
               <div class="col-md-10">
-                <p class="form form-control">{{formatoNullorEmpty($campo->fechaActualizacion)}}</p>
+                <p class="form form-control">{{formatoNullorEmpty($area->fechaActualizacion)}}</p>
               </div>
             </div>
             <div class="form-group row">
@@ -68,39 +74,7 @@
             </div>
           </div>
         </div>
-
-        <h3 class="card-title font-weight-bold">AREAS DEPENDIENTES DE {{$campo->nombreCampo}}:</h3>
-        <br>
         
-
-        <div class="col-md-12">
-          <table id="dataTable" class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>AREA</th>
-                <th>F. REGISTRO</th>
-                <th>F. ACTUALIZACION</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-          @foreach ($Areas as $rowAreas)
-          <tr>
-            <td>{{$rowAreas->nombreArea}}</td>
-            <td>{{formatoVistaFecha($rowAreas->fechaRegistro)}}</td>
-            <td>{{formatoNullorEmpty($rowAreas->fechaActualizacion)}}</td>
-            <td>
-              <div class="btn-group">
-                <a class="btn btn-info" href="{{route('areas.details', $rowAreas->idArea)}}">
-                  <i class="fa fa-eye"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          @endforeach
-            </tbody>
-          </table>
-        </div>
       </div>
       <!-- /.card-body -->
     </div>
@@ -119,14 +93,14 @@
         </div>
         <div class="modal-body">
           <p>¿Está segur@ de eliminar el registro seleccionado?</p>
-          <p class="font-weight-bold">{{$campo->nombreCampo}}</p>
+          <p class="font-weight-bold">{{$area->nombreArea}}</p>
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
-          <form action="{{route('campos.delete')}}" method="POST">
+          <form action="{{route('areas.delete')}}" method="POST">
             @csrf
             @method('put')
-            <input type="hidden" name="idCampo" value="{{$campo->idCampo}}">
+            <input type="hidden" name="idArea" value="{{$area->idArea}}">
             <button type="submit" class="btn btn-danger">ELIMINAR</button>
           </form>
         </div>
