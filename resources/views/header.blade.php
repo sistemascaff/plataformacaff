@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{tituloPagina()}} | USUARIOS</title>
+  <title>{{helper_tituloPagina()}} | USUARIOS</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/font-awesome/css/font-awesome.min.css">
   <!-- DataTables -->
-  <link rel="stylesheet" href="{{retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="{{retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="{{retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -44,7 +44,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="{{retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <img src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Brad Diesel
@@ -60,7 +60,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="{{retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   John Pierce
@@ -76,7 +76,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="{{retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Nora Silvester
@@ -140,7 +140,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{route('usuarios.index')}}" class="brand-link">
-      <img src="{{retrocederDirectorio($retrocederDirectorioAssets)}}img/logo.png" alt="PLATAFORMA CAFF" class="brand-image img-circle">
+      <img src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}img/logo.png" alt="PLATAFORMA CAFF" class="brand-image img-circle">
       <span class="brand-text font-weight-light">PLATAFORMA CAFF</span>
     </a>
 
@@ -149,7 +149,7 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{retrocederDirectorio($retrocederDirectorioAssets)}}img/user.png" class="img-circle elevation-2" alt="{{session('correo')}}">
+          <img src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}img/user.png" class="img-circle elevation-2" alt="{{session('correo')}}">
         </div>
         <div class="info">
           <a href="{{route('usuarios.index')}}" class="d-block">{{session('correo')}}</a>
@@ -209,9 +209,17 @@
             </ul>
           </li>
 
-          <li class="nav-item {{ request()->is('campos') ? 'menu-open' : (request()->is('areas') ? 'menu-open' : (request()->is('campos/*') ? 'menu-open' : '')) }}">
-            <a href="" class="nav-link {{ request()->is('campos') ? 'active' : (request()->is('areas') ? 'active' : (request()->is('campos/*') ? 'active' : '')) }}">
-              <i class="nav-icon fa fa-bars"></i>
+          <li class="nav-item {{ request()->is('campos') ? 'menu-open' : 
+            (request()->is('areas') ? 'menu-open' : 
+              (request()->is('campos/*') ? 'menu-open' : 
+                (request()->is('areas/*') ? 'menu-open' : ''))) 
+          }}">
+            <a href="" class="nav-link {{ request()->is('campos') ? 'active' : 
+              (request()->is('areas') ? 'active' : 
+                (request()->is('campos/*') ? 'active' : 
+                  (request()->is('areas/*') ? 'active' : ''))) 
+            }}">
+              <i class="nav-icon fa fa-th-list"></i>
               <p>
                 CAMPOS
                 <i class="right fa fa-angle-left"></i>
@@ -220,16 +228,34 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{route('campos.index')}}" class="nav-link {{ request()->is('campos') ? 'active' : (request()->is('campos/*') ? 'active' : '') }}">
-                  <i class="fa fa-bars nav-icon"></i>
+                  <i class="fa fa-th-list nav-icon"></i>
                   <p>CAMPOS</p>
                 </a>
               </li>
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('areas.index')}}" class="nav-link {{ request()->is('areas') ? 'active' : '' }}">
-                  <i class="fa fa-bars nav-icon"></i>
+                <a href="{{route('areas.index')}}" class="nav-link {{ request()->is('areas') ? 'active' : (request()->is('areas/*') ? 'active' : '') }}">
+                  <i class="fa fa-th-list nav-icon"></i>
                   <p>AREAS</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item {{ request()->is('niveles') ? 'menu-open' : (request()->is('niveles/*') ? 'menu-open' : '') }}">
+            <a href="" class="nav-link {{ request()->is('niveles') ? 'active' : (request()->is('niveles/*') ? 'active' : '') }}">
+              <i class="nav-icon fa fa-sitemap"></i>
+              <p>
+                NIVELES
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('niveles.index')}}" class="nav-link {{ request()->is('niveles') ? 'active' : (request()->is('niveles/*') ? 'active' : '') }}">
+                  <i class="fa fa-sitemap nav-icon"></i>
+                  <p>NIVELES</p>
                 </a>
               </li>
             </ul>

@@ -6,13 +6,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="font-weight-bold">{{$campo->nombreCampo}}</h1>
+          <h1 class="font-weight-bold">{{$nivel->nombreNivel}}</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('usuarios.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item"><a href="{{route('campos.index')}}">CAMPOS</a></li>
-            <li class="breadcrumb-item active">{{$campo->nombreCampo}}</li>
+            <li class="breadcrumb-item"><a href="{{route('niveles.index')}}">NIVELES</a></li>
+            <li class="breadcrumb-item active">{{$nivel->nombreNivel}}</li>
           </ol>
         </div>
       </div>
@@ -27,10 +27,10 @@
         <h3 class="card-title font-weight-bold">ACCIONES</h3>
         <br>
         <div class="btn-group">
-          <a class="btn btn-info" href="{{route('campos.index')}}">
+          <a class="btn btn-info" href="{{route('niveles.index')}}">
             {!! helper_FormatoBotonCRUD(7, 'texto') !!}
           </a>
-          <a class="btn btn-warning" href="{{route('campos.edit',$campo->idCampo)}}">
+          <a class="btn btn-warning" href="{{route('niveles.edit',$nivel->idNivel)}}">
             {!! helper_FormatoBotonCRUD(3, 'texto') !!}
           </a>
           <a class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
@@ -43,21 +43,27 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group row">
-              <label for="inputEmail3" class="col-md-2 col-form-label">Campo</label>
+              <label for="inputEmail3" class="col-md-2 col-form-label">Nivel</label>
               <div class="col-md-10">
-                <p class="form form-control">{{$campo->nombreCampo}}</p>
+                <p class="form form-control">{{$nivel->nombreNivel}}</p>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputEmail3" class="col-md-2 col-form-label">Posición Ordinal</label>
+              <div class="col-md-10">
+                <p class="form form-control">{{$nivel->posicionOrdinal}}</p>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Fecha de Registro</label>
               <div class="col-md-10">
-                <p class="form form-control">{{$campo->fechaRegistro}}</p>
+                <p class="form form-control">{{$nivel->fechaRegistro}}</p>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Fecha de Actualizacion</label>
               <div class="col-md-10">
-                <p class="form form-control">{{helper_formatoNullorEmpty($campo->fechaActualizacion)}}</p>
+                <p class="form form-control">{{helper_formatoNullorEmpty($nivel->fechaActualizacion)}}</p>
               </div>
             </div>
             <div class="form-group row">
@@ -69,33 +75,34 @@
           </div>
         </div>
 
-        <h3 class="card-title font-weight-bold">AREAS DEPENDIENTES DE {{$campo->nombreCampo}}:</h3>
-        <br><br>
-        <a href="{{route('areas.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
-        <br><br>
+        <h3 class="card-title font-weight-bold">GRADOS DEPENDIENTES DE {{$nivel->nombreNivel}}:</h3>
+        <br>
+        
 
         <div class="col-md-12">
           <table id="dataTable" class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th>AREA</th>
+                <th>GRADO</th>
+                <th>P. ORDINAL</th>
                 <th>F. REGISTRO</th>
                 <th>F. ACTUALIZACION</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
-          @foreach ($Areas as $rowAreas)
+          @foreach ($Grados as $rowGrados)
           <tr>
-            <td>{{$rowAreas->nombreArea}}</td>
-            <td>{{helper_formatoVistaFecha($rowAreas->fechaRegistro)}}</td>
-            <td>{{helper_formatoNullorEmpty($rowAreas->fechaActualizacion)}}</td>
+            <td>{{$rowGrados->nombreGrado}}</td>
+            <td>{{$rowGrados->posicionOrdinal}}</td>
+            <td>{{helper_formatoVistaFecha($rowGrados->fechaRegistro)}}</td>
+            <td>{{helper_formatoNullorEmpty($rowGrados->fechaActualizacion)}}</td>
             <td>
               <div class="btn-group">
-                <a class="btn btn-info" href="{{route('areas.details', $rowAreas->idArea)}}">
+                <a class="btn btn-info" href="{{route('areas.details', $rowGrados->idGrado)}}">
                   {!! helper_FormatoBotonCRUD(2, 'icono') !!}
                 </a>
-                <a class="btn btn-warning" href="{{route('areas.edit', $rowAreas->idArea)}}">
+                <a class="btn btn-warning" href="{{route('areas.edit', $rowGrados->idGrado)}}">
                   {!! helper_FormatoBotonCRUD(3, 'icono') !!}
                 </a>
               </div>
@@ -123,14 +130,14 @@
         </div>
         <div class="modal-body">
           <p>¿Está segur@ de eliminar el registro seleccionado?</p>
-          <p class="font-weight-bold">{{$campo->nombreCampo}}</p>
+          <p class="font-weight-bold">{{$nivel->nombreNivel}}</p>
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
-          <form action="{{route('campos.delete')}}" method="POST">
+          <form action="{{route('niveles.delete')}}" method="POST">
             @csrf
             @method('put')
-            <input type="hidden" name="idCampo" value="{{$campo->idCampo}}">
+            <input type="hidden" name="idNivel" value="{{$nivel->idNivel}}">
             <button type="submit" class="btn btn-danger">{!! helper_FormatoBotonCRUD(4, 'texto') !!}</button>
           </form>
         </div>

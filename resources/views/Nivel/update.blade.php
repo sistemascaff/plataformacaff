@@ -6,12 +6,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="font-weight-bold">{{$campo->nombreCampo}}</h1>
+          <h1 class="font-weight-bold">{{$nivel->nombreNivel}}</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('usuarios.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item"><a href="{{route('campos.index')}}">CAMPOS</a></li>
+            <li class="breadcrumb-item"><a href="{{route('niveles.index')}}">NIVELS</a></li>
             <li class="breadcrumb-item active">{{$Titulos}}</li>
           </ol>
         </div>
@@ -25,29 +25,35 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title font-weight-bold">{{$Titulos.': '.$campo->nombreCampo}}</h3>
+        <h3 class="card-title font-weight-bold">{{$Titulos.': '.$nivel->nombreNivel}}</h3>
       </div>
       <div class="card-body">
         <div class="row">
           <div class="col-md-6">
-            <form class="form-horizontal" action="{{route('campos.update',$campo)}}" method="POST">
+            <form class="form-horizontal" action="{{route('niveles.update',$nivel)}}" method="POST">
 
               @csrf
               @method('put')
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE CAMPO</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE NIVEL</label>
                   <div class="col-sm-10">
-                  <input type="text" class="form-control" name="nombreCampo" value="{{$campo->nombreCampo}}" placeholder="CAMPO" minlength="5" maxlength="45" required autofocus>
+                  <input type="text" class="form-control" name="nombreNivel" value="{{$nivel->nombreNivel}}" placeholder="NIVEL" minlength="5" maxlength="45" required autofocus>
                   </div>
                 </div>
+                <div class="form-group row">
+                <label class="col-sm-2 col-form-label">POSICIÓN ORDINAL</label>
+                <div class="col-sm-10">
+                <input type="number" class="form-control" name="posicionOrdinal" value="{{$nivel->posicionOrdinal}}" min="0" max="128" required>
+                </div>
+              </div>
               </div>
               
               <a class="btn btn-warning" data-toggle="modal" data-target="#modalUpdate">
                 {!! helper_FormatoBotonCRUD(3, 'texto') !!}
               </a>
-              <a href="{{route('campos.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
+              <a href="{{route('niveles.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
 
               <div class="modal fade" id="modalUpdate">
                 <div class="modal-dialog">

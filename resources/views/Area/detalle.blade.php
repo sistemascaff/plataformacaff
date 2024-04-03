@@ -28,13 +28,13 @@
         <br>
         <div class="btn-group">
           <a class="btn btn-info" href="{{route('areas.index')}}">
-            <i class="fa fa-arrow-left"></i> VOLVER
+            {!! helper_FormatoBotonCRUD(7, 'texto') !!}
           </a>
           <a class="btn btn-warning" href="{{route('areas.edit',$area->idArea)}}">
-            <i class="fa fa-pencil"></i> EDITAR
+            {!! helper_FormatoBotonCRUD(3, 'texto') !!}
           </a>
           <a class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
-            <i class="fa fa-trash"></i> ELIMINAR
+            {!! helper_FormatoBotonCRUD(4, 'texto') !!}
           </a>
         </div>
       </div>
@@ -63,13 +63,13 @@
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Fecha de Actualizacion</label>
               <div class="col-md-10">
-                <p class="form form-control">{{formatoNullorEmpty($area->fechaActualizacion)}}</p>
+                <p class="form form-control">{{helper_formatoNullorEmpty($area->fechaActualizacion)}}</p>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Actualizado por</label>
               <div class="col-md-10">
-                <p class="form form-control">{{formatoNullorEmpty($usuario->correo)}}</p>
+                <p class="form form-control">{{helper_formatoNullorEmpty($usuario->correo)}}</p>
               </div>
             </div>
           </div>
@@ -101,7 +101,7 @@
             @csrf
             @method('put')
             <input type="hidden" name="idArea" value="{{$area->idArea}}">
-            <button type="submit" class="btn btn-danger">ELIMINAR</button>
+            <button type="submit" class="btn btn-danger">{!! helper_FormatoBotonCRUD(4, 'texto') !!}</button>
           </form>
         </div>
       </div>

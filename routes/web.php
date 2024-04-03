@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CampoController;
+use App\Http\Controllers\NivelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PersonaController;
+use App\Models\Nivel;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,6 +46,15 @@ Route::controller(AreaController::class)->group(function(){
     Route::get('areas/{area}/editar','edit')->name('areas.edit');
     Route::put('areas/{area}','update')->name('areas.update');
     Route::put('areas','delete')->name('areas.delete');
+});
+Route::controller(NivelController::class)->group(function(){
+    Route::get('niveles','index')->name('niveles.index');
+    Route::get('niveles/crear','new')->name('niveles.create');
+    Route::post('niveles','store')->name('niveles.store');
+    Route::get('niveles/{nivel}','show')->name('niveles.details');
+    Route::get('niveles/{nivel}/editar','edit')->name('niveles.edit');
+    Route::put('niveles/{nivel}','update')->name('niveles.update');
+    Route::put('niveles','delete')->name('niveles.delete');
 });
 Route::controller(PersonaController::class)->group(function(){
     Route::get('personas','index')->name('personas.index');

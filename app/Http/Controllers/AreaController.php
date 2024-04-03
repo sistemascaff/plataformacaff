@@ -54,8 +54,7 @@ class AreaController extends Controller
         }
         else{
             return redirect()->route('login');
-        } 
-        
+        }
     }
 
     public function store(Request $request)
@@ -70,8 +69,7 @@ class AreaController extends Controller
         }
         else{
             return redirect()->route('login');
-        } 
-        
+        }
     }
 
     public function edit(Area $area)

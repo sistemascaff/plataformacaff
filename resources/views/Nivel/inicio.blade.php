@@ -10,8 +10,8 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('campos.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item active">CAMPOS</li>
+            <li class="breadcrumb-item"><a href="{{route('niveles.index')}}">INICIO</a></li>
+            <li class="breadcrumb-item active">NIVELES</li>
           </ol>
         </div>
       </div>
@@ -24,17 +24,18 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title font-weight-bold">CAMPOS</h3>
+        <h3 class="card-title font-weight-bold">NIVELES</h3>
       </div>
       <div class="card-body">
-        <a href="{{route('campos.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
+        <a href="{{route('niveles.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
         <br><br>
         <div class="row">
           <div class="col-md-12">
             <table id="dataTable" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>CAMPO</th>
+                  <th>NIVEL</th>
+                  <th>P. ORDINAL</th>
                   <th>F. REGISTRO</th>
                   <th>F. ACTUALIZACION</th>
                   <th>MODIFICADO POR</th>
@@ -42,21 +43,22 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($tableCampo as $rowCampo)
+                @foreach ($tableNivel as $rowNivel)
                   <tr>
-                    <td>{{$rowCampo->nombreCampo}}</td>
-                    <td>{{helper_formatoVistaFechayHora($rowCampo->fechaRegistro)}}</td>
-                    <td>{{helper_formatoVistaFechayHora($rowCampo->fechaActualizacion)}}</td>
-                    <td>{{helper_formatoNullorEmpty($rowCampo->correo)}}</td>
+                    <td>{{$rowNivel->nombreNivel}}</td>
+                    <td>{{$rowNivel->posicionOrdinal}}</td>
+                    <td>{{helper_formatoVistaFechayHora($rowNivel->fechaRegistro)}}</td>
+                    <td>{{helper_formatoVistaFechayHora($rowNivel->fechaActualizacion)}}</td>
+                    <td>{{helper_formatoNullorEmpty($rowNivel->correo)}}</td>
                     <td>
                       <div class="btn-group">
-                        <a class="btn btn-info" href="{{route('campos.details', $rowCampo->idCampo)}}">
+                        <a class="btn btn-info" href="{{route('niveles.details', $rowNivel->idNivel)}}">
                           {!! helper_FormatoBotonCRUD(2, 'icono') !!}
                         </a>
-                        <a class="btn btn-warning" href="{{route('campos.edit',$rowCampo->idCampo)}}">
+                        <a class="btn btn-warning" href="{{route('niveles.edit',$rowNivel->idNivel)}}">
                           {!! helper_FormatoBotonCRUD(3, 'icono') !!}
                         </a>
-                        <a class="btn btn-danger eliminar-registro" data-toggle="modal" data-target="#modalDelete" data-id="{{$rowCampo->idCampo}}" data-nombre="{{$rowCampo->nombreCampo}}">
+                        <a class="btn btn-danger eliminar-registro" data-toggle="modal" data-target="#modalDelete" data-id="{{$rowNivel->idNivel}}" data-nombre="{{$rowNivel->nombreNivel}}">
                           {!! helper_FormatoBotonCRUD(4, 'icono') !!}
                         </a>                      
                       </div>
@@ -89,10 +91,10 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
-          <form action="{{route('campos.delete')}}" method="POST">
+          <form action="{{route('niveles.delete')}}" method="POST">
             @csrf
             @method('put')
-            <input type="hidden" id="id" name="idCampo" value="0">
+            <input type="hidden" id="id" name="idNivel" value="0">
             <button type="submit" class="btn btn-danger">{!! helper_FormatoBotonCRUD(4, 'texto') !!}</button>
           </form>
         </div>

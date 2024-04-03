@@ -27,7 +27,7 @@
         <h3 class="card-title font-weight-bold">AREAS</h3>
       </div>
       <div class="card-body">
-        <a href="{{route('areas.create')}}" class="btn btn-success">NUEVO REGISTRO</a>
+        <a href="{{route('areas.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
         <br><br>
         <div class="row">
           <div class="col-md-12">
@@ -47,19 +47,19 @@
                   <tr>
                     <td>{{$rowArea->nombreArea}}</td>
                     <td>{{$rowArea->nombreCampo}}</td>
-                    <td>{{formatoVistaFechayHora($rowArea->fechaRegistro)}}</td>
-                    <td>{{formatoVistaFechayHora($rowArea->fechaActualizacion)}}</td>
-                    <td>{{formatoNullorEmpty($rowArea->correo)}}</td>
+                    <td>{{helper_formatoVistaFechayHora($rowArea->fechaRegistro)}}</td>
+                    <td>{{helper_formatoVistaFechayHora($rowArea->fechaActualizacion)}}</td>
+                    <td>{{helper_formatoNullorEmpty($rowArea->correo)}}</td>
                     <td>
                       <div class="btn-group">
                         <a class="btn btn-info" href="{{route('areas.details', $rowArea->idArea)}}">
-                          <i class="fa fa-eye"></i>
+                          {!! helper_FormatoBotonCRUD(2, 'icono') !!}
                         </a>
                         <a class="btn btn-warning" href="{{route('areas.edit',$rowArea->idArea)}}">
-                          <i class="fa fa-pencil"></i>
+                          {!! helper_FormatoBotonCRUD(3, 'icono') !!}
                         </a>
                         <a class="btn btn-danger eliminar-registro" data-toggle="modal" data-target="#modalDelete" data-id="{{$rowArea->idArea}}" data-nombre="{{$rowArea->nombreArea}}">
-                          <i class="fa fa-trash"></i>
+                          {!! helper_FormatoBotonCRUD(4 , 'icono') !!}
                         </a>                      
                       </div>
                     </td>
@@ -90,12 +90,12 @@
           <p class="font-weight-bold" id="nombre">NOMBRE</p>
         </div>
         <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</button>
           <form action="{{route('areas.delete')}}" method="POST">
             @csrf
             @method('put')
             <input type="hidden" id="id" name="idArea" value="0">
-            <button type="submit" class="btn btn-danger">ELIMINAR</button>
+            <button type="submit" class="btn btn-danger">{!! helper_FormatoBotonCRUD(4, 'texto') !!}</button>
           </form>
         </div>
       </div>

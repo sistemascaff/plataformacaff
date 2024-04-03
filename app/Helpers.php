@@ -1,14 +1,14 @@
 <?php
 
-function tituloPagina(){
+function helper_tituloPagina(){
     return "CAFF";
 }
 
-function versionApp(){
+function helper_versionApp(){
     return "0.1 En desarrollo";
 }
 
-function retrocederDirectorio($valor){
+function helper_retrocederDirectorio($valor){
     $cadena = "";
     for ($i=0; $i < $valor; $i++) {
         $cadena = $cadena . "../";
@@ -16,12 +16,12 @@ function retrocederDirectorio($valor){
     return $cadena;
 }
 
-function encapsular($string){
+function helper_encapsular($string){
     $string = "'" . $string . "'";
     return $string;
 }
 
-function formatoNullorEmpty($valor){
+function helper_formatoNullorEmpty($valor){
     if (empty($valor) || is_null($valor)) {
         return '-';
     }
@@ -30,26 +30,64 @@ function formatoNullorEmpty($valor){
     }
 }
 
-function formatoVistaFecha($fecha){
+function helper_formatoVistaFecha($fecha){
     return date('d/m/Y', strtotime($fecha));
 }
 
-function formatoVistaFechayHora($fecha){
-    if (formatoNullorEmpty($fecha) == '-') {
+function helper_formatoVistaFechayHora($fecha){
+    if (helper_formatoNullorEmpty($fecha) == '-') {
         return $fecha;
     }
     else{
         return date('d/m/Y H:i:s', strtotime($fecha));
     }
 }
-/*
-function formatoDocente_GradoEstudios($valor)
-    {
-        if ($valor == "superadmincaff@froebel.edu.bo") {
-            return "ESTE ES EL CORREO DEL ADMIN";
-        }
-        else{
-            return "ESTE NO ES EL CORREO DEL ADMIN";
-        }
+
+function helper_FormatoBotonCRUD($valor, $tipo){
+    $icono = '';
+    $texto = '';
+    
+    switch ($valor) {
+        case '1':/*CREATE*/
+            $icono = 'fa fa-plus';
+            $texto = 'CREAR';
+            break;
+        case '2':/*READ*/
+            $icono = 'fa fa-eye';
+            $texto = 'VER';
+            break;
+        case '3':/*UPDATE*/
+            $icono = 'fa fa-pencil';
+            $texto = 'EDITAR';
+            break;
+        case '4':/*DELETE*/
+            $icono = 'fa fa-trash';
+            $texto = 'ELIMINAR';
+            break;
+        case '5':/*SAVE*/
+            $icono = 'fa fa-save';
+            $texto = 'GUARDAR';
+            break;
+        case '6':/*CANCEL*/
+            $icono = 'fa fa-times-circle';
+            $texto = 'CANCELAR';
+            break;
+        case '7':/*RETURN*/
+            $icono = 'fa fa-arrow-left';
+            $texto = 'VOLVER';
+            break;
+        default:
+            return 'HELPER ERROR: VALOR EXCEDIDO';
+            break;
     }
-    */
+    
+    if ($tipo === 'icono') {
+        return '<i class="' . $icono . '"></i>';
+    } elseif ($tipo === 'texto') {
+        return '<i class="' . $icono . '"></i> ' . $texto;
+    } else {
+        return 'HELPER ERROR: VALOR EXCEDIDO';
+    }
+}
+
+

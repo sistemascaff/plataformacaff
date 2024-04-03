@@ -50,7 +50,7 @@
                     <td>{{$rowPersona->apellidoPaterno}}</td>
                     <td>{{$rowPersona->apellidoMaterno}}</td>
                     <td>{{$rowPersona->nombres}}</td>
-                    <td>{{formatoVistaFecha($rowPersona->fechaNacimiento)}}</td>
+                    <td>{{helper_formatoVistaFecha($rowPersona->fechaNacimiento)}}</td>
                     <td>{{$rowPersona->sexo}}</td>
                     <td>{{$rowPersona->idioma}}</td>
                     <td>{{$rowPersona->documentoIdentificacion}}</td>

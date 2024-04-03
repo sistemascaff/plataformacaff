@@ -16,7 +16,7 @@ class CampoController extends Controller
         }
         else{
             return redirect()->route('login');
-        }        
+        }
     }
 
     public function show($idCampo)
@@ -50,8 +50,7 @@ class CampoController extends Controller
         }
         else{
             return redirect()->route('login');
-        } 
-        
+        }
     }
 
     public function store(Request $request)
@@ -65,8 +64,7 @@ class CampoController extends Controller
         }
         else{
             return redirect()->route('login');
-        } 
-        
+        }
     }
 
     public function edit(Campo $campo)

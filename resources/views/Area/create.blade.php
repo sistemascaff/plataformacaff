@@ -11,7 +11,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('usuarios.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item"><a href="{{route('areas.index')}}">AREA</a></li>
+            <li class="breadcrumb-item"><a href="{{route('areas.index')}}">AREAS</a></li>
             <li class="breadcrumb-item active">{{$Titulos}}</li>
           </ol>
         </div>
@@ -52,8 +52,8 @@
                   </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-success">REGISTRAR</button>
-              <a href="{{route('areas.index')}}" class="btn btn-secondary">CANCELAR</a>
+              <button type="submit" class="btn btn-success">{!! helper_FormatoBotonCRUD(5, 'texto') !!}</button>
+              <a href="{{route('areas.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
               </form>
           </div>
         </div>

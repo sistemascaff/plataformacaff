@@ -3,63 +3,110 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nivel;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 
 class NivelController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        if (session('idRol') == 1) {
+            $tableNivel = (new Nivel())->selectDisponibles();
+            return view('Nivel.inicio', ['tableNivel' => $tableNivel, 'retrocederDirectorioAssets' => 1]);
+        }
+        else{
+            return redirect()->route('login');
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($idNivel)
     {
-        //
+        if (session('idRol') == 1) {
+            $nivel = (new Nivel())->selectNivel($idNivel);
+            $usuario = (new Usuario())->selectUsuario($nivel->idUsuario);
+            if (!$usuario) {
+                $usuario = new Usuario();
+                $usuario->correo = '';
+            }
+            $Grados = (new Nivel())->selectNivel_Grados($idNivel);
+            return view('Nivel.detalle', [
+                'nivel' => $nivel,
+                'usuario' => $usuario,
+                'Grados' => $Grados,
+                'retrocederDirectorioAssets' => 2
+            ]);
+        }
+        else{
+            return redirect()->route('login');
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    public function new(){
+        if (session('idRol') == 1) {
+            return view('Nivel.create', [
+                'Titulos' => "NUEVO NIVEL",
+                'retrocederDirectorioAssets' => 2
+            ]);
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
+
     public function store(Request $request)
     {
-        //
+        if (session('idRol') == 1) {
+            $nivel = new Nivel();
+            $nivel->nombreNivel = strtoupper($request->nombreNivel);
+            $nivel->posicionOrdinal = $request->posicionOrdinal;
+            $nivel->idUsuario = session('idUsuario');
+            $nivel->save();
+            return redirect()->route('niveles.details', $nivel);
+        }
+        else{
+            return redirect()->route('login');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Nivel $nivel)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Nivel $nivel)
     {
-        //
+        if (session('idRol') == 1) {
+            return view('Nivel.update', [
+                'nivel' => $nivel,
+                'Titulos' => "EDITAR NIVEL",
+                'retrocederDirectorioAssets' => 3
+            ]);
+        }
+        else{
+            return redirect()->route('login');
+        }
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(Request $request, Nivel $nivel)
     {
-        //
+        if (session('idRol') == 1) {
+            $nivel->nombreNivel = strtoupper($request->nombreNivel);
+            $nivel->posicionOrdinal = strtoupper($request->posicionOrdinal);
+            $nivel->idUsuario = session('idUsuario');
+            $nivel->save();
+            return redirect()->route('niveles.details', $nivel);
+        }
+        else{
+            return redirect()->route('login');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Nivel $nivel)
+    public function delete(Request $request)
     {
-        //
+        if (session('idRol') == 1) {
+            $nivel = (new Nivel())->selectNivel($request->idNivel);
+            $nivel->estado = '0';
+            $nivel->idUsuario = session('idUsuario');
+            $nivel->save();
+            return redirect()->route('niveles.index');
+        }
+        else{
+            return redirect()->route('login');
+        }
     }
 }

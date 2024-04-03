@@ -45,7 +45,7 @@ class Usuario extends Authenticatable
     public function login($correo, $contrasenha){
         
         $sessionRow = Usuario::select('idUsuario','idPersona','idRol','correo','tieneAcceso','estado')
-        ->whereRaw('correo = ' . encapsular($correo) . ' AND contrasenha = ' . encapsular($contrasenha)) 
+        ->whereRaw('correo = ' . helper_encapsular($correo) . ' AND contrasenha = ' . helper_encapsular($contrasenha)) 
         ->limit(1)
         ->get();
         if(count($sessionRow) > 0) {

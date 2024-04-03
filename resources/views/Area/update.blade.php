@@ -59,9 +59,9 @@
               </div>
               
               <a class="btn btn-warning" data-toggle="modal" data-target="#modalUpdate">
-                EDITAR
+                {!! helper_FormatoBotonCRUD(3, 'texto') !!}
               </a>
-              <a href="{{route('areas.index')}}" class="btn btn-secondary">CANCELAR</a>
+              <a href="{{route('areas.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
 
               <div class="modal fade" id="modalUpdate">
                 <div class="modal-dialog">
@@ -77,7 +77,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                       <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
-                      <button type="submit" class="btn btn-warning">EDITAR</button>
+                      <button type="submit" class="btn btn-warning">{!! helper_FormatoBotonCRUD(3, 'texto') !!}</button>
                     </div>
                   </div>
                   <!-- /.modal-content -->
