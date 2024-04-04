@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CampoController;
+use App\Http\Controllers\GradoController;
 use App\Http\Controllers\NivelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
@@ -40,7 +41,7 @@ Route::controller(CampoController::class)->group(function(){
 });
 Route::controller(AreaController::class)->group(function(){
     Route::get('areas','index')->name('areas.index');
-    Route::get('areas/crear','new')->name('areas.create');
+    Route::get('areas/crear/{campo?}','new')->name('areas.create');
     Route::post('areas','store')->name('areas.store');
     Route::get('areas/{area}','show')->name('areas.details');
     Route::get('areas/{area}/editar','edit')->name('areas.edit');
@@ -55,6 +56,15 @@ Route::controller(NivelController::class)->group(function(){
     Route::get('niveles/{nivel}/editar','edit')->name('niveles.edit');
     Route::put('niveles/{nivel}','update')->name('niveles.update');
     Route::put('niveles','delete')->name('niveles.delete');
+});
+Route::controller(GradoController::class)->group(function(){
+    Route::get('grados','index')->name('grados.index');
+    Route::get('grados/crear/{nivel?}','new')->name('grados.create');
+    Route::post('grados','store')->name('grados.store');
+    Route::get('grados/{grado}','show')->name('grados.details');
+    Route::get('grados/{grado}/editar','edit')->name('grados.edit');
+    Route::put('grados/{grado}','update')->name('grados.update');
+    Route::put('grados','delete')->name('grados.delete');
 });
 Route::controller(PersonaController::class)->group(function(){
     Route::get('personas','index')->name('personas.index');

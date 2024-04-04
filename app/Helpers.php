@@ -31,12 +31,17 @@ function helper_formatoNullorEmpty($valor){
 }
 
 function helper_formatoVistaFecha($fecha){
-    return date('d/m/Y', strtotime($fecha));
+    if (helper_formatoNullorEmpty($fecha) == '-') {
+        return '-';
+    }
+    else{
+        return date('d/m/Y', strtotime($fecha));
+    }
 }
 
 function helper_formatoVistaFechayHora($fecha){
     if (helper_formatoNullorEmpty($fecha) == '-') {
-        return $fecha;
+        return '-';
     }
     else{
         return date('d/m/Y H:i:s', strtotime($fecha));

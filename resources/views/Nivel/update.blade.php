@@ -37,13 +37,13 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE NIVEL</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE NIVEL (*)</label>
                   <div class="col-sm-10">
                   <input type="text" class="form-control" name="nombreNivel" value="{{$nivel->nombreNivel}}" placeholder="NIVEL" minlength="5" maxlength="45" required autofocus>
                   </div>
                 </div>
                 <div class="form-group row">
-                <label class="col-sm-2 col-form-label">POSICIÓN ORDINAL</label>
+                <label class="col-sm-2 col-form-label">POSICIÓN ORDINAL (*)</label>
                 <div class="col-sm-10">
                 <input type="number" class="form-control" name="posicionOrdinal" value="{{$nivel->posicionOrdinal}}" min="0" max="128" required>
                 </div>

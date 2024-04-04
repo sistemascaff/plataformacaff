@@ -43,13 +43,19 @@ class AreaController extends Controller
         }
     }
 
-    public function new(){
+    public function new($idSelect = null){
         if (session('idRol') == 1) {
+            $valorAssets = 3;
             $Campos = (new Campo())->selectDisponibles();
+            if(!$idSelect){
+                $idSelect = 0;
+                $valorAssets = 2;
+            }
             return view('Area.create', [
                 'Titulos' => "NUEVA AREA",
                 'Campos' => $Campos,
-                'retrocederDirectorioAssets' => 2
+                'idSelect' => $idSelect,
+                'retrocederDirectorioAssets' => $valorAssets
             ]);
         }
         else{

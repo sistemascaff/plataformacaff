@@ -11,7 +11,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('usuarios.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item"><a href="{{route('niveles.index')}}">NIVELES</a></li>
+            <li class="breadcrumb-item"><a href="{{route('grados.index')}}">GRADOS</a></li>
             <li class="breadcrumb-item active">{{$Titulos}}</li>
           </ol>
         </div>
@@ -30,15 +30,15 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-6">
-            <form class="form-horizontal" action="{{route('niveles.store')}}" method="POST">
+            <form class="form-horizontal" action="{{route('grados.store')}}" method="POST">
 
               @csrf
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE NIVEL (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE GRADO (*)</label>
                   <div class="col-sm-10">
-                  <input type="text" class="form-control" name="nombreNivel" placeholder="NIVEL" minlength="4" maxlength="45" required autofocus>
+                    <input type="text" class="form-control" name="nombreGrado" placeholder="GRADO" minlength="5" maxlength="45" required autofocus>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -47,9 +47,23 @@
                   <input type="number" class="form-control" name="posicionOrdinal" value="1" min="0" max="128" required>
                   </div>
                 </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">NIVEL (*)</label>
+                  <div class="col-sm-10">
+                    <select class="form-control" name="idNivel" required>
+                      @foreach ($Niveles as $rowNiveles)
+                      @if ($rowNiveles->idNivel == $idSelect)
+                      <option value="{{$rowNiveles->idNivel}}" selected>{{$rowNiveles->nombreNivel}}</option>
+                      @else
+                      <option value="{{$rowNiveles->idNivel}}">{{$rowNiveles->nombreNivel}}</option>
+                      @endif
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
               </div>
               <button type="submit" class="btn btn-success">{!! helper_FormatoBotonCRUD(5, 'texto') !!}</button>
-              <a href="{{route('niveles.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
+              <a href="{{route('grados.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
               </form>
           </div>
         </div>

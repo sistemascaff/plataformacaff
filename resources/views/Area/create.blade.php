@@ -36,17 +36,21 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE AREA</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE AREA (*)</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control" name="nombreArea" placeholder="AREA" minlength="5" maxlength="45" required autofocus>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">CAMPO</label>
+                  <label class="col-sm-2 col-form-label">CAMPO (*)</label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idCampo" required>
                       @foreach ($Campos as $rowCampos)
+                      @if ($rowCampos->idCampo == $idSelect)
+                      <option value="{{$rowCampos->idCampo}}" selected>{{$rowCampos->nombreCampo}}</option>
+                      @else
                       <option value="{{$rowCampos->idCampo}}">{{$rowCampos->nombreCampo}}</option>
+                      @endif
                       @endforeach
                     </select>
                   </div>

@@ -173,8 +173,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item {{ request()->is('usuarios') ? 'menu-open' : '' }}">
-            <a href="" class="nav-link {{ request()->is('usuarios') ? 'active' : '' }}">
+          <li class="nav-item {{ request()->is('usuarios*') ? 'menu-open' : '' }}">
+            <a href="" class="nav-link {{ request()->is('usuarios*') ? 'active' : '' }}">
               <i class="nav-icon fa fa-user"></i>
               <p>
                 USUARIOS
@@ -183,7 +183,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('usuarios.index')}}" class="nav-link {{ request()->is('usuarios') ? 'active' : '' }}">
+                <a href="{{route('usuarios.index')}}" class="nav-link {{ request()->is('usuarios*') ? 'active' : '' }}">
                   <i class="fa fa-home nav-icon"></i>
                   <p>Inicio </p>
                 </a>
@@ -191,8 +191,8 @@
             </ul>
           </li>
 
-          <li class="nav-item {{ request()->is('personas') ? 'menu-open' : '' }}">
-            <a href="" class="nav-link {{ request()->is('personas') ? 'active' : '' }}">
+          <li class="nav-item {{ request()->is('personas*') ? 'menu-open' : '' }}">
+            <a href="" class="nav-link {{ request()->is('personas*') ? 'active' : '' }}">
               <i class="nav-icon fa fa-male"></i>
               <p>
                 PERSONAS
@@ -201,7 +201,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('personas.index')}}" class="nav-link {{ request()->is('personas') ? 'active' : '' }}">
+                <a href="{{route('personas.index')}}" class="nav-link {{ request()->is('personas*') ? 'active' : '' }}">
                   <i class="fa fa-home nav-icon"></i>
                   <p>Inicio </p>
                 </a>
@@ -209,16 +209,8 @@
             </ul>
           </li>
 
-          <li class="nav-item {{ request()->is('campos') ? 'menu-open' : 
-            (request()->is('areas') ? 'menu-open' : 
-              (request()->is('campos/*') ? 'menu-open' : 
-                (request()->is('areas/*') ? 'menu-open' : ''))) 
-          }}">
-            <a href="" class="nav-link {{ request()->is('campos') ? 'active' : 
-              (request()->is('areas') ? 'active' : 
-                (request()->is('campos/*') ? 'active' : 
-                  (request()->is('areas/*') ? 'active' : ''))) 
-            }}">
+          <li class="nav-item {{ request()->is('campos*') ? 'menu-open' : (request()->is('areas*') ? 'menu-open' : '') }}">
+            <a href="" class="nav-link {{ request()->is('campos*') ? 'active' : (request()->is('areas*') ? 'active' : '') }}">
               <i class="nav-icon fa fa-th-list"></i>
               <p>
                 CAMPOS
@@ -227,7 +219,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('campos.index')}}" class="nav-link {{ request()->is('campos') ? 'active' : (request()->is('campos/*') ? 'active' : '') }}">
+                <a href="{{route('campos.index')}}" class="nav-link {{ request()->is('campos*') ? 'active' : '' }}">
                   <i class="fa fa-th-list nav-icon"></i>
                   <p>CAMPOS</p>
                 </a>
@@ -235,7 +227,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('areas.index')}}" class="nav-link {{ request()->is('areas') ? 'active' : (request()->is('areas/*') ? 'active' : '') }}">
+                <a href="{{route('areas.index')}}" class="nav-link {{ request()->is('areas*') ? 'active' : '' }}">
                   <i class="fa fa-th-list nav-icon"></i>
                   <p>AREAS</p>
                 </a>
@@ -243,8 +235,12 @@
             </ul>
           </li>
 
-          <li class="nav-item {{ request()->is('niveles') ? 'menu-open' : (request()->is('niveles/*') ? 'menu-open' : '') }}">
-            <a href="" class="nav-link {{ request()->is('niveles') ? 'active' : (request()->is('niveles/*') ? 'active' : '') }}">
+          <li class="nav-item {{ request()->is('niveles*') ? 'menu-open' : 
+            (request()->is('grados*') ? 'menu-open' : '')
+          }}">
+            <a href="" class="nav-link {{ request()->is('niveles*') ? 'active' : 
+              (request()->is('grados*') ? 'active' : '')
+            }}">
               <i class="nav-icon fa fa-sitemap"></i>
               <p>
                 NIVELES
@@ -253,9 +249,17 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('niveles.index')}}" class="nav-link {{ request()->is('niveles') ? 'active' : (request()->is('niveles/*') ? 'active' : '') }}">
+                <a href="{{route('niveles.index')}}" class="nav-link {{ request()->is('niveles*') ? 'active' : '' }}">
                   <i class="fa fa-sitemap nav-icon"></i>
                   <p>NIVELES</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('grados.index')}}" class="nav-link {{ request()->is('grados*') ? 'active' : '' }}">
+                  <i class="fa fa-sitemap nav-icon"></i>
+                  <p>GRADOS</p>
                 </a>
               </li>
             </ul>

@@ -71,7 +71,7 @@
 
         <h3 class="card-title font-weight-bold">AREAS DEPENDIENTES DE {{$campo->nombreCampo}}:</h3>
         <br><br>
-        <a href="{{route('areas.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
+        <a href="{{route('areas.create', $campo->idCampo)}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
         <br><br>
 
         <div class="col-md-12">
