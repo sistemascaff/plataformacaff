@@ -69,16 +69,33 @@
           </div>
         </div>
 
-        <h3 class="card-title font-weight-bold">AREAS DEPENDIENTES DE {{$paralelo->nombreParalelo}}:</h3>
+        <h3 class="card-title font-weight-bold">CURSOS PERTENECIENTES A {{$paralelo->nombreParalelo}}:</h3>
         <br><br>
-        <a href="{{route('cursos.create', $paralelo->idParalelo)}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
-        <br><br>
-
+        
+        <!-- Formulario de creación con 2 valores -->
+        <form action="{{route('cursos.create')}}" method="GET">
+            <div class="form-group row">
+              <label class="col-sm-1 col-form-label">GRADO (*)</label>
+              <div class="col-sm-4 align-content-center">
+                <select class="form-control" name="idGrado" required>
+                  @foreach ($Grados as $rowGrados)
+                  <option value="{{$rowGrados->idGrado}}">{{$rowGrados->nombreGrado}}</option>
+                  @endforeach
+                </select>
+              </div>
+              <input type="hidden" name="idParalelo" value="{{$paralelo->idParalelo}}">
+              <div class="col-sm-1 align-content-center">
+                <button type="submit" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</button>
+              </div>
+            </div>
+        </form>
+        <br>
+        <!-- /Formulario de creación con 2 valores -->
         <div class="col-md-12">
           <table id="dataTable" class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th>AREA</th>
+                <th>CURSO</th>
                 <th>F. REGISTRO</th>
                 <th>F. ACTUALIZACION</th>
                 <th>Acciones</th>

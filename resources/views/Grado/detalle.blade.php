@@ -82,7 +82,26 @@
         </div>
         
         <h3 class="card-title font-weight-bold">CURSOS DEPENDIENTES DE {{$nivel->nombreNivel}}:</h3>
-        <br>
+        <br><br>
+        <!-- Formulario de creación con 2 valores -->
+        <form action="{{route('cursos.create')}}" method="GET">
+          <div class="form-group row">
+            <label class="col-sm-1 col-form-label">PARALELO (*)</label>
+            <div class="col-sm-4 align-content-center">
+              <select class="form-control" name="idParalelo" required>
+                @foreach ($Paralelos as $rowParalelos)
+                <option value="{{$rowParalelos->idParalelo}}">{{$rowParalelos->nombreParalelo}}</option>
+                @endforeach
+              </select>
+            </div>
+            <input type="hidden" name="idGrado" value="{{$grado->idGrado}}">
+            <div class="col-sm-1 align-content-center">
+              <button type="submit" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</button>
+            </div>
+          </div>
+      </form>
+      <br>
+      <!-- /Formulario de creación con 2 valores -->
 
         <div class="col-md-12">
           <table id="dataTable" class="table table-bordered table-striped">

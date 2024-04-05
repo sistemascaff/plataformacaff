@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Paralelo;
 use App\Models\Usuario;
 use App\Models\Curso;
+use App\Models\Grado;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Can;
 
@@ -30,6 +31,7 @@ class ParaleloController extends Controller
         if (session('idRol') == 1) {
             $paralelo = (new Paralelo())->selectParalelo($idParalelo);
             $usuario = (new Usuario())->selectUsuario($paralelo->idUsuario);
+            $Grados = (new Grado())->selectDisponibles('');
             if (!$usuario) {
                 $usuario = new Usuario();
                 $usuario->correo = '';
@@ -39,6 +41,7 @@ class ParaleloController extends Controller
                 'paralelo' => $paralelo,
                 'usuario' => $usuario,
                 'Cursos' => $Cursos,
+                'Grados' => $Grados,
                 'retrocederDirectorioAssets' => 2
             ]);
         }

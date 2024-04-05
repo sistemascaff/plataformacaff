@@ -26,6 +26,7 @@ class Curso extends Model
         ->whereAny([
             'Cursos.nombreCurso',
             'Grados.nombreGrado',
+            'Grados.posicionOrdinal',
             'Paralelos.nombreParalelo',
             'Usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')

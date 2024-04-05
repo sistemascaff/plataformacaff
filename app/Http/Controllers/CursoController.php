@@ -61,7 +61,7 @@ class CursoController extends Controller
                 'Grados' => $Grados,
                 'Paralelos' => $Paralelos,
                 'idSelectGrado' => $request->idGrado,
-                'idSelectParalelo' => $request->idSelectParalelo,
+                'idSelectParalelo' => $request->idParalelo,
                 'retrocederDirectorioAssets' => 2
             ]);
         }

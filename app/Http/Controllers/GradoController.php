@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Grado;
 use App\Models\Usuario;
 use App\Models\Nivel;
+use App\Models\Paralelo;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Can;
 
@@ -32,6 +33,7 @@ class GradoController extends Controller
             $usuario = (new Usuario())->selectUsuario($grado->idUsuario);
             $nivel = (new Nivel())->selectNivel($grado->idNivel);
             $Cursos = (new Grado())->selectGrado_Cursos($idGrado);
+            $Paralelos = (new Paralelo())->selectDisponibles('');
             if (!$usuario) {
                 $usuario = new Usuario();
                 $usuario->correo = '';
@@ -41,6 +43,7 @@ class GradoController extends Controller
                 'usuario' => $usuario,
                 'nivel' => $nivel,
                 'Cursos' => $Cursos,
+                'Paralelos' => $Paralelos,
                 'retrocederDirectorioAssets' => 2
             ]);
         }
