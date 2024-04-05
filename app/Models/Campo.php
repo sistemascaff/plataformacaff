@@ -16,10 +16,14 @@ class Campo extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
-    public function selectDisponibles(){
+    public function selectDisponibles($busqueda){
         $selectAll = Campo::select('Campos.idCampo','Campos.nombreCampo','Campos.fechaRegistro','Campos.fechaActualizacion','Campos.idUsuario','Campos.estado', 'Usuarios.correo')
         ->leftjoin('Usuarios', 'Campos.idUsuario', '=', 'Usuarios.idUsuario')
         ->where('Campos.estado', '=', 1)
+        ->whereAny([
+            'Campos.nombreCampo',
+            'Usuarios.correo',
+        ], 'LIKE', '%'.$busqueda.'%')
         ->orderBy('Campos.idCampo')
         ->get();
         return $selectAll;

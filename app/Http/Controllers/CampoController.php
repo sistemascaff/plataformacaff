@@ -8,11 +8,15 @@ use Illuminate\Http\Request;
 
 class CampoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if (session('idRol') == 1) {
-            $tableCampo = (new Campo())->selectDisponibles();
-            return view('Campo.inicio', ['tableCampo' => $tableCampo, 'retrocederDirectorioAssets' => 1]);
+            $tableCampo = (new Campo())->selectDisponibles($request->busqueda);
+            return view('Campo.inicio', [
+                'tableCampo' => $tableCampo,
+                'retrocederDirectorioAssets' => 1,
+                'busqueda' => $request->busqueda
+            ]);
         }
         else{
             return redirect()->route('login');

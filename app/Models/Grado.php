@@ -16,12 +16,18 @@ class Grado extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
-    public function selectDisponibles(){
+    public function selectDisponibles($busqueda){
         $selectAll = Grado::select('Grados.idGrado','Niveles.nombreNivel','Grados.nombreGrado','Grados.posicionOrdinal','Grados.estado','Grados.fechaRegistro','Grados.fechaActualizacion','Grados.idUsuario','Usuarios.correo')
         ->leftjoin('Usuarios', 'Grados.idUsuario', '=', 'Usuarios.idUsuario')
         ->join('Niveles', 'Grados.idNivel', '=', 'Niveles.idNivel')
         ->where('Grados.estado', '=', 1)
         ->where('Niveles.estado', '=', 1)
+        ->whereAny([
+            'Grados.nombreGrado',
+            'Niveles.nombreNivel',
+            'Grados.posicionOrdinal',
+            'Usuarios.correo',
+        ], 'LIKE', '%'.$busqueda.'%')
         ->orderBy('Grados.idGrado')
         ->get();
         return $selectAll;

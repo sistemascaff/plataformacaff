@@ -4,10 +4,11 @@ use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CampoController;
 use App\Http\Controllers\GradoController;
 use App\Http\Controllers\NivelController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PersonaController;
-use App\Models\Nivel;
+use App\Http\Controllers\CursoController;
+use App\Http\Controllers\ParaleloController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,24 @@ Route::controller(GradoController::class)->group(function(){
     Route::get('grados/{grado}/editar','edit')->name('grados.edit');
     Route::put('grados/{grado}','update')->name('grados.update');
     Route::put('grados','delete')->name('grados.delete');
+});
+Route::controller(CursoController::class)->group(function(){
+    Route::get('cursos','index')->name('cursos.index');
+    Route::get('cursos/crear','new')->name('cursos.create');
+    Route::post('cursos','store')->name('cursos.store');
+    Route::get('cursos/{curso}','show')->name('cursos.details');
+    Route::get('cursos/{curso}/editar','edit')->name('cursos.edit');
+    Route::put('cursos/{curso}','update')->name('cursos.update');
+    Route::put('cursos','delete')->name('cursos.delete');
+});
+Route::controller(ParaleloController::class)->group(function(){
+    Route::get('paralelos','index')->name('paralelos.index');
+    Route::get('paralelos/crear','new')->name('paralelos.create');
+    Route::post('paralelos','store')->name('paralelos.store');
+    Route::get('paralelos/{paralelo}','show')->name('paralelos.details');
+    Route::get('paralelos/{paralelo}/editar','edit')->name('paralelos.edit');
+    Route::put('paralelos/{paralelo}','update')->name('paralelos.update');
+    Route::put('paralelos','delete')->name('paralelos.delete');
 });
 Route::controller(PersonaController::class)->group(function(){
     Route::get('personas','index')->name('personas.index');

@@ -10,8 +10,8 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('niveles.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item active">NIVELES</li>
+            <li class="breadcrumb-item"><a href="{{route('paralelos.index')}}">INICIO</a></li>
+            <li class="breadcrumb-item active">PARALELOS</li>
           </ol>
         </div>
       </div>
@@ -24,13 +24,13 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title font-weight-bold">NIVELES</h3>
+        <h3 class="card-title font-weight-bold">PARALELOS</h3>
       </div>
       <div class="card-body">
-        <a href="{{route('niveles.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
+        <a href="{{route('paralelos.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
         <br><br>
         <!-- Formulario de búsqueda -->
-        <form action="{{route('niveles.index')}}" method="GET">
+        <form action="{{route('paralelos.index')}}" method="GET">
           <div class="input-group input-group-sm col-md-3">
             <input type="text" name="busqueda" class="form-control" placeholder="Filtrar tabla..." value="{{$busqueda}}" autofocus>
             <span class="input-group-append">
@@ -42,7 +42,7 @@
         @if ($busqueda)
           <h3 class="font-weight-bold">
             Resultados de la búsqueda: "{{$busqueda}}" 
-            <a href="{{route('niveles.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'icono') !!}</a>
+            <a href="{{route('paralelos.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'icono') !!}</a>
           </h3>
           <br>
         @endif
@@ -52,8 +52,7 @@
             <table id="dataTable" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>NIVEL</th>
-                  <th>P. ORDINAL</th>
+                  <th>PARALELO</th>
                   <th>F. REGISTRO</th>
                   <th>F. ACTUALIZACION</th>
                   <th>MODIFICADO POR</th>
@@ -61,22 +60,21 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($tableNivel as $rowNivel)
+                @foreach ($tableParalelo as $rowParalelo)
                   <tr>
-                    <td>{{$rowNivel->nombreNivel}}</td>
-                    <td>{{$rowNivel->posicionOrdinal}}</td>
-                    <td>{{helper_formatoVistaFechayHora($rowNivel->fechaRegistro)}}</td>
-                    <td>{{helper_formatoVistaFechayHora($rowNivel->fechaActualizacion)}}</td>
-                    <td>{{helper_formatoNullorEmpty($rowNivel->correo)}}</td>
+                    <td>{{$rowParalelo->nombreParalelo}}</td>
+                    <td>{{helper_formatoVistaFechayHora($rowParalelo->fechaRegistro)}}</td>
+                    <td>{{helper_formatoVistaFechayHora($rowParalelo->fechaActualizacion)}}</td>
+                    <td>{{helper_formatoNullorEmpty($rowParalelo->correo)}}</td>
                     <td>
                       <div class="btn-group">
-                        <a class="btn btn-info" href="{{route('niveles.details', $rowNivel->idNivel)}}">
+                        <a class="btn btn-info" href="{{route('paralelos.details', $rowParalelo->idParalelo)}}">
                           {!! helper_FormatoBotonCRUD(2, 'icono') !!}
                         </a>
-                        <a class="btn btn-warning" href="{{route('niveles.edit',$rowNivel->idNivel)}}">
+                        <a class="btn btn-warning" href="{{route('paralelos.edit',$rowParalelo->idParalelo)}}">
                           {!! helper_FormatoBotonCRUD(3, 'icono') !!}
                         </a>
-                        <a class="btn btn-danger eliminar-registro" data-toggle="modal" data-target="#modalDelete" data-id="{{$rowNivel->idNivel}}" data-nombre="{{$rowNivel->nombreNivel}}">
+                        <a class="btn btn-danger eliminar-registro" data-toggle="modal" data-target="#modalDelete" data-id="{{$rowParalelo->idParalelo}}" data-nombre="{{$rowParalelo->nombreParalelo}}">
                           {!! helper_FormatoBotonCRUD(4, 'icono') !!}
                         </a>                      
                       </div>
@@ -109,10 +107,10 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
-          <form action="{{route('niveles.delete')}}" method="POST">
+          <form action="{{route('paralelos.delete')}}" method="POST">
             @csrf
             @method('put')
-            <input type="hidden" id="id" name="idNivel" value="0">
+            <input type="hidden" id="id" name="idParalelo" value="0">
             <button type="submit" class="btn btn-danger">{!! helper_FormatoBotonCRUD(4, 'texto') !!}</button>
           </form>
         </div>

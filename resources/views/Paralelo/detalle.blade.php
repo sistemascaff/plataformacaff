@@ -6,13 +6,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="font-weight-bold">{{$grado->nombreGrado}}</h1>
+          <h1 class="font-weight-bold">{{$paralelo->nombreParalelo}}</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('usuarios.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item"><a href="{{route('grados.index')}}">AREAS</a></li>
-            <li class="breadcrumb-item active">{{$grado->nombreGrado}}</li>
+            <li class="breadcrumb-item"><a href="{{route('paralelos.index')}}">PARALELOS</a></li>
+            <li class="breadcrumb-item active">{{$paralelo->nombreParalelo}}</li>
           </ol>
         </div>
       </div>
@@ -27,10 +27,10 @@
         <h3 class="card-title font-weight-bold">ACCIONES</h3>
         <br>
         <div class="btn-group">
-          <a class="btn btn-info" href="{{route('grados.index')}}">
+          <a class="btn btn-info" href="{{route('paralelos.index')}}">
             {!! helper_FormatoBotonCRUD(7, 'texto') !!}
           </a>
-          <a class="btn btn-warning" href="{{route('grados.edit',$grado->idGrado)}}">
+          <a class="btn btn-warning" href="{{route('paralelos.edit',$paralelo->idParalelo)}}">
             {!! helper_FormatoBotonCRUD(3, 'texto') !!}
           </a>
           <a class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
@@ -43,33 +43,21 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group row">
-              <label for="inputEmail3" class="col-md-2 col-form-label">Grado</label>
+              <label for="inputEmail3" class="col-md-2 col-form-label">Paralelo</label>
               <div class="col-md-10">
-                <p class="form form-control">{{$grado->nombreGrado}}</p>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="inputEmail3" class="col-md-2 col-form-label">Posición Ordinal</label>
-              <div class="col-md-10">
-                <p class="form form-control">{{$grado->posicionOrdinal}}</p>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="inputEmail3" class="col-md-2 col-form-label">Nivel</label>
-              <div class="col-md-10">
-                <a href="{{route('niveles.details', $nivel->idNivel)}}" class="form form-control font-weight-bold">{{$nivel->nombreNivel}}</a>
+                <p class="form form-control">{{$paralelo->nombreParalelo}}</p>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Fecha de Registro</label>
               <div class="col-md-10">
-                <p class="form form-control">{{$grado->fechaRegistro}}</p>
+                <p class="form form-control">{{$paralelo->fechaRegistro}}</p>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Fecha de Actualizacion</label>
               <div class="col-md-10">
-                <p class="form form-control">{{helper_formatoNullorEmpty($grado->fechaActualizacion)}}</p>
+                <p class="form form-control">{{helper_formatoNullorEmpty($paralelo->fechaActualizacion)}}</p>
               </div>
             </div>
             <div class="form-group row">
@@ -80,15 +68,17 @@
             </div>
           </div>
         </div>
-        
-        <h3 class="card-title font-weight-bold">CURSOS DEPENDIENTES DE {{$nivel->nombreNivel}}:</h3>
-        <br>
+
+        <h3 class="card-title font-weight-bold">AREAS DEPENDIENTES DE {{$paralelo->nombreParalelo}}:</h3>
+        <br><br>
+        <a href="{{route('cursos.create', $paralelo->idParalelo)}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
+        <br><br>
 
         <div class="col-md-12">
           <table id="dataTable" class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th>CURSO</th>
+                <th>AREA</th>
                 <th>F. REGISTRO</th>
                 <th>F. ACTUALIZACION</th>
                 <th>Acciones</th>
@@ -98,8 +88,8 @@
           @foreach ($Cursos as $rowCursos)
           <tr>
             <td>{{$rowCursos->nombreCurso}}</td>
-            <td>{{helper_formatoVistaFechayHora($rowCursos->fechaRegistro)}}</td>
-            <td>{{helper_formatoVistaFechayHora($rowCursos->fechaActualizacion)}}</td>
+            <td>{{helper_formatoVistaFecha($rowCursos->fechaRegistro)}}</td>
+            <td>{{helper_formatoNullorEmpty($rowCursos->fechaActualizacion)}}</td>
             <td>
               <div class="btn-group">
                 <a class="btn btn-info" href="{{route('cursos.details', $rowCursos->idCurso)}}">
@@ -115,7 +105,6 @@
             </tbody>
           </table>
         </div>
-
       </div>
       <!-- /.card-body -->
     </div>
@@ -134,14 +123,14 @@
         </div>
         <div class="modal-body">
           <p>¿Está segur@ de eliminar el registro seleccionado?</p>
-          <p class="font-weight-bold">{{$grado->nombreGrado}}</p>
+          <p class="font-weight-bold">{{$paralelo->nombreParalelo}}</p>
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
-          <form action="{{route('grados.delete')}}" method="POST">
+          <form action="{{route('paralelos.delete')}}" method="POST">
             @csrf
             @method('put')
-            <input type="hidden" name="idGrado" value="{{$grado->idGrado}}">
+            <input type="hidden" name="idParalelo" value="{{$paralelo->idParalelo}}">
             <button type="submit" class="btn btn-danger">{!! helper_FormatoBotonCRUD(4, 'texto') !!}</button>
           </form>
         </div>

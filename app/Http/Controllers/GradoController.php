@@ -10,11 +10,15 @@ use Illuminate\Validation\Rules\Can;
 
 class GradoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if (session('idRol') == 1) {
-            $tableGrado = (new Grado())->selectDisponibles();
-            return view('Grado.inicio', ['tableGrado' => $tableGrado, 'retrocederDirectorioAssets' => 1]);
+            $tableGrado = (new Grado())->selectDisponibles($request->busqueda);
+            return view('Grado.inicio', [
+                'tableGrado' => $tableGrado,
+                'busqueda' => $request->busqueda,
+                'retrocederDirectorioAssets' => 1
+        ]);
         }
         else{
             return redirect()->route('login');
@@ -48,7 +52,7 @@ class GradoController extends Controller
     public function new($idSelect = null){
         if (session('idRol') == 1) {
             $valorAssets = 3;
-            $Niveles = (new Nivel())->selectDisponibles();
+            $Niveles = (new Nivel())->selectDisponibles('');
             if(!$idSelect){
                 $idSelect = 0;
                 $valorAssets = 2;
@@ -84,7 +88,7 @@ class GradoController extends Controller
     public function edit(Grado $grado)
     {
         if (session('idRol') == 1) {
-            $Niveles = (new Nivel())->selectDisponibles();
+            $Niveles = (new Nivel())->selectDisponibles('');
             return view('Grado.update', [
                 'grado' => $grado,
                 'Niveles' => $Niveles,

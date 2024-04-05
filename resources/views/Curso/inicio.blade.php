@@ -10,8 +10,8 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('niveles.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item active">NIVELES</li>
+            <li class="breadcrumb-item"><a href="{{route('cursos.index')}}">INICIO</a></li>
+            <li class="breadcrumb-item active">CURSOS</li>
           </ol>
         </div>
       </div>
@@ -24,13 +24,13 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title font-weight-bold">NIVELES</h3>
+        <h3 class="card-title font-weight-bold">CURSOS</h3>
       </div>
       <div class="card-body">
-        <a href="{{route('niveles.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
+        <a href="{{route('cursos.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
         <br><br>
         <!-- Formulario de búsqueda -->
-        <form action="{{route('niveles.index')}}" method="GET">
+        <form action="{{route('cursos.index')}}" method="GET">
           <div class="input-group input-group-sm col-md-3">
             <input type="text" name="busqueda" class="form-control" placeholder="Filtrar tabla..." value="{{$busqueda}}" autofocus>
             <span class="input-group-append">
@@ -42,7 +42,7 @@
         @if ($busqueda)
           <h3 class="font-weight-bold">
             Resultados de la búsqueda: "{{$busqueda}}" 
-            <a href="{{route('niveles.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'icono') !!}</a>
+            <a href="{{route('cursos.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'icono') !!}</a>
           </h3>
           <br>
         @endif
@@ -52,8 +52,9 @@
             <table id="dataTable" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>NIVEL</th>
-                  <th>P. ORDINAL</th>
+                  <th>CURSO</th>
+                  <th>GRADO</th>
+                  <th>PARALELO</th>
                   <th>F. REGISTRO</th>
                   <th>F. ACTUALIZACION</th>
                   <th>MODIFICADO POR</th>
@@ -61,23 +62,24 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($tableNivel as $rowNivel)
+                @foreach ($tableCurso as $rowCurso)
                   <tr>
-                    <td>{{$rowNivel->nombreNivel}}</td>
-                    <td>{{$rowNivel->posicionOrdinal}}</td>
-                    <td>{{helper_formatoVistaFechayHora($rowNivel->fechaRegistro)}}</td>
-                    <td>{{helper_formatoVistaFechayHora($rowNivel->fechaActualizacion)}}</td>
-                    <td>{{helper_formatoNullorEmpty($rowNivel->correo)}}</td>
+                    <td>{{$rowCurso->nombreCurso}}</td>
+                    <td>{{$rowCurso->nombreGrado}}</td>
+                    <td>{{$rowCurso->nombreParalelo}}</td>
+                    <td>{{helper_formatoVistaFechayHora($rowCurso->fechaRegistro)}}</td>
+                    <td>{{helper_formatoVistaFechayHora($rowCurso->fechaActualizacion)}}</td>
+                    <td>{{helper_formatoNullorEmpty($rowCurso->correo)}}</td>
                     <td>
                       <div class="btn-group">
-                        <a class="btn btn-info" href="{{route('niveles.details', $rowNivel->idNivel)}}">
+                        <a class="btn btn-info" href="{{route('cursos.details', $rowCurso->idCurso)}}">
                           {!! helper_FormatoBotonCRUD(2, 'icono') !!}
                         </a>
-                        <a class="btn btn-warning" href="{{route('niveles.edit',$rowNivel->idNivel)}}">
+                        <a class="btn btn-warning" href="{{route('cursos.edit',$rowCurso->idCurso)}}">
                           {!! helper_FormatoBotonCRUD(3, 'icono') !!}
                         </a>
-                        <a class="btn btn-danger eliminar-registro" data-toggle="modal" data-target="#modalDelete" data-id="{{$rowNivel->idNivel}}" data-nombre="{{$rowNivel->nombreNivel}}">
-                          {!! helper_FormatoBotonCRUD(4, 'icono') !!}
+                        <a class="btn btn-danger eliminar-registro" data-toggle="modal" data-target="#modalDelete" data-id="{{$rowCurso->idCurso}}" data-nombre="{{$rowCurso->nombreCurso}}">
+                          {!! helper_FormatoBotonCRUD(4 , 'icono') !!}
                         </a>                      
                       </div>
                     </td>
@@ -108,11 +110,11 @@
           <p class="font-weight-bold" id="nombre">NOMBRE</p>
         </div>
         <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
-          <form action="{{route('niveles.delete')}}" method="POST">
+          <button type="button" class="btn btn-default" data-dismiss="modal">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</button>
+          <form action="{{route('cursos.delete')}}" method="POST">
             @csrf
             @method('put')
-            <input type="hidden" id="id" name="idNivel" value="0">
+            <input type="hidden" id="id" name="idCurso" value="0">
             <button type="submit" class="btn btn-danger">{!! helper_FormatoBotonCRUD(4, 'texto') !!}</button>
           </form>
         </div>

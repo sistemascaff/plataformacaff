@@ -236,10 +236,14 @@
           </li>
 
           <li class="nav-item {{ request()->is('niveles*') ? 'menu-open' : 
-            (request()->is('grados*') ? 'menu-open' : '')
+            (request()->is('grados*') ? 'menu-open' : 
+              (request()->is('cursos*') ? 'menu-open' : 
+                (request()->is('paralelos*') ? 'menu-open' : '')))
           }}">
             <a href="" class="nav-link {{ request()->is('niveles*') ? 'active' : 
-              (request()->is('grados*') ? 'active' : '')
+              (request()->is('grados*') ? 'active' : 
+                (request()->is('cursos*') ? 'active' : 
+                  (request()->is('paralelos*') ? 'active' : '')))
             }}">
               <i class="nav-icon fa fa-sitemap"></i>
               <p>
@@ -263,8 +267,24 @@
                 </a>
               </li>
             </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('paralelos.index')}}" class="nav-link {{ request()->is('paralelos*') ? 'active' : '' }}">
+                  <i class="fa fa-sitemap nav-icon"></i>
+                  <p>PARALELOS</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('cursos.index')}}" class="nav-link {{ request()->is('cursos*') ? 'active' : '' }}">
+                  <i class="fa fa-sitemap nav-icon"></i>
+                  <p>CURSOS</p>
+                </a>
+              </li>
+            </ul>
           </li>
-
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

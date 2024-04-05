@@ -29,6 +29,24 @@
       <div class="card-body">
         <a href="{{route('campos.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
         <br><br>
+        <!-- Formulario de búsqueda -->
+        <form action="{{route('campos.index')}}" method="GET">
+          <div class="input-group input-group-sm col-md-3">
+            <input type="text" name="busqueda" class="form-control" placeholder="Filtrar tabla..." value="{{$busqueda}}" autofocus>
+            <span class="input-group-append">
+            <button type="submit" class="btn btn-info btn-flat">{!! helper_FormatoBotonCRUD(8, 'texto') !!}</button>
+            </span>
+          </div>
+        </form>
+        <br>
+        @if ($busqueda)
+          <h3 class="font-weight-bold">
+            Resultados de la búsqueda: "{{$busqueda}}" 
+            <a href="{{route('campos.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'icono') !!}</a>
+          </h3>
+          <br>
+        @endif
+        <!-- / Formulario de búsqueda -->
         <div class="row">
           <div class="col-md-12">
             <table id="dataTable" class="table table-bordered table-striped">

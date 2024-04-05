@@ -16,10 +16,15 @@ class Nivel extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
-    public function selectDisponibles(){
+    public function selectDisponibles($busqueda){
         $selectAll = Nivel::select('Niveles.idNivel','Niveles.nombreNivel','Niveles.posicionOrdinal','Niveles.fechaRegistro','Niveles.fechaActualizacion','Niveles.idUsuario','Niveles.estado', 'Usuarios.correo')
         ->leftjoin('Usuarios', 'Niveles.idUsuario', '=', 'Usuarios.idUsuario')
         ->where('Niveles.estado', '=', 1)
+        ->whereAny([
+            'Niveles.nombreNivel',
+            'Niveles.posicionOrdinal',
+            'Usuarios.correo',
+        ], 'LIKE', '%'.$busqueda.'%')
         ->orderBy('Niveles.idNivel')
         ->get();
         return $selectAll;

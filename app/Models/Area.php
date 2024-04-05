@@ -16,12 +16,17 @@ class Area extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
-    public function selectDisponibles(){
+    public function selectDisponibles($busqueda){
         $selectAll = Area::select('Areas.idArea','Campos.nombreCampo','Areas.nombreArea','Areas.estado','Areas.fechaRegistro','Areas.fechaActualizacion','Areas.idUsuario','Usuarios.correo')
         ->leftjoin('Usuarios', 'Areas.idUsuario', '=', 'Usuarios.idUsuario')
         ->join('Campos', 'Areas.idCampo', '=', 'Campos.idCampo')
         ->where('Areas.estado', '=', 1)
         ->where('Campos.estado', '=', 1)
+        ->whereAny([
+            'Areas.nombreArea',
+            'Campos.nombreCampo',
+            'Usuarios.correo',
+        ], 'LIKE', '%'.$busqueda.'%')
         ->orderBy('Areas.idArea')
         ->get();
         return $selectAll;

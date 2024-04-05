@@ -81,6 +81,10 @@ function helper_FormatoBotonCRUD($valor, $tipo){
             $icono = 'fa fa-arrow-left';
             $texto = 'VOLVER';
             break;
+        case '8':/*SEARCH*/
+            $icono = 'fa fa-search';
+            $texto = 'BUSCAR';
+            break;
         default:
             return 'HELPER ERROR: VALOR EXCEDIDO';
             break;

@@ -8,11 +8,15 @@ use Illuminate\Http\Request;
 
 class NivelController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if (session('idRol') == 1) {
-            $tableNivel = (new Nivel())->selectDisponibles();
-            return view('Nivel.inicio', ['tableNivel' => $tableNivel, 'retrocederDirectorioAssets' => 1]);
+            $tableNivel = (new Nivel())->selectDisponibles($request->busqueda);
+            return view('Nivel.inicio', [
+            'tableNivel' => $tableNivel,
+            'busqueda' => $request->busqueda,
+            'retrocederDirectorioAssets' => 1
+        ]);
         }
         else{
             return redirect()->route('login');
