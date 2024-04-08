@@ -38,8 +38,12 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">NOMBRE CAMPO (*)</label>
                   <div class="col-sm-10">
-                  <input type="text" class="form-control" name="nombreCampo" placeholder="CAMPO" minlength="5" maxlength="45" required autofocus>
+                  <input type="text" class="form-control @error('nombreCampo') is-invalid @enderror"
+                    name="nombreCampo" value="{{old('nombreCampo')}}" placeholder="CAMPO" minlength="3" maxlength="45" required autofocus>
                   </div>
+                  @error('nombreCampo')
+                  <span class="text-danger">{{$message}}</span>
+                  @enderror
                 </div>
               </div>
               <button type="submit" class="btn btn-success">{!! helper_FormatoBotonCRUD(5, 'texto') !!}</button>

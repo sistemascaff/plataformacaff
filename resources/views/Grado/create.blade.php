@@ -38,14 +38,22 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">NOMBRE GRADO (*)</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="nombreGrado" placeholder="GRADO" minlength="5" maxlength="45" required autofocus>
+                    <input type="text" class="form-control @error('nombreGrado') is-invalid @enderror"
+                      name="nombreGrado" value="{{old('nombreGrado')}}" placeholder="GRADO" minlength="5" maxlength="45" required autofocus>
                   </div>
+                  @error('nombreGrado')
+                  <span class="text-danger">{{$message}}</span>
+                  @enderror
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">POSICIÓN ORDINAL (*)</label>
                   <div class="col-sm-10">
-                  <input type="number" class="form-control" name="posicionOrdinal" value="1" min="0" max="128" required>
+                  <input type="number" class="form-control @error('posicionOrdinal') is-invalid @enderror"
+                    name="posicionOrdinal" value="{{old('posicionOrdinal',1)}}" min="0" max="100" required>
                   </div>
+                  @error('posicionOrdinal')
+                  <span class="text-danger">{{$message}}</span>
+                  @enderror
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">NIVEL (*)</label>

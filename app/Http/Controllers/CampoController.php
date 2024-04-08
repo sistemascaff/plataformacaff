@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CampoValidation;
 use App\Models\Campo;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
@@ -57,7 +58,7 @@ class CampoController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(CampoValidation $request)
     {
         if (session('idRol') == 1) {
             $campo = new Campo();
@@ -85,7 +86,7 @@ class CampoController extends Controller
         }
     }
     
-    public function update(Request $request, Campo $campo)
+    public function update(CampoValidation $request, Campo $campo)
     {
         if (session('idRol') == 1) {
             $campo->nombreCampo = strtoupper($request->nombreCampo);
@@ -101,6 +102,9 @@ class CampoController extends Controller
     public function delete(Request $request)
     {
         if (session('idRol') == 1) {
+            $request->validate([
+                'idCampo' => ['required','numeric']
+            ]);
             $campo = (new Campo())->selectCampo($request->idCampo);
             $campo->estado = '0';
             $campo->idUsuario = session('idUsuario');

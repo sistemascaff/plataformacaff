@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ParaleloValidation;
 use App\Models\Paralelo;
 use App\Models\Usuario;
-use App\Models\Curso;
 use App\Models\Grado;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules\Can;
 
 class ParaleloController extends Controller
 {
@@ -62,7 +61,7 @@ class ParaleloController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(ParaleloValidation $request)
     {
         if (session('idRol') == 1) {
             $paralelo = new Paralelo();
@@ -90,7 +89,7 @@ class ParaleloController extends Controller
         }
     }
     
-    public function update(Request $request, Paralelo $paralelo)
+    public function update(ParaleloValidation $request, Paralelo $paralelo)
     {
         if (session('idRol') == 1) {
             $paralelo->nombreParalelo = strtoupper($request->nombreParalelo);
@@ -106,6 +105,9 @@ class ParaleloController extends Controller
     public function delete(Request $request)
     {
         if (session('idRol') == 1) {
+            $request->validate([
+                'idParalelo' => ['required','numeric']
+            ]);
             $paralelo = (new Paralelo())->selectParalelo($request->idParalelo);
             $paralelo->estado = '0';
             $paralelo->idUsuario = session('idUsuario');

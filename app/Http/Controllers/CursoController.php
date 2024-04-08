@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CursoValidation;
 use App\Models\Curso;
 use App\Models\Usuario;
 use App\Models\Grado;
 use App\Models\Paralelo;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules\Can;
 
 class CursoController extends Controller
 {
@@ -70,7 +70,7 @@ class CursoController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(CursoValidation $request)
     {
         if (session('idRol') == 1) {
             $curso = new Curso();
@@ -104,7 +104,7 @@ class CursoController extends Controller
         }
     }
     
-    public function update(Request $request, Curso $curso)
+    public function update(CursoValidation $request, Curso $curso)
     {
         if (session('idRol') == 1) {
             $curso->nombreCurso = strtoupper($request->nombreCurso);
@@ -122,6 +122,9 @@ class CursoController extends Controller
     public function delete(Request $request)
     {
         if (session('idRol') == 1) {
+            $request->validate([
+                'idCurso' => ['required','numeric']
+            ]);
             $curso = (new Curso())->selectCurso($request->idCurso);
             $curso->estado = '0';
             $curso->idUsuario = session('idUsuario');

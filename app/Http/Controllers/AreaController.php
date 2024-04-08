@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AreaValidation;
 use App\Models\Area;
 use App\Models\Usuario;
 use App\Models\Campo;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules\Can;
 
 class AreaController extends Controller
 {
@@ -67,7 +67,7 @@ class AreaController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(AreaValidation $request)
     {
         if (session('idRol') == 1) {
             $area = new Area();
@@ -98,7 +98,7 @@ class AreaController extends Controller
         }
     }
     
-    public function update(Request $request, Area $area)
+    public function update(AreaValidation $request, Area $area)
     {
         if (session('idRol') == 1) {
             $area->nombreArea = strtoupper($request->nombreArea);
@@ -115,6 +115,9 @@ class AreaController extends Controller
     public function delete(Request $request)
     {
         if (session('idRol') == 1) {
+            $request->validate([
+                'idArea' => ['required','numeric']
+            ]);
             $area = (new Area())->selectArea($request->idArea);
             $area->estado = '0';
             $area->idUsuario = session('idUsuario');

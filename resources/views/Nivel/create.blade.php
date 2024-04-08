@@ -38,14 +38,22 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">NOMBRE NIVEL (*)</label>
                   <div class="col-sm-10">
-                  <input type="text" class="form-control" name="nombreNivel" placeholder="NIVEL" minlength="4" maxlength="45" required autofocus>
+                  <input type="text" class="form-control @error('nombreNivel') is-invalid @enderror"
+                    name="nombreNivel" value="{{old('nombreNivel')}}" placeholder="NIVEL" minlength="5" maxlength="45" required autofocus>
                   </div>
+                  @error('nombreNivel')
+                  <span class="text-danger">{{$message}}</span>
+                  @enderror
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">POSICIÓN ORDINAL (*)</label>
                   <div class="col-sm-10">
-                  <input type="number" class="form-control" name="posicionOrdinal" value="1" min="0" max="128" required>
+                  <input type="number" class="form-control @error('posicionOrdinal') is-invalid @enderror"
+                    name="posicionOrdinal" value="{{old('posicionOrdinal',1)}}" min="0" max="100" required>
                   </div>
+                  @error('posicionOrdinal')
+                  <span class="text-danger">{{$message}}</span>
+                  @enderror
                 </div>
               </div>
               <button type="submit" class="btn btn-success">{!! helper_FormatoBotonCRUD(5, 'texto') !!}</button>

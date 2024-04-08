@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NivelValidation;
 use App\Models\Nivel;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
@@ -57,7 +58,7 @@ class NivelController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(NivelValidation $request)
     {
         if (session('idRol') == 1) {
             $nivel = new Nivel();
@@ -86,7 +87,7 @@ class NivelController extends Controller
         }
     }
     
-    public function update(Request $request, Nivel $nivel)
+    public function update(NivelValidation $request, Nivel $nivel)
     {
         if (session('idRol') == 1) {
             $nivel->nombreNivel = strtoupper($request->nombreNivel);
@@ -103,6 +104,9 @@ class NivelController extends Controller
     public function delete(Request $request)
     {
         if (session('idRol') == 1) {
+            $request->validate([
+                'idNivel' => ['required','numeric']
+            ]);
             $nivel = (new Nivel())->selectNivel($request->idNivel);
             $nivel->estado = '0';
             $nivel->idUsuario = session('idUsuario');

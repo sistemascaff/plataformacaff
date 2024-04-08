@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GradoValidation;
 use App\Models\Grado;
 use App\Models\Usuario;
 use App\Models\Nivel;
@@ -72,7 +73,7 @@ class GradoController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(GradoValidation $request)
     {
         if (session('idRol') == 1) {
             $grado = new Grado();
@@ -104,7 +105,7 @@ class GradoController extends Controller
         }
     }
     
-    public function update(Request $request, Grado $grado)
+    public function update(GradoValidation $request, Grado $grado)
     {
         if (session('idRol') == 1) {
             $grado->nombreGrado = strtoupper($request->nombreGrado);
@@ -122,6 +123,9 @@ class GradoController extends Controller
     public function delete(Request $request)
     {
         if (session('idRol') == 1) {
+            $request->validate([
+                'idGrado' => ['required','numeric']
+            ]);
             $grado = (new Grado())->selectGrado($request->idGrado);
             $grado->estado = '0';
             $grado->idUsuario = session('idUsuario');

@@ -39,8 +39,12 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">NOMBRE PARALELO (*)</label>
                   <div class="col-sm-10">
-                  <input type="text" class="form-control" name="nombreParalelo" value="{{$paralelo->nombreParalelo}}" placeholder="PARALELO" minlength="1" maxlength="45" required autofocus>
+                  <input type="text" class="form-control @error('nombreParalelo') is-invalid @enderror"
+                    name="nombreParalelo" value="{{old('nombreParalelo',$paralelo->nombreParalelo)}}" placeholder="PARALELO" minlength="1" maxlength="20" required autofocus>
                   </div>
+                  @error('nombreParalelo')
+                  <span class="text-danger">{{$message}}</span>
+                  @enderror
                 </div>
               </div>
               

@@ -38,8 +38,12 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">NOMBRE AREA (*)</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="nombreArea" placeholder="AREA" minlength="5" maxlength="45" required autofocus>
+                    <input type="text" class="form-control @error('nombreArea') is-invalid @enderror"
+                      name="nombreArea" value="{{old('nombreArea')}}" placeholder="AREA" minlength="3" maxlength="45" required autofocus>
                   </div>
+                  @error('nombreArea')
+                  <span class="text-danger">{{$message}}</span>
+                  @enderror
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">CAMPO (*)</label>

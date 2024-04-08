@@ -39,8 +39,12 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">NOMBRE CURSO (*)</label>
                   <div class="col-sm-10">
-                  <input type="text" class="form-control" name="nombreCurso" value="{{$curso->nombreCurso}}" placeholder="CURSO" minlength="5" maxlength="45" required autofocus>
+                  <input type="text" class="form-control @error('nombreCurso') is-invalid @enderror"
+                    name="nombreCurso" value="{{old('nombreCurso',$curso->nombreCurso)}}" placeholder="CURSO" minlength="5" maxlength="45" required autofocus>
                   </div>
+                  @error('nombreCurso')
+                  <span class="text-danger">{{$message}}</span>
+                  @enderror
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">GRADO (*)</label>
