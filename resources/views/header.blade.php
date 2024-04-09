@@ -12,7 +12,10 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-colreorder/css/colReorder.bootstrap4.min.css">
+  <link rel="stylesheet" href="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-searchbuilder/css/searchBuilder.bootstrap4.min.css">
   <link rel="stylesheet" href="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link href="https://cdn.datatables.net/datetime/1.5.2/css/dataTables.dateTime.css" rel="stylesheet">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/dist/css/adminlte.min.css">
 </head>

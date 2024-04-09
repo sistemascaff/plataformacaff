@@ -25,6 +25,10 @@
 <script src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-colreorder/js/dataTables.colReorder.min.js"></script>
+<script src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-colreorder/js/colReorder.bootstrap4.min.js"></script>
+<script src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-searchbuilder/js/dataTables.searchBuilder.min.js"></script>
+<script src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-searchbuilder/js/searchBuilder.bootstrap4.min.js"></script>
 <script src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
 <script src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 <script src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/jszip/jszip.min.js"></script>
@@ -33,15 +37,21 @@
 <script src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.5.2/js/dataTables.dateTime.js"></script>
 <!-- AdminLTE App -->
 <script src="{{helper_retrocederDirectorio($retrocederDirectorioAssets)}}public/AdminLTE/dist/js/adminlte.min.js"></script>
 <!-- Script específico de los atributos de los dataTables -->
 <script>
   $(function(){
     $("#dataTable").DataTable({
-      "responsive": true, "lengthChange": true, "autoWidth": true, "order":[], "pageLength": 50,
-      "buttons": ["copy", "csv", "excel", "pdf", "colvis"]
-    }).buttons().container().appendTo('#dataTable_wrapper .col-md-6:eq(0)');
+      "responsive": true,
+      "lengthChange": true,
+      "autoWidth": true,
+      "colReorder": true,
+      "order": [],
+      "pageLength": 50,
+      "buttons": ["copy", "csv", "excel", "pdf", "colvis", "searchBuilder"]
+    }).buttons().container().appendTo('#dataTable_wrapper .row:eq(0)');
   });
 </script>
 <!-- Script específico para invocar un modal para eliminar un registro desde un dataTable -->
