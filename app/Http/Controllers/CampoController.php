@@ -14,8 +14,8 @@ class CampoController extends Controller
         if (session('idRol') == 1) {
             $tableCampo = (new Campo())->selectDisponibles($request->busqueda);
             return view('Campo.inicio', [
+                'headTitle' => 'CAMPOS - INICIO',
                 'tableCampo' => $tableCampo,
-                'retrocederDirectorioAssets' => 1,
                 'busqueda' => $request->busqueda
             ]);
         }
@@ -35,10 +35,10 @@ class CampoController extends Controller
             }
             $Areas = (new Campo())->selectCampo_Areas($idCampo);
             return view('Campo.detalle', [
+                'headTitle' => $campo->nombreCampo,
                 'campo' => $campo,
                 'usuario' => $usuario,
-                'Areas' => $Areas,
-                'retrocederDirectorioAssets' => 2
+                'Areas' => $Areas
             ]);
         }
         else{
@@ -49,8 +49,8 @@ class CampoController extends Controller
     public function new(){
         if (session('idRol') == 1) {
             return view('Campo.create', [
-                'Titulos' => "NUEVO CAMPO",
-                'retrocederDirectorioAssets' => 2
+                'headTitle' => 'CAMPOS - NUEVO CAMPO',
+                'Titulos' => "NUEVO CAMPO"
             ]);
         }
         else{
@@ -76,9 +76,9 @@ class CampoController extends Controller
     {
         if (session('idRol') == 1) {
             return view('Campo.update', [
+                'headTitle' => 'EDITAR - ' . $campo->nombreCampo,
                 'campo' => $campo,
-                'Titulos' => "EDITAR CAMPO",
-                'retrocederDirectorioAssets' => 3
+                'Titulos' => "EDITAR CAMPO"
             ]);
         }
         else{

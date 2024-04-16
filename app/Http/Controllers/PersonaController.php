@@ -14,7 +14,10 @@ class PersonaController extends Controller
     {
         if(session('idRol') == 1){
             $tablePersona = (new Persona())->getAllUsers();
-            return view('Persona.inicio', ['tablePersona' => $tablePersona, 'retrocederDirectorioAssets' => 1]);
+            return view('Persona.inicio', [
+                'headTitle' => 'PERSONAS - INICIO',
+                'tablePersona' => $tablePersona
+        ]);
         }
         else{
             return redirect()->route('login');

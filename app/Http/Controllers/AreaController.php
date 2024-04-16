@@ -15,8 +15,8 @@ class AreaController extends Controller
         if (session('idRol') == 1) {
             $tableArea = (new Area())->selectDisponibles($request->busqueda);
             return view('Area.inicio', [
+                'headTitle' => 'AREAS - INICIO',
                 'tableArea' => $tableArea,
-                'retrocederDirectorioAssets' => 1,
                 'busqueda' => $request->busqueda
         ]);
         }
@@ -36,10 +36,10 @@ class AreaController extends Controller
                 $usuario->correo = '';
             }
             return view('Area.detalle', [
+                'headTitle' => $area->nombreArea,
                 'area' => $area,
                 'usuario' => $usuario,
-                'campo' => $campo,
-                'retrocederDirectorioAssets' => 2
+                'campo' => $campo
             ]);
         }
         else{
@@ -56,10 +56,10 @@ class AreaController extends Controller
                 $valorAssets = 2;
             }
             return view('Area.create', [
+                'headTitle' => 'AREAS - NUEVA AREA',
                 'Titulos' => "NUEVA AREA",
                 'Campos' => $Campos,
-                'idSelect' => $idSelect,
-                'retrocederDirectorioAssets' => $valorAssets
+                'idSelect' => $idSelect
             ]);
         }
         else{
@@ -87,10 +87,10 @@ class AreaController extends Controller
         if (session('idRol') == 1) {
             $Campos = (new Campo())->selectDisponibles('');
             return view('Area.update', [
+                'headTitle' => 'EDITAR - ' . $area->nombreArea,
                 'area' => $area,
                 'Campos' => $Campos,
-                'Titulos' => "MODIFICAR AREA",
-                'retrocederDirectorioAssets' => 3
+                'Titulos' => "MODIFICAR AREA"
             ]);
         }
         else{

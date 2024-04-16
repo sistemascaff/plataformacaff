@@ -16,9 +16,9 @@ class CursoController extends Controller
         if (session('idRol') == 1) {
             $tableCurso = (new Curso())->selectDisponibles($request->busqueda);
             return view('Curso.inicio', [
+                'headTitle' => 'CURSOS - INICIO',
                 'tableCurso' => $tableCurso,
-                'busqueda' => $request->busqueda,
-                'retrocederDirectorioAssets' => 1
+                'busqueda' => $request->busqueda
         ]);
         }
         else{
@@ -39,12 +39,12 @@ class CursoController extends Controller
                 $usuario->correo = '';
             }
             return view('Curso.detalle', [
+                'headTitle' => $curso->nombreCurso,
                 'curso' => $curso,
                 'usuario' => $usuario,
                 'grado' => $grado,
                 'paralelo' => $paralelo,
-                'Estudiantes' => $Estudiantes,
-                'retrocederDirectorioAssets' => 2
+                'Estudiantes' => $Estudiantes
             ]);
         }
         else{
@@ -57,12 +57,12 @@ class CursoController extends Controller
             $Grados = (new Grado())->selectDisponibles('');
             $Paralelos = (new Paralelo())->selectDisponibles('');
             return view('Curso.create', [
+                'headTitle' => 'CURSOS - NUEVO CURSO',
                 'Titulos' => "NUEVO CURSO",
                 'Grados' => $Grados,
                 'Paralelos' => $Paralelos,
                 'idSelectGrado' => $request->idGrado,
-                'idSelectParalelo' => $request->idParalelo,
-                'retrocederDirectorioAssets' => 2
+                'idSelectParalelo' => $request->idParalelo
             ]);
         }
         else{
@@ -92,11 +92,11 @@ class CursoController extends Controller
             $Grados = (new Grado())->selectDisponibles('');
             $Paralelos = (new Paralelo())->selectDisponibles('');
             return view('Curso.update', [
+                'headTitle' => 'EDITAR - ' . $curso->nombreCurso,
                 'curso' => $curso,
                 'Grados' => $Grados,
                 'Paralelos' => $Paralelos,
-                'Titulos' => "MODIFICAR CURSO",
-                'retrocederDirectorioAssets' => 3
+                'Titulos' => "MODIFICAR CURSO"
             ]);
         }
         else{

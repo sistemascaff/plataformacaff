@@ -17,9 +17,9 @@ class GradoController extends Controller
         if (session('idRol') == 1) {
             $tableGrado = (new Grado())->selectDisponibles($request->busqueda);
             return view('Grado.inicio', [
+                'headTitle' => 'GRADOS - INICIO',
                 'tableGrado' => $tableGrado,
-                'busqueda' => $request->busqueda,
-                'retrocederDirectorioAssets' => 1
+                'busqueda' => $request->busqueda
         ]);
         }
         else{
@@ -40,12 +40,12 @@ class GradoController extends Controller
                 $usuario->correo = '';
             }
             return view('Grado.detalle', [
+                'headTitle' => $grado->nombreGrado,
                 'grado' => $grado,
                 'usuario' => $usuario,
                 'nivel' => $nivel,
                 'Cursos' => $Cursos,
-                'Paralelos' => $Paralelos,
-                'retrocederDirectorioAssets' => 2
+                'Paralelos' => $Paralelos
             ]);
         }
         else{
@@ -55,17 +55,15 @@ class GradoController extends Controller
 
     public function new($idSelect = null){
         if (session('idRol') == 1) {
-            $valorAssets = 3;
             $Niveles = (new Nivel())->selectDisponibles('');
             if(!$idSelect){
                 $idSelect = 0;
-                $valorAssets = 2;
             }
             return view('Grado.create', [
+                'headTitle' => 'GRADOS - NUEVO GRADO',
                 'Titulos' => "NUEVO GRADO",
                 'Niveles' => $Niveles,
-                'idSelect' => $idSelect,
-                'retrocederDirectorioAssets' => $valorAssets
+                'idSelect' => $idSelect
             ]);
         }
         else{
@@ -94,10 +92,10 @@ class GradoController extends Controller
         if (session('idRol') == 1) {
             $Niveles = (new Nivel())->selectDisponibles('');
             return view('Grado.update', [
+                'headTitle' => 'EDITAR - ' . $grado->nombreGrado,
                 'grado' => $grado,
                 'Niveles' => $Niveles,
-                'Titulos' => "MODIFICAR AREA",
-                'retrocederDirectorioAssets' => 3
+                'Titulos' => "MODIFICAR AREA"
             ]);
         }
         else{

@@ -14,7 +14,10 @@ class UsuarioController extends Controller
     {
         if(session('idRol') == 1){
             $tableUsuario = (new Usuario())->getAllUsers();
-            return view('Usuario.inicio', ['tableUsuario' => $tableUsuario, 'retrocederDirectorioAssets' => 1]);
+            return view('Usuario.inicio', [
+                'headTitle' => 'USUARIOS - INICIO',
+                'tableUsuario' => $tableUsuario
+            ]);
         }
         else{
             return redirect()->route('login');
@@ -25,8 +28,8 @@ class UsuarioController extends Controller
     {
         $Usuario = (new Usuario())->selectUsuario($idUsuario);
         return view('Usuario.detalle', [
-            'Usuario' => $Usuario,
-            'retrocederDirectorioAssets' => 2
+            'headTitle' => $Usuario->correo,
+            'Usuario' => $Usuario
         ]);
     }
 
@@ -64,8 +67,8 @@ class UsuarioController extends Controller
     public function new()
     {
         return view('Usuario.create', [
-            'Titulos' => "NUEVO USUARIO",
-            'retrocederDirectorioAssets' => 2
+            'headTitle' => 'USUARIOS - NUEVO USUARIO',
+            'Titulos' => "NUEVO USUARIO"
         ]);
     }
 

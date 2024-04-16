@@ -15,8 +15,8 @@ class ParaleloController extends Controller
         if (session('idRol') == 1) {
             $tableParalelo = (new Paralelo())->selectDisponibles($request->busqueda);
             return view('Paralelo.inicio', [
+                'headTitle' => 'PARALELOS - INICIO',
                 'tableParalelo' => $tableParalelo,
-                'retrocederDirectorioAssets' => 1,
                 'busqueda' => $request->busqueda
         ]);
         }
@@ -37,11 +37,11 @@ class ParaleloController extends Controller
             }
             $Cursos = (new Paralelo())->selectParalelo_Cursos($idParalelo);
             return view('Paralelo.detalle', [
+                'headTitle' => $paralelo->nombreParalelo,
                 'paralelo' => $paralelo,
                 'usuario' => $usuario,
                 'Cursos' => $Cursos,
-                'Grados' => $Grados,
-                'retrocederDirectorioAssets' => 2
+                'Grados' => $Grados
             ]);
         }
         else{
@@ -52,8 +52,8 @@ class ParaleloController extends Controller
     public function new(){
         if (session('idRol') == 1) {
             return view('Paralelo.create', [
-                'Titulos' => "NUEVO PARALELO",
-                'retrocederDirectorioAssets' => 2
+                'headTitle' => 'PARALELOS - NUEVO PARALELO',
+                'Titulos' => "NUEVO PARALELO"
             ]);
         }
         else{
@@ -79,9 +79,9 @@ class ParaleloController extends Controller
     {
         if (session('idRol') == 1) {
             return view('Paralelo.update', [
+                'headTitle' => 'EDITAR - ' . $paralelo->nombreParalelo,
                 'paralelo' => $paralelo,
-                'Titulos' => "MODIFICAR PARALELO",
-                'retrocederDirectorioAssets' => 3
+                'Titulos' => "MODIFICAR PARALELO"
             ]);
         }
         else{

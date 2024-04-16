@@ -14,9 +14,9 @@ class NivelController extends Controller
         if (session('idRol') == 1) {
             $tableNivel = (new Nivel())->selectDisponibles($request->busqueda);
             return view('Nivel.inicio', [
+            'headTitle' => 'NIVELES - INICIO',
             'tableNivel' => $tableNivel,
-            'busqueda' => $request->busqueda,
-            'retrocederDirectorioAssets' => 1
+            'busqueda' => $request->busqueda
         ]);
         }
         else{
@@ -35,10 +35,10 @@ class NivelController extends Controller
             }
             $Grados = (new Nivel())->selectNivel_Grados($idNivel);
             return view('Nivel.detalle', [
+                'headTitle' => $nivel->nombreNivel,
                 'nivel' => $nivel,
                 'usuario' => $usuario,
-                'Grados' => $Grados,
-                'retrocederDirectorioAssets' => 2
+                'Grados' => $Grados
             ]);
         }
         else{
@@ -49,8 +49,8 @@ class NivelController extends Controller
     public function new(){
         if (session('idRol') == 1) {
             return view('Nivel.create', [
-                'Titulos' => "NUEVO NIVEL",
-                'retrocederDirectorioAssets' => 2
+                'headTitle' => 'NIVELES - NUEVO NIVEL',
+                'Titulos' => "NUEVO NIVEL"
             ]);
         }
         else{
@@ -77,9 +77,9 @@ class NivelController extends Controller
     {
         if (session('idRol') == 1) {
             return view('Nivel.update', [
+                'headTitle' => 'EDITAR - ' . $nivel->nombreNivel,
                 'nivel' => $nivel,
-                'Titulos' => "EDITAR NIVEL",
-                'retrocederDirectorioAssets' => 3
+                'Titulos' => "EDITAR NIVEL"
             ]);
         }
         else{
