@@ -72,7 +72,6 @@ class MateriaController extends Controller
             $materia = new Materia();
             $materia->nombreMateria = strtoupper($request->nombreMateria);
             $materia->nombreCorto = strtoupper($request->nombreCorto);
-            $materia->tipoMateria = strtoupper($request->tipoMateria);
             $materia->idArea = $request->idArea;
             $materia->idUsuario = session('idUsuario');
             $materia->save();
@@ -104,7 +103,6 @@ class MateriaController extends Controller
         if (session('idRol') == 1) {
             $materia->nombreMateria = strtoupper($request->nombreMateria);
             $materia->nombreCorto = strtoupper($request->nombreCorto);
-            $materia->tipoMateria = strtoupper($request->tipoMateria);
             $materia->idArea = $request->idArea;
             $materia->idUsuario = session('idUsuario');
             $materia->save();

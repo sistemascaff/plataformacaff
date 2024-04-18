@@ -54,7 +54,6 @@
                 <tr>
                   <th>MATERIA</th>
                   <th>ABREVIATURA</th>
-                  <th>TIPO MATERIA</th>
                   <th>AREA</th>
                   <th>CAMPO</th>
                   <th>F. REGISTRO</th>
@@ -68,7 +67,6 @@
                   <tr>
                     <td>{{$rowMateria->nombreMateria}}</td>
                     <td>{{$rowMateria->nombreCorto}}</td>
-                    <td>{{helper_FormatoAtributoValorATexto($rowMateria->tipoMateria,'materiaTipoMateria')}}</td>
                     <td>{{$rowMateria->nombreArea}}</td>
                     <td>{{$rowMateria->nombreCampo}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowMateria->fechaRegistro)}}</td>

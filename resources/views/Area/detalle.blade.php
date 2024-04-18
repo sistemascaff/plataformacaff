@@ -92,7 +92,6 @@
               <tr>
                 <th>MATERIA</th>
                 <th>ABREVIATURA</th>
-                <th>TIPO DE MATERIA</th>
                 <th>F. REGISTRO</th>
                 <th>F. ACTUALIZACION</th>
                 <th>Acciones</th>
@@ -103,7 +102,6 @@
           <tr>
             <td>{{$rowMaterias->nombreMateria}}</td>
             <td>{{$rowMaterias->nombreCorto}}</td>
-            <td>{{helper_FormatoAtributoValorATexto($rowMaterias->tipoMateria, 'materiaTipoMateria')}}</td>
             <td>{{helper_formatoVistaFechayHora($rowMaterias->fechaRegistro)}}</td>
             <td>{{helper_formatoVistaFechayHora($rowMaterias->fechaActualizacion)}}</td>
             <td>

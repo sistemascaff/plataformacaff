@@ -56,15 +56,6 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">TIPO DE MATERIA (*)</label>
-                  <div class="col-sm-10">
-                    <select class="form-control" name="tipoMateria" required>
-                      <option value="1">CUALITATIVA</option>
-                      <option value="2">CUANTITATIVA</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group row">
                   <label class="col-sm-2 col-form-label">AREA (*)</label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idArea" required>

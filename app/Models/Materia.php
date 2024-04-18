@@ -17,7 +17,7 @@ class Materia extends Model
     const UPDATED_AT = 'fechaActualizacion';
 
     public function selectDisponibles($busqueda){
-        $selectAll = Materia::select('Materias.idMateria','Materias.nombreMateria','Materias.nombreCorto','Materias.tipoMateria','Areas.nombreArea','Campos.nombreCampo','Materias.estado','Materias.fechaRegistro','Materias.fechaActualizacion','Materias.idUsuario','Usuarios.correo')
+        $selectAll = Materia::select('Materias.idMateria','Materias.nombreMateria','Materias.nombreCorto','Areas.nombreArea','Campos.nombreCampo','Materias.estado','Materias.fechaRegistro','Materias.fechaActualizacion','Materias.idUsuario','Usuarios.correo')
         ->leftjoin('Usuarios', 'Materias.idUsuario', '=', 'Usuarios.idUsuario')
         ->join('Areas', 'Materias.idArea', '=', 'Areas.idArea')
         ->join('Campos', 'Areas.idCampo', '=', 'Campos.idCampo')

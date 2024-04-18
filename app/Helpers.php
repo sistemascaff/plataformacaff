@@ -100,15 +100,15 @@ function helper_FormatoBotonCRUD($valor, $tipo){
 }
 
 function helper_FormatoAtributoValorATexto($valor, $atributo){
-    $materiaTipoMateria = '';
+    $asignaturaTipoCalificacion = '';
     
     switch ($valor) {
         case '1':
-            $materiaTipoMateria = 'CUALITATIVA';
+            $asignaturaTipoCalificacion = 'CUALITATIVA';
 
             break;
         case '2':
-            $materiaTipoMateria = 'CUANTITATIVA';
+            $asignaturaTipoCalificacion = 'CUANTITATIVA';
 
             break;
         default:
@@ -116,8 +116,8 @@ function helper_FormatoAtributoValorATexto($valor, $atributo){
             break;
     }
     
-    if ($atributo === 'materiaTipoMateria') {
-        return $materiaTipoMateria;
+    if ($atributo === 'asignaturaTipoCalificacion') {
+        return $asignaturaTipoCalificacion;
         /*
     } elseif ($tipo === 'texto') {
         return '<i class="' . $icono . '"></i> ' . $texto;*/

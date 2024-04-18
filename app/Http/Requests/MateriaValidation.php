@@ -24,7 +24,6 @@ class MateriaValidation extends FormRequest
         return [
             'nombreMateria' => ['required','min:3','max:60'],
             'nombreCorto' => ['required','min:1','max:5'],
-            'tipoMateria' => ['required','numeric','min:1','max:2'],
             'idArea' => ['required','numeric']
         ];
     }

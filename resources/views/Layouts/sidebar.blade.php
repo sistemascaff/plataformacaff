@@ -82,7 +82,7 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="{{route('campos.index')}}" class="nav-link {{ request()->is('campos*') ? 'active' : '' }}">
-                <i class="fa fa-th-list nav-icon"></i>
+                <i class="fa fa-key nav-icon"></i>
                 <p>CAMPOS</p>
               </a>
             </li>
@@ -90,7 +90,7 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="{{route('areas.index')}}" class="nav-link {{ request()->is('areas*') ? 'active' : '' }}">
-                <i class="fa fa-th-list nav-icon"></i>
+                <i class="fa fa-circle-o nav-icon"></i>
                 <p>AREAS</p>
               </a>
             </li>
@@ -98,7 +98,7 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="{{route('materias.index')}}" class="nav-link {{ request()->is('materias*') ? 'active' : '' }}">
-                <i class="fa fa-th-list nav-icon"></i>
+                <i class="fa fa-circle-o nav-icon"></i>
                 <p>MATERIAS</p>
               </a>
             </li>
@@ -124,7 +124,7 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="{{route('niveles.index')}}" class="nav-link {{ request()->is('niveles*') ? 'active' : '' }}">
-                <i class="fa fa-sitemap nav-icon"></i>
+                <i class="fa fa-key nav-icon"></i>
                 <p>NIVELES</p>
               </a>
             </li>
@@ -132,7 +132,7 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="{{route('grados.index')}}" class="nav-link {{ request()->is('grados*') ? 'active' : '' }}">
-                <i class="fa fa-sitemap nav-icon"></i>
+                <i class="fa fa-circle-o nav-icon"></i>
                 <p>GRADOS</p>
               </a>
             </li>
@@ -140,7 +140,7 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="{{route('paralelos.index')}}" class="nav-link {{ request()->is('paralelos*') ? 'active' : '' }}">
-                <i class="fa fa-sitemap nav-icon"></i>
+                <i class="fa fa-key nav-icon"></i>
                 <p>PARALELOS</p>
               </a>
             </li>
@@ -148,7 +148,7 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="{{route('cursos.index')}}" class="nav-link {{ request()->is('cursos*') ? 'active' : '' }}">
-                <i class="fa fa-sitemap nav-icon"></i>
+                <i class="fa fa-circle-o nav-icon"></i>
                 <p>CURSOS</p>
               </a>
             </li>

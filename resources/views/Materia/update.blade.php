@@ -56,15 +56,7 @@
                   <span class="text-danger">{{$message}}</span>
                   @enderror
                 </div>
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">TIPO DE MATERIA (*)</label>
-                  <div class="col-sm-10">
-                    <select class="form-control" name="tipoMateria" required>                      
-                      <option value="1" {{ $materia->tipoMateria == 1 ? 'selected' : '' }}>CUALITATIVA</option>
-                      <option value="2" {{ $materia->tipoMateria == 2 ? 'selected' : '' }}>CUANTITATIVA</option>
-                    </select>
-                  </div>
-                </div>
+                
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">AREA (*)</label>
                   <div class="col-sm-10">
