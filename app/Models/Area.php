@@ -17,7 +17,7 @@ class Area extends Model
     const UPDATED_AT = 'fechaActualizacion';
 
     public function selectDisponibles($busqueda){
-        $selectAll = Area::select('Areas.idArea','Campos.nombreCampo','Areas.nombreArea','Areas.estado','Areas.fechaRegistro','Areas.fechaActualizacion','Areas.idUsuario','Usuarios.correo')
+        $selectAll = Area::select('Areas.idArea','Areas.nombreCorto','Campos.nombreCampo','Areas.nombreArea','Areas.estado','Areas.fechaRegistro','Areas.fechaActualizacion','Areas.idUsuario','Usuarios.correo')
         ->leftjoin('Usuarios', 'Areas.idUsuario', '=', 'Usuarios.idUsuario')
         ->join('Campos', 'Areas.idCampo', '=', 'Campos.idCampo')
         ->where('Areas.estado', '=', 1)
@@ -35,5 +35,15 @@ class Area extends Model
     public function selectArea($idArea){
         $selectArea = Area::find($idArea);
         return $selectArea;
+    }
+
+    public function selectArea_Materias($idArea){
+        $selectMaterias = Area::select('Materias.idMateria','Materias.nombreMateria','Materias.nombreCorto','Materias.tipoMateria','Materias.fechaRegistro','Materias.fechaActualizacion')
+        ->join('Materias', 'Areas.idArea', '=', 'Materias.idArea')
+        ->where('Materias.idArea', '=', $idArea)
+        ->where('Materias.estado', '=', '1')
+        ->orderBy('Materias.nombreMateria', 'ASC')
+        ->get();
+        return $selectMaterias;
     }
 }

@@ -71,8 +71,8 @@
           </ul>
         </li>
 
-        <li class="nav-item {{ request()->is('campos*') ? 'menu-open' : (request()->is('areas*') ? 'menu-open' : '') }}">
-          <a href="" class="nav-link {{ request()->is('campos*') ? 'active' : (request()->is('areas*') ? 'active' : '') }}">
+        <li class="nav-item {{ request()->is('campos*') ? 'menu-open' : (request()->is('areas*') ? 'menu-open' : (request()->is('materias*') ? 'menu-open' : '')) }}">
+          <a href="" class="nav-link {{ request()->is('campos*') ? 'active' : (request()->is('areas*') ? 'active' : (request()->is('materias*') ? 'active' : '')) }}">
             <i class="nav-icon fa fa-th-list"></i>
             <p>
               CAMPOS
@@ -92,6 +92,14 @@
               <a href="{{route('areas.index')}}" class="nav-link {{ request()->is('areas*') ? 'active' : '' }}">
                 <i class="fa fa-th-list nav-icon"></i>
                 <p>AREAS</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('materias.index')}}" class="nav-link {{ request()->is('materias*') ? 'active' : '' }}">
+                <i class="fa fa-th-list nav-icon"></i>
+                <p>MATERIAS</p>
               </a>
             </li>
           </ul>

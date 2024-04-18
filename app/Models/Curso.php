@@ -17,7 +17,7 @@ class Curso extends Model
     const UPDATED_AT = 'fechaActualizacion';
 
     public function selectDisponibles($busqueda){
-        $selectAll = Curso::select('Cursos.idCurso','Cursos.nombreCurso','Grados.nombreGrado','Paralelos.nombreParalelo','Cursos.estado','Cursos.fechaRegistro','Cursos.fechaActualizacion','Cursos.idUsuario','Usuarios.correo')
+        $selectAll = Curso::select('Cursos.idCurso','Cursos.nombreCurso','Grados.nombreGrado','Paralelos.nombreParalelo','Niveles.nombreNivel','Cursos.estado','Cursos.fechaRegistro','Cursos.fechaActualizacion','Cursos.idUsuario','Usuarios.correo')
         ->leftjoin('Usuarios', 'Cursos.idUsuario', '=', 'Usuarios.idUsuario')
         ->join('Grados', 'Cursos.idGrado', '=', 'Grados.idGrado')
         ->join('Paralelos', 'Cursos.idParalelo', '=', 'Paralelos.idParalelo')

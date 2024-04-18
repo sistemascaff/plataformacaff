@@ -53,6 +53,7 @@
               <thead>
                 <tr>
                   <th>AREA</th>
+                  <th>ABREVIATURA</th>
                   <th>CAMPO</th>
                   <th>F. REGISTRO</th>
                   <th>F. ACTUALIZACION</th>
@@ -64,6 +65,7 @@
                 @foreach ($tableArea as $rowArea)
                   <tr>
                     <td>{{$rowArea->nombreArea}}</td>
+                    <td>{{$rowArea->nombreCorto}}</td>
                     <td>{{$rowArea->nombreCampo}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowArea->fechaRegistro)}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowArea->fechaActualizacion)}}</td>

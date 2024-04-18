@@ -49,6 +49,12 @@
               </div>
             </div>
             <div class="form-group row">
+              <label for="inputEmail3" class="col-md-2 col-form-label">Abreviatura</label>
+              <div class="col-md-10">
+                <p class="form form-control">{{$area->nombreCorto}}</p>
+              </div>
+            </div>
+            <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Campo</label>
               <div class="col-md-10">
                 <a href="{{route('campos.details', $campo->idCampo)}}" class="form form-control font-weight-bold">{{$campo->nombreCampo}}</a>
@@ -75,6 +81,46 @@
           </div>
         </div>
         
+        <h3 class="card-title font-weight-bold">MATERIAS DEPENDIENTES DE {{$area->nombreArea}}:</h3>
+        <br><br>
+        <a href="{{route('materias.create', $area->idArea)}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
+        <br><br>
+
+        <div class="col-md-12">
+          <table id="dataTable" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>MATERIA</th>
+                <th>ABREVIATURA</th>
+                <th>TIPO DE MATERIA</th>
+                <th>F. REGISTRO</th>
+                <th>F. ACTUALIZACION</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+          @foreach ($Materias as $rowMaterias)
+          <tr>
+            <td>{{$rowMaterias->nombreMateria}}</td>
+            <td>{{$rowMaterias->nombreCorto}}</td>
+            <td>{{helper_FormatoAtributoValorATexto($rowMaterias->tipoMateria, 'materiaTipoMateria')}}</td>
+            <td>{{helper_formatoVistaFechayHora($rowMaterias->fechaRegistro)}}</td>
+            <td>{{helper_formatoVistaFechayHora($rowMaterias->fechaActualizacion)}}</td>
+            <td>
+              <div class="btn-group">
+                <a class="btn btn-info" href="{{route('materias.details', $rowMaterias->idMateria)}}">
+                  {!! helper_FormatoBotonCRUD(2, 'icono') !!}
+                </a>
+                <a class="btn btn-warning" href="{{route('materias.edit', $rowMaterias->idMateria)}}">
+                  {!! helper_FormatoBotonCRUD(3, 'icono') !!}
+                </a>
+              </div>
+            </td>
+          </tr>
+          @endforeach
+            </tbody>
+          </table>
+        </div>
       </div>
       <!-- /.card-body -->
     </div>

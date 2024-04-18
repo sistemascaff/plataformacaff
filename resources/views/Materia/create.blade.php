@@ -11,7 +11,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('usuarios.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item"><a href="{{route('areas.index')}}">AREAS</a></li>
+            <li class="breadcrumb-item"><a href="{{route('materias.index')}}">MATERIAS</a></li>
             <li class="breadcrumb-item active">{{$Titulos}}</li>
           </ol>
         </div>
@@ -30,18 +30,18 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-6">
-            <form class="form-horizontal" action="{{route('areas.store')}}" method="POST">
+            <form class="form-horizontal" action="{{route('materias.store')}}" method="POST">
 
               @csrf
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE AREA (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE MATERIA (*)</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control @error('nombreArea') is-invalid @enderror"
-                      name="nombreArea" value="{{old('nombreArea')}}" placeholder="AREA" minlength="3" maxlength="45" required autofocus>
+                    <input type="text" class="form-control @error('nombreMateria') is-invalid @enderror"
+                      name="nombreMateria" value="{{old('nombreMateria')}}" placeholder="MATERIA" minlength="3" maxlength="45" required autofocus>
                   </div>
-                  @error('nombreArea')
+                  @error('nombreMateria')
                   <span class="text-danger">{{$message}}</span>
                   @enderror
                 </div>
@@ -56,14 +56,23 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">CAMPO (*)</label>
+                  <label class="col-sm-2 col-form-label">TIPO DE MATERIA (*)</label>
                   <div class="col-sm-10">
-                    <select class="form-control" name="idCampo" required>
-                      @foreach ($Campos as $rowCampos)
-                      @if ($rowCampos->idCampo == $idSelect)
-                      <option value="{{$rowCampos->idCampo}}" selected>{{$rowCampos->nombreCampo}}</option>
+                    <select class="form-control" name="tipoMateria" required>
+                      <option value="1">CUALITATIVA</option>
+                      <option value="2">CUANTITATIVA</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">AREA (*)</label>
+                  <div class="col-sm-10">
+                    <select class="form-control" name="idArea" required>
+                      @foreach ($Areas as $rowAreas)
+                      @if ($rowAreas->idArea == $idSelect)
+                      <option value="{{$rowAreas->idArea}}" selected>{{$rowAreas->nombreArea}}</option>
                       @else
-                      <option value="{{$rowCampos->idCampo}}">{{$rowCampos->nombreCampo}}</option>
+                      <option value="{{$rowAreas->idArea}}">{{$rowAreas->nombreArea}}</option>
                       @endif
                       @endforeach
                     </select>
@@ -71,7 +80,7 @@
                 </div>
               </div>
               <button type="submit" class="btn btn-success">{!! helper_FormatoBotonCRUD(5, 'texto') !!}</button>
-              <a href="{{route('areas.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
+              <a href="{{route('materias.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
               </form>
           </div>
         </div>

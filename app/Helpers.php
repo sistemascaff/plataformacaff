@@ -99,4 +99,31 @@ function helper_FormatoBotonCRUD($valor, $tipo){
     }
 }
 
+function helper_FormatoAtributoValorATexto($valor, $atributo){
+    $materiaTipoMateria = '';
+    
+    switch ($valor) {
+        case '1':
+            $materiaTipoMateria = 'CUALITATIVA';
+
+            break;
+        case '2':
+            $materiaTipoMateria = 'CUANTITATIVA';
+
+            break;
+        default:
+            return 'HELPER ERROR: VALOR EXCEDIDO';
+            break;
+    }
+    
+    if ($atributo === 'materiaTipoMateria') {
+        return $materiaTipoMateria;
+        /*
+    } elseif ($tipo === 'texto') {
+        return '<i class="' . $icono . '"></i> ' . $texto;*/
+    } else {
+        return 'HELPER ERROR: ATRIBUTO INCORRECTO';
+    }
+}
+
 

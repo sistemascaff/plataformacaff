@@ -10,8 +10,8 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('cursos.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item active">CURSOS</li>
+            <li class="breadcrumb-item"><a href="{{route('materias.index')}}">INICIO</a></li>
+            <li class="breadcrumb-item active">MATERIAS</li>
           </ol>
         </div>
       </div>
@@ -24,13 +24,13 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title font-weight-bold">CURSOS</h3>
+        <h3 class="card-title font-weight-bold">MATERIAS</h3>
       </div>
       <div class="card-body">
-        <a href="{{route('cursos.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
+        <a href="{{route('materias.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
         <br><br>
         <!-- Formulario de búsqueda -->
-        <form action="{{route('cursos.index')}}" method="GET">
+        <form action="{{route('materias.index')}}" method="GET">
           <div class="input-group input-group-sm col-md-3">
             <input type="text" name="busqueda" class="form-control" placeholder="Filtrar tabla..." value="{{$busqueda}}" autofocus>
             <span class="input-group-append">
@@ -42,7 +42,7 @@
         @if ($busqueda)
           <h3 class="font-weight-bold">
             Resultados de la búsqueda: "{{$busqueda}}" 
-            <a href="{{route('cursos.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'icono') !!}</a>
+            <a href="{{route('materias.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'icono') !!}</a>
           </h3>
           <br>
         @endif
@@ -52,10 +52,11 @@
             <table id="dataTable" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>CURSO</th>
-                  <th>GRADO</th>
-                  <th>PARALELO</th>
-                  <th>NIVEL</th>
+                  <th>MATERIA</th>
+                  <th>ABREVIATURA</th>
+                  <th>TIPO MATERIA</th>
+                  <th>AREA</th>
+                  <th>CAMPO</th>
                   <th>F. REGISTRO</th>
                   <th>F. ACTUALIZACION</th>
                   <th>MODIFICADO POR</th>
@@ -63,24 +64,25 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($tableCurso as $rowCurso)
+                @foreach ($tableMateria as $rowMateria)
                   <tr>
-                    <td>{{$rowCurso->nombreCurso}}</td>
-                    <td>{{$rowCurso->nombreGrado}}</td>
-                    <td>{{$rowCurso->nombreParalelo}}</td>
-                    <td>{{$rowCurso->nombreNivel}}</td>
-                    <td>{{helper_formatoVistaFechayHora($rowCurso->fechaRegistro)}}</td>
-                    <td>{{helper_formatoVistaFechayHora($rowCurso->fechaActualizacion)}}</td>
-                    <td>{{helper_formatoNullorEmpty($rowCurso->correo)}}</td>
+                    <td>{{$rowMateria->nombreMateria}}</td>
+                    <td>{{$rowMateria->nombreCorto}}</td>
+                    <td>{{helper_FormatoAtributoValorATexto($rowMateria->tipoMateria,'materiaTipoMateria')}}</td>
+                    <td>{{$rowMateria->nombreArea}}</td>
+                    <td>{{$rowMateria->nombreCampo}}</td>
+                    <td>{{helper_formatoVistaFechayHora($rowMateria->fechaRegistro)}}</td>
+                    <td>{{helper_formatoVistaFechayHora($rowMateria->fechaActualizacion)}}</td>
+                    <td>{{helper_formatoNullorEmpty($rowMateria->correo)}}</td>
                     <td>
                       <div class="btn-group">
-                        <a class="btn btn-info" href="{{route('cursos.details', $rowCurso->idCurso)}}">
+                        <a class="btn btn-info" href="{{route('materias.details', $rowMateria->idMateria)}}">
                           {!! helper_FormatoBotonCRUD(2, 'icono') !!}
                         </a>
-                        <a class="btn btn-warning" href="{{route('cursos.edit',$rowCurso->idCurso)}}">
+                        <a class="btn btn-warning" href="{{route('materias.edit',$rowMateria->idMateria)}}">
                           {!! helper_FormatoBotonCRUD(3, 'icono') !!}
                         </a>
-                        <a class="btn btn-danger eliminar-registro" data-toggle="modal" data-target="#modalDelete" data-id="{{$rowCurso->idCurso}}" data-nombre="{{$rowCurso->nombreCurso}}">
+                        <a class="btn btn-danger eliminar-registro" data-toggle="modal" data-target="#modalDelete" data-id="{{$rowMateria->idMateria}}" data-nombre="{{$rowMateria->nombreMateria}}">
                           {!! helper_FormatoBotonCRUD(4 , 'icono') !!}
                         </a>                      
                       </div>
@@ -113,10 +115,10 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</button>
-          <form action="{{route('cursos.delete')}}" method="POST">
+          <form action="{{route('materias.delete')}}" method="POST">
             @csrf
             @method('put')
-            <input type="hidden" id="id" name="idCurso" value="0">
+            <input type="hidden" id="id" name="idMateria" value="0">
             <button type="submit" class="btn btn-danger">{!! helper_FormatoBotonCRUD(4, 'texto') !!}</button>
           </form>
         </div>

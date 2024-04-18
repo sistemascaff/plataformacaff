@@ -31,6 +31,8 @@ class AreaController extends Controller
             $area = (new Area())->selectArea($idArea);
             $usuario = (new Usuario())->selectUsuario($area->idUsuario);
             $campo = (new Campo())->selectCampo($area->idCampo);
+            $Materias = (new Area())->selectArea_Materias($idArea);
+
             if (!$usuario) {
                 $usuario = new Usuario();
                 $usuario->correo = '';
@@ -39,7 +41,9 @@ class AreaController extends Controller
                 'headTitle' => $area->nombreArea,
                 'area' => $area,
                 'usuario' => $usuario,
-                'campo' => $campo
+                'campo' => $campo,
+                'Materias' => $Materias
+
             ]);
         }
         else{
@@ -49,11 +53,9 @@ class AreaController extends Controller
 
     public function new($idSelect = null){
         if (session('idRol') == 1) {
-            $valorAssets = 3;
             $Campos = (new Campo())->selectDisponibles('');
             if(!$idSelect){
                 $idSelect = 0;
-                $valorAssets = 2;
             }
             return view('Area.create', [
                 'headTitle' => 'AREAS - NUEVA AREA',
@@ -72,6 +74,7 @@ class AreaController extends Controller
         if (session('idRol') == 1) {
             $area = new Area();
             $area->nombreArea = strtoupper($request->nombreArea);
+            $area->nombreCorto = strtoupper($request->nombreCorto);
             $area->idCampo = $request->idCampo;
             $area->idUsuario = session('idUsuario');
             $area->save();
@@ -102,6 +105,7 @@ class AreaController extends Controller
     {
         if (session('idRol') == 1) {
             $area->nombreArea = strtoupper($request->nombreArea);
+            $area->nombreCorto = strtoupper($request->nombreCorto);
             $area->idCampo = $request->idCampo;
             $area->idUsuario = session('idUsuario');
             $area->save();

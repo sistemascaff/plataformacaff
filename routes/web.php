@@ -7,6 +7,7 @@ use App\Http\Controllers\NivelController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\CursoController;
+use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\ParaleloController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +49,15 @@ Route::controller(AreaController::class)->group(function(){
     Route::get('areas/{area}/editar','edit')->name('areas.edit');
     Route::put('areas/{area}','update')->name('areas.update');
     Route::put('areas','delete')->name('areas.delete');
+});
+Route::controller(MateriaController::class)->group(function(){
+    Route::get('materias','index')->name('materias.index');
+    Route::get('materias/crear/{campo?}','new')->name('materias.create');
+    Route::post('materias','store')->name('materias.store');
+    Route::get('materias/{materia}','show')->name('materias.details');
+    Route::get('materias/{materia}/editar','edit')->name('materias.edit');
+    Route::put('materias/{materia}','update')->name('materias.update');
+    Route::put('materias','delete')->name('materias.delete');
 });
 Route::controller(NivelController::class)->group(function(){
     Route::get('niveles','index')->name('niveles.index');
