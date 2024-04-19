@@ -2,64 +2,117 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AulaValidation;
 use App\Models\Aula;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 
 class AulaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if (session('idRol') == 1) {
+            $tableAula = (new Aula())->selectDisponibles($request->busqueda);
+            return view('Aula.inicio', [
+                'headTitle' => 'AULAS - INICIO',
+                'tableAula' => $tableAula,
+                'busqueda' => $request->busqueda
+        ]);
+        }
+        else{
+            return redirect()->route('login');
+        }        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($idAula)
     {
-        //
+        if (session('idRol') == 1) {
+            $aula = (new Aula())->selectAula($idAula);
+            $usuario = (new Usuario())->selectUsuario($aula->idUsuario);
+            if (!$usuario) {
+                $usuario = new Usuario();
+                $usuario->correo = '';
+            }
+            $Asignaturas = (new Aula())->selectAula_Asignaturas($idAula);
+            return view('Aula.detalle', [
+                'headTitle' => $aula->nombreAula,
+                'aula' => $aula,
+                'usuario' => $usuario,
+                'Asignaturas' => $Asignaturas
+            ]);
+        }
+        else{
+            return redirect()->route('login');
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function new(){
+        if (session('idRol') == 1) {
+            return view('Aula.create', [
+                'headTitle' => 'AULAS - NUEVO AULA',
+                'Titulos' => "NUEVO AULA"
+            ]);
+        }
+        else{
+            return redirect()->route('login');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Aula $aula)
+    public function store(AulaValidation $request)
     {
-        //
+        if (session('idRol') == 1) {
+            $aula = new Aula();
+            $aula->nombreAula = strtoupper($request->nombreAula);
+            $aula->idUsuario = session('idUsuario');
+            $aula->save();
+            return redirect()->route('aulas.details', $aula);
+        }
+        else{
+            return redirect()->route('login');
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Aula $aula)
     {
-        //
+        if (session('idRol') == 1) {
+            return view('Aula.update', [
+                'headTitle' => 'EDITAR - ' . $aula->nombreAula,
+                'aula' => $aula,
+                'Titulos' => "MODIFICAR AULA"
+            ]);
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
+    
+    public function update(AulaValidation $request, Aula $aula)
+    {
+        if (session('idRol') == 1) {
+            $aula->nombreAula = strtoupper($request->nombreAula);
+            $aula->idUsuario = session('idUsuario');
+            $aula->save();
+            return redirect()->route('aulas.details', $aula);
+        }
+        else{
+            return redirect()->route('login');
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Aula $aula)
+    public function delete(Request $request)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Aula $aula)
-    {
-        //
+        if (session('idRol') == 1) {
+            $request->validate([
+                'idAula' => ['required','numeric']
+            ]);
+            $aula = (new Aula())->selectAula($request->idAula);
+            $aula->estado = '0';
+            $aula->idUsuario = session('idUsuario');
+            $aula->save();
+            return redirect()->route('aulas.index');
+        }
+        else{
+            return redirect()->route('login');
+        }
     }
 }

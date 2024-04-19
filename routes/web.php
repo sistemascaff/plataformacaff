@@ -9,6 +9,7 @@ use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\ParaleloController;
+use App\Http\Controllers\AulaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// Agregar en este grupo todas las rutas que pertenezcan a esta clase.
+
 Route::controller(UsuarioController::class)->group(function(){
     /*get(URL web, método de controlador)->name(nombre para referenciar ruta)*/
     Route::get('login','signIn')->name('login');
@@ -94,6 +95,15 @@ Route::controller(ParaleloController::class)->group(function(){
     Route::get('paralelos/{paralelo}/editar','edit')->name('paralelos.edit');
     Route::put('paralelos/{paralelo}','update')->name('paralelos.update');
     Route::put('paralelos','delete')->name('paralelos.delete');
+});
+Route::controller(AulaController::class)->group(function(){
+    Route::get('aulas','index')->name('aulas.index');
+    Route::get('aulas/crear','new')->name('aulas.create');
+    Route::post('aulas','store')->name('aulas.store');
+    Route::get('aulas/{aula}','show')->name('aulas.details');
+    Route::get('aulas/{aula}/editar','edit')->name('aulas.edit');
+    Route::put('aulas/{aula}','update')->name('aulas.update');
+    Route::put('aulas','delete')->name('aulas.delete');
 });
 Route::controller(PersonaController::class)->group(function(){
     Route::get('personas','index')->name('personas.index');

@@ -35,7 +35,7 @@ class Aula extends Model
     }
 
     public function selectAula_Asignaturas($idAula){
-        $selectAula = Aula::select('Asignaturas.idAsignatura','Asignaturas.nombreAsignatura','Asignaturas.fechaRegistro','Asignaturas.fechaActualizacion')
+        $selectAula = Aula::select('Asignaturas.idAsignatura','Asignaturas.nombreAsignatura','Asignaturas.nombreCorto','Asignaturas.tipoCalificacion','Asignaturas.tipoBloque','Asignaturas.tipoAsignatura','Asignaturas.fechaRegistro','Asignaturas.fechaActualizacion')
         ->leftjoin('Asignaturas', 'Aulas.idAula', '=', 'Asignaturas.idAula')
         ->where('Asignaturas.idAula', '=', $idAula)
         ->where('Asignaturas.estado', '=', '1')

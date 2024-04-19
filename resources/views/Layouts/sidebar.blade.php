@@ -71,8 +71,16 @@
           </ul>
         </li>
 
-        <li class="nav-item {{ request()->is('campos*') ? 'menu-open' : (request()->is('areas*') ? 'menu-open' : (request()->is('materias*') ? 'menu-open' : '')) }}">
-          <a href="" class="nav-link {{ request()->is('campos*') ? 'active' : (request()->is('areas*') ? 'active' : (request()->is('materias*') ? 'active' : '')) }}">
+        <li class="nav-item {{ request()->is('campos*') ? 'menu-open' : 
+            (request()->is('areas*') ? 'menu-open' : 
+              (request()->is('materias*') ? 'menu-open' : 
+                (request()->is('aulas*') ? 'menu-open' : ''))) 
+          }}">
+          <a href="" class="nav-link {{ request()->is('campos*') ? 'active' : 
+              (request()->is('areas*') ? 'active' : 
+                (request()->is('materias*') ? 'active' : 
+                  (request()->is('aulas*') ? 'active' : ''))) 
+            }}">
             <i class="nav-icon fa fa-th-list"></i>
             <p>
               CAMPOS
@@ -100,6 +108,14 @@
               <a href="{{route('materias.index')}}" class="nav-link {{ request()->is('materias*') ? 'active' : '' }}">
                 <i class="fa fa-circle-o nav-icon"></i>
                 <p>MATERIAS</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('aulas.index')}}" class="nav-link {{ request()->is('aulas*') ? 'active' : '' }}">
+                <i class="fa fa-key nav-icon"></i>
+                <p>AULAS</p>
               </a>
             </li>
           </ul>
