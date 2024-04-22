@@ -10,6 +10,7 @@ use App\Http\Controllers\CursoController;
 use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\ParaleloController;
 use App\Http\Controllers\AulaController;
+use App\Http\Controllers\GestionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -104,6 +105,15 @@ Route::controller(AulaController::class)->group(function(){
     Route::get('aulas/{aula}/editar','edit')->name('aulas.edit');
     Route::put('aulas/{aula}','update')->name('aulas.update');
     Route::put('aulas','delete')->name('aulas.delete');
+});
+Route::controller(GestionController::class)->group(function(){
+    Route::get('gestiones','index')->name('gestiones.index');
+    Route::get('gestiones/crear','new')->name('gestiones.create');
+    Route::post('gestiones','store')->name('gestiones.store');
+    Route::get('gestiones/{gestion}','show')->name('gestiones.details');
+    Route::get('gestiones/{gestion}/editar','edit')->name('gestiones.edit');
+    Route::put('gestiones/{gestion}','update')->name('gestiones.update');
+    Route::put('gestiones','delete')->name('gestiones.delete');
 });
 Route::controller(PersonaController::class)->group(function(){
     Route::get('personas','index')->name('personas.index');

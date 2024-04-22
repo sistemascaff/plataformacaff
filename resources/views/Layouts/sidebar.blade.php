@@ -74,12 +74,14 @@
         <li class="nav-item {{ request()->is('campos*') ? 'menu-open' : 
             (request()->is('areas*') ? 'menu-open' : 
               (request()->is('materias*') ? 'menu-open' : 
-                (request()->is('aulas*') ? 'menu-open' : ''))) 
+                (request()->is('aulas*') ? 'menu-open' : 
+                  (request()->is('gestiones*') ? 'menu-open' : '')))) 
           }}">
           <a href="" class="nav-link {{ request()->is('campos*') ? 'active' : 
               (request()->is('areas*') ? 'active' : 
                 (request()->is('materias*') ? 'active' : 
-                  (request()->is('aulas*') ? 'active' : ''))) 
+                  (request()->is('aulas*') ? 'active' : 
+                    (request()->is('gestiones*') ? 'active' : '')))) 
             }}">
             <i class="nav-icon fa fa-th-list"></i>
             <p>
@@ -87,6 +89,14 @@
               <i class="right fa fa-angle-left"></i>
             </p>
           </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('gestiones.index')}}" class="nav-link {{ request()->is('gestiones*') ? 'active' : '' }}">
+                <i class="fa fa-key nav-icon"></i>
+                <p>GESTIONES</p>
+              </a>
+            </li>
+          </ul>
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="{{route('campos.index')}}" class="nav-link {{ request()->is('campos*') ? 'active' : '' }}">
