@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class NivelValidation extends FormRequest
+class PeriodoValidation extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,9 @@ class NivelValidation extends FormRequest
     public function rules(): array
     {
         return [
-            'nombreNivel' => ['required','min:3','max:45'],
-            'posicionOrdinal' => ['required','numeric','min:0','max:100','integer']
+            'idGestion' => ['required','numeric','min:1','max:100','integer'],
+            'nombrePeriodo' => ['required','min:1','max:45'],
+            'posicionOrdinal' => ['required','numeric','min:1','max:100','integer']
         ];
     }
 }

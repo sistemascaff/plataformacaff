@@ -117,7 +117,7 @@ class MateriaController extends Controller
     {
         if (session('idRol') == 1) {
             $request->validate([
-                'idMateria' => ['required','numeric']
+                'idMateria' => ['required','numeric','integer']
             ]);
             $materia = (new Materia())->selectMateria($request->idMateria);
             $materia->estado = '0';

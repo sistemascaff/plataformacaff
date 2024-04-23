@@ -103,7 +103,7 @@ class GestionController extends Controller
     {
         if (session('idRol') == 1) {
             $request->validate([
-                'idGestion' => ['required','numeric']
+                'idGestion' => ['required','numeric','integer']
             ]);
             $gestion = (new Gestion())->selectGestion($request->idGestion);
             $gestion->estado = '0';

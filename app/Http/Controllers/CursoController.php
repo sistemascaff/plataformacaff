@@ -123,7 +123,7 @@ class CursoController extends Controller
     {
         if (session('idRol') == 1) {
             $request->validate([
-                'idCurso' => ['required','numeric']
+                'idCurso' => ['required','numeric','integer']
             ]);
             $curso = (new Curso())->selectCurso($request->idCurso);
             $curso->estado = '0';

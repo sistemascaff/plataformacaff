@@ -106,7 +106,7 @@ class ParaleloController extends Controller
     {
         if (session('idRol') == 1) {
             $request->validate([
-                'idParalelo' => ['required','numeric']
+                'idParalelo' => ['required','numeric','integer']
             ]);
             $paralelo = (new Paralelo())->selectParalelo($request->idParalelo);
             $paralelo->estado = '0';

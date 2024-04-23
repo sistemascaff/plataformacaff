@@ -24,7 +24,7 @@ class AreaValidation extends FormRequest
         return [
             'nombreArea' => ['required','min:3','max:45'],
             'nombreCorto' => ['required','min:1','max:5'],
-            'idCampo' => ['required','numeric']
+            'idCampo' => ['required','numeric','integer']
         ];
     }
 }

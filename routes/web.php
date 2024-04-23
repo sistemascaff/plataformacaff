@@ -11,6 +11,7 @@ use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\ParaleloController;
 use App\Http\Controllers\AulaController;
 use App\Http\Controllers\GestionController;
+use App\Http\Controllers\PeriodoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -114,6 +115,15 @@ Route::controller(GestionController::class)->group(function(){
     Route::get('gestiones/{gestion}/editar','edit')->name('gestiones.edit');
     Route::put('gestiones/{gestion}','update')->name('gestiones.update');
     Route::put('gestiones','delete')->name('gestiones.delete');
+});
+Route::controller(PeriodoController::class)->group(function(){
+    Route::get('periodos','index')->name('periodos.index');
+    Route::get('periodos/crear/{gestion?}','new')->name('periodos.create');
+    Route::post('periodos','store')->name('periodos.store');
+    Route::get('periodos/{periodo}','show')->name('periodos.details');
+    Route::get('periodos/{periodo}/editar','edit')->name('periodos.edit');
+    Route::put('periodos/{periodo}','update')->name('periodos.update');
+    Route::put('periodos','delete')->name('periodos.delete');
 });
 Route::controller(PersonaController::class)->group(function(){
     Route::get('personas','index')->name('personas.index');

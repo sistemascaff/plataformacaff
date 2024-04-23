@@ -23,8 +23,8 @@ class GradoValidation extends FormRequest
     {
         return [
             'nombreGrado' => ['required','min:3','max:45'],
-            'posicionOrdinal' => ['required','numeric','min:0','max:100'],
-            'idNivel' => ['required','numeric']
+            'posicionOrdinal' => ['required','numeric','min:0','max:100','integer'],
+            'idNivel' => ['required','numeric','integer']
         ];
     }
 }

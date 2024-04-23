@@ -120,7 +120,7 @@ class AreaController extends Controller
     {
         if (session('idRol') == 1) {
             $request->validate([
-                'idArea' => ['required','numeric']
+                'idArea' => ['required','numeric','integer']
             ]);
             $area = (new Area())->selectArea($request->idArea);
             $area->estado = '0';

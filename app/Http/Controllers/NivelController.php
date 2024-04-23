@@ -105,7 +105,7 @@ class NivelController extends Controller
     {
         if (session('idRol') == 1) {
             $request->validate([
-                'idNivel' => ['required','numeric']
+                'idNivel' => ['required','numeric','integer']
             ]);
             $nivel = (new Nivel())->selectNivel($request->idNivel);
             $nivel->estado = '0';

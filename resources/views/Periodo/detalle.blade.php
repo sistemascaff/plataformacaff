@@ -6,13 +6,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="font-weight-bold">{{$gestion->anhoGestion}}</h1>
+          <h1 class="font-weight-bold">{{$periodo->nombrePeriodo}}</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('usuarios.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item"><a href="{{route('gestiones.index')}}">GESTION</a></li>
-            <li class="breadcrumb-item active">{{$gestion->anhoGestion}}</li>
+            <li class="breadcrumb-item"><a href="{{route('periodos.index')}}">PERIODOS</a></li>
+            <li class="breadcrumb-item active">{{$periodo->nombrePeriodo}}</li>
           </ol>
         </div>
       </div>
@@ -27,10 +27,10 @@
         <h3 class="card-title font-weight-bold">ACCIONES</h3>
         <br>
         <div class="btn-group">
-          <a class="btn btn-info" href="{{route('gestiones.index')}}">
+          <a class="btn btn-info" href="{{route('periodos.index')}}">
             {!! helper_FormatoBotonCRUD(7, 'texto') !!}
           </a>
-          <a class="btn btn-warning" href="{{route('gestiones.edit',$gestion->idGestion)}}">
+          <a class="btn btn-warning" href="{{route('periodos.edit',$periodo->idPeriodo)}}">
             {!! helper_FormatoBotonCRUD(3, 'texto') !!}
           </a>
           <a class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
@@ -43,21 +43,33 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group row">
+              <label for="inputEmail3" class="col-md-2 col-form-label">Periodo</label>
+              <div class="col-md-10">
+                <p class="form form-control">{{$periodo->nombrePeriodo}}</p>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputEmail3" class="col-md-2 col-form-label">Posición Ordinal</label>
+              <div class="col-md-10">
+                <p class="form form-control">{{$periodo->posicionOrdinal}}</p>
+              </div>
+            </div>
+            <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Gestion</label>
               <div class="col-md-10">
-                <p class="form form-control">{{$gestion->anhoGestion}}</p>
+                <a href="{{route('gestiones.details', $gestion->idGestion)}}" class="form form-control font-weight-bold">{{$gestion->anhoGestion}}</a>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Fecha de Registro</label>
               <div class="col-md-10">
-                <p class="form form-control">{{$gestion->fechaRegistro}}</p>
+                <p class="form form-control">{{$periodo->fechaRegistro}}</p>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Fecha de Actualizacion</label>
               <div class="col-md-10">
-                <p class="form form-control">{{helper_formatoNullorEmpty($gestion->fechaActualizacion)}}</p>
+                <p class="form form-control">{{helper_formatoNullorEmpty($periodo->fechaActualizacion)}}</p>
               </div>
             </div>
             <div class="form-group row">
@@ -68,42 +80,7 @@
             </div>
           </div>
         </div>
-
-        <h3 class="card-title font-weight-bold">PERIODOS PERTENECIENTES A {{$gestion->anhoGestion}}:</h3>
-        <br><br>
-        <div class="col-md-12">
-          <table id="dataTable" class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>PERIODO</th>
-                <th>P. ORDINAL</th>
-                <th>F. REGISTRO</th>
-                <th>F. ACTUALIZACION</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-          @foreach ($Periodos as $rowPeriodos)
-          <tr>
-            <td>{{$rowPeriodos->nombrePeriodo}}</td>
-            <td>{{$rowPeriodos->posicionOrdinal}}</td>
-            <td>{{helper_formatoVistaFecha($rowPeriodos->fechaRegistro)}}</td>
-            <td>{{helper_formatoNullorEmpty($rowPeriodos->fechaActualizacion)}}</td>
-            <td>
-              <div class="btn-group">
-                <a class="btn btn-info" href="{{route('periodos.details', $rowPeriodos->idPeriodo)}}">
-                  {!! helper_FormatoBotonCRUD(2, 'icono') !!}
-                </a>
-                <a class="btn btn-warning" href="{{route('periodos.edit', $rowPeriodos->idPeriodo)}}">
-                  {!! helper_FormatoBotonCRUD(3, 'icono') !!}
-                </a>
-              </div>
-            </td>
-          </tr>
-          @endforeach
-            </tbody>
-          </table>
-        </div>
+        
       </div>
       <!-- /.card-body -->
     </div>
@@ -122,14 +99,14 @@
         </div>
         <div class="modal-body">
           <p>¿Está segur@ de eliminar el registro seleccionado?</p>
-          <p class="font-weight-bold">{{$gestion->anhoGestion}}</p>
+          <p class="font-weight-bold">{{$periodo->nombrePeriodo}}</p>
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
-          <form action="{{route('gestiones.delete')}}" method="POST">
+          <form action="{{route('periodos.delete')}}" method="POST">
             @csrf
             @method('put')
-            <input type="hidden" name="idGestion" value="{{$gestion->idGestion}}">
+            <input type="hidden" name="idPeriodo" value="{{$periodo->idPeriodo}}">
             <button type="submit" class="btn btn-danger">{!! helper_FormatoBotonCRUD(4, 'texto') !!}</button>
           </form>
         </div>

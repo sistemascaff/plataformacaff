@@ -6,12 +6,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="font-weight-bold">{{$grado->nombreGrado}}</h1>
+          <h1 class="font-weight-bold">{{$periodo->nombrePeriodo}}</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('usuarios.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item"><a href="{{route('grados.index')}}">GRADOS</a></li>
+            <li class="breadcrumb-item"><a href="{{route('periodos.index')}}">PERIODOS</a></li>
             <li class="breadcrumb-item active">{{$Titulos}}</li>
           </ol>
         </div>
@@ -25,24 +25,24 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title font-weight-bold">{{$Titulos.': '.$grado->nombreGrado}}</h3>
+        <h3 class="card-title font-weight-bold">{{$Titulos.': '.$periodo->nombrePeriodo}}</h3>
       </div>
       <div class="card-body">
         <div class="row">
           <div class="col-md-6">
-            <form class="form-horizontal" action="{{route('grados.update',$grado)}}" method="POST">
+            <form class="form-horizontal" action="{{route('periodos.update',$periodo)}}" method="POST">
 
               @csrf
               @method('put')
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE GRADO (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE PERIODO (*)</label>
                   <div class="col-sm-10">
-                  <input type="text" class="form-control @error('nombreGrado') is-invalid @enderror"
-                    name="nombreGrado" value="{{old('nombreGrado',$grado->nombreGrado)}}" placeholder="GRADO" minlength="5" maxlength="45" required autofocus>
+                  <input type="text" class="form-control @error('nombrePeriodo') is-invalid @enderror"
+                    name="nombrePeriodo" value="{{old('nombrePeriodo',$periodo->nombrePeriodo)}}" placeholder="PERIODO" minlength="5" maxlength="45" required autofocus>
                   </div>
-                  @error('nombreGrado')
+                  @error('nombrePeriodo')
                   <span class="text-danger">{{$message}}</span>
                   @enderror
                 </div>
@@ -50,21 +50,21 @@
                   <label class="col-sm-2 col-form-label">POSICIÓN ORDINAL (*)</label>
                   <div class="col-sm-10">
                   <input type="number" class="form-control @error('posicionOrdinal') is-invalid @enderror"
-                    name="posicionOrdinal" value="{{old('posicionOrdinal',$grado->posicionOrdinal)}}" min="0" max="128" required>
+                    name="posicionOrdinal" value="{{old('posicionOrdinal',$periodo->posicionOrdinal)}}" min="0" max="100" required>
                   </div>
                   @error('posicionOrdinal')
                   <span class="text-danger">{{$message}}</span>
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NIVEL (*)</label>
+                  <label class="col-sm-2 col-form-label">GESTION (*)</label>
                   <div class="col-sm-10">
-                    <select class="form-control" name="idNivel" required>
-                      @foreach ($Niveles as $rowNiveles)
-                      @if ($rowNiveles->idNivel == $grado->idNivel)
-                      <option value="{{$rowNiveles->idNivel}}" selected>{{$rowNiveles->nombreNivel}}</option>
+                    <select class="form-control" name="idGestion" required>
+                      @foreach ($Gestiones as $rowGestiones)
+                      @if ($rowGestiones->idGestion == $periodo->idGestion)
+                      <option value="{{$rowGestiones->idGestion}}" selected>{{$rowGestiones->anhoGestion}}</option>
                       @else
-                      <option value="{{$rowNiveles->idNivel}}">{{$rowNiveles->nombreNivel}}</option>
+                      <option value="{{$rowGestiones->idGestion}}">{{$rowGestiones->anhoGestion}}</option>
                       @endif
                       @endforeach
                     </select>
@@ -75,7 +75,7 @@
               <a class="btn btn-warning" data-toggle="modal" data-target="#modalUpdate">
                 {!! helper_FormatoBotonCRUD(3, 'texto') !!}
               </a>
-              <a href="{{route('grados.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
+              <a href="{{route('periodos.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
 
               <div class="modal fade" id="modalUpdate">
                 <div class="modal-dialog">

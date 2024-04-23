@@ -122,7 +122,7 @@ class GradoController extends Controller
     {
         if (session('idRol') == 1) {
             $request->validate([
-                'idGrado' => ['required','numeric']
+                'idGrado' => ['required','numeric','integer']
             ]);
             $grado = (new Grado())->selectGrado($request->idGrado);
             $grado->estado = '0';

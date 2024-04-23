@@ -103,7 +103,7 @@ class CampoController extends Controller
     {
         if (session('idRol') == 1) {
             $request->validate([
-                'idCampo' => ['required','numeric']
+                'idCampo' => ['required','numeric','integer']
             ]);
             $campo = (new Campo())->selectCampo($request->idCampo);
             $campo->estado = '0';

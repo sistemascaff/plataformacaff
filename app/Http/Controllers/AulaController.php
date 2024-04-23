@@ -103,7 +103,7 @@ class AulaController extends Controller
     {
         if (session('idRol') == 1) {
             $request->validate([
-                'idAula' => ['required','numeric']
+                'idAula' => ['required','numeric','integer']
             ]);
             $aula = (new Aula())->selectAula($request->idAula);
             $aula->estado = '0';

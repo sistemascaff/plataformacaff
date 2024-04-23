@@ -23,8 +23,8 @@ class CursoValidation extends FormRequest
     {
         return [
             'nombreCurso' => ['required','min:3','max:45'],
-            'idGrado' => ['required','numeric'],
-            'idParalelo' => ['required','numeric']
+            'idGrado' => ['required','numeric','integer'],
+            'idParalelo' => ['required','numeric','integer']
         ];
     }
 }
