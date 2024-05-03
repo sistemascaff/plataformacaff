@@ -6,13 +6,14 @@ use App\Http\Requests\AreaValidation;
 use App\Models\Area;
 use App\Models\Usuario;
 use App\Models\Campo;
+use App\Models\Rol;
 use Illuminate\Http\Request;
 
 class AreaController extends Controller
 {
     public function index(Request $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $tableArea = (new Area())->selectDisponibles($request->busqueda);
             return view('Area.inicio', [
                 'headTitle' => 'AREAS - INICIO',
@@ -21,13 +22,13 @@ class AreaController extends Controller
         ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }        
     }
 
     public function show($idArea)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $area = (new Area())->selectArea($idArea);
             $usuario = (new Usuario())->selectUsuario($area->idUsuario);
             $campo = (new Campo())->selectCampo($area->idCampo);
@@ -47,12 +48,12 @@ class AreaController extends Controller
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function new($idSelect = null){
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $Campos = (new Campo())->selectDisponibles('');
             if(!$idSelect){
                 $idSelect = 0;
@@ -65,13 +66,13 @@ class AreaController extends Controller
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function store(AreaValidation $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $area = new Area();
             $area->nombreArea = strtoupper($request->nombreArea);
             $area->nombreCorto = strtoupper($request->nombreCorto);
@@ -81,13 +82,13 @@ class AreaController extends Controller
             return redirect()->route('areas.details', $area);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function edit(Area $area)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $Campos = (new Campo())->selectDisponibles('');
             return view('Area.update', [
                 'headTitle' => 'EDITAR - ' . $area->nombreArea,
@@ -97,13 +98,13 @@ class AreaController extends Controller
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
     
     public function update(AreaValidation $request, Area $area)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $area->nombreArea = strtoupper($request->nombreArea);
             $area->nombreCorto = strtoupper($request->nombreCorto);
             $area->idCampo = $request->idCampo;
@@ -112,13 +113,13 @@ class AreaController extends Controller
             return redirect()->route('areas.details', $area);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function delete(Request $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $request->validate([
                 'idArea' => ['required','numeric','integer']
             ]);
@@ -129,7 +130,7 @@ class AreaController extends Controller
             return redirect()->route('areas.index');
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 }

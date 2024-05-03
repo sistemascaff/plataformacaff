@@ -6,13 +6,14 @@ use App\Http\Requests\PeriodoValidation;
 use App\Models\Periodo;
 use App\Models\Usuario;
 use App\Models\Gestion;
+use App\Models\Rol;
 use Illuminate\Http\Request;
 
 class PeriodoController extends Controller
 {
     public function index(Request $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $tablePeriodo = (new Periodo())->selectDisponibles($request->busqueda);
             return view('Periodo.inicio', [
                 'headTitle' => 'PERIODOS - INICIO',
@@ -21,13 +22,13 @@ class PeriodoController extends Controller
         ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }        
     }
 
     public function show($idPeriodo)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $periodo = (new Periodo())->selectPeriodo($idPeriodo);
             $usuario = (new Usuario())->selectUsuario($periodo->idUsuario);
             $gestion = (new Gestion())->selectGestion($periodo->idGestion);
@@ -43,12 +44,12 @@ class PeriodoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function new($idSelect = null){
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $Gestiones = (new Gestion())->selectDisponibles('');
             if(!$idSelect){
                 $idSelect = 0;
@@ -61,13 +62,13 @@ class PeriodoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function store(PeriodoValidation $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $periodo = new Periodo();
             $periodo->nombrePeriodo = strtoupper($request->nombrePeriodo);
             $periodo->posicionOrdinal = $request->posicionOrdinal;
@@ -77,13 +78,13 @@ class PeriodoController extends Controller
             return redirect()->route('periodos.details', $periodo);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function edit(Periodo $periodo)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $Gestiones = (new Gestion())->selectDisponibles('');
             return view('Periodo.update', [
                 'headTitle' => 'EDITAR - ' . $periodo->nombrePeriodo,
@@ -93,13 +94,13 @@ class PeriodoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
     
     public function update(PeriodoValidation $request, Periodo $periodo)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $periodo->nombrePeriodo = strtoupper($request->nombrePeriodo);
             $periodo->posicionOrdinal = $request->posicionOrdinal;
             $periodo->idGestion = $request->idGestion;
@@ -108,13 +109,13 @@ class PeriodoController extends Controller
             return redirect()->route('periodos.details', $periodo);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function delete(Request $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $request->validate([
                 'idPeriodo' => ['required','numeric','integer']
             ]);
@@ -125,7 +126,7 @@ class PeriodoController extends Controller
             return redirect()->route('periodos.index');
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 }

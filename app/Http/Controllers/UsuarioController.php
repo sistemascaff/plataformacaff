@@ -12,7 +12,7 @@ class UsuarioController extends Controller
     
     public function index()
     {
-        if(session('idRol') == 1){
+        if(session('tieneAcceso')){
             $tableUsuario = (new Usuario())->getAllUsers();
             return view('Usuario.inicio', [
                 'headTitle' => 'USUARIOS - INICIO',
@@ -35,9 +35,9 @@ class UsuarioController extends Controller
 
     public function verify(Request $request)
     {
-        $Usuario = (new Usuario())->login($request->correo,$request->contrasenha);
-        if($Usuario > 0){
-            if(session('tieneAcceso') == 1){
+        $Usuario = (new Usuario())->login($request->correo,$request->contrasenha,$request->ip(),gethostbyaddr($request->ip()));
+        if($Usuario){
+            if(session('tieneAcceso')){
                 $Ultimaconexion = (new Usuario())->selectUsuario(session('idUsuario'));
                 $Ultimaconexion->timestamps = false;
                 $Ultimaconexion->ultimaConexion = Carbon::now();
@@ -45,11 +45,11 @@ class UsuarioController extends Controller
                 return redirect()->route('usuarios.index');
             }
             else{
-                return redirect()->route('login');
+                return redirect()->route('login')->with('mensaje','USTED NO TIENE ACCESO A LA PLATAFORMA.');
             }
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('login')->with('mensaje','USUARIO O CONTRASEÑA INCORRECTA.');
         }
     }
 

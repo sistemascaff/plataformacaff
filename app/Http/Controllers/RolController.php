@@ -2,27 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Persona;
 use App\Models\Rol;
 use Illuminate\Http\Request;
 
-class PersonaController extends Controller
+class RolController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        if((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )){
-            $tablePersona = (new Persona())->getAllUsers();
-            return view('Persona.inicio', [
-                'headTitle' => 'PERSONAS - INICIO',
-                'tablePersona' => $tablePersona
-        ]);
-        }
-        else{
-            return redirect()->route('usuarios.index');
-        }
+        //
     }
 
     /**
@@ -44,7 +34,7 @@ class PersonaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Persona $persona)
+    public function show(Rol $rol)
     {
         //
     }
@@ -52,7 +42,7 @@ class PersonaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Persona $persona)
+    public function edit(Rol $rol)
     {
         //
     }
@@ -60,7 +50,7 @@ class PersonaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Persona $persona)
+    public function update(Request $request, Rol $rol)
     {
         //
     }
@@ -68,7 +58,7 @@ class PersonaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Persona $persona)
+    public function destroy(Rol $rol)
     {
         //
     }

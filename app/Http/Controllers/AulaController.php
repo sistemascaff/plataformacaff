@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AulaValidation;
 use App\Models\Aula;
 use App\Models\Usuario;
+use App\Models\Rol;
 use Illuminate\Http\Request;
 
 class AulaController extends Controller
 {
     public function index(Request $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $tableAula = (new Aula())->selectDisponibles($request->busqueda);
             return view('Aula.inicio', [
                 'headTitle' => 'AULAS - INICIO',
@@ -20,13 +21,13 @@ class AulaController extends Controller
         ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }        
     }
 
     public function show($idAula)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $aula = (new Aula())->selectAula($idAula);
             $usuario = (new Usuario())->selectUsuario($aula->idUsuario);
             if (!$usuario) {
@@ -42,25 +43,25 @@ class AulaController extends Controller
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function new(){
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             return view('Aula.create', [
                 'headTitle' => 'AULAS - NUEVO AULA',
                 'Titulos' => "NUEVO AULA"
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function store(AulaValidation $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $aula = new Aula();
             $aula->nombreAula = strtoupper($request->nombreAula);
             $aula->idUsuario = session('idUsuario');
@@ -68,13 +69,13 @@ class AulaController extends Controller
             return redirect()->route('aulas.details', $aula);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function edit(Aula $aula)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             return view('Aula.update', [
                 'headTitle' => 'EDITAR - ' . $aula->nombreAula,
                 'aula' => $aula,
@@ -82,26 +83,26 @@ class AulaController extends Controller
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
     
     public function update(AulaValidation $request, Aula $aula)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $aula->nombreAula = strtoupper($request->nombreAula);
             $aula->idUsuario = session('idUsuario');
             $aula->save();
             return redirect()->route('aulas.details', $aula);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function delete(Request $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $request->validate([
                 'idAula' => ['required','numeric','integer']
             ]);
@@ -112,7 +113,7 @@ class AulaController extends Controller
             return redirect()->route('aulas.index');
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 }

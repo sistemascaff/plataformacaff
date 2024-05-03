@@ -53,10 +53,16 @@
           <!-- /.col -->
         </div>
       </form>
-
+      
       <p class="mb-1">
         <a href="#">Olvidé mi contraseña</a>
       </p>
+      @if (session('mensaje'))
+      <div class="alert alert-danger">
+        <h5 class="font font-weight-bold"><i class="icon fa fa-ban"></i> ¡ATENCIÓN!</h5>
+        <a>{{session('mensaje')}}</a>
+      </div>
+      @endif
     </div>
     <!-- /.card-body -->
   </div>

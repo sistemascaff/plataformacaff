@@ -6,13 +6,14 @@ use App\Http\Requests\MateriaValidation;
 use App\Models\Materia;
 use App\Models\Usuario;
 use App\Models\Area;
+use App\Models\Rol;
 use Illuminate\Http\Request;
 
 class MateriaController extends Controller
 {
     public function index(Request $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $tableMateria = (new Materia())->selectDisponibles($request->busqueda);
             return view('Materia.inicio', [
                 'headTitle' => 'MATERIAS - INICIO',
@@ -21,13 +22,13 @@ class MateriaController extends Controller
         ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }        
     }
 
     public function show($idMateria)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $materia = (new Materia())->selectMateria($idMateria);
             $usuario = (new Usuario())->selectUsuario($materia->idUsuario);
             $area = (new Area())->selectArea($materia->idArea);
@@ -44,12 +45,12 @@ class MateriaController extends Controller
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function new($idSelect = null){
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $Areas = (new Area())->selectDisponibles('');
             if(!$idSelect){
                 $idSelect = 0;
@@ -62,13 +63,13 @@ class MateriaController extends Controller
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function store(MateriaValidation $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $materia = new Materia();
             $materia->nombreMateria = strtoupper($request->nombreMateria);
             $materia->nombreCorto = strtoupper($request->nombreCorto);
@@ -78,13 +79,13 @@ class MateriaController extends Controller
             return redirect()->route('materias.details', $materia);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function edit(Materia $materia)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $Areas = (new Area())->selectDisponibles('');
             return view('Materia.update', [
                 'headTitle' => 'EDITAR - ' . $materia->nombreMateria,
@@ -94,13 +95,13 @@ class MateriaController extends Controller
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
     
     public function update(MateriaValidation $request, Materia $materia)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $materia->nombreMateria = strtoupper($request->nombreMateria);
             $materia->nombreCorto = strtoupper($request->nombreCorto);
             $materia->idArea = $request->idArea;
@@ -109,13 +110,13 @@ class MateriaController extends Controller
             return redirect()->route('materias.details', $materia);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function delete(Request $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $request->validate([
                 'idMateria' => ['required','numeric','integer']
             ]);
@@ -126,7 +127,7 @@ class MateriaController extends Controller
             return redirect()->route('materias.index');
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 }

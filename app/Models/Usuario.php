@@ -42,20 +42,23 @@ class Usuario extends Authenticatable
         return Usuario::find($idUsuario);
     }
 
-    public function login($correo, $contrasenha){
+    public function login($correo, $contrasenha, $ip, $dispositivo){
         
-        $sessionRow = Usuario::select('idUsuario','idPersona','idRol','correo','tieneAcceso','estado')
-        ->whereRaw('correo = ' . helper_encapsular($correo) . ' AND contrasenha = ' . helper_encapsular($contrasenha)) 
+        $sessionRow = Usuario::select('Usuarios.idUsuario','Usuarios.idPersona','Usuarios.correo','Usuarios.tieneAcceso','Usuarios.estado','Roles.idRol')
+        ->whereRaw('correo = ' . helper_encapsular($correo) . ' AND contrasenha = ' . helper_encapsular($contrasenha))
+        ->join('Roles', 'Usuarios.idUsuario', '=', 'Roles.idUsuario')
         ->limit(1)
         ->get();
-        if(count($sessionRow) > 0) {
+        if($sessionRow) {
             foreach($sessionRow as $row){
                 session(['idUsuario' => $row->idUsuario]);
                 session(['idPersona' => $row->idPersona]);
-                session(['idRol' => $row->idRol]);
                 session(['correo' => $row->correo]);
                 session(['tieneAcceso' => $row->tieneAcceso]);
                 session(['estado' => $row->estado]);
+                session(['idRol' => $row->idRol]);
+                session(['ip' => $ip]);
+                session(['dispositivo' => $dispositivo]);
             }
         }
         return count($sessionRow);

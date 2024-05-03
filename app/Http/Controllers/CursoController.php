@@ -7,13 +7,14 @@ use App\Models\Curso;
 use App\Models\Usuario;
 use App\Models\Grado;
 use App\Models\Paralelo;
+use App\Models\Rol;
 use Illuminate\Http\Request;
 
 class CursoController extends Controller
 {
     public function index(Request $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $tableCurso = (new Curso())->selectDisponibles($request->busqueda);
             return view('Curso.inicio', [
                 'headTitle' => 'CURSOS - INICIO',
@@ -22,13 +23,13 @@ class CursoController extends Controller
         ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function show($idCurso)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $curso = (new Curso())->selectCurso($idCurso);
             $usuario = (new Usuario())->selectUsuario($curso->idUsuario);
             $grado = (new Grado())->selectGrado($curso->idGrado);
@@ -48,12 +49,12 @@ class CursoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function new(Request $request){
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $Grados = (new Grado())->selectDisponibles('');
             $Paralelos = (new Paralelo())->selectDisponibles('');
             return view('Curso.create', [
@@ -66,13 +67,13 @@ class CursoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function store(CursoValidation $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $curso = new Curso();
             $curso->nombreCurso = strtoupper($request->nombreCurso);
             $curso->idGrado = $request->idGrado;
@@ -82,13 +83,13 @@ class CursoController extends Controller
             return redirect()->route('cursos.details', $curso);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function edit(Curso $curso)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $Grados = (new Grado())->selectDisponibles('');
             $Paralelos = (new Paralelo())->selectDisponibles('');
             return view('Curso.update', [
@@ -100,13 +101,13 @@ class CursoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
     
     public function update(CursoValidation $request, Curso $curso)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $curso->nombreCurso = strtoupper($request->nombreCurso);
             $curso->idGrado = $request->idGrado;
             $curso->idParalelo = $request->idParalelo;
@@ -115,13 +116,13 @@ class CursoController extends Controller
             return redirect()->route('cursos.details', $curso);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function delete(Request $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $request->validate([
                 'idCurso' => ['required','numeric','integer']
             ]);
@@ -132,7 +133,7 @@ class CursoController extends Controller
             return redirect()->route('cursos.index');
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 }

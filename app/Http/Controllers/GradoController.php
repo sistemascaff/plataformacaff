@@ -7,14 +7,13 @@ use App\Models\Grado;
 use App\Models\Usuario;
 use App\Models\Nivel;
 use App\Models\Paralelo;
+use App\Models\Rol;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules\Can;
-
 class GradoController extends Controller
 {
     public function index(Request $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $tableGrado = (new Grado())->selectDisponibles($request->busqueda);
             return view('Grado.inicio', [
                 'headTitle' => 'GRADOS - INICIO',
@@ -23,13 +22,13 @@ class GradoController extends Controller
         ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }        
     }
 
     public function show($idGrado)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $grado = (new Grado())->selectGrado($idGrado);
             $usuario = (new Usuario())->selectUsuario($grado->idUsuario);
             $nivel = (new Nivel())->selectNivel($grado->idNivel);
@@ -49,12 +48,12 @@ class GradoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function new($idSelect = null){
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $Niveles = (new Nivel())->selectDisponibles('');
             if(!$idSelect){
                 $idSelect = 0;
@@ -67,13 +66,13 @@ class GradoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function store(GradoValidation $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $grado = new Grado();
             $grado->nombreGrado = strtoupper($request->nombreGrado);
             $grado->posicionOrdinal = $request->posicionOrdinal;
@@ -83,13 +82,13 @@ class GradoController extends Controller
             return redirect()->route('grados.details', $grado);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function edit(Grado $grado)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $Niveles = (new Nivel())->selectDisponibles('');
             return view('Grado.update', [
                 'headTitle' => 'EDITAR - ' . $grado->nombreGrado,
@@ -99,13 +98,13 @@ class GradoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
     
     public function update(GradoValidation $request, Grado $grado)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $grado->nombreGrado = strtoupper($request->nombreGrado);
             $grado->posicionOrdinal = $request->posicionOrdinal;
             $grado->idNivel = $request->idNivel;
@@ -114,13 +113,13 @@ class GradoController extends Controller
             return redirect()->route('grados.details', $grado);
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 
     public function delete(Request $request)
     {
-        if (session('idRol') == 1) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $request->validate([
                 'idGrado' => ['required','numeric','integer']
             ]);
@@ -131,7 +130,7 @@ class GradoController extends Controller
             return redirect()->route('grados.index');
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('usuarios.index');
         }
     }
 }
