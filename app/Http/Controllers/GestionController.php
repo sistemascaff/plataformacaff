@@ -65,6 +65,8 @@ class GestionController extends Controller
             $gestion = new Gestion();
             $gestion->anhoGestion = strtoupper($request->anhoGestion);
             $gestion->idUsuario = session('idUsuario');
+            $gestion->ip = session('ip');
+            $gestion->dispositivo = session('dispositivo');
             $gestion->save();
             return redirect()->route('gestiones.details', $gestion);
         }
@@ -92,6 +94,8 @@ class GestionController extends Controller
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $gestion->anhoGestion = strtoupper($request->anhoGestion);
             $gestion->idUsuario = session('idUsuario');
+            $gestion->ip = session('ip');
+            $gestion->dispositivo = session('dispositivo');
             $gestion->save();
             return redirect()->route('gestiones.details', $gestion);
         }
@@ -109,6 +113,8 @@ class GestionController extends Controller
             $gestion = (new Gestion())->selectGestion($request->idGestion);
             $gestion->estado = '0';
             $gestion->idUsuario = session('idUsuario');
+            $gestion->ip = session('ip');
+            $gestion->dispositivo = session('dispositivo');
             $gestion->save();
             return redirect()->route('gestiones.index');
         }

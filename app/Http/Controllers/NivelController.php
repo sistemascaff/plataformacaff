@@ -66,6 +66,8 @@ class NivelController extends Controller
             $nivel->nombreNivel = strtoupper($request->nombreNivel);
             $nivel->posicionOrdinal = $request->posicionOrdinal;
             $nivel->idUsuario = session('idUsuario');
+            $nivel->ip = session('ip');
+            $nivel->dispositivo = session('dispositivo');
             $nivel->save();
             return redirect()->route('niveles.details', $nivel);
         }
@@ -94,6 +96,8 @@ class NivelController extends Controller
             $nivel->nombreNivel = strtoupper($request->nombreNivel);
             $nivel->posicionOrdinal = strtoupper($request->posicionOrdinal);
             $nivel->idUsuario = session('idUsuario');
+            $nivel->ip = session('ip');
+            $nivel->dispositivo = session('dispositivo');
             $nivel->save();
             return redirect()->route('niveles.details', $nivel);
         }
@@ -111,6 +115,8 @@ class NivelController extends Controller
             $nivel = (new Nivel())->selectNivel($request->idNivel);
             $nivel->estado = '0';
             $nivel->idUsuario = session('idUsuario');
+            $nivel->ip = session('ip');
+            $nivel->dispositivo = session('dispositivo');
             $nivel->save();
             return redirect()->route('niveles.index');
         }

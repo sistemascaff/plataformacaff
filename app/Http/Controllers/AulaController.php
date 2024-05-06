@@ -65,6 +65,8 @@ class AulaController extends Controller
             $aula = new Aula();
             $aula->nombreAula = strtoupper($request->nombreAula);
             $aula->idUsuario = session('idUsuario');
+            $aula->ip = session('ip');
+            $aula->dispositivo = session('dispositivo');
             $aula->save();
             return redirect()->route('aulas.details', $aula);
         }
@@ -92,6 +94,8 @@ class AulaController extends Controller
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $aula->nombreAula = strtoupper($request->nombreAula);
             $aula->idUsuario = session('idUsuario');
+            $aula->ip = session('ip');
+            $aula->dispositivo = session('dispositivo');
             $aula->save();
             return redirect()->route('aulas.details', $aula);
         }
@@ -109,6 +113,8 @@ class AulaController extends Controller
             $aula = (new Aula())->selectAula($request->idAula);
             $aula->estado = '0';
             $aula->idUsuario = session('idUsuario');
+            $aula->ip = session('ip');
+            $aula->dispositivo = session('dispositivo');
             $aula->save();
             return redirect()->route('aulas.index');
         }

@@ -74,6 +74,8 @@ class PeriodoController extends Controller
             $periodo->posicionOrdinal = $request->posicionOrdinal;
             $periodo->idGestion = $request->idGestion;
             $periodo->idUsuario = session('idUsuario');
+            $periodo->ip = session('ip');
+            $periodo->dispositivo = session('dispositivo');
             $periodo->save();
             return redirect()->route('periodos.details', $periodo);
         }
@@ -105,6 +107,8 @@ class PeriodoController extends Controller
             $periodo->posicionOrdinal = $request->posicionOrdinal;
             $periodo->idGestion = $request->idGestion;
             $periodo->idUsuario = session('idUsuario');
+            $periodo->ip = session('ip');
+            $periodo->dispositivo = session('dispositivo');
             $periodo->save();
             return redirect()->route('periodos.details', $periodo);
         }
@@ -122,6 +126,8 @@ class PeriodoController extends Controller
             $periodo = (new Periodo())->selectPeriodo($request->idPeriodo);
             $periodo->estado = '0';
             $periodo->idUsuario = session('idUsuario');
+            $periodo->ip = session('ip');
+            $periodo->dispositivo = session('dispositivo');
             $periodo->save();
             return redirect()->route('periodos.index');
         }

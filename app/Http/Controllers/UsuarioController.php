@@ -41,6 +41,8 @@ class UsuarioController extends Controller
                 $Ultimaconexion = (new Usuario())->selectUsuario(session('idUsuario'));
                 $Ultimaconexion->timestamps = false;
                 $Ultimaconexion->ultimaConexion = Carbon::now();
+                $Ultimaconexion->ultimoDispositivo = session('dispositivo');
+                $Ultimaconexion->ultimaIP = session('ip');
                 $Ultimaconexion->save();
                 return redirect()->route('usuarios.index');
             }

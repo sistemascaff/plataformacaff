@@ -68,6 +68,8 @@ class ParaleloController extends Controller
             $paralelo = new Paralelo();
             $paralelo->nombreParalelo = strtoupper($request->nombreParalelo);
             $paralelo->idUsuario = session('idUsuario');
+            $paralelo->ip = session('ip');
+            $paralelo->dispositivo = session('dispositivo');
             $paralelo->save();
             return redirect()->route('paralelos.details', $paralelo);
         }
@@ -95,6 +97,8 @@ class ParaleloController extends Controller
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $paralelo->nombreParalelo = strtoupper($request->nombreParalelo);
             $paralelo->idUsuario = session('idUsuario');
+            $paralelo->ip = session('ip');
+            $paralelo->dispositivo = session('dispositivo');
             $paralelo->save();
             return redirect()->route('paralelos.details', $paralelo);
         }
@@ -112,6 +116,8 @@ class ParaleloController extends Controller
             $paralelo = (new Paralelo())->selectParalelo($request->idParalelo);
             $paralelo->estado = '0';
             $paralelo->idUsuario = session('idUsuario');
+            $paralelo->ip = session('ip');
+            $paralelo->dispositivo = session('dispositivo');
             $paralelo->save();
             return redirect()->route('paralelos.index');
         }

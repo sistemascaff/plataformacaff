@@ -78,6 +78,8 @@ class GradoController extends Controller
             $grado->posicionOrdinal = $request->posicionOrdinal;
             $grado->idNivel = $request->idNivel;
             $grado->idUsuario = session('idUsuario');
+            $grado->ip = session('ip');
+            $grado->dispositivo = session('dispositivo');
             $grado->save();
             return redirect()->route('grados.details', $grado);
         }
@@ -109,6 +111,8 @@ class GradoController extends Controller
             $grado->posicionOrdinal = $request->posicionOrdinal;
             $grado->idNivel = $request->idNivel;
             $grado->idUsuario = session('idUsuario');
+            $grado->ip = session('ip');
+            $grado->dispositivo = session('dispositivo');
             $grado->save();
             return redirect()->route('grados.details', $grado);
         }
@@ -126,6 +130,8 @@ class GradoController extends Controller
             $grado = (new Grado())->selectGrado($request->idGrado);
             $grado->estado = '0';
             $grado->idUsuario = session('idUsuario');
+            $grado->ip = session('ip');
+            $grado->dispositivo = session('dispositivo');
             $grado->save();
             return redirect()->route('grados.index');
         }

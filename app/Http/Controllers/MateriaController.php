@@ -75,6 +75,8 @@ class MateriaController extends Controller
             $materia->nombreCorto = strtoupper($request->nombreCorto);
             $materia->idArea = $request->idArea;
             $materia->idUsuario = session('idUsuario');
+            $materia->ip = session('ip');
+            $materia->dispositivo = session('dispositivo');
             $materia->save();
             return redirect()->route('materias.details', $materia);
         }
@@ -106,6 +108,8 @@ class MateriaController extends Controller
             $materia->nombreCorto = strtoupper($request->nombreCorto);
             $materia->idArea = $request->idArea;
             $materia->idUsuario = session('idUsuario');
+            $materia->ip = session('ip');
+            $materia->dispositivo = session('dispositivo');
             $materia->save();
             return redirect()->route('materias.details', $materia);
         }
@@ -123,6 +127,8 @@ class MateriaController extends Controller
             $materia = (new Materia())->selectMateria($request->idMateria);
             $materia->estado = '0';
             $materia->idUsuario = session('idUsuario');
+            $materia->ip = session('ip');
+            $materia->dispositivo = session('dispositivo');
             $materia->save();
             return redirect()->route('materias.index');
         }

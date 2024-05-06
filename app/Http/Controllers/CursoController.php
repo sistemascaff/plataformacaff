@@ -79,6 +79,8 @@ class CursoController extends Controller
             $curso->idGrado = $request->idGrado;
             $curso->idParalelo = $request->idParalelo;
             $curso->idUsuario = session('idUsuario');
+            $curso->ip = session('ip');
+            $curso->dispositivo = session('dispositivo');
             $curso->save();
             return redirect()->route('cursos.details', $curso);
         }
@@ -112,6 +114,8 @@ class CursoController extends Controller
             $curso->idGrado = $request->idGrado;
             $curso->idParalelo = $request->idParalelo;
             $curso->idUsuario = session('idUsuario');
+            $curso->ip = session('ip');
+            $curso->dispositivo = session('dispositivo');
             $curso->save();
             return redirect()->route('cursos.details', $curso);
         }
@@ -129,6 +133,8 @@ class CursoController extends Controller
             $curso = (new Curso())->selectCurso($request->idCurso);
             $curso->estado = '0';
             $curso->idUsuario = session('idUsuario');
+            $curso->ip = session('ip');
+            $curso->dispositivo = session('dispositivo');
             $curso->save();
             return redirect()->route('cursos.index');
         }

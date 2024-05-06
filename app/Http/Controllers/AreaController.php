@@ -78,6 +78,8 @@ class AreaController extends Controller
             $area->nombreCorto = strtoupper($request->nombreCorto);
             $area->idCampo = $request->idCampo;
             $area->idUsuario = session('idUsuario');
+            $area->ip = session('ip');
+            $area->dispositivo  = session('dispositivo');
             $area->save();
             return redirect()->route('areas.details', $area);
         }
@@ -109,6 +111,8 @@ class AreaController extends Controller
             $area->nombreCorto = strtoupper($request->nombreCorto);
             $area->idCampo = $request->idCampo;
             $area->idUsuario = session('idUsuario');
+            $area->ip = session('ip');
+            $area->dispositivo  = session('dispositivo');
             $area->save();
             return redirect()->route('areas.details', $area);
         }
@@ -126,6 +130,8 @@ class AreaController extends Controller
             $area = (new Area())->selectArea($request->idArea);
             $area->estado = '0';
             $area->idUsuario = session('idUsuario');
+            $area->ip = session('ip');
+            $area->dispositivo  = session('dispositivo');
             $area->save();
             return redirect()->route('areas.index');
         }
