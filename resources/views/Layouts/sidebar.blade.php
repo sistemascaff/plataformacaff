@@ -53,8 +53,8 @@
           </ul>
         </li>
 
-        <li class="nav-item {{ request()->is('personas*') ? 'menu-open' : '' }}">
-          <a href="" class="nav-link {{ request()->is('personas*') ? 'active' : '' }}">
+        <li class="nav-item {{ request()->is('estudiantes*') ? 'menu-open' : '' }}">
+          <a href="" class="nav-link {{ request()->is('estudiantes*') ? 'active' : '' }}">
             <i class="nav-icon fa fa-male"></i>
             <p>
               PERFILES
@@ -63,7 +63,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{route('personas.index')}}" class="nav-link {{ request()->is('personas*') ? 'active' : '' }}">
+              <a href="{{route('estudiantes.index')}}" class="nav-link {{ request()->is('estudiantes*') ? 'active' : '' }}">
                 <i class="fa fa-users nav-icon"></i>
                 <p>Estudiantes</p>
               </a>

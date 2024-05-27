@@ -20,4 +20,9 @@ class Persona extends Model
     public function getAllUsers(){
         return Persona::all()->where('estado','1');
     }
+
+    public function selectPersona($idPersona){
+        $selectPersona = Persona::find($idPersona);
+        return $selectPersona;
+    }
 }

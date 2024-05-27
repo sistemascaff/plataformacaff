@@ -32,6 +32,7 @@ class Curso extends Model
         ], 'LIKE', '%'.$busqueda.'%')
         ->orderBy('Niveles.posicionOrdinal', 'ASC')
         ->orderBy('Grados.posicionOrdinal', 'ASC')
+        ->orderBy('Cursos.nombreCurso', 'ASC')
         ->get();
         return $selectAll;
     }
@@ -42,7 +43,7 @@ class Curso extends Model
     }
 
     public function selectCurso_Estudiantes($idCurso){
-        $selectEstudiantes = Curso::select('Estudiantes.idCurso','Personas.apellidoPaterno','Personas.apellidoMaterno','Personas.nombres','Estudiantes.fechaRegistro','Estudiantes.fechaActualizacion')
+        $selectEstudiantes = Curso::select('Estudiantes.idEstudiante','Estudiantes.idCurso','Personas.apellidoPaterno','Personas.apellidoMaterno','Personas.nombres','Estudiantes.fechaRegistro','Estudiantes.fechaActualizacion')
         ->join('Estudiantes', 'Cursos.idCurso', '=', 'Estudiantes.idCurso')
         ->join('Personas', 'Personas.idPersona', '=', 'Estudiantes.idPersona')
         ->where('Cursos.idCurso', '=', $idCurso)

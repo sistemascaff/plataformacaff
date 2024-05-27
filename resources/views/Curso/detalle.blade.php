@@ -106,10 +106,10 @@
             <td>{{helper_formatoVistaFechayHora($rowEstudiantes->fechaActualizacion)}}</td>
             <td>
               <div class="btn-group">
-                <a class="btn btn-info" href="{{route('areas.details', $rowEstudiantes->idEstudiante)}}">
+                <a class="btn btn-info" href="{{route('estudiantes.details', $rowEstudiantes->idEstudiante)}}">
                   {!! helper_FormatoBotonCRUD(2, 'icono') !!}
                 </a>
-                <a class="btn btn-warning" href="{{route('areas.edit', $rowEstudiantes->idEstudiante)}}">
+                <a class="btn btn-warning" href="{{route('estudiantes.edit', $rowEstudiantes->idEstudiante)}}">
                   {!! helper_FormatoBotonCRUD(3, 'icono') !!}
                 </a>
               </div>

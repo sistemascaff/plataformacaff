@@ -7,59 +7,58 @@ use Illuminate\Http\Request;
 
 class RolController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+            $rol = new Rol();
+            $rol->idUsuario = $request->idUsuario;
+            if ($request->tipoPerfil == "ESTUDIANTE") {
+                $rol->estudiante = 1;
+            }
+            $rol->idUsuarioResponsable = session('idUsuario');
+            $rol->ip = session('ip');
+            $rol->dispositivo = session('dispositivo');
+            $rol->save();
+            return $rol;
+        }
+        else{
+            return redirect()->route('usuarios.index');
+        }
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Rol $rol)
+    public function update(Request $request, $idRol)
     {
-        //
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+            $rol = (new Rol)->selectRol($idRol);
+            $rol->idUsuario = $request->idUsuario;
+            if ($request->tipoPerfil == "ESTUDIANTE") {
+                $rol->estudiante = 1;
+            }
+            $rol->idUsuarioResponsable = session('idUsuario');
+            $rol->ip = session('ip');
+            $rol->dispositivo = session('dispositivo');
+            $rol->save();
+            return $rol;
+        }
+        else{
+            return redirect()->route('usuarios.index');
+        }
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Rol $rol)
+    public function delete(Request $request)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Rol $rol)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Rol $rol)
-    {
-        //
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+            $request->validate([
+                'idRol' => ['required','numeric','integer']
+            ]);
+            $rol = (new Rol())->selectRol($request->idRol);
+            $rol->estado = '0';
+            $rol->idUsuarioResponsable = session('idUsuario');
+            $rol->ip = session('ip');
+            $rol->dispositivo = session('dispositivo');
+            $rol->save();
+            return $rol;
+        }
+        else{
+            return redirect()->route('usuarios.index');
+        }
     }
 }

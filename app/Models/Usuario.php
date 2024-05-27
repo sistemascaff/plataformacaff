@@ -41,6 +41,9 @@ class Usuario extends Authenticatable
     public function selectUsuario($idUsuario){
         return Usuario::find($idUsuario);
     }
+    public function selectUsuarioConIDPersona($idPersona){ 
+        return Usuario::where('idPersona', $idPersona)->first(); 
+    }
 
     public function login($correo, $contrasenha, $ip, $dispositivo){
         
@@ -51,6 +54,7 @@ class Usuario extends Authenticatable
         ->get();
         if($sessionRow) {
             foreach($sessionRow as $row){
+                session(['idColegio' => 1]);
                 session(['idUsuario' => $row->idUsuario]);
                 session(['idPersona' => $row->idPersona]);
                 session(['correo' => $row->correo]);
