@@ -5,7 +5,7 @@ function helper_tituloPagina(){
 }
 
 function helper_versionApp(){
-    return "0.1 En desarrollo";
+    return "0.3 En desarrollo";
 }
 
 function helper_retrocederDirectorio($valor){
@@ -101,15 +101,16 @@ function helper_FormatoBotonCRUD($valor, $tipo){
 
 function helper_FormatoAtributoValorATexto($valor, $atributo){
     $asignaturaTipoCalificacion = '';
+    $dimensionTipoCalculo = '';
     
     switch ($valor) {
         case '1':
             $asignaturaTipoCalificacion = 'CUALITATIVA';
-
+            $dimensionTipoCalculo = 'SUMA';
             break;
         case '2':
             $asignaturaTipoCalificacion = 'CUANTITATIVA';
-
+            $dimensionTipoCalculo = 'PROMEDIO';
             break;
         default:
             return 'HELPER ERROR: VALOR EXCEDIDO';
@@ -118,10 +119,11 @@ function helper_FormatoAtributoValorATexto($valor, $atributo){
     
     if ($atributo === 'asignaturaTipoCalificacion') {
         return $asignaturaTipoCalificacion;
-        /*
-    } elseif ($tipo === 'texto') {
-        return '<i class="' . $icono . '"></i> ' . $texto;*/
-    } else {
+    }
+    elseif ($atributo === 'dimensionTipoCalculo') {
+        return $dimensionTipoCalculo;
+    } 
+    else {
         return 'HELPER ERROR: ATRIBUTO INCORRECTO';
     }
 }

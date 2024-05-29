@@ -5,7 +5,7 @@
   <div class="float-right d-none d-sm-block">
     <b>Versión</b> {{helper_versionApp()}}
   </div>
-  <strong>Copyright &copy; 2024 CAFF. Todos los derechos reservados.
+  <strong>Copyright &copy; {{date("Y")}} CAFF. Todos los derechos reservados.
 </footer>
 
 <!-- Control Sidebar -->
@@ -40,8 +40,10 @@
 <script src="https://cdn.datatables.net/datetime/1.5.2/js/dataTables.dateTime.js"></script>
 <!-- AdminLTE App -->
 <script src="{{URL::to('/')}}/AdminLTE/dist/js/adminlte.min.js"></script>
-
+<!-- CAFF Custom Script -->
+<script src="{{URL::to('/')}}/custom.js"></script>
+<!-- Custom Scripts Blade PHP -->
 @include('Layouts.customScripts')
-
+<!-- /Custom Scripts Blade PHP -->
 </body>
 </html>

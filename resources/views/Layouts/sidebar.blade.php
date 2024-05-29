@@ -76,14 +76,16 @@
               (request()->is('materias*') ? 'menu-open' : 
                 (request()->is('aulas*') ? 'menu-open' : 
                   (request()->is('gestiones*') ? 'menu-open' : 
-                    (request()->is('periodos*') ? 'menu-open' : ''))))) 
+                    (request()->is('periodos*') ? 'menu-open' : 
+                      (request()->is('dimensiones*') ? 'menu-open' : '')))))) 
           }}">
           <a href="" class="nav-link {{ request()->is('campos*') ? 'active' : 
               (request()->is('areas*') ? 'active' : 
                 (request()->is('materias*') ? 'active' : 
                   (request()->is('aulas*') ? 'active' : 
                     (request()->is('gestiones*') ? 'active' : 
-                      (request()->is('periodos*') ? 'active' : ''))))) 
+                      (request()->is('periodos*') ? 'active' : 
+                        (request()->is('dimensiones*') ? 'active' : '')))))) 
             }}">
             <i class="nav-icon fa fa-th-list"></i>
             <p>
@@ -104,6 +106,14 @@
               <a href="{{route('periodos.index')}}" class="nav-link {{ request()->is('periodos*') ? 'active' : '' }}">
                 <i class="fa fa-circle-o nav-icon"></i>
                 <p>PERIODOS</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('dimensiones.index')}}" class="nav-link {{ request()->is('dimensiones*') ? 'active' : '' }}">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p>DIMENSIONES</p>
               </a>
             </li>
           </ul>

@@ -194,7 +194,7 @@
         </div>
         <div class="modal-body">
           <p>¿Está segur@ de eliminar el registro seleccionado?</p>
-          <p class="font-weight-bold">{{$estudiante->nombres}}</p>
+          <p class="font-weight-bold">{{$persona->apellidoPaterno . ' ' . $persona->apellidoMaterno . ' ' . $persona->nombres}}</p>
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>

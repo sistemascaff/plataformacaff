@@ -12,6 +12,7 @@ use App\Http\Controllers\ParaleloController;
 use App\Http\Controllers\AulaController;
 use App\Http\Controllers\GestionController;
 use App\Http\Controllers\PeriodoController;
+use App\Http\Controllers\DimensionController;
 use App\Http\Controllers\EstudianteController;
 use Illuminate\Support\Facades\Route;
 
@@ -125,6 +126,15 @@ Route::controller(PeriodoController::class)->group(function(){
     Route::get('periodos/{periodo}/editar','edit')->name('periodos.edit');
     Route::put('periodos/{periodo}','update')->name('periodos.update');
     Route::put('periodos','delete')->name('periodos.delete');
+});
+Route::controller(DimensionController::class)->group(function(){
+    Route::get('dimensiones','index')->name('dimensiones.index');
+    Route::get('dimensiones/crear/{gestion?}','new')->name('dimensiones.create');
+    Route::post('dimensiones','store')->name('dimensiones.store');
+    Route::get('dimensiones/{dimension}','show')->name('dimensiones.details');
+    Route::get('dimensiones/{dimension}/editar','edit')->name('dimensiones.edit');
+    Route::put('dimensiones/{dimension}','update')->name('dimensiones.update');
+    Route::put('dimensiones','delete')->name('dimensiones.delete');
 });
 Route::controller(EstudianteController::class)->group(function(){
     Route::get('estudiantes','index')->name('estudiantes.index');
