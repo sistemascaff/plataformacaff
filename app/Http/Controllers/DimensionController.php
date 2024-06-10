@@ -6,6 +6,7 @@ use App\Http\Requests\DimensionValidation;
 use App\Models\Dimension;
 use App\Models\Usuario;
 use App\Models\Periodo;
+use App\Models\Gestion;
 use App\Models\Rol;
 use Illuminate\Http\Request;
 
@@ -31,6 +32,7 @@ class DimensionController extends Controller
             $dimension = (new Dimension())->selectDimension($idDimension);
             $usuario = (new Usuario())->selectUsuario($dimension->idUsuario);
             $periodo = (new Periodo())->selectPeriodo($dimension->idPeriodo);
+            $gestion = (new Gestion())->selectGestion($periodo->idGestion);
             if (!$usuario) {
                 $usuario = new Usuario();
                 $usuario->correo = '';
@@ -39,7 +41,8 @@ class DimensionController extends Controller
                 'headTitle' => $dimension->nombreDimension,
                 'dimension' => $dimension,
                 'usuario' => $usuario,
-                'periodo' => $periodo
+                'periodo' => $periodo,
+                'gestion' => $gestion
             ]);
         } else {
             return redirect()->route('usuarios.index');

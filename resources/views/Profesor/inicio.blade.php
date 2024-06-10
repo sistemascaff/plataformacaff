@@ -10,8 +10,8 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('estudiantes.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item active">ESTUDIANTES</li>
+            <li class="breadcrumb-item"><a href="{{route('profesores.index')}}">INICIO</a></li>
+            <li class="breadcrumb-item active">PROFESORES</li>
           </ol>
         </div>
       </div>
@@ -24,13 +24,13 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title font-weight-bold">ESTUDIANTES</h3>
+        <h3 class="card-title font-weight-bold">PROFESORES</h3>
       </div>
       <div class="card-body">
-        <a href="{{route('estudiantes.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
+        <a href="{{route('profesores.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
         <br><br>
         <!-- Formulario de búsqueda -->
-        <form action="{{route('estudiantes.index')}}" method="GET">
+        <form action="{{route('profesores.index')}}" method="GET">
           <div class="input-group input-group-sm col-md-3">
             <input type="text" name="busqueda" class="form-control" placeholder="Filtrar tabla..." value="{{$busqueda}}" autofocus>
             <span class="input-group-append">
@@ -42,7 +42,7 @@
         @if ($busqueda)
           <h3 class="font-weight-bold">
             Resultados de la búsqueda: "{{$busqueda}}" 
-            <a href="{{route('estudiantes.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'icono') !!}</a>
+            <a href="{{route('profesores.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'icono') !!}</a>
           </h3>
           <br>
         @endif
@@ -52,7 +52,6 @@
             <table id="dataTable" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>CURSO</th>
                   <th>AP. PATERNO</th>
                   <th>AP. MATERNO</th>
                   <th>NOMBRES</th>
@@ -63,9 +62,9 @@
                   <th>SEXO</th>
                   <th>IDIOMA</th>
                   <th>NIVEL I.E.</th>
-                  <th>TIPO SANGRE</th>
-                  <th>ALERGIAS</th>
-                  <th>DATOS MÉDICOS</th>
+                  <th>ESPECIALIDAD</th>
+                  <th>GRADO DE ESTUDIOS</th>
+                  <th>DOMICILIO</th>
                   <th>CORREO</th>
                   @if (session('rol_admin'))
                     <th>CONTRASEÑA</th>
@@ -79,40 +78,39 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($tableEstudiante as $rowEstudiante)
+                @foreach ($tableProfesor as $rowProfesor)
                   <tr>
-                    <td>{{$rowEstudiante->nombreCurso}}</td>
-                    <td>{{$rowEstudiante->apellidoPaterno}}</td>
-                    <td>{{$rowEstudiante->apellidoMaterno}}</td>
-                    <td>{{$rowEstudiante->nombres}}</td>
-                    <td>{{$rowEstudiante->documentoIdentificacion}}</td>
-                    <td>{{$rowEstudiante->documentoComplemento}}</td>
-                    <td>{{$rowEstudiante->documentoExpedido}}</td>
-                    <td>{{helper_formatoVistaFecha($rowEstudiante->fechaNacimiento)}}</td>
-                    <td>{{$rowEstudiante->sexo}}</td>
-                    <td>{{$rowEstudiante->idioma}}</td>
-                    <td>{{$rowEstudiante->nivelIE}}</td>
-                    <td>{{$rowEstudiante->saludTipoSangre}}</td>
-                    <td>{{$rowEstudiante->saludAlergias}}</td>
-                    <td>{{$rowEstudiante->saludDatos}}</td>
-                    <td>{{$rowEstudiante->correoPersonal}}</td>
+                    <td>{{$rowProfesor->apellidoPaterno}}</td>
+                    <td>{{$rowProfesor->apellidoMaterno}}</td>
+                    <td>{{$rowProfesor->nombres}}</td>
+                    <td>{{$rowProfesor->documentoIdentificacion}}</td>
+                    <td>{{$rowProfesor->documentoComplemento}}</td>
+                    <td>{{$rowProfesor->documentoExpedido}}</td>
+                    <td>{{helper_formatoVistaFecha($rowProfesor->fechaNacimiento)}}</td>
+                    <td>{{$rowProfesor->sexo}}</td>
+                    <td>{{$rowProfesor->idioma}}</td>
+                    <td>{{$rowProfesor->nivelIE}}</td>
+                    <td>{{$rowProfesor->especialidad}}</td>
+                    <td>{{$rowProfesor->gradoEstudios}}</td>
+                    <td>{{$rowProfesor->direccionDomicilio}}</td>
+                    <td>{{$rowProfesor->correoPersonal}}</td>
                     @if (session('rol_admin'))
-                      <td>{{$rowEstudiante->contrasenha}}</td>
-                      <td>{{helper_formatoVistaFechayHora($rowEstudiante->fechaRegistro)}}</td>
-                      <td>{{helper_formatoVistaFechayHora($rowEstudiante->fechaActualizacion)}}</td>
-                      <td>{{helper_formatoNullorEmpty($rowEstudiante->correo)}}</td>
-                      <td>{{helper_formatoNullorEmpty($rowEstudiante->ip)}}</td>
-                      <td>{{helper_formatoNullorEmpty($rowEstudiante->dispositivo)}}</td>
+                      <td>{{$rowProfesor->contrasenha}}</td>
+                      <td>{{helper_formatoVistaFechayHora($rowProfesor->fechaRegistro)}}</td>
+                      <td>{{helper_formatoVistaFechayHora($rowProfesor->fechaActualizacion)}}</td>
+                      <td>{{helper_formatoNullorEmpty($rowProfesor->correo)}}</td>
+                      <td>{{helper_formatoNullorEmpty($rowProfesor->ip)}}</td>
+                      <td>{{helper_formatoNullorEmpty($rowProfesor->dispositivo)}}</td>
                     @endif
                     <td>
                       <div class="btn-group">
-                        <a class="btn btn-info" href="{{route('estudiantes.details', $rowEstudiante->idEstudiante)}}">
+                        <a class="btn btn-info" href="{{route('profesores.details', $rowProfesor->idProfesor)}}">
                           {!! helper_FormatoBotonCRUD(2, 'icono') !!}
                         </a>
-                        <a class="btn btn-warning" href="{{route('estudiantes.edit',$rowEstudiante->idEstudiante)}}">
+                        <a class="btn btn-warning" href="{{route('profesores.edit',$rowProfesor->idProfesor)}}">
                           {!! helper_FormatoBotonCRUD(3, 'icono') !!}
                         </a>
-                        <a class="btn btn-danger eliminar-registro" data-toggle="modal" data-target="#modalDelete" data-id="{{$rowEstudiante->idEstudiante}}" data-nombre="{{$rowEstudiante->apellidoPaterno . ' ' . $rowEstudiante->apellidoMaterno . ' ' . $rowEstudiante->nombres}}">
+                        <a class="btn btn-danger eliminar-registro" data-toggle="modal" data-target="#modalDelete" data-id="{{$rowProfesor->idProfesor}}" data-nombre="{{$rowProfesor->apellidoPaterno . ' ' . $rowProfesor->apellidoMaterno . ' ' . $rowProfesor->nombres}}">
                           {!! helper_FormatoBotonCRUD(4 , 'icono') !!}
                         </a>                      
                       </div>
@@ -145,10 +143,10 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</button>
-          <form action="{{route('estudiantes.delete')}}" method="POST">
+          <form action="{{route('profesores.delete')}}" method="POST">
             @csrf
             @method('put')
-            <input type="hidden" id="id" name="idEstudiante" value="0">
+            <input type="hidden" id="id" name="idProfesor" value="0">
             <button type="submit" class="btn btn-danger">{!! helper_FormatoBotonCRUD(4, 'texto') !!}</button>
           </form>
         </div>

@@ -53,14 +53,26 @@
           </ul>
         </li>
 
-        <li class="nav-item {{ request()->is('estudiantes*') ? 'menu-open' : '' }}">
-          <a href="" class="nav-link {{ request()->is('estudiantes*') ? 'active' : '' }}">
+        <li class="nav-item {{ request()->is('estudiantes*') ? 'menu-open' : 
+            (request()->is('profesores*') ? 'menu-open' : '')
+          }}">
+          <a href="" class="nav-link {{ request()->is('estudiantes*') ? 'active' : 
+              (request()->is('profesores*') ? 'active' : '')
+            }}">
             <i class="nav-icon fa fa-male"></i>
             <p>
               PERFILES
               <i class="right fa fa-angle-left"></i>
             </p>
           </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('profesores.index')}}" class="nav-link {{ request()->is('profesores*') ? 'active' : '' }}">
+                <i class="fa fa-users nav-icon"></i>
+                <p>Profesores</p>
+              </a>
+            </li>
+          </ul>
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="{{route('estudiantes.index')}}" class="nav-link {{ request()->is('estudiantes*') ? 'active' : '' }}">
@@ -77,7 +89,8 @@
                 (request()->is('aulas*') ? 'menu-open' : 
                   (request()->is('gestiones*') ? 'menu-open' : 
                     (request()->is('periodos*') ? 'menu-open' : 
-                      (request()->is('dimensiones*') ? 'menu-open' : '')))))) 
+                      (request()->is('dimensiones*') ? 'menu-open' : 
+                        (request()->is('coordinaciones*') ? 'menu-open' : ''))))))) 
           }}">
           <a href="" class="nav-link {{ request()->is('campos*') ? 'active' : 
               (request()->is('areas*') ? 'active' : 
@@ -85,7 +98,8 @@
                   (request()->is('aulas*') ? 'active' : 
                     (request()->is('gestiones*') ? 'active' : 
                       (request()->is('periodos*') ? 'active' : 
-                        (request()->is('dimensiones*') ? 'active' : '')))))) 
+                        (request()->is('dimensiones*') ? 'active' : 
+                          (request()->is('coordinaciones*') ? 'active' : ''))))))) 
             }}">
             <i class="nav-icon fa fa-th-list"></i>
             <p>
@@ -138,6 +152,14 @@
               <a href="{{route('materias.index')}}" class="nav-link {{ request()->is('materias*') ? 'active' : '' }}">
                 <i class="fa fa-circle-o nav-icon"></i>
                 <p>MATERIAS</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('coordinaciones.index')}}" class="nav-link {{ request()->is('coordinaciones*') ? 'active' : '' }}">
+                <i class="fa fa-key nav-icon"></i>
+                <p>COORDINACIONES</p>
               </a>
             </li>
           </ul>

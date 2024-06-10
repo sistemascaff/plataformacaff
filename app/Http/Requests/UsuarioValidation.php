@@ -26,7 +26,7 @@ class UsuarioValidation extends FormRequest
             'idPersona' => ['required','numeric','integer'],
             'correo' => ['required','max:60'],
             'contrasenha' => ['required','min:8','max:50'],
-            'fotoPerfilURL' => ['sometimes','image','max:2048','mimes:jpg,png,jpeg,gif,svg'],/*Foto opcional, límite de 2 Mb.*/
+            'fotoPerfilURL' => ['sometimes','image','max:2048','mimes:jpg,png,jpeg'],/*Foto opcional, límite de 2 Mb.*/
             'pinRecuperacion' => ['required','min:3','max:50']
         ];
     }

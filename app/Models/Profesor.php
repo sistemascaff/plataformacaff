@@ -5,27 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Estudiante extends Model
+class Profesor extends Model
 {
     use HasFactory;
     /*Nombre de la tabla*/
-    protected $table = 'Estudiantes';
+    protected $table = 'Profesores';
     /*ID de la tabla*/
-    protected $primaryKey = 'idEstudiante';
+    protected $primaryKey = 'idProfesor';
     /*Modifica los Timestamps por defecto de Eloquent*/
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
     public function selectDisponibles($busqueda){
-        $selectAll = Estudiante::select(
-            /*Estudiantes*/
-            'Estudiantes.idEstudiante','Estudiantes.idPersona','Estudiantes.idCurso',
-            'Estudiantes.saludTipoSangre','Estudiantes.saludAlergias','Estudiantes.saludDatos',
-            'Estudiantes.estado','Estudiantes.fechaRegistro','Estudiantes.fechaActualizacion',
-            'Estudiantes.idUsuario','Usuarios.correo',
-            'Estudiantes.ip','Estudiantes.dispositivo',
-            /*Curso*/
-            'Cursos.nombreCurso',
+        $selectAll = Profesor::select(
+            /*Profesores*/
+            'Profesores.idProfesor','Profesores.idPersona','Profesores.idNivelSubdirector','Profesores.idCoordinacionEncargado',
+            'Profesores.especialidad','Profesores.gradoEstudios','Profesores.direccionDomicilio',
+            'Profesores.estado','Profesores.fechaRegistro','Profesores.fechaActualizacion',
+            'Profesores.idUsuario','Usuarios.correo',
+            'Profesores.ip','Profesores.dispositivo',
             /*Personas*/
             'Personas.apellidoPaterno','Personas.apellidoMaterno','Personas.nombres',
             'Personas.documentoIdentificacion','Personas.documentoComplemento','Personas.documentoExpedido',
@@ -34,13 +32,10 @@ class Estudiante extends Model
             /*Usuarios*/
             'UsuarioPersonal.correo AS correoPersonal', 'UsuarioPersonal.contrasenha'
             )
-        ->leftjoin('Usuarios', 'Estudiantes.idUsuario', '=', 'Usuarios.idUsuario')
-        ->join('Usuarios AS UsuarioPersonal', 'Estudiantes.idPersona', '=', 'UsuarioPersonal.idPersona')
-        ->join('Cursos', 'Estudiantes.idCurso', '=', 'Cursos.idCurso')
-        ->join('Grados', 'Cursos.idGrado', '=', 'Grados.idGrado')
-        ->join('Niveles', 'Grados.idNivel', '=', 'Niveles.idNivel')
-        ->join('Personas', 'Estudiantes.idPersona', '=', 'Personas.idPersona')
-        ->where('Estudiantes.estado', '=', 1)
+        ->leftjoin('Usuarios', 'Profesores.idUsuario', '=', 'Usuarios.idUsuario')
+        ->join('Usuarios AS UsuarioPersonal', 'Profesores.idPersona', '=', 'UsuarioPersonal.idPersona')
+        ->join('Personas', 'Profesores.idPersona', '=', 'Personas.idPersona')
+        ->where('Profesores.estado', '=', 1)
         ->where('Personas.estado', '=', 1)
         ->where(function($query) use ($busqueda) {
             $query->where('Personas.nombres', 'LIKE', '%'.$busqueda.'%')
@@ -55,26 +50,22 @@ class Estudiante extends Model
                   ->orWhereRaw("CONCAT(Personas.nombres, ' ', Personas.apellidoPaterno, ' ', Personas.apellidoMaterno) LIKE ?", ['%'.$busqueda.'%'])
                   ->orWhereRaw("CONCAT(Personas.apellidoPaterno, ' ', Personas.apellidoMaterno, ' ', Personas.nombres) LIKE ?", ['%'.$busqueda.'%']);
         })
-        ->orderBy('Niveles.posicionOrdinal', 'ASC')
-        ->orderBy('Grados.posicionOrdinal', 'ASC')
-        ->orderBy('Cursos.nombreCurso', 'ASC')
         ->orderBy('Personas.apellidoPaterno', 'ASC')
         ->orderBy('Personas.apellidoMaterno', 'ASC')
         ->orderBy('Personas.nombres', 'ASC')
         ->get();
         return $selectAll;
-    }
-    
+    }    
 
-    public function selectEstudiante($idEstudiante){
-        $selectEstudiante = Estudiante::find($idEstudiante);
-        return $selectEstudiante;
+    public function selectProfesor($idProfesor){
+        $selectProfesor = Profesor::find($idProfesor);
+        return $selectProfesor;
     }
 
-    /*public function selectEstudiante_Materias($idEstudiante){
-        $selectMaterias = Estudiante::select('Materias.idMateria','Materias.nombreMateria','Materias.nombreCorto','Materias.fechaRegistro','Materias.fechaActualizacion')
-        ->join('Materias', 'Estudiantes.idEstudiante', '=', 'Materias.idEstudiante')
-        ->where('Materias.idEstudiante', '=', $idEstudiante)
+    /*public function selectProfesor_Materias($idProfesor){
+        $selectMaterias = Profesor::select('Materias.idMateria','Materias.nombreMateria','Materias.nombreCorto','Materias.fechaRegistro','Materias.fechaActualizacion')
+        ->join('Materias', 'Profesores.idProfesor', '=', 'Materias.idProfesor')
+        ->where('Materias.idProfesor', '=', $idProfesor)
         ->where('Materias.estado', '=', '1')
         ->orderBy('Materias.nombreMateria', 'ASC')
         ->get();

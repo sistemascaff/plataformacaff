@@ -29,6 +29,9 @@ class Rol extends Model
         
         return $selectRol;
     }
+    public function selectRolConIDUsuario($idUsuario){ 
+        return Rol::where('idUsuario', $idUsuario)->first(); 
+    }
     public function verificarRoles(Rol $rolesUsuario = null, array $rolesSolicitados){
         if(!$rolesUsuario){
             return 0;

@@ -10,10 +10,12 @@ use App\Http\Controllers\CursoController;
 use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\ParaleloController;
 use App\Http\Controllers\AulaController;
+use App\Http\Controllers\CoordinacionController;
 use App\Http\Controllers\GestionController;
 use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\DimensionController;
 use App\Http\Controllers\EstudianteController;
+use App\Http\Controllers\ProfesorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -144,6 +146,24 @@ Route::controller(EstudianteController::class)->group(function(){
     Route::get('estudiantes/{estudiante}/editar','edit')->name('estudiantes.edit');
     Route::put('estudiantes/{estudiante}','update')->name('estudiantes.update');
     Route::put('estudiantes','delete')->name('estudiantes.delete');
+});
+Route::controller(ProfesorController::class)->group(function(){
+    Route::get('profesores','index')->name('profesores.index');
+    Route::get('profesores/crear','new')->name('profesores.create');
+    Route::post('profesores','store')->name('profesores.store');
+    Route::get('profesores/{profesor}','show')->name('profesores.details');
+    Route::get('profesores/{profesor}/editar','edit')->name('profesores.edit');
+    Route::put('profesores/{profesor}','update')->name('profesores.update');
+    Route::put('profesores','delete')->name('profesores.delete');
+});
+Route::controller(CoordinacionController::class)->group(function(){
+    Route::get('coordinaciones','index')->name('coordinaciones.index');
+    Route::get('coordinaciones/crear','new')->name('coordinaciones.create');
+    Route::post('coordinaciones','store')->name('coordinaciones.store');
+    Route::get('coordinaciones/{coordinacion}','show')->name('coordinaciones.details');
+    Route::get('coordinaciones/{coordinacion}/editar','edit')->name('coordinaciones.edit');
+    Route::put('coordinaciones/{coordinacion}','update')->name('coordinaciones.update');
+    Route::put('coordinaciones','delete')->name('coordinaciones.delete');
 });
 Route::controller(PersonaController::class)->group(function(){
     Route::get('personas','index')->name('personas.index');

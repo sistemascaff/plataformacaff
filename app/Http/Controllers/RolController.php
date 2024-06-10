@@ -15,6 +15,19 @@ class RolController extends Controller
             if ($request->tipoPerfil == "ESTUDIANTE") {
                 $rol->estudiante = 1;
             }
+            elseif($request->tipoPerfil == "SUBDIRECTOR"){
+                $rol->subdirector = 1;
+                $rol->coordinador = 0;
+                $rol->profesor = 1;
+            }
+            elseif($request->tipoPerfil == "COORDINADOR"){
+                $rol->subdirector = 0;
+                $rol->coordinador = 1;
+                $rol->profesor = 1;
+            }
+            elseif($request->tipoPerfil == "PROFESOR"){
+                $rol->profesor = 1;
+            }
             $rol->idUsuarioResponsable = session('idUsuario');
             $rol->ip = session('ip');
             $rol->dispositivo = session('dispositivo');
@@ -32,6 +45,19 @@ class RolController extends Controller
             $rol->idUsuario = $request->idUsuario;
             if ($request->tipoPerfil == "ESTUDIANTE") {
                 $rol->estudiante = 1;
+            }
+            elseif($request->tipoPerfil == "SUBDIRECTOR"){
+                $rol->subdirector = 1;
+                $rol->coordinador = 0;
+                $rol->profesor = 1;
+            }
+            elseif($request->tipoPerfil == "COORDINADOR"){
+                $rol->subdirector = 0;
+                $rol->coordinador = 1;
+                $rol->profesor = 1;
+            }
+            elseif($request->tipoPerfil == "PROFESOR"){
+                $rol->profesor = 1;
             }
             $rol->idUsuarioResponsable = session('idUsuario');
             $rol->ip = session('ip');

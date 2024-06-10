@@ -101,15 +101,21 @@ function helper_FormatoBotonCRUD($valor, $tipo){
 
 function helper_FormatoAtributoValorATexto($valor, $atributo){
     $asignaturaTipoCalificacion = '';
+    $asignaturaTipoBloque = '';
+    $asignaturaTipoAsignatura = '';
     $dimensionTipoCalculo = '';
     
     switch ($valor) {
         case '1':
             $asignaturaTipoCalificacion = 'CUALITATIVA';
+            $asignaturaTipoBloque = 'BLOQUE DE UN SOLO CURSO';
+            $asignaturaTipoAsignatura = 'SIE';
             $dimensionTipoCalculo = 'SUMA';
             break;
         case '2':
             $asignaturaTipoCalificacion = 'CUANTITATIVA';
+            $asignaturaTipoBloque = 'BLOQUE MIXTO';
+            $asignaturaTipoAsignatura = 'INTERNA';
             $dimensionTipoCalculo = 'PROMEDIO';
             break;
         default:
@@ -120,9 +126,15 @@ function helper_FormatoAtributoValorATexto($valor, $atributo){
     if ($atributo === 'asignaturaTipoCalificacion') {
         return $asignaturaTipoCalificacion;
     }
+    elseif ($atributo === 'asignaturaTipoBloque') {
+        return $asignaturaTipoBloque;
+    }
+    elseif ($atributo === 'asignaturaTipoAsignatura') {
+        return $asignaturaTipoAsignatura;
+    }
     elseif ($atributo === 'dimensionTipoCalculo') {
         return $dimensionTipoCalculo;
-    } 
+    }
     else {
         return 'HELPER ERROR: ATRIBUTO INCORRECTO';
     }

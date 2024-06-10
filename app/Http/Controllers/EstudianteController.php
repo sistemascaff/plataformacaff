@@ -139,7 +139,7 @@ class EstudianteController extends Controller
                 'persona' => $persona,
                 'persona_usuario' => $persona_usuario,
                 'Cursos' => $Cursos,
-                'Titulos' => "MODIFICAR ESTUDIANTE"
+                'Titulos' => "MODIFICAR ESTUDIANTE: " . $persona->apellidoPaterno . " " . $persona->apellidoMaterno . " " . $persona->nombres
             ]);
         }
         else{

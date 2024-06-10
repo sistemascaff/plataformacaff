@@ -38,13 +38,13 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" name="contrasenha" required placeholder="CONTRASEÑA">
+          <input type="password" class="form-control" name="contrasenha" required placeholder="CONTRASEÑA" id="passwordInput">
           <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fa fa-key"></span>
-            </div>
+            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+              <i class="fa fa-eye"></i>
+            </button>
           </div>
-        </div>
+        </div>        
         <div class="row">
           <!-- /.col -->
           <div class="col-12">
@@ -76,5 +76,13 @@
 <script src="{{URL::to('/')}}/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{URL::to('/')}}/AdminLTE/dist/js/adminlte.min.js"></script>
+<script>
+  document.getElementById('togglePassword').addEventListener('click', function() {
+    const passwordInput = document.getElementById('passwordInput');
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    this.querySelector('i').classList.toggle('fa-eye-slash');
+  });
+</script>
 </body>
 </html>
