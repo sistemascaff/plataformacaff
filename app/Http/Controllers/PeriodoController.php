@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PeriodoValidation;
+use App\Models\Dimension;
 use App\Models\Periodo;
 use App\Models\Usuario;
 use App\Models\Gestion;
@@ -32,6 +33,7 @@ class PeriodoController extends Controller
             $periodo = (new Periodo())->selectPeriodo($idPeriodo);
             $usuario = (new Usuario())->selectUsuario($periodo->idUsuario);
             $gestion = (new Gestion())->selectGestion($periodo->idGestion);
+            $Dimensiones = (new Periodo())->selectPeriodo_Dimensiones($idPeriodo);
             if (!$usuario) {
                 $usuario = new Usuario();
                 $usuario->correo = '';
@@ -40,7 +42,8 @@ class PeriodoController extends Controller
                 'headTitle' => $periodo->nombrePeriodo,
                 'periodo' => $periodo,
                 'usuario' => $usuario,
-                'gestion' => $gestion
+                'gestion' => $gestion,
+                'Dimensiones' => $Dimensiones
             ]);
         }
         else{

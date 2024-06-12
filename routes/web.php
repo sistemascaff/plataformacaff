@@ -35,9 +35,7 @@ Route::controller(UsuarioController::class)->group(function(){
     Route::post('verify','verify')->name('login.verify');
     Route::get('logout','signOut')->name('logout');
     Route::get('usuarios','index')->name('usuarios.index');
-    Route::get('usuarios/crear','new')->name('usuarios.create');
     Route::post('usuarios/save','store')->name('usuarios.store');
-    Route::get('usuarios/{idUsuario}','show')->name('usuarios.details');
 });
 Route::controller(CampoController::class)->group(function(){
     Route::get('campos','index')->name('campos.index');
@@ -165,9 +163,10 @@ Route::controller(CoordinacionController::class)->group(function(){
     Route::put('coordinaciones/{coordinacion}','update')->name('coordinaciones.update');
     Route::put('coordinaciones','delete')->name('coordinaciones.delete');
 });
+/*
 Route::controller(PersonaController::class)->group(function(){
     Route::get('personas','index')->name('personas.index');
-});
+});*/
 /*
 Route::get('inicio/{modulo}/{accion?}', function($modulo, $accion = null) {
     return view('inicio');

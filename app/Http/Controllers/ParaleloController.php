@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 class ParaleloController extends Controller
 {
+    /**Muestra la ventana principal para gestionar los registros de la tabla 'Paralelos'.*/
     public function index(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -26,6 +27,7 @@ class ParaleloController extends Controller
         }        
     }
 
+    /**Muestra la información de un registro específico de la tabla 'Pralelos'.*/
     public function show($idParalelo)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -50,6 +52,7 @@ class ParaleloController extends Controller
         }
     }
 
+    /**Muestra el formulario con los atributos requeridos para CREAR un nuevo registro en la tabla 'Paralelos'.*/
     public function new(){
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             return view('Paralelo.create', [
@@ -62,6 +65,7 @@ class ParaleloController extends Controller
         }
     }
 
+    /**Método que permite almacenar el registro creado de la tabla 'Paralelos' y retorna el método show() con el registro.*/
     public function store(ParaleloValidation $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -78,6 +82,7 @@ class ParaleloController extends Controller
         }
     }
 
+    /**Muestra el formulario con los atributos requeridos para ACTUALIZAR un registro existente de la tabla 'Paralelos'.*/
     public function edit(Paralelo $paralelo)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -92,6 +97,7 @@ class ParaleloController extends Controller
         }
     }
     
+    /**Método que permite almacenar los cambios actualizados del registro de la tabla 'Paralelos' y retorna el método show() con el registro actualizado.*/
     public function update(ParaleloValidation $request, Paralelo $paralelo)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -107,6 +113,7 @@ class ParaleloController extends Controller
         }
     }
 
+    /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Paralelos' y retorna el método index().*/
     public function delete(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {

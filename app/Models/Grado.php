@@ -10,14 +10,18 @@ class Grado extends Model
     use HasFactory;
     /*Nombre de la tabla*/
     protected $table = 'Grados';
+
     /*ID de la tabla*/
     protected $primaryKey = 'idGrado';
+
     /*Modifica los Timestamps por defecto de Eloquent*/
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Cursos' y también permite búsquedas.
+     * Búsquedas soportadas: Nombre de Grado, nombre de Nivel, posición ordinal de Grado y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $selectAll = Grado::select('Grados.idGrado','Niveles.nombreNivel','Grados.nombreGrado','Grados.posicionOrdinal','Grados.estado','Grados.fechaRegistro','Grados.fechaActualizacion','Grados.idUsuario','Usuarios.correo')
+        $queryActivos = Grado::select('Grados.idGrado','Niveles.nombreNivel','Grados.nombreGrado','Grados.posicionOrdinal','Grados.estado','Grados.fechaRegistro','Grados.fechaActualizacion','Grados.idUsuario','Usuarios.correo')
         ->leftjoin('Usuarios', 'Grados.idUsuario', '=', 'Usuarios.idUsuario')
         ->join('Niveles', 'Grados.idNivel', '=', 'Niveles.idNivel')
         ->where('Grados.estado', '=', 1)
@@ -30,21 +34,23 @@ class Grado extends Model
         ], 'LIKE', '%'.$busqueda.'%')
         ->orderBy('Grados.idGrado')
         ->get();
-        return $selectAll;
+        return $queryActivos;
     }
 
+    /**Función que retorna un objeto del modelo Grado.*/
     public function selectGrado($idGrado){
-        $selectGrado = Grado::find($idGrado);
-        return $selectGrado;
+        $grado = Grado::find($idGrado);
+        return $grado;
     }
 
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Cursos' pertenecientes a un registro de la tabla 'Grados'.*/
     public function selectGrado_Cursos($idGrado){
-        $selectGrado = Grado::select('Cursos.idCurso','Cursos.nombreCurso','Cursos.fechaRegistro','Cursos.fechaActualizacion')
+        $queryCursosPertenecientesDeGrado = Grado::select('Cursos.idCurso','Cursos.nombreCurso','Cursos.fechaRegistro','Cursos.fechaActualizacion')
         ->join('Cursos', 'Grados.idGrado', '=', 'Cursos.idGrado')
         ->where('Cursos.idGrado', '=', $idGrado)
         ->where('Cursos.estado', '=', '1')
         ->orderBy('Cursos.idCurso')
         ->get();
-        return $selectGrado;
+        return $queryCursosPertenecientesDeGrado;
     }
 }

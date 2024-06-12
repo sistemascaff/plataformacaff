@@ -71,6 +71,8 @@
 
         <h3 class="card-title font-weight-bold">PERIODOS PERTENECIENTES A {{$gestion->anhoGestion}}:</h3>
         <br><br>
+        <a href="{{route('periodos.create', $gestion->idGestion)}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
+        <br><br>
         <div class="col-md-12">
           <table id="dataTable" class="table table-bordered table-striped">
             <thead>

@@ -16,8 +16,10 @@ class Paralelo extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Paralelos' y también permite búsquedas.
+     * Búsquedas soportadas: Nombre de Paralelo y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $selectAll = Paralelo::select('Paralelos.idParalelo','Paralelos.nombreParalelo','Paralelos.estado','Paralelos.fechaRegistro','Paralelos.fechaActualizacion','Paralelos.idUsuario','Usuarios.correo')
+        $queryActivos = Paralelo::select('Paralelos.idParalelo','Paralelos.nombreParalelo','Paralelos.estado','Paralelos.fechaRegistro','Paralelos.fechaActualizacion','Paralelos.idUsuario','Usuarios.correo')
         ->leftjoin('Usuarios', 'Paralelos.idUsuario', '=', 'Usuarios.idUsuario')
         ->where('Paralelos.estado', '=', 1)
         ->whereAny([
@@ -26,21 +28,23 @@ class Paralelo extends Model
         ], 'LIKE', '%'.$busqueda.'%')
         ->orderBy('Paralelos.idParalelo')
         ->get();
-        return $selectAll;
+        return $queryActivos;
     }
 
+    /**Función que retorna un objeto del modelo Paralelo.*/
     public function selectParalelo($idParalelo){
-        $selectParalelo = Paralelo::find($idParalelo);
-        return $selectParalelo;
+        $paralelo = Paralelo::find($idParalelo);
+        return $paralelo;
     }
 
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Cursos' pertenecientes a un registro de la tabla 'Paralelos'.*/
     public function selectParalelo_Cursos($idParalelo){
-        $selectParalelo = Paralelo::select('Cursos.idCurso','Cursos.nombreCurso','Cursos.fechaRegistro','Cursos.fechaActualizacion')
+        $queryCursosPertenecientesDeParalelo = Paralelo::select('Cursos.idCurso','Cursos.nombreCurso','Cursos.fechaRegistro','Cursos.fechaActualizacion')
         ->leftjoin('Cursos', 'Paralelos.idParalelo', '=', 'Cursos.idParalelo')
         ->where('Cursos.idParalelo', '=', $idParalelo)
         ->where('Cursos.estado', '=', '1')
         ->orderBy('Cursos.idCurso')
         ->get();
-        return $selectParalelo;
+        return $queryCursosPertenecientesDeParalelo;
     }
 }

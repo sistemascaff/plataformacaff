@@ -16,8 +16,10 @@ class Gestion extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Gestiones' y también permite búsquedas.
+     * Búsquedas soportadas: Año de la gestión y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $selectAll = Gestion::select('Gestiones.idGestion','Gestiones.anhoGestion','Gestiones.estado','Gestiones.fechaRegistro','Gestiones.fechaActualizacion','Gestiones.idUsuario', 'Usuarios.correo')
+        $queryActivos = Gestion::select('Gestiones.idGestion','Gestiones.anhoGestion','Gestiones.estado','Gestiones.fechaRegistro','Gestiones.fechaActualizacion','Gestiones.idUsuario', 'Usuarios.correo')
         ->leftjoin('Usuarios', 'Gestiones.idUsuario', '=', 'Usuarios.idUsuario')
         ->where('Gestiones.estado', '=', 1)
         ->whereAny([
@@ -26,21 +28,23 @@ class Gestion extends Model
         ], 'LIKE', '%'.$busqueda.'%')
         ->orderBy('Gestiones.idGestion')
         ->get();
-        return $selectAll;
+        return $queryActivos;
     }
 
+    /**Función que retorna un objeto del modelo Gestion.*/
     public function selectGestion($idGestion){
-        $selectGestion = Gestion::find($idGestion);
-        return $selectGestion;
+        $gestion = Gestion::find($idGestion);
+        return $gestion;
     }
 
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Periodos' pertenecientes a un registro de la tabla 'Gestiones'.*/
     public function selectGestion_Periodos($idGestion){
-        $selectGestion = Gestion::select('Periodos.idPeriodo','Periodos.nombrePeriodo','Periodos.posicionOrdinal','Periodos.fechaRegistro','Periodos.fechaActualizacion')
+        $queryPeriodosPertenecientesDeGestion = Gestion::select('Periodos.idPeriodo','Periodos.nombrePeriodo','Periodos.posicionOrdinal','Periodos.fechaRegistro','Periodos.fechaActualizacion')
         ->leftjoin('Periodos', 'Gestiones.idGestion', '=', 'Periodos.idGestion')
         ->where('Periodos.idGestion', '=', $idGestion)
         ->where('Periodos.estado', '=', '1')
         ->orderBy('Periodos.posicionOrdinal')
         ->get();
-        return $selectGestion;
+        return $queryPeriodosPertenecientesDeGestion;
     }
 }

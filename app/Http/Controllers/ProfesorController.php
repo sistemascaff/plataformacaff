@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 
 class ProfesorController extends Controller
 {
+    /**Muestra la ventana principal para gestionar los registros de la tabla 'Profesores'.*/
     public function index(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -29,6 +30,7 @@ class ProfesorController extends Controller
         }
     }
 
+    /**Muestra la información de un registro específico de la tabla 'Profesores'.*/
     public function show($idProfesor)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -68,6 +70,7 @@ class ProfesorController extends Controller
         }
     }
 
+    /**Muestra el formulario con los atributos requeridos para CREAR un nuevo registro en la tabla 'Profesores'.*/
     public function new($idSelect = null){
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $Coordinaciones = (new Coordinacion())->selectDisponibles('');
@@ -88,6 +91,10 @@ class ProfesorController extends Controller
         }
     }
 
+    /**Método que permite almacenar el registro creado de la tabla 'Profesores' y retorna el método show() con el registro.
+     * ATENCIÓN: LA CLASE REQUEST (ProfesorValidation) VALIDA MÁS DE UNA TABLA SIMULTÁNEAMENTE, 
+     * POR LO QUE SE RECOMIENDA TENER CUIDADO EN CASO DE MODIFICAR LA VALIDACIÓN.
+    */
     public function store(ProfesorValidation $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -154,6 +161,7 @@ class ProfesorController extends Controller
         }
     }
 
+    /**Muestra el formulario con los atributos requeridos para ACTUALIZAR un registro existente de la tabla 'Profesores'.*/
     public function edit(Profesor $profesor)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -176,6 +184,10 @@ class ProfesorController extends Controller
         }
     }
     
+    /**Método que permite almacenar los cambios actualizados del registro de la tabla 'Profesores' y retorna el método show() con el registro actualizado.
+     * ATENCIÓN: LA CLASE REQUEST (ProfesorValidation) VALIDA MÁS DE UNA TABLA SIMULTÁNEAMENTE,
+     * POR LO QUE SE RECOMIENDA TENER CUIDADO EN CASO DE MODIFICAR LA VALIDACIÓN.
+    */
     public function update(ProfesorValidation $request, Profesor $profesor)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -239,6 +251,7 @@ class ProfesorController extends Controller
         }
     }
 
+    /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Profesores' y retorna el método index().*/
     public function delete(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {

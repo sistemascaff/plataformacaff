@@ -16,8 +16,10 @@ class Campo extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Campos' y también permite búsquedas.
+     * Búsquedas soportadas: Nombre de Campo y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $selectAll = Campo::select('Campos.idCampo','Campos.nombreCampo','Campos.fechaRegistro','Campos.fechaActualizacion','Campos.idUsuario','Campos.estado', 'Usuarios.correo')
+        $queryActivos = Campo::select('Campos.idCampo','Campos.nombreCampo','Campos.fechaRegistro','Campos.fechaActualizacion','Campos.idUsuario','Campos.estado', 'Usuarios.correo')
         ->leftjoin('Usuarios', 'Campos.idUsuario', '=', 'Usuarios.idUsuario')
         ->where('Campos.estado', '=', 1)
         ->whereAny([
@@ -26,21 +28,23 @@ class Campo extends Model
         ], 'LIKE', '%'.$busqueda.'%')
         ->orderBy('Campos.idCampo')
         ->get();
-        return $selectAll;
+        return $queryActivos;
     }
 
+    /**Función que retorna un objeto del modelo Campo.*/
     public function selectCampo($idCampo){
-        $selectCampo = Campo::find($idCampo);
-        return $selectCampo;
+        $campo = Campo::find($idCampo);
+        return $campo;
     }
 
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Areas' pertenecientes a un registro de la tabla 'Campos'.*/
     public function selectCampo_Areas($idCampo){
-        $selectCampo = Campo::select('Areas.idArea','Areas.nombreArea','Areas.fechaRegistro','Areas.fechaActualizacion')
+        $queryAreasPertenecientesDeCampo = Campo::select('Areas.idArea','Areas.nombreArea','Areas.fechaRegistro','Areas.fechaActualizacion')
         ->leftjoin('Areas', 'Campos.idCampo', '=', 'Areas.idCampo')
         ->where('Areas.idCampo', '=', $idCampo)
         ->where('Areas.estado', '=', '1')
         ->orderBy('Areas.idArea')
         ->get();
-        return $selectCampo;
+        return $queryAreasPertenecientesDeCampo;
     }
 }

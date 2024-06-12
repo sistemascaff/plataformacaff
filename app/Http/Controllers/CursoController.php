@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 
 class CursoController extends Controller
 {
+    /**Muestra la ventana principal para gestionar los registros de la tabla 'Cursos'.*/
     public function index(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -27,6 +28,7 @@ class CursoController extends Controller
         }
     }
 
+    /**Muestra la información de un registro específico de la tabla 'Cursos'.*/
     public function show($idCurso)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -53,6 +55,7 @@ class CursoController extends Controller
         }
     }
 
+    /**Muestra el formulario con los atributos requeridos para CREAR un nuevo registro en la tabla 'Cursos'.*/
     public function new(Request $request){
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $Grados = (new Grado())->selectDisponibles('');
@@ -71,6 +74,7 @@ class CursoController extends Controller
         }
     }
 
+    /**Método que permite almacenar el registro creado de la tabla 'Cursos' y retorna el método show() con el registro.*/
     public function store(CursoValidation $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -89,6 +93,7 @@ class CursoController extends Controller
         }
     }
 
+    /**Muestra el formulario con los atributos requeridos para ACTUALIZAR un registro existente de la tabla 'Cursos'.*/
     public function edit(Curso $curso)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -107,6 +112,7 @@ class CursoController extends Controller
         }
     }
     
+    /**Método que permite almacenar los cambios actualizados del registro de la tabla 'Cursos' y retorna el método show() con el registro actualizado.*/
     public function update(CursoValidation $request, Curso $curso)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -124,6 +130,7 @@ class CursoController extends Controller
         }
     }
 
+    /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Cursos' y retorna el método index().*/
     public function delete(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {

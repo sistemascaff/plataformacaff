@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class RolController extends Controller
 {
+    /**Método que permite almacenar el registro creado de la tabla 'Roles' y retorna el objeto de la clase Rol.*/
     public function store(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -38,6 +39,8 @@ class RolController extends Controller
             return redirect()->route('usuarios.index');
         }
     }
+
+    /**Método que permite almacenar los cambios actualizados del registro de la tabla 'Roles' y retorna el objeto de la clase Rol con el registro actualizado.*/
     public function update(Request $request, $idRol)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -69,6 +72,8 @@ class RolController extends Controller
             return redirect()->route('usuarios.index');
         }
     }
+
+    /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Roles' y retorna el objeto de la clase Rol con el atributo estado actualizado.*/
     public function delete(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {

@@ -10,14 +10,15 @@ use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
-    
+    /**Método que redirige al usuario en caso de que el rol requerido para acceder a una vista o realizar una operación, 
+     * además, en caso de que no haya iniciado sesión o directamente no tenga acceso al sistema se le redirigirá a la vista para iniciar sesión.
+    */
     public function index()
     {
         if(session('tieneAcceso')){
             $tableUsuario = (new Usuario())->getAllUsers();
             return view('Usuario.inicio', [
-                'headTitle' => 'USUARIOS - INICIO',
-                'tableUsuario' => $tableUsuario
+                'headTitle' => 'USUARIOS - INICIO'
             ]);
         }
         else{
@@ -25,15 +26,7 @@ class UsuarioController extends Controller
         }
     }
 
-    public function show($idUsuario)
-    {
-        $Usuario = (new Usuario())->selectUsuario($idUsuario);
-        return view('Usuario.detalle', [
-            'headTitle' => $Usuario->correo,
-            'Usuario' => $Usuario
-        ]);
-    }
-
+    /**Método utilizado para el inicio de sesión y verifica si existe algún registro que coincida con el correo y la contraseña ingresados.*/
     public function verify(Request $request)
     {
         $Usuario = (new Usuario())->login($request->correo,$request->contrasenha,$request->ip(),gethostbyaddr($request->ip()));
@@ -56,25 +49,20 @@ class UsuarioController extends Controller
         }
     }
 
+    /**Muestra la ventana para iniciar sesión.*/
     public function signIn()
     {
         return view('login');
     }
 
+    /**Método que permite cerrar sesión y redirigir al usuario a la ventana para iniciar sesión.*/
     public function signOut()
     {
         (new Usuario())->logout();
         return redirect()->route('login');
     }
 
-    public function new()
-    {
-        return view('Usuario.create', [
-            'headTitle' => 'USUARIOS - NUEVO USUARIO',
-            'Titulos' => "NUEVO USUARIO"
-        ]);
-    }
-
+    /**Método que permite almacenar el registro creado de la tabla 'Usuarios' y retorna el objeto de la clase Usuario.*/
     public function store(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -82,15 +70,19 @@ class UsuarioController extends Controller
             $usuario->idPersona = $request->idPersona;
             $usuario->correo = $request->correo;
             $usuario->contrasenha = $request->contrasenha;
+
+            /*----Lógica de subida de archivos----*/
             if($request->hasFile('fotoPerfilURL')){
                 $archivo = $request->file('fotoPerfilURL');
                 $nombreArchivo = 'perfil_' . md5($usuario->idPersona) . '.' . $archivo->getClientOriginalExtension();
                 $archivo->move(public_path('img/perfiles'), $nombreArchivo);
                 $usuario->fotoPerfilURL = url('/') . '/img/perfiles/' . $nombreArchivo;
             }
+            /*----/Lógica de subida de archivos----*/
             else{
                 $usuario->fotoPerfilURL = url('/') . '/img/user.png';
             }
+
             $usuario->pinRecuperacion = $request->pinRecuperacion;
             $usuario->idUsuarioResponsable = session('idUsuario');
             $usuario->ip = session('ip');
@@ -102,18 +94,24 @@ class UsuarioController extends Controller
             return redirect()->route('usuarios.index');
         }
     }
+
+    /**Método que permite almacenar los cambios actualizados del registro de la tabla 'Usuarios' y retorna el objeto de la clase Usuario con el registro actualizado.*/
     public function update(Request $request, $idUsuario)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $usuario = (new Usuario())->selectUsuario($idUsuario);
             $usuario->correo = $request->correo;
             $usuario->contrasenha = $request->contrasenha;
+
+            /*----Lógica de subida de archivos----*/
             if($request->hasFile('fotoPerfilURL')){
                 $archivo = $request->file('fotoPerfilURL');
                 $nombreArchivo = 'perfil_' . md5($usuario->idPersona) . '.' . $archivo->getClientOriginalExtension();
                 $archivo->move(public_path('img/perfiles'), $nombreArchivo);
                 $usuario->fotoPerfilURL = url('/') . '/img/perfiles/' . $nombreArchivo;
             }
+            /*----/Lógica de subida de archivos----*/
+
             $usuario->pinRecuperacion = $request->pinRecuperacion;
             $usuario->idUsuarioResponsable = session('idUsuario');
             $usuario->ip = session('ip');
@@ -124,6 +122,8 @@ class UsuarioController extends Controller
             return redirect()->route('usuarios.index');
         }
     }
+
+    /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Usuarios' y retorna el objeto de la clase Usuario con el atributo 'estado' actualizado.*/
     public function delete(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {

@@ -9,19 +9,7 @@ use Illuminate\Http\Request;
 
 class PersonaController extends Controller
 {
-    public function index()
-    {
-        if((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )){
-            $tablePersona = (new Persona())->getAllUsers();
-            return view('Persona.inicio', [
-                'headTitle' => 'PERSONAS - INICIO',
-                'tablePersona' => $tablePersona
-        ]);
-        }
-        else{
-            return redirect()->route('usuarios.index');
-        }
-    }
+    /**Método que permite almacenar el registro creado de la tabla 'Personas' y retorna el objeto de la clase Persona.*/
     public function store(PersonaValidation $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -50,6 +38,8 @@ class PersonaController extends Controller
             return redirect()->route('usuarios.index');
         }
     }
+
+    /**Método que permite almacenar los cambios actualizados del registro de la tabla 'Personas' y retorna el objeto de la clase Persona con el registro actualizado.*/
     public function update(PersonaValidation $request, $idPersona)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -77,6 +67,8 @@ class PersonaController extends Controller
             return redirect()->route('usuarios.index');
         }
     }
+
+    /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Personas' y retorna el objeto de la clase Persona con el atributo estado actualizado.*/
     public function delete(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {

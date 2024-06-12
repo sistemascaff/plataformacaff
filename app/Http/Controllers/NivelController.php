@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class NivelController extends Controller
 {
+    /**Muestra la ventana principal para gestionar los registros de la tabla 'Niveles'.*/
     public function index(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -25,6 +26,7 @@ class NivelController extends Controller
         }
     }
 
+    /**Muestra la información de un registro específico de la tabla 'Niveles'.*/
     public function show($idNivel)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -47,6 +49,7 @@ class NivelController extends Controller
         }
     }
 
+    /**Muestra el formulario con los atributos requeridos para CREAR un nuevo registro en la tabla 'Niveles'.*/
     public function new(){
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             return view('Nivel.create', [
@@ -59,6 +62,7 @@ class NivelController extends Controller
         }
     }
 
+    /**Método que permite almacenar el registro creado de la tabla 'Niveles' y retorna el método show() con el registro.*/
     public function store(NivelValidation $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -76,6 +80,7 @@ class NivelController extends Controller
         }
     }
 
+    /**Muestra el formulario con los atributos requeridos para ACTUALIZAR un registro existente de la tabla 'Niveles'.*/
     public function edit(Nivel $nivel)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -90,6 +95,7 @@ class NivelController extends Controller
         }
     }
     
+    /**Método que permite almacenar los cambios actualizados del registro de la tabla 'Niveles' y retorna el método show() con el registro actualizado.*/
     public function update(NivelValidation $request, Nivel $nivel)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -106,6 +112,7 @@ class NivelController extends Controller
         }
     }
 
+    /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Niveles' y retorna el método index().*/
     public function delete(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {

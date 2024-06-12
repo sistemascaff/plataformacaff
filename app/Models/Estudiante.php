@@ -10,14 +10,20 @@ class Estudiante extends Model
     use HasFactory;
     /*Nombre de la tabla*/
     protected $table = 'Estudiantes';
+
     /*ID de la tabla*/
     protected $primaryKey = 'idEstudiante';
+
     /*Modifica los Timestamps por defecto de Eloquent*/
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Estudiantes' y también permite las siguientes búsquedas: 
+     * (Sueltos) Nombres, Apellido Paterno, Apellido Materno,
+     * (Combinando 2 atributos) Nombres + Apellido Paterno o Materno, Apellido Materno o Paterno + Nombres, Apellido Paterno + Materno o Viceversa,
+     * (Combinando 3 atributos) Nombres + Apellido Paterno + Apellido Materno, Apellido Paterno + Apellido Materno + Nombres.*/
     public function selectDisponibles($busqueda){
-        $selectAll = Estudiante::select(
+        $queryActivos = Estudiante::select(
             /*Estudiantes*/
             'Estudiantes.idEstudiante','Estudiantes.idPersona','Estudiantes.idCurso',
             'Estudiantes.saludTipoSangre','Estudiantes.saludAlergias','Estudiantes.saludDatos',
@@ -62,16 +68,17 @@ class Estudiante extends Model
         ->orderBy('Personas.apellidoMaterno', 'ASC')
         ->orderBy('Personas.nombres', 'ASC')
         ->get();
-        return $selectAll;
+        return $queryActivos;
     }
     
-
+    /**Función que retorna un objeto del modelo Estudiante.*/
     public function selectEstudiante($idEstudiante){
-        $selectEstudiante = Estudiante::find($idEstudiante);
-        return $selectEstudiante;
+        $estudiante = Estudiante::find($idEstudiante);
+        return $estudiante;
     }
 
-    /*public function selectEstudiante_Materias($idEstudiante){
+    /* AGREGAR A FUTURO UN QUERY PARA VER LAS MATERIAS DEL ESTUDIANTE
+    public function selectEstudiante_Materias($idEstudiante){
         $selectMaterias = Estudiante::select('Materias.idMateria','Materias.nombreMateria','Materias.nombreCorto','Materias.fechaRegistro','Materias.fechaActualizacion')
         ->join('Materias', 'Estudiantes.idEstudiante', '=', 'Materias.idEstudiante')
         ->where('Materias.idEstudiante', '=', $idEstudiante)

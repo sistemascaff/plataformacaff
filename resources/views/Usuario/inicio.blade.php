@@ -27,56 +27,9 @@
         <h3 class="card-title font-weight-bold">USUARIOS</h3>
       </div>
       <div class="card-body">
-        <a href="{{route('usuarios.create')}}" class="btn btn-success">NUEVO REGISTRO</a>
-        <br><br>
         <div class="row">
           <div class="col-md-12">
-            <table id="dataTable" class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>idUsuario</th>
-                  <th>idPersona</th>
-                  <th>idRol</th>
-                  <th>correo</th>
-                  <th>contrasenha</th>
-                  <th>pinRecuperacion</th>
-                  <th>hashRecuperacion</th>
-                  <th>tieneAcceso</th>
-                  <th>estado</th>
-                  <th>fechaRegistro</th>
-                  <th>fechaActualizacion</th>
-                  <th>ultimaConexion</th>
-                  <th>idUsuarioResponsable</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($tableUsuario as $rowUsuario)
-                  <tr>
-                    <td>{{$rowUsuario->idUsuario}}</td>
-                    <td>{{$rowUsuario->idPersona}}</td>
-                    <td>{{$rowUsuario->idRol}}</td>
-                    <td>{{$rowUsuario->correo}}</td>
-                    <td>{{$rowUsuario->contrasenha}}</td>
-                    <td>{{$rowUsuario->pinRecuperacion}}</td>
-                    <td>{{$rowUsuario->hashRecuperacion}}</td>
-                    <td>{{$rowUsuario->tieneAcceso}}</td>
-                    <td>{{$rowUsuario->estado}}</td>
-                    <td>{{$rowUsuario->fechaRegistro}}</td>
-                    <td>{{$rowUsuario->fechaActualizacion}}</td>
-                    <td>{{$rowUsuario->ultimaConexion}}</td>
-                    <td>{{$rowUsuario->idUsuarioResponsable}}</td>
-                    <td>
-                      <div class="btn-group">
-                        <a class="btn btn-info" href="{{route('usuarios.details', $rowUsuario->idUsuario)}}">
-                          <i class="fa fa-eye"></i>
-                        </a>
-                      </div>
-                    </td>
-                  </tr>
-                @endforeach
-              </tbody>        
-            </table>
+            LOREM IPSUM
           </div>
         </div>
       </div>

@@ -81,6 +81,47 @@
           </div>
         </div>
         
+        <h3 class="card-title font-weight-bold">DIMENSIONES DEPENDIENTES DE {{$periodo->nombrePeriodo}}:</h3>
+        <br><br>
+        <a href="{{route('dimensiones.create', $periodo->idPeriodo)}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
+        <br><br>
+
+        <div class="col-md-12">
+          <table id="dataTable" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>DIMENSION</th>
+                <th>PUNTAJE MAXIMO</th>
+                <th>TIPO DE CALCULO</th>
+                <th>F. REGISTRO</th>
+                <th>F. ACTUALIZACION</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+          @foreach ($Dimensiones as $rowDimensiones)
+          <tr>
+            <td>{{$rowDimensiones->nombreDimension}}</td>
+            <td>{{$rowDimensiones->puntajeMaximo}}</td>
+            <td>{{helper_FormatoAtributoValorATexto($rowDimensiones->tipoCalculo, 'dimensionTipoCalculo')}}</td>
+            <td>{{helper_formatoVistaFecha($rowDimensiones->fechaRegistro)}}</td>
+            <td>{{helper_formatoNullorEmpty($rowDimensiones->fechaActualizacion)}}</td>
+            <td>
+              <div class="btn-group">
+                <a class="btn btn-info" href="{{route('dimensiones.details', $rowDimensiones->idDimension)}}">
+                  {!! helper_FormatoBotonCRUD(2, 'icono') !!}
+                </a>
+                <a class="btn btn-warning" href="{{route('dimensiones.edit', $rowDimensiones->idDimension)}}">
+                  {!! helper_FormatoBotonCRUD(3, 'icono') !!}
+                </a>
+              </div>
+            </td>
+          </tr>
+          @endforeach
+            </tbody>
+          </table>
+        </div>
+
       </div>
       <!-- /.card-body -->
     </div>

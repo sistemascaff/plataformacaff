@@ -13,8 +13,10 @@ class Usuario extends Authenticatable
 
     /*Nombre de la tabla*/
     protected $table = 'Usuarios';
+
     /*ID de la tabla*/
     protected $primaryKey = 'idUsuario';
+
     /*Modifica los Timestamps por defecto de Eloquent*/
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
@@ -27,6 +29,7 @@ class Usuario extends Authenticatable
     public $incrementing = false;
     */
 
+    /**Método en desuso, utilizado en las primeras versiones para pruebas. */
     public function getAllUsers(){
         return Usuario::all()->where('estado','1');
         /*
@@ -38,15 +41,19 @@ class Usuario extends Authenticatable
         */
     }
 
+    /**Función que retorna un objeto del modelo Usuario.*/
     public function selectUsuario($idUsuario){
-        return Usuario::find($idUsuario);
+        $usuario = Usuario::find($idUsuario);
+        return $usuario;
     }
+
+    /**Función que retorna un Usuario mediante un ID de la tabla 'Personas'.*/
     public function selectUsuarioConIDPersona($idPersona){ 
         return Usuario::where('idPersona', $idPersona)->first(); 
     }
 
+    /**Función utilizada para verificar y crear la sesión del Usuario.*/
     public function login($correo, $contrasenha, $ip, $dispositivo){
-        
         $sessionRow = Usuario::select('Usuarios.idUsuario','Usuarios.idPersona','Usuarios.correo','Usuarios.tieneAcceso','Usuarios.estado','Roles.idRol')
         ->whereRaw('correo = ' . helper_encapsular($correo) . ' AND contrasenha = ' . helper_encapsular($contrasenha))
         ->join('Roles', 'Usuarios.idUsuario', '=', 'Roles.idUsuario')
@@ -67,7 +74,8 @@ class Usuario extends Authenticatable
         }
         return count($sessionRow);
     }
-    
+
+    /**Función para destruir y cerrar la sesión.*/
     public function logout(){
         session()->flush();
     }

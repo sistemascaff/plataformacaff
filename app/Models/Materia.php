@@ -10,14 +10,18 @@ class Materia extends Model
     use HasFactory;
     /*Nombre de la tabla*/
     protected $table = 'Materias';
+
     /*ID de la tabla*/
     protected $primaryKey = 'idMateria';
+    
     /*Modifica los Timestamps por defecto de Eloquent*/
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Cursos' y también permite búsquedas.
+     * Búsquedas soportadas: Nombre de Materia, Abreviatura de Materia, nombre de Area, nombre de Campo y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $selectAll = Materia::select('Materias.idMateria','Materias.nombreMateria','Materias.nombreCorto','Areas.nombreArea','Campos.nombreCampo','Materias.estado','Materias.fechaRegistro','Materias.fechaActualizacion','Materias.idUsuario','Usuarios.correo')
+        $queryActivos = Materia::select('Materias.idMateria','Materias.nombreMateria','Materias.nombreCorto','Areas.nombreArea','Campos.nombreCampo','Materias.estado','Materias.fechaRegistro','Materias.fechaActualizacion','Materias.idUsuario','Usuarios.correo')
         ->leftjoin('Usuarios', 'Materias.idUsuario', '=', 'Usuarios.idUsuario')
         ->join('Areas', 'Materias.idArea', '=', 'Areas.idArea')
         ->join('Campos', 'Areas.idCampo', '=', 'Campos.idCampo')
@@ -33,9 +37,10 @@ class Materia extends Model
         ], 'LIKE', '%'.$busqueda.'%')
         ->orderBy('Materias.nombreMateria','ASC')
         ->get();
-        return $selectAll;
+        return $queryActivos;
     }
     
+    /**Función que retorna un objeto del modelo Materia.*/
     public function selectMateria($idMateria){
         $selectMateria = Materia::find($idMateria);
         return $selectMateria;

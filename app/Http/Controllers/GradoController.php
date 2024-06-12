@@ -11,6 +11,7 @@ use App\Models\Rol;
 use Illuminate\Http\Request;
 class GradoController extends Controller
 {
+    /**Muestra la ventana principal para gestionar los registros de la tabla 'Grados'.*/
     public function index(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -26,6 +27,7 @@ class GradoController extends Controller
         }        
     }
 
+    /**Muestra la información de un registro específico de la tabla 'Grados'.*/
     public function show($idGrado)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -52,6 +54,7 @@ class GradoController extends Controller
         }
     }
 
+    /**Muestra el formulario con los atributos requeridos para CREAR un nuevo registro en la tabla 'Grados'.*/
     public function new($idSelect = null){
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $Niveles = (new Nivel())->selectDisponibles('');
@@ -70,6 +73,7 @@ class GradoController extends Controller
         }
     }
 
+    /**Método que permite almacenar el registro creado de la tabla 'Grados' y retorna el método show() con el registro.*/
     public function store(GradoValidation $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -88,6 +92,7 @@ class GradoController extends Controller
         }
     }
 
+    /**Muestra el formulario con los atributos requeridos para ACTUALIZAR un registro existente de la tabla 'Grados'.*/
     public function edit(Grado $grado)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -104,6 +109,7 @@ class GradoController extends Controller
         }
     }
     
+    /**Método que permite almacenar los cambios actualizados del registro de la tabla 'Grados' y retorna el método show() con el registro actualizado.*/
     public function update(GradoValidation $request, Grado $grado)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
@@ -121,6 +127,7 @@ class GradoController extends Controller
         }
     }
 
+    /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Grados' y retorna el método index().*/
     public function delete(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {

@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 
 class DimensionController extends Controller
 {
+    /**Muestra la ventana principal para gestionar los registros de la tabla 'Dimensiones'.*/
     public function index(Request $request)
     {
         if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
@@ -26,6 +27,7 @@ class DimensionController extends Controller
         }
     }
 
+    /**Muestra la información de un registro específico de la tabla 'Dimensiones'.*/
     public function show($idDimension)
     {
         if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
@@ -49,6 +51,7 @@ class DimensionController extends Controller
         }
     }
 
+    /**Muestra el formulario con los atributos requeridos para CREAR un nuevo registro en la tabla 'Dimensiones'.*/
     public function new($idSelect = null)
     {
         if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
@@ -67,6 +70,7 @@ class DimensionController extends Controller
         }
     }
 
+    /**Método que permite almacenar el registro creado de la tabla 'Dimensiones' y retorna el método show() con el registro.*/
     public function store(DimensionValidation $request)
     {
         if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
@@ -85,6 +89,7 @@ class DimensionController extends Controller
         }
     }
 
+    /**Muestra el formulario con los atributos requeridos para ACTUALIZAR un registro existente de la tabla 'Dimensiones'.*/
     public function edit(Dimension $dimension)
     {
         if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
@@ -100,6 +105,7 @@ class DimensionController extends Controller
         }
     }
 
+    /**Método que permite almacenar los cambios actualizados del registro de la tabla 'Dimensiones' y retorna el método show() con el registro actualizado.*/
     public function update(DimensionValidation $request, Dimension $dimension)
     {
         if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
@@ -117,6 +123,7 @@ class DimensionController extends Controller
         }
     }
 
+    /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Dimensiones' y retorna el método index().*/
     public function delete(Request $request)
     {
         if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
