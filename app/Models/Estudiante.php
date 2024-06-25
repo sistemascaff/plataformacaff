@@ -77,6 +77,11 @@ class Estudiante extends Model
         return $estudiante;
     }
 
+    /**Función que retorna un Estudiante mediante un ID de la tabla 'Personas'.*/
+    public function selectEstudianteConIDPersona($idPersona){ 
+        return Estudiante::where('idPersona', $idPersona)->first(); 
+    }
+
     /* AGREGAR A FUTURO UN QUERY PARA VER LAS MATERIAS DEL ESTUDIANTE
     public function selectEstudiante_Materias($idEstudiante){
         $selectMaterias = Estudiante::select('Materias.idMateria','Materias.nombreMateria','Materias.nombreCorto','Materias.fechaRegistro','Materias.fechaActualizacion')

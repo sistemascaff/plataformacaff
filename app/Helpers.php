@@ -106,13 +106,13 @@ function helper_FormatoAtributoValorATexto($valor, $atributo){
     
     switch ($valor) {
         case '1':
-            $asignaturaTipoCalificacion = 'CUALITATIVA';
+            $asignaturaTipoCalificacion = 'CUANTITATIVA';
             $asignaturaTipoBloque = 'BLOQUE DE UN SOLO CURSO';
             $asignaturaTipoAsignatura = 'SIE';
             $dimensionTipoCalculo = 'SUMA';
             break;
         case '2':
-            $asignaturaTipoCalificacion = 'CUANTITATIVA';
+            $asignaturaTipoCalificacion = 'CUALITATIVA';
             $asignaturaTipoBloque = 'BLOQUE MIXTO';
             $asignaturaTipoAsignatura = 'INTERNA';
             $dimensionTipoCalculo = 'PROMEDIO';

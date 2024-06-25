@@ -16,7 +16,6 @@ class UsuarioController extends Controller
     public function index()
     {
         if(session('tieneAcceso')){
-            $tableUsuario = (new Usuario())->getAllUsers();
             return view('Usuario.inicio', [
                 'headTitle' => 'USUARIOS - INICIO'
             ]);

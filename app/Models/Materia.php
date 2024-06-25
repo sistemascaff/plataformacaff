@@ -18,7 +18,7 @@ class Materia extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Cursos' y también permite búsquedas.
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Materias' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Materia, Abreviatura de Materia, nombre de Area, nombre de Campo y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
         $queryActivos = Materia::select('Materias.idMateria','Materias.nombreMateria','Materias.nombreCorto','Areas.nombreArea','Campos.nombreCampo','Materias.estado','Materias.fechaRegistro','Materias.fechaActualizacion','Materias.idUsuario','Usuarios.correo')

@@ -16,6 +16,7 @@ use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\DimensionController;
 use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\ProfesorController;
+use App\Http\Controllers\AsignaturaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,6 +64,15 @@ Route::controller(MateriaController::class)->group(function(){
     Route::get('materias/{materia}/editar','edit')->name('materias.edit');
     Route::put('materias/{materia}','update')->name('materias.update');
     Route::put('materias','delete')->name('materias.delete');
+});
+Route::controller(AsignaturaController::class)->group(function(){
+    Route::get('asignaturas','index')->name('asignaturas.index');
+    Route::get('asignaturas/crear/{campo?}','new')->name('asignaturas.create');
+    Route::post('asignaturas','store')->name('asignaturas.store');
+    Route::get('asignaturas/{asignatura}','show')->name('asignaturas.details');
+    Route::get('asignaturas/{asignatura}/editar','edit')->name('asignaturas.edit');
+    Route::put('asignaturas/{asignatura}','update')->name('asignaturas.update');
+    Route::put('asignaturas','delete')->name('asignaturas.delete');
 });
 Route::controller(NivelController::class)->group(function(){
     Route::get('niveles','index')->name('niveles.index');
@@ -163,10 +173,9 @@ Route::controller(CoordinacionController::class)->group(function(){
     Route::put('coordinaciones/{coordinacion}','update')->name('coordinaciones.update');
     Route::put('coordinaciones','delete')->name('coordinaciones.delete');
 });
-/*
 Route::controller(PersonaController::class)->group(function(){
-    Route::get('personas','index')->name('personas.index');
-});*/
+    Route::get('perfil','information')->name('personas.profile');
+});
 /*
 Route::get('inicio/{modulo}/{accion?}', function($modulo, $accion = null) {
     return view('inicio');

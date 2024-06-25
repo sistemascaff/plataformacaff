@@ -11,7 +11,9 @@
     <!-- Sidebar user (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
+        <a href="{{route('personas.profile')}}">
         <img src="{{URL::to('/')}}/img/user.png" class="img-circle elevation-2" alt="{{session('correo')}}">
+        </a>
       </div>
       <div class="info">
         <a href="{{route('usuarios.index')}}" class="d-block">{{session('correo')}}</a>
@@ -90,7 +92,8 @@
                   (request()->is('gestiones*') ? 'menu-open' : 
                     (request()->is('periodos*') ? 'menu-open' : 
                       (request()->is('dimensiones*') ? 'menu-open' : 
-                        (request()->is('coordinaciones*') ? 'menu-open' : ''))))))) 
+                        (request()->is('coordinaciones*') ? 'menu-open' : 
+                          (request()->is('asignaturas*') ? 'menu-open' : '')))))))) 
           }}">
           <a href="" class="nav-link {{ request()->is('campos*') ? 'active' : 
               (request()->is('areas*') ? 'active' : 
@@ -99,7 +102,8 @@
                     (request()->is('gestiones*') ? 'active' : 
                       (request()->is('periodos*') ? 'active' : 
                         (request()->is('dimensiones*') ? 'active' : 
-                          (request()->is('coordinaciones*') ? 'active' : ''))))))) 
+                          (request()->is('coordinaciones*') ? 'active' : 
+                            (request()->is('asignaturas*') ? 'active' : '')))))))) 
             }}">
             <i class="nav-icon fa fa-th-list"></i>
             <p>
@@ -152,6 +156,14 @@
               <a href="{{route('materias.index')}}" class="nav-link {{ request()->is('materias*') ? 'active' : '' }}">
                 <i class="fa fa-circle-o nav-icon"></i>
                 <p>MATERIAS</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('asignaturas.index')}}" class="nav-link {{ request()->is('asignaturas*') ? 'active' : '' }}">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p>ASIGNATURAS</p>
               </a>
             </li>
           </ul>

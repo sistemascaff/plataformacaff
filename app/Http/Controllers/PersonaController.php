@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PersonaValidation;
+use App\Models\Estudiante;
 use App\Models\Persona;
+use App\Models\Usuario;
 use App\Models\Rol;
 use Illuminate\Http\Request;
 
@@ -85,6 +87,30 @@ class PersonaController extends Controller
         }
         else{
             return redirect()->route('usuarios.index');
+        }
+    }
+
+    /**Muestra la información del usuario de la sesión actual.*/
+    public function information(){
+        if(session('tieneAcceso')){
+            $persona = (new Persona())->selectPersona(session('idPersona'));
+            $persona_usuario = (new Usuario())->selectUsuarioConIDPersona(session('idPersona'));
+            $usuario = (new Usuario())->selectUsuario($persona->idUsuario);
+            $estudiante = (new Estudiante())->selectEstudianteConIDPersona(session('idPersona'));
+            if (!$usuario) {
+                $usuario = new Usuario();
+                $usuario->correo = '';
+            }
+            return view('Persona.perfil', [
+                'headTitle' => 'MI PERFIL',
+                'persona' => $persona,
+                'persona_usuario' => $persona_usuario,
+                'usuario' => $usuario,
+                'estudiante' => $estudiante,
+            ]);
+        }
+        else{
+            return redirect()->route('login');
         }
     }
 }

@@ -1,4 +1,4 @@
-//Script específico de los atributos de los dataTables
+//Script dependiente de DataTables
 $(function () {
     $("#dataTable").DataTable({
         "responsive": true,
@@ -68,3 +68,19 @@ if (document.getElementById('formularioPerfil')) {
         generarCorreo();
     });
 }
+//Script dependiente de Select2
+$(document).ready(function () {
+    $('#select2').select2({
+        language: {
+            placeholder: function () {
+                return "Selecciona una opción";
+            },
+            noResults: function () {
+                return "No se encontraron resultados";
+            },
+            searching: function () {
+                return "Buscando...";
+            }
+        }
+    });
+});

@@ -42,6 +42,8 @@
 <script src="{{URL::to('/')}}/AdminLTE/dist/js/adminlte.min.js"></script>
 <!-- CAFF Custom Script -->
 <script src="{{URL::to('/')}}/custom.js"></script>
+<!-- Select2 -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- Custom Scripts Blade PHP -->
 @include('Layouts.customScripts')
 <!-- /Custom Scripts Blade PHP -->
