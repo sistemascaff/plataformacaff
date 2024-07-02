@@ -6,12 +6,17 @@ use App\Http\Requests\AsignaturaValidation;
 use App\Models\Asignatura;
 use App\Models\Aula;
 use App\Models\Coordinacion;
+use App\Models\Curso;
+use App\Models\Estudiante;
+use App\Models\Integrante;
 use App\Models\Usuario;
 use App\Models\Materia;
 use App\Models\Profesor;
 use App\Models\Persona;
 use App\Models\Rol;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\DB;
 
 class AsignaturaController extends Controller
 {
@@ -50,6 +55,10 @@ class AsignaturaController extends Controller
                 $usuario = new Usuario();
                 $usuario->correo = '';
             }
+
+            $Estudiantes = (new Estudiante())->selectDisponibles('');
+            $Integrantes = (new Asignatura())->selectAsignatura_Estudiantes($idAsignatura);
+
             return view('Asignatura.detalle', [
                 'headTitle' => $asignatura->nombreAsignatura,
                 'asignatura' => $asignatura,
@@ -58,8 +67,9 @@ class AsignaturaController extends Controller
                 'coordinacion' => $coordinacion,
                 'aula' => $aula,
                 'profesor' => $profesor,
-                'persona' => $persona
-
+                'persona' => $persona,
+                'Estudiantes' => $Estudiantes,
+                'Integrantes' => $Integrantes
             ]);
         }
         else{
@@ -182,5 +192,30 @@ class AsignaturaController extends Controller
         else{
             return redirect()->route('usuarios.index');
         }
+    }
+    //Función de AJAX que permite agregar un integrante (Estudiante) a la Asignatura
+    public function ajaxAgregarEstudiante(Request $request) {
+        DB::table('integrantes')->insert([
+            'idAsignatura' => $request->idAsignatura,
+            'idEstudiante' => $request->idEstudiante
+        ]);
+        $estudiante = (new Estudiante())->selectEstudiante($request->idEstudiante);
+        $curso = (new Curso())->selectCurso($estudiante->idCurso);
+        $persona = (new Persona())->selectPersona($estudiante->idPersona);
+        return response()->json([
+            'idEstudiante' => $request->idEstudiante,
+            'nombreCurso' => $curso->nombreCurso,
+            'nombreEstudiante' => trim($persona->apellidoPaterno . ' ' . $persona->apellidoMaterno . ' ' . $persona->nombres)
+        ]);
+    }
+    //Función de AJAX que permite agregar un integrante (Estudiante) a la Asignatura
+    public function ajaxEliminarEstudiante(Request $request) {
+        $affectedRows = DB::table('integrantes')
+        ->where('idAsignatura', $request->idAsignatura)
+        ->where('idEstudiante', $request->idEstudiante)
+        ->delete();
+        return response()->json([
+            'affectedRows' => $affectedRows
+        ]);
     }
 }

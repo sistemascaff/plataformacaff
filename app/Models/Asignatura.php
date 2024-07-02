@@ -64,4 +64,31 @@ class Asignatura extends Model
         $selectAsignatura = Asignatura::find($idAsignatura);
         return $selectAsignatura;
     }
+
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Asignaturas' y también permite búsquedas.
+     * Búsquedas soportadas: Nombre de Asignatura, Abreviatura de Asignatura, nombre de Area, nombre de Campo y correo del Usuario que haya modificado algún registro.*/
+    public function selectAsignatura_Estudiantes($idAsignatura)
+    {
+        $queryEstudiantesIntegrantesDeAsignatura = Estudiante::select(
+            /*Estudiantes*/
+            'Estudiantes.idEstudiante','Estudiantes.idCurso',
+            /*Curso*/
+            'Cursos.nombreCurso',
+            /*Personas*/
+            'Personas.apellidoPaterno','Personas.apellidoMaterno','Personas.nombres',
+            /*Usuarios*/
+            'Usuarios.correo AS correoPersonal'
+            )
+        ->join('Usuarios', 'Estudiantes.idPersona', '=', 'Usuarios.idPersona')
+        ->join('Cursos', 'Estudiantes.idCurso', '=', 'Cursos.idCurso')
+        ->join('Personas', 'Estudiantes.idPersona', '=', 'Personas.idPersona')
+        ->join('Integrantes', 'Estudiantes.idEstudiante', '=', 'Integrantes.idEstudiante')
+        ->where('Integrantes.idAsignatura', '=', $idAsignatura)
+        ->orderBy('Personas.apellidoPaterno', 'ASC')
+        ->orderBy('Personas.apellidoMaterno', 'ASC')
+        ->orderBy('Personas.nombres', 'ASC')
+        ->get();
+        return $queryEstudiantesIntegrantesDeAsignatura;
+    }
+
 }

@@ -73,6 +73,8 @@ Route::controller(AsignaturaController::class)->group(function(){
     Route::get('asignaturas/{asignatura}/editar','edit')->name('asignaturas.edit');
     Route::put('asignaturas/{asignatura}','update')->name('asignaturas.update');
     Route::put('asignaturas','delete')->name('asignaturas.delete');
+    Route::post('asignaturas/anhadirEstudiante','ajaxAgregarEstudiante')->name('asignaturas.addMember');
+    Route::post('asignaturas/eliminarEstudiante','ajaxEliminarEstudiante')->name('asignaturas.deleteMember');
 });
 Route::controller(NivelController::class)->group(function(){
     Route::get('niveles','index')->name('niveles.index');

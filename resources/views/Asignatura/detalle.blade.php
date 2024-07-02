@@ -116,7 +116,63 @@
             </div>
           </div>
         </div>
-        
+        <h3 class="font-weight-bold text-info">ESTUDIANTES</h3>
+
+        @if ($asignatura->tipoBloque == '2')
+        <!-- Formulario para seleccionar un estudiante y añadirlo a la lista -->
+        <form id="addMemberForm" method="POST" action="{{route('asignaturas.addMember')}}">
+          <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="idAsignatura" id="idAsignatura" value="{{$asignatura->idAsignatura}}">  
+          <div class="form-group row">
+            <div class="col-sm-12 d-flex align-items-center">
+              <select id="select2">
+                <option value="0" readonly selected>SELECCIONAR UN ESTUDIANTE</option>
+                @foreach ($Estudiantes as $rowEstudiantes)
+                <option value="{{$rowEstudiantes->idEstudiante}}">{{trim('(' . $rowEstudiantes->nombreCurso . ') ' . $rowEstudiantes->apellidoPaterno . ' ' . $rowEstudiantes->apellidoMaterno . ' ' . $rowEstudiantes->nombres)}}</option>
+                @endforeach
+              </select>
+              <p>⠀</p>
+              <button type="submit" class="btn btn-success" id="btnAnhadirEstudiante">{!! helper_FormatoBotonCRUD(9, 'texto') !!}</button>
+              <p>⠀</p>
+              <div id="cargando" class="sk-chase">
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+              </div>
+            </div>
+          </div>
+        </form>
+        @endif
+
+        <!-- Tabla de integrantes -->
+        <table class="table table-bordered table-striped" id="integrantesTable">
+          <thead>
+            <tr>
+              <th>Curso</th>
+              <th>Nombre</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($Integrantes as $rowIntegrante)
+            <tr>
+              <td>{{$rowIntegrante->nombreCurso}}</td>
+              <td>{{trim($rowIntegrante->apellidoPaterno . ' ' . $rowIntegrante->apellidoMaterno . ' ' . $rowIntegrante->nombres)}}</td>
+              <td>
+                <div class="btn-group">
+                  <a class="btn btn-danger eliminar-integrante" data-toggle="modal" data-target="#modalDeleteMember" data-iterador="0" data-idestudiante="{{$rowIntegrante->idEstudiante}}" data-estudiante="{{trim($rowIntegrante->apellidoPaterno . ' ' . $rowIntegrante->apellidoMaterno . ' ' . $rowIntegrante->nombres)}}">
+                    {!! helper_FormatoBotonCRUD(4 , 'icono') !!}
+                  </a>                      
+                </div>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+        <!-- / Tabla de integrantes -->
       </div>
       <!-- /.card-body -->
     </div>
@@ -143,6 +199,36 @@
             @csrf
             @method('put')
             <input type="hidden" name="idAsignatura" value="{{$asignatura->idAsignatura}}">
+            <button type="submit" class="btn btn-danger">{!! helper_FormatoBotonCRUD(4, 'texto') !!}</button>
+          </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  <div class="modal fade" id="modalDeleteMember">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title font-weight-bold text-danger">ELIMINAR INTEGRANTE</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>¿Está segur@ de eliminar el estudiante seleccionado de la lista?</p>
+          <p class="font-weight-bold" id="nombreEstudiante">NOMBRE</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
+          <form id="deleteMemberForm" method="POST" action="{{route('asignaturas.deleteMember')}}">
+            <!-- No se asigna csrf porque ya está definido. -->
+            <input type="hidden" name="idAsignatura" value="{{$asignatura->idAsignatura}}">
+            <input type="hidden" id="deleteIdEstudiante" name="idEstudiante" value="0">
+            <input type="hidden" id="iterador" name="iterador" value="0">
             <button type="submit" class="btn btn-danger">{!! helper_FormatoBotonCRUD(4, 'texto') !!}</button>
           </form>
         </div>
