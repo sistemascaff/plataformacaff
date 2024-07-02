@@ -147,13 +147,32 @@
         </form>
         @endif
 
+        @if ($asignatura->tipoBloque == '1')
+        <div class="form-group row">
+          <div class="col-sm-6 d-flex align-items-center">
+            <select class="form-control" id="idCurso" name="idCurso">
+              <option value="0" readonly selected>SELECCIONAR UN CURSO</option>
+              @foreach ($Cursos as $rowCursos)
+              <option value="{{$rowCursos->idCurso}}">{{$rowCursos->nombreCurso}}</option>
+              @endforeach
+            </select>
+            <p>⠀</p>
+            <a id="btnRefresh" class="btn btn-warning" data-toggle="modal" data-target="#modalRefreshMembers">
+              {!! helper_FormatoBotonCRUD(3, 'texto') !!}
+            </a>
+          </div>
+        </div>
+        @endif
+
         <!-- Tabla de integrantes -->
         <table class="table table-bordered table-striped" id="integrantesTable">
           <thead>
             <tr>
               <th>Curso</th>
               <th>Nombre</th>
+              @if ($asignatura->tipoBloque == '2')
               <th>Acciones</th>
+              @endif
             </tr>
           </thead>
           <tbody>
@@ -161,6 +180,7 @@
             <tr>
               <td>{{$rowIntegrante->nombreCurso}}</td>
               <td>{{trim($rowIntegrante->apellidoPaterno . ' ' . $rowIntegrante->apellidoMaterno . ' ' . $rowIntegrante->nombres)}}</td>
+              @if ($asignatura->tipoBloque == '2')
               <td>
                 <div class="btn-group">
                   <a class="btn btn-danger eliminar-integrante" data-toggle="modal" data-target="#modalDeleteMember" data-iterador="0" data-idestudiante="{{$rowIntegrante->idEstudiante}}" data-estudiante="{{trim($rowIntegrante->apellidoPaterno . ' ' . $rowIntegrante->apellidoMaterno . ' ' . $rowIntegrante->nombres)}}">
@@ -168,10 +188,12 @@
                   </a>                      
                 </div>
               </td>
+              @endif
             </tr>
             @endforeach
           </tbody>
         </table>
+        <br><p class="font font-weight-bold" id="totalRegistros">Número de Integrantes: {{count($Integrantes)}}.</p>
         <!-- / Tabla de integrantes -->
       </div>
       <!-- /.card-body -->
@@ -230,6 +252,34 @@
             <input type="hidden" id="deleteIdEstudiante" name="idEstudiante" value="0">
             <input type="hidden" id="iterador" name="iterador" value="0">
             <button type="submit" class="btn btn-danger">{!! helper_FormatoBotonCRUD(4, 'texto') !!}</button>
+          </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  <div class="modal fade" id="modalRefreshMembers">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title font-weight-bold text-warning">REFRESCAR LISTA DE ESTUDIANTES</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Esta acción eliminará todos los registros actuales y las reemplazará por todos los estudiantes del curso seleccionado, ¿Desea continuar?</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
+          <form method="POST" action="{{route('asignaturas.refreshMembers')}}">
+            @csrf
+            <input type="hidden" name="idAsignatura" value="{{$asignatura->idAsignatura}}">
+            <input type="hidden" id="refreshIdCurso" name="idCurso" value="0">
+            <button type="submit" class="btn btn-warning">{!! helper_FormatoBotonCRUD(3, 'texto') !!}</button>
           </form>
         </div>
       </div>
