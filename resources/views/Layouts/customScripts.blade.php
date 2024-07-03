@@ -1,5 +1,5 @@
 <script>
-    @if (request()->is('asignaturas*'))
+    @if (request()->is('asignaturas/*'))
         // Inicio del conjunto de métodos para gestionar via AJAX la adición y eliminación de un estudiante en las Asignaturas (En caso de que sea una Asignatura de Bloque mixto).
         // Como se observa, se procura usar un if de blade.php (a parte de JavaScript) para invocar todo el código para evitar saturar las páginas de código que no se utilizará en todos los módulos.
 
@@ -160,6 +160,19 @@
                     $('#modalRefreshMembers').find('input[id="refreshIdCurso"]').val(id);
                 });
             });
+        }
+
+        //Si el elemento <select> con el id 'idCurso' existe, se entiende que el tipo de bloque es de un solo curso, se recupera el nombre de curso de la primera Celda de la tabla,
+        //luego se compara con cada opción del <select>, y finalmente se selecciona la opción que sea igual al valor recuperado.
+        if (document.getElementById('idCurso')) {
+            var primeraCelda = document.querySelector("table#integrantesTable tr td:first-child");
+            const selectElement = document.getElementById("idCurso");
+            for (let i = 0; i < selectElement.options.length; i++) {
+                if (selectElement.options[i].text === primeraCelda.innerText) {
+                    selectElement.options[i].selected = true;
+                    break; // Una vez que se ha encontrado la coincidencia, se detiene el bucle
+                }
+            }
         }
         // Fin del conjunto de métodos para gestionar via AJAX la adición y eliminación de un estudiante en las Asignaturas (En caso de que sea una Asignatura de Bloque mixto).
     @endif

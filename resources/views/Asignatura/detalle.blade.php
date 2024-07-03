@@ -151,14 +151,13 @@
         <div class="form-group row">
           <div class="col-sm-6 d-flex align-items-center">
             <select class="form-control" id="idCurso" name="idCurso">
-              <option value="0" readonly selected>SELECCIONAR UN CURSO</option>
               @foreach ($Cursos as $rowCursos)
               <option value="{{$rowCursos->idCurso}}">{{$rowCursos->nombreCurso}}</option>
               @endforeach
             </select>
             <p>⠀</p>
             <a id="btnRefresh" class="btn btn-warning" data-toggle="modal" data-target="#modalRefreshMembers">
-              {!! helper_FormatoBotonCRUD(3, 'texto') !!}
+              {!! helper_FormatoBotonCRUD(10, 'texto') !!}
             </a>
           </div>
         </div>
@@ -279,7 +278,7 @@
             @csrf
             <input type="hidden" name="idAsignatura" value="{{$asignatura->idAsignatura}}">
             <input type="hidden" id="refreshIdCurso" name="idCurso" value="0">
-            <button type="submit" class="btn btn-warning">{!! helper_FormatoBotonCRUD(3, 'texto') !!}</button>
+            <button type="submit" class="btn btn-warning">{!! helper_FormatoBotonCRUD(10, 'texto') !!}</button>
           </form>
         </div>
       </div>

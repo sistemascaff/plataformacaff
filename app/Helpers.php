@@ -88,6 +88,10 @@ function helper_FormatoBotonCRUD($valor, $tipo){
             $icono = 'fa fa-plus';
             $texto = 'AÑADIR';
             break;
+        case '10':/*REFRESH*/
+            $icono = 'fa fa-refresh';
+            $texto = 'REFRESCAR';
+            break;
         default:
             return 'HELPER ERROR: VALOR EXCEDIDO';
             break;
