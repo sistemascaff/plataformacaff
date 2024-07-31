@@ -15,11 +15,6 @@ function helper_retrocederDirectorio($valor){
     return $cadena;
 }
 
-function helper_encapsular($string){
-    $string = "'" . $string . "'";
-    return $string;
-}
-
 function helper_formatoNullorEmpty($valor){
     if (empty($valor) || is_null($valor)) {
         return '-';

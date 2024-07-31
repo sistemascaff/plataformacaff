@@ -55,7 +55,8 @@ class Usuario extends Authenticatable
     /**Función utilizada para verificar y crear la sesión del Usuario.*/
     public function login($correo, $contrasenha, $ip, $dispositivo){
         $sessionRow = Usuario::select('Usuarios.idUsuario','Usuarios.idPersona','Usuarios.correo','Usuarios.tieneAcceso','Usuarios.estado','Roles.idRol')
-        ->whereRaw('correo = ' . helper_encapsular($correo) . ' AND contrasenha = ' . helper_encapsular($contrasenha))
+        ->where('Usuarios.correo', '=', $correo)
+        ->where('Usuarios.contrasenha', '=', $contrasenha)
         ->join('Roles', 'Usuarios.idUsuario', '=', 'Roles.idUsuario')
         ->limit(1)
         ->get();
