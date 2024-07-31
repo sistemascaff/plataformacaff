@@ -2,7 +2,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="{{route('usuarios.index')}}" class="brand-link">
-    <img src="{{URL::to('/')}}/img/logo.png" alt="PLATAFORMA CAFF" class="brand-image img-circle">
+    <img src="{{URL::to('/')}}/public/img/logo.png" alt="PLATAFORMA CAFF" class="brand-image img-circle">
     <span class="brand-text font-weight-light">PLATAFORMA CAFF</span>
   </a>
 
@@ -12,7 +12,7 @@
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
         <a href="{{route('personas.profile')}}">
-        <img src="{{URL::to('/')}}/img/user.png" class="img-circle elevation-2" alt="{{session('correo')}}">
+        <img src="{{URL::to('/')}}/public/img/user.png" class="img-circle elevation-2" alt="{{session('correo')}}">
         </a>
       </div>
       <div class="info">

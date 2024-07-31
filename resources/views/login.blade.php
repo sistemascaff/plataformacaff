@@ -5,22 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{helper_tituloPagina()}} | INICIAR SESIÓN</title>
   <!-- Icono -->
-  <link rel="icon" type="image/x-icon" href="{{URL::to('/')}}/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="{{URL::to('/')}}/public/favicon.ico">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{URL::to('/')}}/AdminLTE/plugins/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{{URL::to('/')}}/public/AdminLTE/plugins/font-awesome/css/font-awesome.min.css">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="{{URL::to('/')}}/AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="{{URL::to('/')}}/public/AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{URL::to('/')}}/AdminLTE/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{URL::to('/')}}/public/AdminLTE/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-        <img src="{{URL::to('/')}}/img/logo.png">
+        <img src="{{URL::to('/')}}/public/img/logo.png">
         <a href="" class="h1"><b>PLATAFORMA CAFF</b></a>
     </div>
     <div class="card-body">
@@ -72,11 +72,11 @@
 <!-- /.login-box -->
 
 <!-- jQuery -->
-<script src=".{{URL::to('/')}}/AdminLTE/plugins/jquery/jquery.min.js"></script>
+<script src=".{{URL::to('/')}}/public/AdminLTE/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="{{URL::to('/')}}/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{URL::to('/')}}/public/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="{{URL::to('/')}}/AdminLTE/dist/js/adminlte.min.js"></script>
+<script src="{{URL::to('/')}}/public/AdminLTE/dist/js/adminlte.min.js"></script>
 <script>
   document.getElementById('togglePassword').addEventListener('click', function() {
     const passwordInput = document.getElementById('passwordInput');
