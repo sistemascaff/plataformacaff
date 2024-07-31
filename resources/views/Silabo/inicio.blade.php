@@ -10,8 +10,8 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('asignaturas.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item active">ASIGNATURAS</li>
+            <li class="breadcrumb-item"><a href="{{route('silabos.index')}}">INICIO</a></li>
+            <li class="breadcrumb-item active">SILABOS</li>
           </ol>
         </div>
       </div>
@@ -24,13 +24,13 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title font-weight-bold">ASIGNATURAS</h3>
+        <h3 class="card-title font-weight-bold">SILABOS</h3>
       </div>
       <div class="card-body">
-        <a href="{{route('asignaturas.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
+        <a href="{{route('silabos.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
         <br><br>
         <!-- Formulario de búsqueda -->
-        <form action="{{route('asignaturas.index')}}" method="GET">
+        <form action="{{route('silabos.index')}}" method="GET">
           <div class="input-group input-group-sm col-md-3">
             <input type="text" name="busqueda" class="form-control" placeholder="Filtrar tabla..." value="{{$busqueda}}" autofocus>
             <span class="input-group-append">
@@ -42,7 +42,7 @@
         @if ($busqueda)
           <h3 class="font-weight-bold">
             Resultados de la búsqueda: "{{$busqueda}}" 
-            <a href="{{route('asignaturas.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'icono') !!}</a>
+            <a href="{{route('silabos.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'icono') !!}</a>
           </h3>
           <br>
         @endif
@@ -52,45 +52,43 @@
             <table id="dataTable" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>MATERIA</th>
                   <th>ASIGNATURA</th>
-                  <th>ABREVIATURA</th>
-                  <th>PROFESOR</th>
-                  <th>TIPO DE ASIGNATURA</th>
-                  <th>TIPO DE CALIFICACIÓN</th>
-                  <th>TIPO DE BLOQUE</th>
-                  <th>COORDINACION</th>
-                  <th>AULA</th>
-                  <th>F. REGISTRO</th>
-                  <th>F. ACTUALIZACION</th>
+                  <th>PERIODO</th>
+                  <th>UNIDAD</th>
+                  <th>SILABO</th>
+                  <th>ESTADO</th>
+                  <th>F. INICIO</th>
+                  <th>F. FIN</th>
                   <th>MODIFICADO POR</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($tableAsignatura as $rowAsignatura)
+                @foreach ($tableSilabo as $rowSilabo)
                   <tr>
-                    <td>{{$rowAsignatura->nombreMateria}}</td>
-                    <td>{{$rowAsignatura->nombreAsignatura}}</td>
-                    <td>{{$rowAsignatura->nombreCorto}}</td>
-                    <td>{{trim($rowAsignatura->profesor_paterno . ' ' . $rowAsignatura->profesor_materno . ' ' . $rowAsignatura->profesor_nombre)}}</td>
-                    <td>{{helper_FormatoAtributoValorATexto($rowAsignatura->tipoAsignatura, 'asignaturaTipoAsignatura')}}</td>
-                    <td>{{helper_FormatoAtributoValorATexto($rowAsignatura->tipoCalificacion, 'asignaturaTipoCalificacion')}}</td>
-                    <td>{{helper_FormatoAtributoValorATexto($rowAsignatura->tipoBloque, 'asignaturaTipoBloque')}}</td>
-                    <td>{{helper_formatoNullorEmpty($rowAsignatura->nombreCoordinacion)}}</td>
-                    <td>{{$rowAsignatura->nombreAula}}</td>
-                    <td>{{helper_formatoVistaFechayHora($rowAsignatura->fechaRegistro)}}</td>
-                    <td>{{helper_formatoVistaFechayHora($rowAsignatura->fechaActualizacion)}}</td>
-                    <td>{{helper_formatoNullorEmpty($rowAsignatura->correo)}}</td>
+                    <td>{{$rowSilabo->nombreAsignatura}}</td>
+                    <td>{{$rowSilabo->nombrePeriodo}}</td>
+                    <td>{{$rowSilabo->nombreUnidad}}</td>
+                    <td>{{$rowSilabo->nombreSilabo}}</td>
+                    <td>{{helper_FormatoAtributoValorATexto($rowSilabo->estado, 'silaboEstado')}}</td>
+                    <td>{{helper_formatoVistaFechayHora($rowSilabo->fechaInicio)}}</td>
+                    <td>{{helper_formatoVistaFechayHora($rowSilabo->fechaFin)}}</td>
+                    <td>{{helper_formatoNullorEmpty($rowSilabo->correo)}}</td>
                     <td>
                       <div class="btn-group">
-                        <a class="btn btn-info" href="{{route('asignaturas.details', $rowAsignatura->idAsignatura)}}">
+                        <a class="btn btn-info rounded" title="DETALLES DE REGISTRO" href="{{route('silabos.details', $rowSilabo->idSilabo)}}">
                           {!! helper_FormatoBotonCRUD(2, 'icono') !!}
                         </a>
-                        <a class="btn btn-warning" href="{{route('asignaturas.edit',$rowAsignatura->idAsignatura)}}">
+                        <form action="{{route('silabos.statusUpdate',$rowSilabo->idSilabo)}}" method="POST">
+                          @csrf
+                          @method('put')
+                          <input type="hidden" name="idSilabo" value="{{ $rowSilabo->idSilabo }}">
+                          <button type="submit" class="btn btn-success" title="MARCAR AVANCE DE SILABO">{!! helper_FormatoBotonCRUD(11, 'icono') !!}</button>
+                        </form>
+                        <a class="btn btn-warning rounded" title="MODIFICAR REGISTRO" href="{{route('silabos.edit',$rowSilabo->idSilabo)}}">
                           {!! helper_FormatoBotonCRUD(3, 'icono') !!}
                         </a>
-                        <a class="btn btn-danger eliminar-registro" data-toggle="modal" data-target="#modalDelete" data-id="{{$rowAsignatura->idAsignatura}}" data-nombre="{{$rowAsignatura->nombreAsignatura}}">
+                        <a class="btn btn-danger rounded eliminar-registro" title="ELIMINAR REGISTRO" data-toggle="modal" data-target="#modalDelete" data-id="{{$rowSilabo->idSilabo}}" data-nombre="{{$rowSilabo->nombreSilabo}}">
                           {!! helper_FormatoBotonCRUD(4 , 'icono') !!}
                         </a>                      
                       </div>
@@ -123,10 +121,10 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</button>
-          <form action="{{route('asignaturas.delete')}}" method="POST">
+          <form action="{{route('silabos.delete')}}" method="POST">
             @csrf
             @method('put')
-            <input type="hidden" id="id" name="idAsignatura" value="0">
+            <input type="hidden" id="id" name="idSilabo" value="0">
             <button type="submit" class="btn btn-danger">{!! helper_FormatoBotonCRUD(4, 'texto') !!}</button>
           </form>
         </div>

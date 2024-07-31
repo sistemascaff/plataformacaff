@@ -92,6 +92,10 @@ function helper_FormatoBotonCRUD($valor, $tipo){
             $icono = 'fa fa-refresh';
             $texto = 'REFRESCAR';
             break;
+        case '11':/*CHECK*/
+            $icono = 'fa fa-check';
+            $texto = 'MARCAR';
+            break;
         default:
             return 'HELPER ERROR: VALOR EXCEDIDO';
             break;
@@ -113,20 +117,36 @@ function helper_FormatoAtributoValorATexto($valor, $atributo){
     $dimensionTipoCalculo = '';
     
     switch ($valor) {
+        case '-1':
+            $asignaturaTipoCalificacion = '¡VALOR NUMÉRICO NO CORRESPONDIENTE!';
+            $asignaturaTipoBloque = '¡VALOR NUMÉRICO NO CORRESPONDIENTE!';
+            $asignaturaTipoAsignatura = '¡VALOR NUMÉRICO NO CORRESPONDIENTE!';
+            $dimensionTipoCalculo = '¡VALOR NUMÉRICO NO CORRESPONDIENTE!';
+            $silaboEstado = 'ELIMINADO';
+            break;
+        case '0':
+            $asignaturaTipoCalificacion = '¡VALOR NUMÉRICO NO CORRESPONDIENTE!';
+            $asignaturaTipoBloque = '¡VALOR NUMÉRICO NO CORRESPONDIENTE!';
+            $asignaturaTipoAsignatura = '¡VALOR NUMÉRICO NO CORRESPONDIENTE!';
+            $dimensionTipoCalculo = '¡VALOR NUMÉRICO NO CORRESPONDIENTE!';
+            $silaboEstado = 'PENDIENTE';
+            break;
         case '1':
             $asignaturaTipoCalificacion = 'CUANTITATIVA';
             $asignaturaTipoBloque = 'BLOQUE DE UN SOLO CURSO';
             $asignaturaTipoAsignatura = 'SIE';
             $dimensionTipoCalculo = 'SUMA';
+            $silaboEstado = 'EN CURSO';
             break;
         case '2':
             $asignaturaTipoCalificacion = 'CUALITATIVA';
             $asignaturaTipoBloque = 'BLOQUE MIXTO';
             $asignaturaTipoAsignatura = 'INTERNA';
             $dimensionTipoCalculo = 'PROMEDIO';
+            $silaboEstado = 'FINALIZADO';
             break;
         default:
-            return 'HELPER ERROR: VALOR EXCEDIDO';
+            return 'HELPER ERROR: ¡VALOR NUMÉRICO PARA SWITCH-CASE EXCEDIDO!: ' . $valor;
             break;
     }
     
@@ -141,6 +161,9 @@ function helper_FormatoAtributoValorATexto($valor, $atributo){
     }
     elseif ($atributo === 'dimensionTipoCalculo') {
         return $dimensionTipoCalculo;
+    }
+    elseif ($atributo === 'silaboEstado') {
+        return $silaboEstado;
     }
     else {
         return 'HELPER ERROR: ATRIBUTO INCORRECTO';

@@ -52,9 +52,9 @@
             <table id="dataTable" class="table table-bordered table-striped">
               <thead>
                 <tr>
+                  <th>GESTION</th>
                   <th>PERIODO</th>
                   <th>P. ORDINAL</th>
-                  <th>GESTION</th>
                   <th>F. REGISTRO</th>
                   <th>F. ACTUALIZACION</th>
                   <th>MODIFICADO POR</th>
@@ -64,9 +64,9 @@
               <tbody>
                 @foreach ($tablePeriodo as $rowPeriodo)
                   <tr>
+                    <td>{{$rowPeriodo->anhoGestion}}</td>
                     <td>{{$rowPeriodo->nombrePeriodo}}</td>
                     <td>{{$rowPeriodo->posicionOrdinal}}</td>
-                    <td>{{$rowPeriodo->anhoGestion}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowPeriodo->fechaRegistro)}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowPeriodo->fechaActualizacion)}}</td>
                     <td>{{helper_formatoNullorEmpty($rowPeriodo->correo)}}</td>

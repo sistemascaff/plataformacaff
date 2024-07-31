@@ -17,6 +17,8 @@ use App\Http\Controllers\DimensionController;
 use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\AsignaturaController;
+use App\Http\Controllers\UnidadController;
+use App\Http\Controllers\SilaboController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,7 +60,7 @@ Route::controller(AreaController::class)->group(function(){
 });
 Route::controller(MateriaController::class)->group(function(){
     Route::get('materias','index')->name('materias.index');
-    Route::get('materias/crear/{campo?}','new')->name('materias.create');
+    Route::get('materias/crear/{area?}','new')->name('materias.create');
     Route::post('materias','store')->name('materias.store');
     Route::get('materias/{materia}','show')->name('materias.details');
     Route::get('materias/{materia}/editar','edit')->name('materias.edit');
@@ -67,7 +69,7 @@ Route::controller(MateriaController::class)->group(function(){
 });
 Route::controller(AsignaturaController::class)->group(function(){
     Route::get('asignaturas','index')->name('asignaturas.index');
-    Route::get('asignaturas/crear/{campo?}','new')->name('asignaturas.create');
+    Route::get('asignaturas/crear/{materia?}','new')->name('asignaturas.create');
     Route::post('asignaturas','store')->name('asignaturas.store');
     Route::get('asignaturas/{asignatura}','show')->name('asignaturas.details');
     Route::get('asignaturas/{asignatura}/editar','edit')->name('asignaturas.edit');
@@ -76,6 +78,25 @@ Route::controller(AsignaturaController::class)->group(function(){
     Route::post('asignaturas/anhadirIntegrante','ajaxAgregarEstudiante')->name('asignaturas.addMember');
     Route::post('asignaturas/eliminarIntegrante','ajaxEliminarEstudiante')->name('asignaturas.deleteMember');
     Route::post('asignaturas/refrescarIntegrantes','refrescarIntegrantes')->name('asignaturas.refreshMembers');
+});
+Route::controller(UnidadController::class)->group(function(){
+    Route::get('unidades','index')->name('unidades.index');
+    Route::get('unidades/crear/{asignatura?}','new')->name('unidades.create');
+    Route::post('unidades','store')->name('unidades.store');
+    Route::get('unidades/{unidad}','show')->name('unidades.details');
+    Route::get('unidades/{unidad}/editar','edit')->name('unidades.edit');
+    Route::put('unidades/{unidad}','update')->name('unidades.update');
+    Route::put('unidades','delete')->name('unidades.delete');
+});
+Route::controller(SilaboController::class)->group(function(){
+    Route::get('silabos','index')->name('silabos.index');
+    Route::get('silabos/crear/{unidad?}','new')->name('silabos.create');
+    Route::post('silabos','store')->name('silabos.store');
+    Route::get('silabos/{silabo}','show')->name('silabos.details');
+    Route::get('silabos/{silabo}/editar','edit')->name('silabos.edit');
+    Route::put('silabos/{silabo}','update')->name('silabos.update');
+    Route::put('silabos','delete')->name('silabos.delete');
+    Route::put('silabos/{silabo}/actualizarEstado','actualizarEstado')->name('silabos.statusUpdate');
 });
 Route::controller(NivelController::class)->group(function(){
     Route::get('niveles','index')->name('niveles.index');

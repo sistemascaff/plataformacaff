@@ -52,9 +52,9 @@
             <table id="dataTable" class="table table-bordered table-striped">
               <thead>
                 <tr>
+                  <th>CAMPO</th>
                   <th>AREA</th>
                   <th>ABREVIATURA</th>
-                  <th>CAMPO</th>
                   <th>F. REGISTRO</th>
                   <th>F. ACTUALIZACION</th>
                   <th>MODIFICADO POR</th>
@@ -64,9 +64,9 @@
               <tbody>
                 @foreach ($tableArea as $rowArea)
                   <tr>
+                    <td>{{$rowArea->nombreCampo}}</td>
                     <td>{{$rowArea->nombreArea}}</td>
                     <td>{{$rowArea->nombreCorto}}</td>
-                    <td>{{$rowArea->nombreCampo}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowArea->fechaRegistro)}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowArea->fechaActualizacion)}}</td>
                     <td>{{helper_formatoNullorEmpty($rowArea->correo)}}</td>

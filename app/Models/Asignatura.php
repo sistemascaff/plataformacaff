@@ -22,11 +22,25 @@ class Asignatura extends Model
      * Búsquedas soportadas: Nombre de Asignatura, Abreviatura de Asignatura, nombre de Area, nombre de Campo y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda)
     {
-        $queryActivos = Asignatura::select('Asignaturas.idAsignatura', 'Asignaturas.nombreAsignatura', 'Asignaturas.nombreCorto',
-            'Asignaturas.tipoCalificacion', 'Asignaturas.tipoBloque', 'Asignaturas.tipoAsignatura',
-            'Asignaturas.estado', 'Asignaturas.fechaRegistro', 'Asignaturas.fechaActualizacion', 'Asignaturas.idUsuario', 'Usuarios.correo',
-            'Personas.nombres AS profesor_nombre','Personas.apellidoPaterno AS profesor_paterno','Personas.apellidoMaterno AS profesor_materno',
-            'Materias.nombreMateria', 'Coordinaciones.nombreCoordinacion', 'Aulas.nombreAula')
+        $queryActivos = Asignatura::select(
+            'Asignaturas.idAsignatura',
+            'Asignaturas.nombreAsignatura',
+            'Asignaturas.nombreCorto',
+            'Asignaturas.tipoCalificacion',
+            'Asignaturas.tipoBloque',
+            'Asignaturas.tipoAsignatura',
+            'Asignaturas.estado',
+            'Asignaturas.fechaRegistro',
+            'Asignaturas.fechaActualizacion',
+            'Asignaturas.idUsuario',
+            'Usuarios.correo',
+            'Personas.nombres AS profesor_nombre',
+            'Personas.apellidoPaterno AS profesor_paterno',
+            'Personas.apellidoMaterno AS profesor_materno',
+            'Materias.nombreMateria',
+            'Coordinaciones.nombreCoordinacion',
+            'Aulas.nombreAula'
+        )
             ->leftjoin('Usuarios', 'Asignaturas.idUsuario', '=', 'Usuarios.idUsuario')
             ->join('Materias', 'Asignaturas.idMateria', '=', 'Materias.idMateria')
             ->leftjoin('Coordinaciones', 'Asignaturas.idCoordinacion', '=', 'Coordinaciones.idCoordinacion')
@@ -71,24 +85,51 @@ class Asignatura extends Model
     {
         $queryEstudiantesIntegrantesDeAsignatura = Estudiante::select(
             /*Estudiantes*/
-            'Estudiantes.idEstudiante','Estudiantes.idCurso',
+            'Estudiantes.idEstudiante',
+            'Estudiantes.idCurso',
             /*Curso*/
             'Cursos.nombreCurso',
             /*Personas*/
-            'Personas.apellidoPaterno','Personas.apellidoMaterno','Personas.nombres',
+            'Personas.apellidoPaterno',
+            'Personas.apellidoMaterno',
+            'Personas.nombres',
             /*Usuarios*/
             'Usuarios.correo AS correoPersonal'
-            )
-        ->join('Usuarios', 'Estudiantes.idPersona', '=', 'Usuarios.idPersona')
-        ->join('Cursos', 'Estudiantes.idCurso', '=', 'Cursos.idCurso')
-        ->join('Personas', 'Estudiantes.idPersona', '=', 'Personas.idPersona')
-        ->join('Integrantes', 'Estudiantes.idEstudiante', '=', 'Integrantes.idEstudiante')
-        ->where('Integrantes.idAsignatura', '=', $idAsignatura)
-        ->orderBy('Personas.apellidoPaterno', 'ASC')
-        ->orderBy('Personas.apellidoMaterno', 'ASC')
-        ->orderBy('Personas.nombres', 'ASC')
-        ->get();
+        )
+            ->join('Usuarios', 'Estudiantes.idPersona', '=', 'Usuarios.idPersona')
+            ->join('Cursos', 'Estudiantes.idCurso', '=', 'Cursos.idCurso')
+            ->join('Personas', 'Estudiantes.idPersona', '=', 'Personas.idPersona')
+            ->join('Integrantes', 'Estudiantes.idEstudiante', '=', 'Integrantes.idEstudiante')
+            ->where('Integrantes.idAsignatura', '=', $idAsignatura)
+            ->orderBy('Personas.apellidoPaterno', 'ASC')
+            ->orderBy('Personas.apellidoMaterno', 'ASC')
+            ->orderBy('Personas.nombres', 'ASC')
+            ->get();
         return $queryEstudiantesIntegrantesDeAsignatura;
     }
+    public function selectAsignatura_UnidadesySilabos($idAsignatura)
+    {
+        $queryUnidadesySilabosDeAsignatura = Unidad::select( 
+            'Unidades.idUnidad', 
+            'Unidades.nombreUnidad', 
+            'Unidades.posicionOrdinal', 
+            'Periodos.nombrePeriodo'
+        ) 
+        ->selectRaw('GROUP_CONCAT(Silabos.nombreSilabo ORDER BY Silabos.nombreSilabo ASC SEPARATOR "<br>") AS groupConcatSilabos') 
+        ->selectRaw('
+            (SUM(Silabos.estado) / (COUNT(Silabos.idSilabo) * 2)) * 100 AS porcentajeAvance
+        ')
+        ->join('Periodos', 'Unidades.idPeriodo', '=', 'Periodos.idPeriodo') 
+        ->leftJoin('Silabos', function($join) {
+            $join->on('Unidades.idUnidad', '=', 'Silabos.idUnidad')
+            ->where('Silabos.estado', '>=', '0');
+        }) 
+        ->where('Unidades.idAsignatura', $idAsignatura) 
+        ->groupBy('Unidades.idUnidad', 'Unidades.nombreUnidad', 'Periodos.nombrePeriodo') 
+        ->orderBy('Periodos.posicionOrdinal', 'ASC') 
+        ->orderBy('Unidades.posicionOrdinal', 'ASC') 
+        ->get();
 
+        return $queryUnidadesySilabosDeAsignatura;
+    }
 }

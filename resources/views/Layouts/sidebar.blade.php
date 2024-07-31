@@ -93,7 +93,9 @@
                     (request()->is('periodos*') ? 'menu-open' : 
                       (request()->is('dimensiones*') ? 'menu-open' : 
                         (request()->is('coordinaciones*') ? 'menu-open' : 
-                          (request()->is('asignaturas*') ? 'menu-open' : '')))))))) 
+                          (request()->is('asignaturas*') ? 'menu-open' : 
+                            (request()->is('unidades*') ? 'menu-open' : 
+                              (request()->is('silabos*') ? 'menu-open' : '')))))))))) 
           }}">
           <a href="" class="nav-link {{ request()->is('campos*') ? 'active' : 
               (request()->is('areas*') ? 'active' : 
@@ -103,7 +105,9 @@
                       (request()->is('periodos*') ? 'active' : 
                         (request()->is('dimensiones*') ? 'active' : 
                           (request()->is('coordinaciones*') ? 'active' : 
-                            (request()->is('asignaturas*') ? 'active' : '')))))))) 
+                            (request()->is('asignaturas*') ? 'active' : 
+                              (request()->is('unidades*') ? 'active' : 
+                                (request()->is('silabos*') ? 'active' : '')))))))))) 
             }}">
             <i class="nav-icon fa fa-th-list"></i>
             <p>
@@ -164,6 +168,22 @@
               <a href="{{route('asignaturas.index')}}" class="nav-link {{ request()->is('asignaturas*') ? 'active' : '' }}">
                 <i class="fa fa-circle-o nav-icon"></i>
                 <p>ASIGNATURAS</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('unidades.index')}}" class="nav-link {{ request()->is('unidades*') ? 'active' : '' }}">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p>UNIDADES</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('silabos.index')}}" class="nav-link {{ request()->is('silabos*') ? 'active' : '' }}">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p>SILABOS</p>
               </a>
             </li>
           </ul>
