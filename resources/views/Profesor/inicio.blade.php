@@ -95,7 +95,7 @@
                     <td>{{$rowProfesor->direccionDomicilio}}</td>
                     <td>{{$rowProfesor->correoPersonal}}</td>
                     @if (session('rol_admin'))
-                      <td>{{$rowProfesor->contrasenha}}</td>
+                      <td>{{helper_decrypt($rowProfesor->contrasenha)}}</td>
                       <td>{{helper_formatoVistaFechayHora($rowProfesor->fechaRegistro)}}</td>
                       <td>{{helper_formatoVistaFechayHora($rowProfesor->fechaActualizacion)}}</td>
                       <td>{{helper_formatoNullorEmpty($rowProfesor->correo)}}</td>

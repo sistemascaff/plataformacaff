@@ -97,7 +97,7 @@
                     <td>{{$rowEstudiante->saludDatos}}</td>
                     <td>{{$rowEstudiante->correoPersonal}}</td>
                     @if (session('rol_admin'))
-                      <td>{{$rowEstudiante->contrasenha}}</td>
+                      <td>{{helper_decrypt($rowEstudiante->contrasenha)}}</td>
                       <td>{{helper_formatoVistaFechayHora($rowEstudiante->fechaRegistro)}}</td>
                       <td>{{helper_formatoVistaFechayHora($rowEstudiante->fechaActualizacion)}}</td>
                       <td>{{helper_formatoNullorEmpty($rowEstudiante->correo)}}</td>

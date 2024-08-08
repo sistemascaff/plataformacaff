@@ -68,7 +68,7 @@ class UsuarioController extends Controller
             $usuario = new Usuario();
             $usuario->idPersona = $request->idPersona;
             $usuario->correo = $request->correo;
-            $usuario->contrasenha = $request->contrasenha;
+            $usuario->contrasenha = helper_encrypt($request->contrasenha);
 
             /*----Lógica de subida de archivos----*/
             if($request->hasFile('fotoPerfilURL')){
@@ -100,7 +100,7 @@ class UsuarioController extends Controller
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $usuario = (new Usuario())->selectUsuario($idUsuario);
             $usuario->correo = $request->correo;
-            $usuario->contrasenha = $request->contrasenha;
+            $usuario->contrasenha = helper_encrypt($request->contrasenha);
 
             /*----Lógica de subida de archivos----*/
             if($request->hasFile('fotoPerfilURL')){

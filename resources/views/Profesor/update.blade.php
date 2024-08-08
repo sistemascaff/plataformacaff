@@ -183,7 +183,7 @@
                   <label class="col-sm-2 col-form-label">CONTRASEÑA (*)</label>
                   <div class="col-sm-10">
                   <input type="text" class="form-control @error('contrasenha') is-invalid @enderror"
-                    name="contrasenha" id="contrasenha" value="{{old('contrasenha', $persona_usuario->contrasenha)}}" placeholder="C.I. COMP." minlength="8" maxlength="80" required>
+                    name="contrasenha" id="contrasenha" value="{{old('contrasenha', helper_decrypt($persona_usuario->contrasenha))}}" placeholder="C.I. COMP." minlength="8" maxlength="80" required>
                   </div>
                   @error('contrasenha')
                   <span class="text-danger">{{$message}}</span>

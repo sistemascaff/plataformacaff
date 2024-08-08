@@ -145,7 +145,7 @@
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Contraseña</label>
               <div class="col-md-8">
-                <p class="form form-control">{{$persona_usuario->contrasenha}}</p>
+                <p class="form form-control">{{helper_decrypt($persona_usuario->contrasenha)}}</p>
               </div>
             </div>
             <div class="form-group row">

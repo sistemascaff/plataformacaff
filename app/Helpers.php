@@ -1,51 +1,55 @@
 <?php
-function helper_tituloPagina(){
+function helper_tituloPagina()
+{
     return "CAFF";
 }
 
-function helper_versionApp(){
+function helper_versionApp()
+{
     return "0.3 En desarrollo";
 }
 
-function helper_retrocederDirectorio($valor){
+function helper_retrocederDirectorio($valor)
+{
     $cadena = "";
-    for ($i=0; $i < $valor; $i++) {
+    for ($i = 0; $i < $valor; $i++) {
         $cadena = $cadena . "../";
     }
     return $cadena;
 }
 
-function helper_formatoNullorEmpty($valor){
+function helper_formatoNullorEmpty($valor)
+{
     if (empty($valor) || is_null($valor)) {
         return '-';
-    }
-    else{
+    } else {
         return $valor;
     }
 }
 
-function helper_formatoVistaFecha($fecha){
+function helper_formatoVistaFecha($fecha)
+{
     if (helper_formatoNullorEmpty($fecha) == '-') {
         return '-';
-    }
-    else{
+    } else {
         return date('d/m/Y', strtotime($fecha));
     }
 }
 
-function helper_formatoVistaFechayHora($fecha){
+function helper_formatoVistaFechayHora($fecha)
+{
     if (helper_formatoNullorEmpty($fecha) == '-') {
         return '-';
-    }
-    else{
+    } else {
         return date('d/m/Y H:i:s', strtotime($fecha));
     }
 }
 
-function helper_FormatoBotonCRUD($valor, $tipo){
+function helper_FormatoBotonCRUD($valor, $tipo)
+{
     $icono = '';
     $texto = '';
-    
+
     switch ($valor) {
         case '1':/*CREATE*/
             $icono = 'fa fa-plus';
@@ -95,7 +99,7 @@ function helper_FormatoBotonCRUD($valor, $tipo){
             return 'HELPER ERROR: VALOR EXCEDIDO';
             break;
     }
-    
+
     if ($tipo === 'icono') {
         return '<i class="' . $icono . '"></i>';
     } elseif ($tipo === 'texto') {
@@ -105,12 +109,13 @@ function helper_FormatoBotonCRUD($valor, $tipo){
     }
 }
 
-function helper_FormatoAtributoValorATexto($valor, $atributo){
+function helper_FormatoAtributoValorATexto($valor, $atributo)
+{
     $asignaturaTipoCalificacion = '';
     $asignaturaTipoBloque = '';
     $asignaturaTipoAsignatura = '';
     $dimensionTipoCalculo = '';
-    
+
     switch ($valor) {
         case '-1':
             $asignaturaTipoCalificacion = '¡VALOR NUMÉRICO NO CORRESPONDIENTE!';
@@ -144,25 +149,49 @@ function helper_FormatoAtributoValorATexto($valor, $atributo){
             return 'HELPER ERROR: ¡VALOR NUMÉRICO PARA SWITCH-CASE EXCEDIDO!: ' . $valor;
             break;
     }
-    
+
     if ($atributo === 'asignaturaTipoCalificacion') {
         return $asignaturaTipoCalificacion;
-    }
-    elseif ($atributo === 'asignaturaTipoBloque') {
+    } elseif ($atributo === 'asignaturaTipoBloque') {
         return $asignaturaTipoBloque;
-    }
-    elseif ($atributo === 'asignaturaTipoAsignatura') {
+    } elseif ($atributo === 'asignaturaTipoAsignatura') {
         return $asignaturaTipoAsignatura;
-    }
-    elseif ($atributo === 'dimensionTipoCalculo') {
+    } elseif ($atributo === 'dimensionTipoCalculo') {
         return $dimensionTipoCalculo;
-    }
-    elseif ($atributo === 'silaboEstado') {
+    } elseif ($atributo === 'silaboEstado') {
         return $silaboEstado;
-    }
-    else {
+    } else {
         return 'HELPER ERROR: ATRIBUTO INCORRECTO';
     }
 }
 
+function subhelper_key(){
+    $key = "C4FF...,";
+    return $key;
+}
 
+function helper_encrypt($string)
+{
+    $result = '';
+    for ($i = 0; $i < strlen($string); $i++) {
+        $char = substr($string, $i, 1);
+        $keychar = substr(subhelper_key(), ($i % strlen(subhelper_key())) - 1, 1);
+        $char = chr(ord($char) + ord($keychar));
+        $result .= $char;
+    }
+    return base64_encode($result);
+}
+
+
+function helper_decrypt($string)
+{
+    $result = '';
+    $string = base64_decode($string);
+    for ($i = 0; $i < strlen($string); $i++) {
+        $char = substr($string, $i, 1);
+        $keychar = substr(subhelper_key(), ($i % strlen(subhelper_key())) - 1, 1);
+        $char = chr(ord($char) - ord($keychar));
+        $result .= $char;
+    }
+    return $result;
+}
