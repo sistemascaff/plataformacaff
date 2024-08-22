@@ -95,7 +95,8 @@
                         (request()->is('coordinaciones*') ? 'menu-open' : 
                           (request()->is('asignaturas*') ? 'menu-open' : 
                             (request()->is('unidades*') ? 'menu-open' : 
-                              (request()->is('silabos*') ? 'menu-open' : '')))))))))) 
+                              (request()->is('silabos*') ? 'menu-open' : 
+                                (request()->is('horarios*') ? 'menu-open' : ''))))))))))) 
           }}">
           <a href="" class="nav-link {{ request()->is('campos*') ? 'active' : 
               (request()->is('areas*') ? 'active' : 
@@ -107,7 +108,8 @@
                           (request()->is('coordinaciones*') ? 'active' : 
                             (request()->is('asignaturas*') ? 'active' : 
                               (request()->is('unidades*') ? 'active' : 
-                                (request()->is('silabos*') ? 'active' : '')))))))))) 
+                                (request()->is('silabos*') ? 'active' : 
+                                  (request()->is('horarios*') ? 'active' : ''))))))))))) 
             }}">
             <i class="nav-icon fa fa-th-list"></i>
             <p>
@@ -184,6 +186,14 @@
               <a href="{{route('silabos.index')}}" class="nav-link {{ request()->is('silabos*') ? 'active' : '' }}">
                 <i class="fa fa-circle-o nav-icon"></i>
                 <p>SILABOS</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('horarios.index')}}" class="nav-link {{ request()->is('horarios*') ? 'active' : '' }}">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p>HORARIOS</p>
               </a>
             </li>
           </ul>

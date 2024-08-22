@@ -115,20 +115,13 @@ function helper_FormatoAtributoValorATexto($valor, $atributo)
     $asignaturaTipoBloque = '';
     $asignaturaTipoAsignatura = '';
     $dimensionTipoCalculo = '';
+    $horarioDia = '';
 
     switch ($valor) {
         case '-1':
-            $asignaturaTipoCalificacion = '¡VALOR NUMÉRICO NO CORRESPONDIENTE!';
-            $asignaturaTipoBloque = '¡VALOR NUMÉRICO NO CORRESPONDIENTE!';
-            $asignaturaTipoAsignatura = '¡VALOR NUMÉRICO NO CORRESPONDIENTE!';
-            $dimensionTipoCalculo = '¡VALOR NUMÉRICO NO CORRESPONDIENTE!';
             $silaboEstado = 'ELIMINADO';
             break;
         case '0':
-            $asignaturaTipoCalificacion = '¡VALOR NUMÉRICO NO CORRESPONDIENTE!';
-            $asignaturaTipoBloque = '¡VALOR NUMÉRICO NO CORRESPONDIENTE!';
-            $asignaturaTipoAsignatura = '¡VALOR NUMÉRICO NO CORRESPONDIENTE!';
-            $dimensionTipoCalculo = '¡VALOR NUMÉRICO NO CORRESPONDIENTE!';
             $silaboEstado = 'PENDIENTE';
             break;
         case '1':
@@ -137,6 +130,7 @@ function helper_FormatoAtributoValorATexto($valor, $atributo)
             $asignaturaTipoAsignatura = 'SIE';
             $dimensionTipoCalculo = 'SUMA';
             $silaboEstado = 'EN CURSO';
+            $horarioDia = 'LUNES';
             break;
         case '2':
             $asignaturaTipoCalificacion = 'CUALITATIVA';
@@ -144,9 +138,25 @@ function helper_FormatoAtributoValorATexto($valor, $atributo)
             $asignaturaTipoAsignatura = 'INTERNA';
             $dimensionTipoCalculo = 'PROMEDIO';
             $silaboEstado = 'FINALIZADO';
+            $horarioDia = 'MARTES';
+            break;
+        case '3':
+            $horarioDia = 'MIÉRCOLES';
+            break;
+        case '4':
+            $horarioDia = 'JUEVES';
+            break;
+        case '5':
+            $horarioDia = 'VIERNES';
+            break;
+        case '6':
+            $horarioDia = 'SÁBADO';
+            break;
+        case '7':
+            $horarioDia = 'DOMINGO';
             break;
         default:
-            return 'HELPER ERROR: ¡VALOR NUMÉRICO PARA SWITCH-CASE EXCEDIDO!: ' . $valor;
+            return 'HELPER ERROR: ¡VALOR NUMÉRICO NO CORRESPONDIENTE!: ' . $valor;
             break;
     }
 
@@ -160,12 +170,15 @@ function helper_FormatoAtributoValorATexto($valor, $atributo)
         return $dimensionTipoCalculo;
     } elseif ($atributo === 'silaboEstado') {
         return $silaboEstado;
+    } elseif ($atributo === 'horarioDia') {
+        return $horarioDia;
     } else {
         return 'HELPER ERROR: ATRIBUTO INCORRECTO';
     }
 }
 
-function subhelper_key(){
+function subhelper_key()
+{
     $key = "C4FF...,";
     return $key;
 }

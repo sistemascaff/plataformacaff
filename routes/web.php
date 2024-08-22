@@ -19,6 +19,7 @@ use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\AsignaturaController;
 use App\Http\Controllers\UnidadController;
 use App\Http\Controllers\SilaboController;
+use App\Http\Controllers\HorarioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -97,6 +98,15 @@ Route::controller(SilaboController::class)->group(function(){
     Route::put('silabos/{silabo}','update')->name('silabos.update');
     Route::put('silabos','delete')->name('silabos.delete');
     Route::put('silabos/{silabo}/actualizarEstado','actualizarEstado')->name('silabos.statusUpdate');
+});
+Route::controller(HorarioController::class)->group(function(){
+    Route::get('horarios','index')->name('horarios.index');
+    Route::get('horarios/crear/{asignatura?}','new')->name('horarios.create');
+    Route::post('horarios','store')->name('horarios.store');
+    Route::get('horarios/{horario}','show')->name('horarios.details');
+    Route::get('horarios/{horario}/editar','edit')->name('horarios.edit');
+    Route::put('horarios/{horario}','update')->name('horarios.update');
+    Route::put('horarios','delete')->name('horarios.delete');
 });
 Route::controller(NivelController::class)->group(function(){
     Route::get('niveles','index')->name('niveles.index');
