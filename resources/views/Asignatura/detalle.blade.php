@@ -255,6 +255,7 @@
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-2" role="tabpanel"
                                     aria-labelledby="custom-tabs-2-tab">
+                                    <h3 class="font-weight-bold text-info">LISTA DE MATERIALES</h3>
                                     Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra
                                     purus ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet,
                                     consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et
@@ -264,20 +265,56 @@
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-3" role="tabpanel"
                                     aria-labelledby="custom-tabs-3-tab">
-                                    Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus
-                                    volutpat augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum.
-                                    Fusce nec hendrerit sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec
-                                    augue ipsum. Suspendisse ut velit condimentum, mattis urna a, malesuada nunc.
-                                    Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non luctus
-                                    efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum.
-                                    Nulla lacinia, ex vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum
-                                    metus arcu vel metus. Curabitur eget sem eu risus tincidunt eleifend ac ornare
-                                    magna.
+                                    <h3 class="font-weight-bold text-info">HORARIOS</h3>
+                                    <a href="{{ route('horarios.create', $asignatura->idAsignatura) }}" target="_blank" rel="noopener noreferrer"
+                                        class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
+                                    <br><br>
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>DIA</th>
+                                                <th>INICIO</th>
+                                                <th>FIN</th>
+                                                <th>CARGA HORARIA</th>
+                                                <th>ACCIONES</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $totalHoras = 0;
+                                            @endphp
+                                            @foreach ($Horarios as $rowHorario)
+                                                <tr>
+                                                    <td>{{ helper_FormatoAtributoValorATexto($rowHorario->dia, 'horarioDia') }}</td>
+                                                    <td>{{ $rowHorario->horaInicio}}</td>
+                                                    <td>{{ $rowHorario->horaFin}}</td>
+                                                    <td>{{ helper_calcularMinutos($rowHorario->horaInicio, $rowHorario->horaFin) . ' mins.'}}</td>
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <a class="btn btn-info"
+                                                                href="{{ route('horarios.details', $rowHorario->idHorario) }}" target="_blank" rel="noopener noreferrer">
+                                                                {!! helper_FormatoBotonCRUD(2, 'icono') !!}
+                                                            </a>
+                                                            <a class="btn btn-warning"
+                                                                href="{{ route('horarios.edit', $rowHorario->idHorario) }}" target="_blank" rel="noopener noreferrer">
+                                                                {!! helper_FormatoBotonCRUD(3, 'icono') !!}
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                @php
+                                                    $totalHoras += helper_calcularMinutos($rowHorario->horaInicio, $rowHorario->horaFin);
+                                                @endphp
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                    <p class="font font-weight-bold">Tiempo total de carga horaria: {{ $totalHoras }} mins. / {{ intval($totalHoras/60) }} Hrs. y {{ $totalHoras % 60 }} mins.</p>
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-4" role="tabpanel"
                                     aria-labelledby="custom-tabs-4-tab">
                                     <h3 class="font-weight-bold text-info">UNIDADES Y SÍLABOS</h3>
-                                    <a href="{{ route('unidades.create', $asignatura->idAsignatura) }}"
+                                    <a href="{{ route('unidades.create', $asignatura->idAsignatura) }}" target="_blank" rel="noopener noreferrer"
                                         class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
                                     <br><br>
                                     <!-- Tabla de unidades -->
@@ -310,15 +347,15 @@
                                                     <td>
                                                         <div class="btn-group">
                                                             <a class="btn btn-info"
-                                                                href="{{ route('unidades.details', $rowUnidad->idUnidad) }}">
+                                                                href="{{ route('unidades.details', $rowUnidad->idUnidad) }}" target="_blank" rel="noopener noreferrer">
                                                                 {!! helper_FormatoBotonCRUD(2, 'icono') !!}
                                                             </a>
                                                             <a class="btn btn-warning"
-                                                                href="{{ route('unidades.edit', $rowUnidad->idUnidad) }}">
+                                                                href="{{ route('unidades.edit', $rowUnidad->idUnidad) }}" target="_blank" rel="noopener noreferrer">
                                                                 {!! helper_FormatoBotonCRUD(3, 'icono') !!}
                                                             </a>
                                                             <a class="btn btn-success"
-                                                                href="{{ route('silabos.create', $rowUnidad->idUnidad) }}">
+                                                                href="{{ route('silabos.create', $rowUnidad->idUnidad) }}" target="_blank" rel="noopener noreferrer">
                                                                 {!! helper_FormatoBotonCRUD(1, 'icono') !!}
                                                             </a>
                                                         </div>

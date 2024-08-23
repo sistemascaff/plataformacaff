@@ -65,8 +65,8 @@ class SilaboController extends Controller
                 $idSelect = 0;
             }
             return view('Silabo.create', [
-                'headTitle' => 'SILABOS - NUEVA SILABO',
-                'Titulos' => "NUEVA SILABO",
+                'headTitle' => 'SILABOS - NUEVO SILABO',
+                'Titulos' => "NUEVO SILABO",
                 'Unidades' => $Unidades,
                 'idSelect' => $idSelect
             ]);

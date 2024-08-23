@@ -58,6 +58,7 @@ class AsignaturaController extends Controller
             $Cursos = (new Curso())->selectDisponibles('');
             $Integrantes = (new Asignatura())->selectAsignatura_Estudiantes($idAsignatura);
             $Unidades = (new Asignatura())->selectAsignatura_UnidadesySilabos($idAsignatura);
+            $Horarios = (new Asignatura())->selectAsignatura_Horarios($idAsignatura);
 
             return view('Asignatura.detalle', [
                 'headTitle' => $asignatura->nombreAsignatura,
@@ -71,7 +72,8 @@ class AsignaturaController extends Controller
                 'Estudiantes' => $Estudiantes,
                 'Cursos' => $Cursos,
                 'Integrantes' => $Integrantes,
-                'Unidades' => $Unidades
+                'Unidades' => $Unidades,
+                'Horarios' => $Horarios
             ]);
         } else {
             return redirect()->route('usuarios.index');

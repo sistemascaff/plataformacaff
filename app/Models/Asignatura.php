@@ -19,7 +19,7 @@ class Asignatura extends Model
     const UPDATED_AT = 'fechaActualizacion';
 
     /**Función que permite recuperar los registros disponibles o activos de la tabla 'Asignaturas' y también permite búsquedas.
-     * Búsquedas soportadas: Nombre de Asignatura, Abreviatura de Asignatura, nombre de Area, nombre de Campo y correo del Usuario que haya modificado algún registro.*/
+     * Búsquedas soportadas: Nombre de Asignatura, Abreviatura de Asignatura, nombre de Horario, nombre de Campo y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda)
     {
         $queryActivos = Asignatura::select(
@@ -79,8 +79,7 @@ class Asignatura extends Model
         return $selectAsignatura;
     }
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Asignaturas' y también permite búsquedas.
-     * Búsquedas soportadas: Nombre de Asignatura, Abreviatura de Asignatura, nombre de Area, nombre de Campo y correo del Usuario que haya modificado algún registro.*/
+    
     public function selectAsignatura_Estudiantes($idAsignatura)
     {
         $queryEstudiantesIntegrantesDeAsignatura = Estudiante::select(
@@ -107,6 +106,8 @@ class Asignatura extends Model
             ->get();
         return $queryEstudiantesIntegrantesDeAsignatura;
     }
+    
+
     public function selectAsignatura_UnidadesySilabos($idAsignatura)
     {
         $queryUnidadesySilabosDeAsignatura = Unidad::select( 
@@ -131,5 +132,16 @@ class Asignatura extends Model
         ->get();
 
         return $queryUnidadesySilabosDeAsignatura;
+    }
+
+    public function selectAsignatura_Horarios($idAsignatura){
+        $queryHorariosDeAsignatura = Asignatura::select('Horarios.idHorario','Horarios.dia','Horarios.horaInicio','Horarios.horaFin')
+        ->leftjoin('Horarios', 'Asignaturas.idAsignatura', '=', 'Horarios.idAsignatura')
+        ->where('Horarios.idAsignatura', '=', $idAsignatura)
+        ->where('Horarios.estado', '=', '1')
+        ->orderBy('Horarios.dia')
+        ->orderBy('Horarios.horaInicio')
+        ->get();
+        return $queryHorariosDeAsignatura;
     }
 }

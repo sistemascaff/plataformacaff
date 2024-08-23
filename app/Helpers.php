@@ -208,3 +208,15 @@ function helper_decrypt($string)
     }
     return $result;
 }
+
+function helper_calcularMinutos($horaInicio, $horaFin) {
+    $inicio = DateTime::createFromFormat('H:i:s', $horaInicio);
+    $fin = DateTime::createFromFormat('H:i:s', $horaFin);
+    // Verificar si las conversiones fueron exitosas
+    if ($inicio === false || $fin === false) {
+        return "Formato de hora inválido.";
+    }
+    // Calcular la diferencia en minutos
+    $diferencia = $fin->diff($inicio);
+    return ($diferencia->h * 60) + $diferencia->i;// Convertir horas a minutos y sumar los minutos
+}
