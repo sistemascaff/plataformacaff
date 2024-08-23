@@ -125,7 +125,8 @@ class Asignatura extends Model
             $join->on('Unidades.idUnidad', '=', 'Silabos.idUnidad')
             ->where('Silabos.estado', '>=', '0');
         }) 
-        ->where('Unidades.idAsignatura', $idAsignatura) 
+        ->where('Unidades.idAsignatura', $idAsignatura)
+        ->where('Unidades.estado', 1)
         ->groupBy('Unidades.idUnidad', 'Unidades.nombreUnidad', 'Periodos.nombrePeriodo') 
         ->orderBy('Periodos.posicionOrdinal', 'ASC') 
         ->orderBy('Unidades.posicionOrdinal', 'ASC') 

@@ -75,7 +75,7 @@ class UsuarioController extends Controller
                 $archivo = $request->file('fotoPerfilURL');
                 $nombreArchivo = 'perfil_' . md5($usuario->idPersona) . '.' . $archivo->getClientOriginalExtension();
                 $archivo->move(public_path('img/perfiles'), $nombreArchivo);
-                $usuario->fotoPerfilURL = url('/') . '/img/perfiles/' . $nombreArchivo;
+                $usuario->fotoPerfilURL = url('/') . '/public/img/perfiles/' . $nombreArchivo;
             }
             /*----/Lógica de subida de archivos----*/
             else{
@@ -107,7 +107,7 @@ class UsuarioController extends Controller
                 $archivo = $request->file('fotoPerfilURL');
                 $nombreArchivo = 'perfil_' . md5($usuario->idPersona) . '.' . $archivo->getClientOriginalExtension();
                 $archivo->move(public_path('img/perfiles'), $nombreArchivo);
-                $usuario->fotoPerfilURL = url('/') . '/img/perfiles/' . $nombreArchivo;
+                $usuario->fotoPerfilURL = url('/') . '/public/img/perfiles/' . $nombreArchivo;
             }
             /*----/Lógica de subida de archivos----*/
 
