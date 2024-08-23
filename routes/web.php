@@ -20,6 +20,7 @@ use App\Http\Controllers\AsignaturaController;
 use App\Http\Controllers\UnidadController;
 use App\Http\Controllers\SilaboController;
 use App\Http\Controllers\HorarioController;
+use App\Http\Controllers\MaterialController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -152,6 +153,15 @@ Route::controller(AulaController::class)->group(function(){
     Route::get('aulas/{aula}/editar','edit')->name('aulas.edit');
     Route::put('aulas/{aula}','update')->name('aulas.update');
     Route::put('aulas','delete')->name('aulas.delete');
+});
+Route::controller(MaterialController::class)->group(function(){
+    Route::get('materiales','index')->name('materiales.index');
+    Route::get('materiales/crear','new')->name('materiales.create');
+    Route::post('materiales','store')->name('materiales.store');
+    Route::get('materiales/{material}','show')->name('materiales.details');
+    Route::get('materiales/{material}/editar','edit')->name('materiales.edit');
+    Route::put('materiales/{material}','update')->name('materiales.update');
+    Route::put('materiales','delete')->name('materiales.delete');
 });
 Route::controller(GestionController::class)->group(function(){
     Route::get('gestiones','index')->name('gestiones.index');

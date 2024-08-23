@@ -16,7 +16,7 @@
         </a>
       </div>
       <div class="info">
-        <a href="{{route('usuarios.index')}}" class="d-block">{{session('correo')}}</a>
+        <a href="{{route('personas.profile')}}" class="d-block">{{session('correo')}}</a>
       </div>
     </div>
 
@@ -96,7 +96,8 @@
                           (request()->is('asignaturas*') ? 'menu-open' : 
                             (request()->is('unidades*') ? 'menu-open' : 
                               (request()->is('silabos*') ? 'menu-open' : 
-                                (request()->is('horarios*') ? 'menu-open' : ''))))))))))) 
+                                (request()->is('horarios*') ? 'menu-open' : 
+                                  (request()->is('materiales*') ? 'menu-open' : '')))))))))))) 
           }}">
           <a href="" class="nav-link {{ request()->is('campos*') ? 'active' : 
               (request()->is('areas*') ? 'active' : 
@@ -109,7 +110,8 @@
                             (request()->is('asignaturas*') ? 'active' : 
                               (request()->is('unidades*') ? 'active' : 
                                 (request()->is('silabos*') ? 'active' : 
-                                  (request()->is('horarios*') ? 'active' : ''))))))))))) 
+                                  (request()->is('horarios*') ? 'active' : 
+                                    (request()->is('materiales*') ? 'active' : '')))))))))))) 
             }}">
             <i class="nav-icon fa fa-th-list"></i>
             <p>
@@ -210,6 +212,14 @@
               <a href="{{route('aulas.index')}}" class="nav-link {{ request()->is('aulas*') ? 'active' : '' }}">
                 <i class="fa fa-key nav-icon"></i>
                 <p>AULAS</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('materiales.index')}}" class="nav-link {{ request()->is('materiales*') ? 'active' : '' }}">
+                <i class="fa fa-key nav-icon"></i>
+                <p>MATERIALES</p>
               </a>
             </li>
           </ul>

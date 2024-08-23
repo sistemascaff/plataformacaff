@@ -212,7 +212,7 @@ function helper_decrypt($string)
 function helper_calcularMinutos($horaInicio, $horaFin) {
     $inicio = DateTime::createFromFormat('H:i:s', $horaInicio);
     $fin = DateTime::createFromFormat('H:i:s', $horaFin);
-    // Verificar si las conversiones fueron exitosas
+    
     if ($inicio === false || $fin === false) {
         return "Formato de hora inválido.";
     }
