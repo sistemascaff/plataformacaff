@@ -83,4 +83,17 @@ $(document).ready(function () {
             }
         }
     });
+    $('#selectTwo').select2({
+        language: {
+            placeholder: function () {
+                return "Selecciona una opción";
+            },
+            noResults: function () {
+                return "No se encontraron resultados";
+            },
+            searching: function () {
+                return "Buscando...";
+            }
+        }
+    });
 });

@@ -17,10 +17,15 @@ use App\Http\Controllers\DimensionController;
 use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\AsignaturaController;
+use App\Http\Controllers\AutorController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\EditorialController;
 use App\Http\Controllers\UnidadController;
 use App\Http\Controllers\SilaboController;
 use App\Http\Controllers\HorarioController;
+use App\Http\Controllers\LibroController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\PresentacionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -219,6 +224,54 @@ Route::controller(CoordinacionController::class)->group(function(){
 });
 Route::controller(PersonaController::class)->group(function(){
     Route::get('perfil','information')->name('personas.profile');
+});
+
+/*MÓDULO DE BIBLIOTECA*/
+
+Route::controller(LibroController::class)->group(function(){
+    Route::get('libros','index')->name('libros.index');
+    Route::get('libros/crear/{campo?}','new')->name('libros.create');
+    Route::post('libros','store')->name('libros.store');
+    Route::get('libros/{libro}','show')->name('libros.details');
+    Route::get('libros/{libro}/editar','edit')->name('libros.edit');
+    Route::put('libros/{libro}','update')->name('libros.update');
+    Route::put('libros','delete')->name('libros.delete');
+});
+Route::controller(CategoriaController::class)->group(function(){
+    Route::get('categorias','index')->name('categorias.index');
+    Route::get('categorias/crear','new')->name('categorias.create');
+    Route::post('categorias','store')->name('categorias.store');
+    Route::get('categorias/{categoria}','show')->name('categorias.details');
+    Route::get('categorias/{categoria}/editar','edit')->name('categorias.edit');
+    Route::put('categorias/{categoria}','update')->name('categorias.update');
+    Route::put('categorias','delete')->name('categorias.delete');
+});
+Route::controller(AutorController::class)->group(function(){
+    Route::get('autores','index')->name('autores.index');
+    Route::get('autores/crear','new')->name('autores.create');
+    Route::post('autores','store')->name('autores.store');
+    Route::get('autores/{autor}','show')->name('autores.details');
+    Route::get('autores/{autor}/editar','edit')->name('autores.edit');
+    Route::put('autores/{autor}','update')->name('autores.update');
+    Route::put('autores','delete')->name('autores.delete');
+});
+Route::controller(EditorialController::class)->group(function(){
+    Route::get('editoriales','index')->name('editoriales.index');
+    Route::get('editoriales/crear','new')->name('editoriales.create');
+    Route::post('editoriales','store')->name('editoriales.store');
+    Route::get('editoriales/{editorial}','show')->name('editoriales.details');
+    Route::get('editoriales/{editorial}/editar','edit')->name('editoriales.edit');
+    Route::put('editoriales/{editorial}','update')->name('editoriales.update');
+    Route::put('editoriales','delete')->name('editoriales.delete');
+});
+Route::controller(PresentacionController::class)->group(function(){
+    Route::get('presentaciones','index')->name('presentaciones.index');
+    Route::get('presentaciones/crear','new')->name('presentaciones.create');
+    Route::post('presentaciones','store')->name('presentaciones.store');
+    Route::get('presentaciones/{presentacion}','show')->name('presentaciones.details');
+    Route::get('presentaciones/{presentacion}/editar','edit')->name('presentaciones.edit');
+    Route::put('presentaciones/{presentacion}','update')->name('presentaciones.update');
+    Route::put('presentaciones','delete')->name('presentaciones.delete');
 });
 /*
 Route::get('inicio/{modulo}/{accion?}', function($modulo, $accion = null) {

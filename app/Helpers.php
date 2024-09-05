@@ -6,7 +6,7 @@ function helper_tituloPagina()
 
 function helper_versionApp()
 {
-    return "0.3 En desarrollo";
+    return "0.4 En desarrollo";
 }
 
 function helper_retrocederDirectorio($valor)
@@ -116,13 +116,15 @@ function helper_FormatoAtributoValorATexto($valor, $atributo)
     $asignaturaTipoAsignatura = '';
     $dimensionTipoCalculo = '';
     $horarioDia = '';
-
+    $libroEstado = '';
+    $libroAdquisicion = '';
     switch ($valor) {
         case '-1':
             $silaboEstado = 'ELIMINADO';
             break;
         case '0':
             $silaboEstado = 'PENDIENTE';
+            $libroEstado = 'ELIMINADO';
             break;
         case '1':
             $asignaturaTipoCalificacion = 'CUANTITATIVA';
@@ -131,6 +133,8 @@ function helper_FormatoAtributoValorATexto($valor, $atributo)
             $dimensionTipoCalculo = 'SUMA';
             $silaboEstado = 'EN CURSO';
             $horarioDia = 'LUNES';
+            $libroEstado = 'DISPONIBLE';
+            $libroAdquisicion = 'COMPRA';
             break;
         case '2':
             $asignaturaTipoCalificacion = 'CUALITATIVA';
@@ -139,6 +143,8 @@ function helper_FormatoAtributoValorATexto($valor, $atributo)
             $dimensionTipoCalculo = 'PROMEDIO';
             $silaboEstado = 'FINALIZADO';
             $horarioDia = 'MARTES';
+            $libroEstado = 'EN USO';
+            $libroAdquisicion = 'DONACIÓN';
             break;
         case '3':
             $horarioDia = 'MIÉRCOLES';
@@ -172,6 +178,10 @@ function helper_FormatoAtributoValorATexto($valor, $atributo)
         return $silaboEstado;
     } elseif ($atributo === 'horarioDia') {
         return $horarioDia;
+    } elseif ($atributo === 'libroEstado') {
+        return $libroEstado;
+    } elseif ($atributo === 'libroAdquisicion') {
+        return $libroAdquisicion;
     } else {
         return 'HELPER ERROR: ATRIBUTO INCORRECTO';
     }
@@ -219,4 +229,21 @@ function helper_calcularMinutos($horaInicio, $horaFin) {
     // Calcular la diferencia en minutos
     $diferencia = $fin->diff($inicio);
     return ($diferencia->h * 60) + $diferencia->i;// Convertir horas a minutos y sumar los minutos
+}
+
+function helper_formatoClassLibroEstado($libroEstado){
+    switch ($libroEstado) {
+        case '0':
+            return "card bg-danger text-center";
+            break;
+        case '1':
+            return "card bg-success text-center";
+            break;
+        case '2':
+            return "card bg-info text-center";
+            break;    
+        default:
+        return "";
+            break;
+    }
 }

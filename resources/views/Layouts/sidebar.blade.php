@@ -274,6 +274,76 @@
             </li>
           </ul>
         </li>
+
+        <li class="nav-item {{ request()->is('categorias*') ? 'menu-open' : 
+          (request()->is('autores*') ? 'menu-open' : 
+            (request()->is('editoriales*') ? 'menu-open' : 
+              (request()->is('presentaciones*') ? 'menu-open' : 
+                (request()->is('libros*') ? 'menu-open' : '')
+                )))
+        }}">
+          <a href="" class="nav-link {{ request()->is('categorias*') ? 'active' : 
+            (request()->is('autores*') ? 'active' : 
+              (request()->is('editoriales*') ? 'active' : 
+                (request()->is('presentaciones*') ? 'active' : 
+                  (request()->is('libros*') ? 'active' : '')
+              )))
+          }}">
+            <i class="nav-icon fa fa-book"></i>
+            <p>
+              BIBLIOTECA
+              <i class="right fa fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('libros.index')}}" class="nav-link {{ request()->is('libros*') ? 'active' : '' }}">
+                <i class="fa fa-book nav-icon"></i>
+                <p>LIBROS</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('libros.index')}}" class="nav-link {{ request()->is('libros*') ? 'active' : '' }}">
+                <i class="fa fa-share nav-icon"></i>
+                <p>PRESTAMOS</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('categorias.index')}}" class="nav-link {{ request()->is('categorias*') ? 'active' : '' }}">
+                <i class="fa fa-key nav-icon"></i>
+                <p>CATEGORIAS</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('autores.index')}}" class="nav-link {{ request()->is('autores*') ? 'active' : '' }}">
+                <i class="fa fa-key nav-icon"></i>
+                <p>AUTORES</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('editoriales.index')}}" class="nav-link {{ request()->is('editoriales*') ? 'active' : '' }}">
+                <i class="fa fa-key nav-icon"></i>
+                <p>EDITORIALES</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('presentaciones.index')}}" class="nav-link {{ request()->is('presentaciones*') ? 'active' : '' }}">
+                <i class="fa fa-key nav-icon"></i>
+                <p>PRESENTACIONES</p>
+              </a>
+            </li>
+          </ul>
+        </li>
         
       </ul>
     </nav>
