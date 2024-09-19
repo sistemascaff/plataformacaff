@@ -77,6 +77,7 @@ class MateriaController extends Controller
             $materia = new Materia();
             $materia->nombreMateria = strtoupper($request->nombreMateria);
             $materia->nombreCorto = strtoupper($request->nombreCorto);
+            $materia->posicionOrdinal = $request->posicionOrdinal;
             $materia->idArea = $request->idArea;
             $materia->idUsuario = session('idUsuario');
             $materia->ip = session('ip');
@@ -112,6 +113,7 @@ class MateriaController extends Controller
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $materia->nombreMateria = strtoupper($request->nombreMateria);
             $materia->nombreCorto = strtoupper($request->nombreCorto);
+            $materia->posicionOrdinal = $request->posicionOrdinal;
             $materia->idArea = $request->idArea;
             $materia->idUsuario = session('idUsuario');
             $materia->ip = session('ip');

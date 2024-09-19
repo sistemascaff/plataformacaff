@@ -21,7 +21,7 @@ class Materia extends Model
     /**Función que permite recuperar los registros disponibles o activos de la tabla 'Materias' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Materia, Abreviatura de Materia, nombre de Area, nombre de Campo y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Materia::select('Materias.idMateria','Materias.nombreMateria','Materias.nombreCorto','Areas.nombreArea','Campos.nombreCampo','Materias.estado','Materias.fechaRegistro','Materias.fechaActualizacion','Materias.idUsuario','Usuarios.correo')
+        $queryActivos = Materia::select('Materias.idMateria','Materias.nombreMateria','Materias.nombreCorto','Materias.posicionOrdinal','Areas.nombreArea','Campos.nombreCampo','Materias.estado','Materias.fechaRegistro','Materias.fechaActualizacion','Materias.idUsuario','Usuarios.correo')
         ->leftjoin('Usuarios', 'Materias.idUsuario', '=', 'Usuarios.idUsuario')
         ->join('Areas', 'Materias.idArea', '=', 'Areas.idArea')
         ->join('Campos', 'Areas.idCampo', '=', 'Campos.idCampo')
@@ -35,7 +35,8 @@ class Materia extends Model
             'Campos.nombreCampo',
             'Usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Materias.nombreMateria','ASC')
+        ->orderBy('Campos.ordenBoletines','ASC')
+        ->orderBy('Materias.posicionOrdinal','ASC')
         ->get();
         return $queryActivos;
     }

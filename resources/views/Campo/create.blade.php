@@ -45,6 +45,16 @@
                   <span class="text-danger">{{$message}}</span>
                   @enderror
                 </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">ORDEN EN BOLETINES (*)</label>
+                  <div class="col-sm-10">
+                  <input type="number" class="form-control @error('ordenBoletines') is-invalid @enderror"
+                    name="ordenBoletines" value="{{old('ordenBoletines',1)}}" min="0" max="100" required>
+                  </div>
+                  @error('ordenBoletines')
+                  <span class="text-danger">{{$message}}</span>
+                  @enderror
+                </div>
               </div>
               <button type="submit" class="btn btn-success">{!! helper_FormatoBotonCRUD(5, 'texto') !!}</button>
               <a href="{{route('campos.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>

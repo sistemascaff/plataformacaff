@@ -68,6 +68,7 @@ class CampoController extends Controller
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $campo = new Campo();
             $campo->nombreCampo = strtoupper($request->nombreCampo);
+            $campo->ordenBoletines = $request->ordenBoletines;
             $campo->idUsuario = session('idUsuario');
             $campo->ip = session('ip');
             $campo->dispositivo = session('dispositivo');
@@ -99,6 +100,7 @@ class CampoController extends Controller
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $campo->nombreCampo = strtoupper($request->nombreCampo);
+            $campo->ordenBoletines = $request->ordenBoletines;
             $campo->idUsuario = session('idUsuario');
             $campo->ip = session('ip');
             $campo->dispositivo = session('dispositivo');

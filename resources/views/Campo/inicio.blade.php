@@ -53,6 +53,7 @@
               <thead>
                 <tr>
                   <th>CAMPO</th>
+                  <th>ORDEN</th>
                   <th>F. REGISTRO</th>
                   <th>F. ACTUALIZACION</th>
                   <th>MODIFICADO POR</th>
@@ -63,6 +64,7 @@
                 @foreach ($tableCampo as $rowCampo)
                   <tr>
                     <td>{{$rowCampo->nombreCampo}}</td>
+                    <td>{{$rowCampo->ordenBoletines}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowCampo->fechaRegistro)}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowCampo->fechaActualizacion)}}</td>
                     <td>{{helper_formatoNullorEmpty($rowCampo->correo)}}</td>

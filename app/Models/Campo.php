@@ -19,14 +19,14 @@ class Campo extends Model
     /**Función que permite recuperar los registros disponibles o activos de la tabla 'Campos' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Campo y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Campo::select('Campos.idCampo','Campos.nombreCampo','Campos.fechaRegistro','Campos.fechaActualizacion','Campos.idUsuario','Campos.estado', 'Usuarios.correo')
+        $queryActivos = Campo::select('Campos.idCampo','Campos.nombreCampo','Campos.ordenBoletines','Campos.fechaRegistro','Campos.fechaActualizacion','Campos.idUsuario','Campos.estado', 'Usuarios.correo')
         ->leftjoin('Usuarios', 'Campos.idUsuario', '=', 'Usuarios.idUsuario')
         ->where('Campos.estado', '=', 1)
         ->whereAny([
             'Campos.nombreCampo',
             'Usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Campos.idCampo')
+        ->orderBy('Campos.ordenBoletines')
         ->get();
         return $queryActivos;
     }

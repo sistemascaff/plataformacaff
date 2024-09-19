@@ -56,7 +56,16 @@
                   <span class="text-danger">{{$message}}</span>
                   @enderror
                 </div>
-                
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">POSICIÓN ORDINAL (*)</label>
+                  <div class="col-sm-10">
+                  <input type="number" class="form-control @error('posicionOrdinal') is-invalid @enderror"
+                    name="posicionOrdinal" value="{{old('posicionOrdinal',$materia->posicionOrdinal)}}" min="0" max="100" required>
+                  </div>
+                  @error('posicionOrdinal')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">AREA (*)</label>
                   <div class="col-sm-10">

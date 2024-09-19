@@ -56,6 +56,7 @@
                   <th>AREA</th>
                   <th>MATERIA</th>
                   <th>ABREVIATURA</th>
+                  <th>P. ORDINAL</th>
                   <th>F. REGISTRO</th>
                   <th>F. ACTUALIZACION</th>
                   <th>MODIFICADO POR</th>
@@ -69,6 +70,7 @@
                     <td>{{$rowMateria->nombreArea}}</td>
                     <td>{{$rowMateria->nombreMateria}}</td>
                     <td>{{$rowMateria->nombreCorto}}</td>
+                    <td>{{$rowMateria->posicionOrdinal}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowMateria->fechaRegistro)}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowMateria->fechaActualizacion)}}</td>
                     <td>{{helper_formatoNullorEmpty($rowMateria->correo)}}</td>

@@ -55,6 +55,12 @@
               </div>
             </div>
             <div class="form-group row">
+              <label for="inputEmail3" class="col-md-2 col-form-label">Posición Ordinal</label>
+              <div class="col-md-10">
+                <p class="form form-control">{{$materia->posicionOrdinal}}</p>
+              </div>
+            </div>
+            <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Area</label>
               <div class="col-md-10">
                 <a href="{{route('areas.details', $area->idArea)}}" class="form form-control font-weight-bold">{{$area->nombreArea}}</a>

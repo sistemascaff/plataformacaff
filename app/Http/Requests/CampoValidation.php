@@ -22,7 +22,8 @@ class CampoValidation extends FormRequest
     public function rules(): array
     {
         return [
-            'nombreCampo' => ['required','min:3','max:45']
+            'nombreCampo' => ['required','min:3','max:45'],
+            'ordenBoletines' => ['required','numeric','min:0','max:100','integer']
         ];
     }
 }

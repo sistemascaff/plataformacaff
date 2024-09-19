@@ -45,6 +45,16 @@
                   <span class="text-danger">{{$message}}</span>
                   @enderror
                 </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">POSICIÓN ORDINAL (*)</label>
+                  <div class="col-sm-10">
+                  <input type="number" class="form-control @error('ordenBoletines') is-invalid @enderror"
+                    name="ordenBoletines" value="{{old('ordenBoletines',$campo->ordenBoletines)}}" min="0" max="100" required>
+                  </div>
+                  @error('ordenBoletines')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
               </div>
               
               <a class="btn btn-warning" data-toggle="modal" data-target="#modalUpdate">
