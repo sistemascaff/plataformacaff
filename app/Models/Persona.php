@@ -20,7 +20,7 @@ class Persona extends Model
     const UPDATED_AT = 'fechaActualizacion';
 
     /**Función en desuso hasta la fecha, se usó para testear las tablas en las primeras versiones.*/
-    public function getAllUsers(){
+    public function selectDisponibles(){
         return Persona::all()->where('estado','1');
     }
 

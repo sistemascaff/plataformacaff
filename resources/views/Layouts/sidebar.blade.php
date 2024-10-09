@@ -279,15 +279,17 @@
           (request()->is('autores*') ? 'menu-open' : 
             (request()->is('editoriales*') ? 'menu-open' : 
               (request()->is('presentaciones*') ? 'menu-open' : 
-                (request()->is('libros*') ? 'menu-open' : '')
-                )))
+                (request()->is('libros*') ? 'menu-open' : 
+                  (request()->is('prestamoslibros*') ? 'menu-open' : '')
+          ))))
         }}">
           <a href="" class="nav-link {{ request()->is('categorias*') ? 'active' : 
             (request()->is('autores*') ? 'active' : 
               (request()->is('editoriales*') ? 'active' : 
                 (request()->is('presentaciones*') ? 'active' : 
-                  (request()->is('libros*') ? 'active' : '')
-              )))
+                  (request()->is('libros*') ? 'active' : 
+                    (request()->is('prestamoslibros*') ? 'active' : '')
+            ))))
           }}">
             <i class="nav-icon fa fa-book"></i>
             <p>
@@ -305,7 +307,7 @@
           </ul>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{route('libros.index')}}" class="nav-link {{ request()->is('libros*') ? 'active' : '' }}">
+              <a href="{{route('librosprestamos.index')}}" class="nav-link {{ request()->is('prestamoslibros*') ? 'active' : '' }}">
                 <i class="fa fa-share nav-icon"></i>
                 <p>PRESTAMOS</p>
               </a>

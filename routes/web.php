@@ -24,6 +24,7 @@ use App\Http\Controllers\UnidadController;
 use App\Http\Controllers\SilaboController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\LibroController;
+use App\Http\Controllers\LibroPrestamoController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\PresentacionController;
 use Illuminate\Support\Facades\Route;
@@ -236,6 +237,17 @@ Route::controller(LibroController::class)->group(function(){
     Route::get('libros/{libro}/editar','edit')->name('libros.edit');
     Route::put('libros/{libro}','update')->name('libros.update');
     Route::put('libros','delete')->name('libros.delete');
+});
+Route::controller(LibroPrestamoController::class)->group(function(){
+    Route::get('prestamoslibros','index')->name('librosprestamos.index');
+    Route::get('prestamoslibros/crear/{campo?}','new')->name('librosprestamos.create');
+    Route::post('prestamoslibros','store')->name('librosprestamos.store');
+    Route::get('prestamoslibros/{prestamolibro}','show')->name('librosprestamos.details');
+    Route::get('prestamoslibros/{libroprestamo}/editar','edit')->name('librosprestamos.edit');
+    Route::put('prestamoslibros/{libroprestamo}','update')->name('librosprestamos.update');
+    Route::put('prestamoslibros','delete')->name('librosprestamos.delete');
+    Route::put('prestamoslibros/{prestamolibro}/actualizarFechaRetorno','actualizarFechaRetorno')->name('librosprestamosdetalles.dateReturnUpdate');
+    Route::get('prestamoslibros/{prestamolibro}/comprobante','imprimirComprobante')->name('librosprestamos.imprimirPDF');
 });
 Route::controller(CategoriaController::class)->group(function(){
     Route::get('categorias','index')->name('categorias.index');

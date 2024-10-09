@@ -135,6 +135,46 @@
           </div>
         </div>
         
+        <h3 class="card-title font-weight-bold">HISTORIAL DE PRÉSTAMOS DE {{$libro->nombreLibro}}:</h3>
+        <br><br>
+        <div class="col-md-12">
+          <table id="dataTable" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>N°</th>
+                <th>LECTOR</th>
+                <th>PERFIL</th>
+                <th>F. REGISTRO</th>
+                <th>F. RETORNO</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+          @foreach ($Prestamos as $rowPrestamos)
+          <tr>
+            <td>{{$rowPrestamos->idLibrosPrestamo}}</td>
+            <td>{{trim($rowPrestamos->apellidoPaterno . ' ' . $rowPrestamos->apellidoMaterno . ' ' . $rowPrestamos->nombres)}}</td>
+            <td>{{$rowPrestamos->tipoPerfil}}</td>
+            <td>{{helper_formatoVistaFechayHora($rowPrestamos->fechaRegistro)}}</td>
+            <td>{{helper_formatoVistaFechayHora($rowPrestamos->fechaRetorno)}}</td>
+            <td>
+              <div class="btn-group">
+                <a class="btn btn-info" href="{{route('librosprestamos.details', $rowPrestamos->idLibrosPrestamo)}}">
+                  {!! helper_FormatoBotonCRUD(2, 'icono') !!}
+                </a>
+                <a class="btn btn-warning" href="{{route('librosprestamos.edit', $rowPrestamos->idLibrosPrestamo)}}">
+                  {!! helper_FormatoBotonCRUD(3, 'icono') !!}
+                </a>
+                <a class="btn btn-dark" href="{{route('librosprestamos.imprimirPDF', $rowPrestamos->idLibrosPrestamo)}}" target="_blank" rel="noopener noreferrer">
+                  {!! helper_FormatoBotonCRUD(12, 'icono') !!}
+                </a>
+              </div>
+            </td>
+          </tr>
+          @endforeach
+            </tbody>
+          </table>
+        </div>
       </div>
       <!-- /.card-body -->
     </div>

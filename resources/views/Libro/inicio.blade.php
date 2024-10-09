@@ -96,9 +96,11 @@
                         <a class="btn btn-warning" href="{{route('libros.edit',$rowLibro->idLibro)}}">
                           {!! helper_FormatoBotonCRUD(3, 'icono') !!}
                         </a>
+                        @if ($rowLibro->estado == 1)
                         <a class="btn btn-danger eliminar-registro" data-toggle="modal" data-target="#modalDelete" data-id="{{$rowLibro->idLibro}}" data-nombre="{{$rowLibro->nombreLibro}}">
                           {!! helper_FormatoBotonCRUD(4 , 'icono') !!}
-                        </a>                      
+                        </a>
+                        @endif           
                       </div>
                     </td>
                   </tr>

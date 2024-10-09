@@ -6,7 +6,7 @@ function helper_tituloPagina()
 
 function helper_versionApp()
 {
-    return "0.4 En desarrollo";
+    return "0.5 En desarrollo";
 }
 
 function helper_retrocederDirectorio($valor)
@@ -95,6 +95,10 @@ function helper_FormatoBotonCRUD($valor, $tipo)
             $icono = 'fa fa-check';
             $texto = 'MARCAR';
             break;
+        case '12':/*PRINT*/
+                $icono = 'fa fa-print';
+                $texto = 'IMPRIMIR';
+                break;
         default:
             return 'HELPER ERROR: VALOR EXCEDIDO';
             break;
@@ -218,7 +222,7 @@ function helper_decrypt($string)
     }
     return $result;
 }
-
+/* MÓDULO ASIGNATURAS, SUMA DE HORARIOS DE LAS ASIGNATURAS. */
 function helper_calcularMinutos($horaInicio, $horaFin) {
     $inicio = DateTime::createFromFormat('H:i:s', $horaInicio);
     $fin = DateTime::createFromFormat('H:i:s', $horaFin);
@@ -231,6 +235,7 @@ function helper_calcularMinutos($horaInicio, $horaFin) {
     return ($diferencia->h * 60) + $diferencia->i;// Convertir horas a minutos y sumar los minutos
 }
 
+/* MÓDULO BIBLIOTECA, ETIQUETA DE DISPONIBILIDAD DE UN LIBRO */
 function helper_formatoClassLibroEstado($libroEstado){
     switch ($libroEstado) {
         case '0':
@@ -246,4 +251,34 @@ function helper_formatoClassLibroEstado($libroEstado){
         return "";
             break;
     }
+}
+
+function helper_centralizadoresVerificarReprobado($puntaje)
+{
+    if (intval($puntaje) < 51) {
+        return '<span class="font-weight-bold text-danger">' . $puntaje . '</span>';
+    } else {
+        return $puntaje;
+    }
+}
+
+/* CENTRALIZADORES INTERNOS, SIE Y BOLETINES. */
+function helper_reemplazarOrdinal($cadena)
+{
+    $ordinales = [
+        "PRIMERO" => "1°",
+        "SEGUNDO" => "2°",
+        "TERCERO" => "3°",
+        "CUARTO" => "4°",
+        "QUINTO" => "5°",
+        "SEXTO" => "6°"
+    ];
+    foreach ($ordinales as $literal => $numeral) {
+        if (stripos($cadena, $literal) !== false) {
+            $cadena = preg_replace('/\b' . $literal . '\b/i', $numeral, $cadena, 1);
+            break;
+        }
+    }
+
+    return $cadena;
 }

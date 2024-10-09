@@ -40,6 +40,7 @@ class LibroController extends Controller
             $autor = (new Autor())->selectAutor($libro->idAutor);
             $editorial = (new Editorial())->selectEditorial($libro->idEditorial);
             $presentacion = (new Presentacion())->selectPresentacion($libro->idPresentacion);
+            $Prestamos = (new Libro())->selectLibro_Prestamos($idLibro);
 
             if (!$usuario) {
                 $usuario = new Usuario();
@@ -52,7 +53,8 @@ class LibroController extends Controller
                 'categoria' => $categoria,
                 'autor' => $autor,
                 'editorial' => $editorial,
-                'presentacion' => $presentacion
+                'presentacion' => $presentacion,
+                'Prestamos' => $Prestamos
             ]);
         }
         else{

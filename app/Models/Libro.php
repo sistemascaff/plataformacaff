@@ -58,15 +58,15 @@ class Libro extends Model
         return $libro;
     }
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Materias' pertenecientes a un registro de la tabla 'Libros'.*/
-    /*
-    public function selectLibro_Materias($idLibro){
-        $queryMateriasPertenecientesDeLibro = Libro::select('Materias.idMateria','Materias.nombreMateria','Materias.nombreCorto','Materias.fechaRegistro','Materias.fechaActualizacion')
-        ->join('Materias', 'Libros.idLibro', '=', 'Materias.idLibro')
-        ->where('Materias.idLibro', '=', $idLibro)
-        ->where('Materias.estado', '=', '1')
-        ->orderBy('Materias.nombreMateria', 'ASC')
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Personas' pertenecientes a un registro de la tabla 'Libros'.*/
+    public function selectLibro_Prestamos($idLibro){
+        $queryPersonasPertenecientesDeLibro = Libro::select('LibrosPrestamos.idLibrosPrestamo','Personas.nombres','Personas.apellidoPaterno','Personas.apellidoMaterno','Personas.tipoPerfil','LibrosPrestamos.fechaRegistro','LibrosPrestamosDetalles.fechaRetorno')
+        ->join('LibrosPrestamosDetalles', 'Libros.idLibro', '=', 'LibrosPrestamosDetalles.idLibro')
+        ->join('LibrosPrestamos', 'LibrosPrestamosDetalles.idLibrosPrestamo', '=', 'LibrosPrestamos.idLibrosPrestamo')
+        ->join('Personas', 'LibrosPrestamos.idPersona', '=', 'Personas.idPersona')
+        ->where('LibrosPrestamosDetalles.idLibro', '=', $idLibro)
+        ->orderBy('LibrosPrestamos.idLibrosPrestamo', 'DESC')
         ->get();
-        return $queryMateriasPertenecientesDeLibro;
-    }*/
+        return $queryPersonasPertenecientesDeLibro;
+    }
 }
