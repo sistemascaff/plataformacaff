@@ -45,6 +45,18 @@
                   <span class="text-danger">{{$message}}</span>
                   @enderror
                 </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">UNIDAD DE MEDIDA (*)</label>
+                  <div class="col-sm-10">
+                    <select class="form-control" name="unidadMedida" required>
+                      <option selected>UNIDAD</option>
+                      <option>PAQUETE</option>
+                    </select>
+                  </div>
+                  @error('nombreMaterial')
+                  <span class="text-danger">{{$message}}</span>
+                  @enderror
+                </div>
               </div>
               <button type="submit" class="btn btn-success">{!! helper_FormatoBotonCRUD(5, 'texto') !!}</button>
               <a href="{{route('materiales.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>

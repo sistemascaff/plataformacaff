@@ -66,6 +66,7 @@ class MaterialController extends Controller
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $material = new Material();
             $material->nombreMaterial = strtoupper($request->nombreMaterial);
+            $material->unidadMedida = strtoupper($request->unidadMedida);
             $material->idUsuario = session('idUsuario');
             $material->ip = session('ip');
             $material->dispositivo = session('dispositivo');
@@ -97,6 +98,7 @@ class MaterialController extends Controller
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $material->nombreMaterial = strtoupper($request->nombreMaterial);
+            $material->unidadMedida = strtoupper($request->unidadMedida);
             $material->idUsuario = session('idUsuario');
             $material->ip = session('ip');
             $material->dispositivo = session('dispositivo');

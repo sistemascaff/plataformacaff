@@ -46,6 +46,15 @@
                   <span class="text-danger">{{$message}}</span>
                   @enderror
                 </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">UNIDAD DE MEDIDA (*)</label>
+                  <div class="col-sm-10">
+                    <select class="form-control" name="unidadMedida" required>
+                      <option {{ $material->unidadMedida == 'UNIDAD' ? 'selected' : '' }}>UNIDAD</option>
+                      <option {{ $material->unidadMedida == 'PAQUETE' ? 'selected' : '' }}>PAQUETE</option>
+                    </select>
+                  </div>
+                </div>
               </div>
               
               <a class="btn btn-warning" data-toggle="modal" data-target="#modalUpdate">

@@ -22,7 +22,8 @@ class MaterialValidation extends FormRequest
     public function rules(): array
     {
         return [
-            'nombreMaterial' => ['required','min:1','max:100']
+            'nombreMaterial' => ['required','min:1','max:100'],
+            'unidadMedida' => ['required','min:1','max:45']
         ];
     }
 }

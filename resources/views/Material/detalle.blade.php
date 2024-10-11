@@ -49,6 +49,12 @@
               </div>
             </div>
             <div class="form-group row">
+              <label for="inputEmail3" class="col-md-2 col-form-label">Unidad de Medida</label>
+              <div class="col-md-10">
+                <p class="form form-control">{{$material->unidadMedida}}</p>
+              </div>
+            </div>
+            <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Fecha de Registro</label>
               <div class="col-md-10">
                 <p class="form form-control">{{$material->fechaRegistro}}</p>

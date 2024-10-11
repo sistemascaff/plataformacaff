@@ -53,6 +53,7 @@
               <thead>
                 <tr>
                   <th>MATERIAL</th>
+                  <th>UND. MEDIDA</th>
                   <th>F. REGISTRO</th>
                   <th>F. ACTUALIZACION</th>
                   <th>MODIFICADO POR</th>
@@ -63,6 +64,7 @@
                 @foreach ($tableMaterial as $rowMaterial)
                   <tr>
                     <td>{{$rowMaterial->nombreMaterial}}</td>
+                    <td>{{$rowMaterial->unidadMedida}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowMaterial->fechaRegistro)}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowMaterial->fechaActualizacion)}}</td>
                     <td>{{helper_formatoNullorEmpty($rowMaterial->correo)}}</td>

@@ -21,7 +21,7 @@ class Material extends Model
     /**Función que permite recuperar los registros disponibles o activos de la tabla 'Materiales' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Áula y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Material::select('Materiales.idMaterial','Materiales.nombreMaterial','Materiales.estado','Materiales.fechaRegistro','Materiales.fechaActualizacion','Materiales.idUsuario', 'Usuarios.correo')
+        $queryActivos = Material::select('Materiales.idMaterial','Materiales.nombreMaterial','Materiales.unidadMedida','Materiales.estado','Materiales.fechaRegistro','Materiales.fechaActualizacion','Materiales.idUsuario', 'Usuarios.correo')
         ->leftjoin('Usuarios', 'Materiales.idUsuario', '=', 'Usuarios.idUsuario')
         ->where('Materiales.estado', '=', 1)
         ->whereAny([
