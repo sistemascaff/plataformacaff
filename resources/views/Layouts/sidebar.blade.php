@@ -97,7 +97,8 @@
                             (request()->is('unidades*') ? 'menu-open' : 
                               (request()->is('silabos*') ? 'menu-open' : 
                                 (request()->is('horarios*') ? 'menu-open' : 
-                                  (request()->is('materiales*') ? 'menu-open' : '')))))))))))) 
+                                  (request()->is('materiales*') ? 'menu-open' : 
+                                    (request()->is('listasmateriales*') ? 'menu-open' : ''))))))))))))) 
           }}">
           <a href="" class="nav-link {{ request()->is('campos*') ? 'active' : 
               (request()->is('areas*') ? 'active' : 
@@ -111,11 +112,12 @@
                               (request()->is('unidades*') ? 'active' : 
                                 (request()->is('silabos*') ? 'active' : 
                                   (request()->is('horarios*') ? 'active' : 
-                                    (request()->is('materiales*') ? 'active' : '')))))))))))) 
+                                    (request()->is('materiales*') ? 'active' : 
+                                      (request()->is('listasmateriales*') ? 'active' : ''))))))))))))) 
             }}">
             <i class="nav-icon fa fa-th-list"></i>
             <p>
-              CAMPOS
+              ASIGNATURAS
               <i class="right fa fa-angle-left"></i>
             </p>
           </a>
@@ -147,7 +149,7 @@
             <li class="nav-item">
               <a href="{{route('campos.index')}}" class="nav-link {{ request()->is('campos*') ? 'active' : '' }}">
                 <i class="fa fa-key nav-icon"></i>
-                <p>CAMPOS</p>
+                <p>CAMPOS SIE</p>
               </a>
             </li>
           </ul>
@@ -155,7 +157,7 @@
             <li class="nav-item">
               <a href="{{route('areas.index')}}" class="nav-link {{ request()->is('areas*') ? 'active' : '' }}">
                 <i class="fa fa-circle-o nav-icon"></i>
-                <p>AREAS</p>
+                <p>AREAS SIE</p>
               </a>
             </li>
           </ul>
@@ -163,7 +165,7 @@
             <li class="nav-item">
               <a href="{{route('materias.index')}}" class="nav-link {{ request()->is('materias*') ? 'active' : '' }}">
                 <i class="fa fa-circle-o nav-icon"></i>
-                <p>MATERIAS</p>
+                <p>MATERIAS SIE</p>
               </a>
             </li>
           </ul>
@@ -223,6 +225,14 @@
               </a>
             </li>
           </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('listasmateriales.index')}}" class="nav-link {{ request()->is('listasmateriales*') ? 'active' : '' }}">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p>LISTA DE MATERIALES</p>
+              </a>
+            </li>
+          </ul>
         </li>
 
         <li class="nav-item {{ request()->is('niveles*') ? 'menu-open' : 
@@ -237,15 +247,15 @@
           }}">
             <i class="nav-icon fa fa-sitemap"></i>
             <p>
-              NIVELES
+              CURSOS
               <i class="right fa fa-angle-left"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{route('niveles.index')}}" class="nav-link {{ request()->is('niveles*') ? 'active' : '' }}">
-                <i class="fa fa-key nav-icon"></i>
-                <p>NIVELES</p>
+              <a href="{{route('cursos.index')}}" class="nav-link {{ request()->is('cursos*') ? 'active' : '' }}">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p>CURSOS</p>
               </a>
             </li>
           </ul>
@@ -259,17 +269,17 @@
           </ul>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{route('paralelos.index')}}" class="nav-link {{ request()->is('paralelos*') ? 'active' : '' }}">
+              <a href="{{route('niveles.index')}}" class="nav-link {{ request()->is('niveles*') ? 'active' : '' }}">
                 <i class="fa fa-key nav-icon"></i>
-                <p>PARALELOS</p>
+                <p>NIVELES</p>
               </a>
             </li>
           </ul>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{route('cursos.index')}}" class="nav-link {{ request()->is('cursos*') ? 'active' : '' }}">
-                <i class="fa fa-circle-o nav-icon"></i>
-                <p>CURSOS</p>
+              <a href="{{route('paralelos.index')}}" class="nav-link {{ request()->is('paralelos*') ? 'active' : '' }}">
+                <i class="fa fa-key nav-icon"></i>
+                <p>PARALELOS</p>
               </a>
             </li>
           </ul>
@@ -309,7 +319,7 @@
             <li class="nav-item">
               <a href="{{route('librosprestamos.index')}}" class="nav-link {{ request()->is('prestamoslibros*') ? 'active' : '' }}">
                 <i class="fa fa-share nav-icon"></i>
-                <p>PRESTAMOS</p>
+                <p>PRESTAMOS DE LIBROS</p>
               </a>
             </li>
           </ul>

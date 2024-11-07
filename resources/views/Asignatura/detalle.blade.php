@@ -256,12 +256,57 @@
                                 <div class="tab-pane fade" id="custom-tabs-2" role="tabpanel"
                                     aria-labelledby="custom-tabs-2-tab">
                                     <h3 class="font-weight-bold text-info">LISTA DE MATERIALES</h3>
-                                    Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra
-                                    purus ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et
-                                    ultrices posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl
-                                    ligula placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus,
-                                    elementum sit amet ultricies at, posuere nec nunc. Nunc euismod pellentesque diam.
+                                    <!-- Formulario de creación con 2 valores -->
+                                    <form action="{{route('listasmateriales.create')}}" method="GET" target="_blank" rel="noopener noreferrer">
+                                        <div class="form-group row">
+                                            <input type="hidden" name="idAsignatura" value="{{ $asignatura->idAsignatura }}"/>
+                                            <div class="col-sm-1 align-content-center">
+                                                <button type="submit" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <br>
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>MATERIAL</th>
+                                                <th>CANTIDAD</th>
+                                                <th>UNIDAD DE MEDIDA</th>
+                                                <th>OBSERVACION</th>
+                                                <th>F. REGISTRO</th>
+                                                <th>F. ACTUALIZACION</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($Materiales as $rowMateriales)
+                                                <tr>
+                                                    <td>{{ $rowMateriales->nombreMaterial }}</td>
+                                                    <td>{{ $rowMateriales->cantidad }}</td>
+                                                    <td>{{ $rowMateriales->unidadMedida }}</td>
+                                                    <td>{{ $rowMateriales->observacion }}</td>
+                                                    <td>{{ helper_formatoVistaFechayHora($rowMateriales->fechaRegistro) }}</td>
+                                                    <td>{{ helper_formatoVistaFechayHora($rowMateriales->fechaActualizacion) }}</td>
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <form action="{{route('listasmateriales.edit')}}" method="GET" target="_blank" rel="noopener noreferrer">
+                                                                <input type="hidden" name="idAsignatura" value="{{$rowMateriales->idAsignatura}}">
+                                                                <input type="hidden" name="idMaterial" value="{{$rowMateriales->idMaterial}}">
+                                                                <button type="submit" class="btn btn-warning">{!! helper_FormatoBotonCRUD(3, 'icono') !!}</button>
+                                                            </form>
+                                                            <form action="{{route('listasmateriales.delete')}}" method="POST">
+                                                                @csrf
+                                                                @method('put')
+                                                                <input type="hidden" name="idAsignatura" value="{{$rowMateriales->idAsignatura}}">
+                                                                <input type="hidden" name="idMaterial" value="{{$rowMateriales->idMaterial}}">
+                                                                <button type="submit" class="{{ $rowMateriales->estado ? 'btn btn-danger' : 'btn btn-success'}}">{!! $rowMateriales->estado ? helper_FormatoBotonCRUD(4, 'icono') : helper_FormatoBotonCRUD(10, 'icono') !!}</button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-3" role="tabpanel"
                                     aria-labelledby="custom-tabs-3-tab">

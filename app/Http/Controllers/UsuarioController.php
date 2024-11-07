@@ -40,11 +40,19 @@ class UsuarioController extends Controller
                 return redirect()->route('usuarios.index');
             }
             else{
-                return redirect()->route('login')->with('mensaje','USTED NO TIENE ACCESO A LA PLATAFORMA.');
+                return redirect()->route('login')->with([
+                    'mensaje' => 'USTED NO TIENE ACCESO A LA PLATAFORMA.',
+                    'loginCorreo' => $request->correo,
+                    'loginContrasenha' => $request->contrasenha,
+                ]);
             }
         }
         else{
-            return redirect()->route('login')->with('mensaje','USUARIO O CONTRASEÑA INCORRECTA.');
+            return redirect()->route('login')->with([
+                'mensaje' => 'USUARIO O CONTRASEÑA INCORRECTA.',
+                'loginCorreo' => $request->correo,
+                'loginContrasenha' => $request->contrasenha,
+            ]);
         }
     }
 

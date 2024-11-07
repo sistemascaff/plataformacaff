@@ -99,6 +99,10 @@ function helper_FormatoBotonCRUD($valor, $tipo)
                 $icono = 'fa fa-print';
                 $texto = 'IMPRIMIR';
                 break;
+        case '13':/*RESTORE*/
+                $icono = 'fa fa-rotate-left';
+                $texto = 'RESTAURAR';
+                break;
         default:
             return 'HELPER ERROR: VALOR EXCEDIDO';
             break;

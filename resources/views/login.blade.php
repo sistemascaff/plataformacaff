@@ -31,7 +31,7 @@
         @csrf
 
         <div class="input-group mb-3">
-          <input type="email" class="form-control" name="correo" required placeholder="CORREO">
+          <input type="email" class="form-control" name="correo" required placeholder="CORREO" value="{{ session('loginCorreo') ? session('loginCorreo') : '' }}">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fa fa-envelope"></span>
@@ -39,7 +39,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" name="contrasenha" required placeholder="CONTRASEÑA" id="passwordInput">
+          <input type="password" class="form-control" name="contrasenha" required placeholder="CONTRASEÑA" id="passwordInput" value="{{ session('loginContrasenha') ? session('loginContrasenha') : '' }}">
           <div class="input-group-append">
             <button class="btn btn-outline-secondary" type="button" id="togglePassword">
               <i class="fa fa-eye"></i>
@@ -54,11 +54,12 @@
           <!-- /.col -->
         </div>
       </form>
-      
+      <br>
       <p class="mb-1">
         <a href="#">Olvidé mi contraseña</a>
       </p>
       @if (session('mensaje'))
+      <br>
       <div class="alert alert-danger">
         <h5 class="font font-weight-bold"><i class="icon fa fa-ban"></i> ¡ATENCIÓN!</h5>
         <a>{{session('mensaje')}}</a>

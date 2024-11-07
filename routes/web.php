@@ -27,6 +27,7 @@ use App\Http\Controllers\LibroController;
 use App\Http\Controllers\LibroPrestamoController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\PresentacionController;
+use App\Http\Controllers\ListaMaterialController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -114,6 +115,15 @@ Route::controller(HorarioController::class)->group(function(){
     Route::get('horarios/{horario}/editar','edit')->name('horarios.edit');
     Route::put('horarios/{horario}','update')->name('horarios.update');
     Route::put('horarios','delete')->name('horarios.delete');
+});
+Route::controller(ListaMaterialController::class)->group(function(){
+    Route::get('listasmateriales','index')->name('listasmateriales.index');
+    Route::get('listasmateriales/crear/{asignatura?}','new')->name('listasmateriales.create');
+    Route::post('listasmateriales','store')->name('listasmateriales.store');
+    Route::get('listasmateriales/detalle','show')->name('listasmateriales.details');
+    Route::get('listasmateriales/editar','edit')->name('listasmateriales.edit');
+    Route::put('listasmateriales/update','update')->name('listasmateriales.update');
+    Route::put('listasmateriales','delete')->name('listasmateriales.delete');
 });
 Route::controller(NivelController::class)->group(function(){
     Route::get('niveles','index')->name('niveles.index');

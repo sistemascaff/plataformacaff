@@ -145,4 +145,18 @@ class Asignatura extends Model
         ->get();
         return $queryHorariosDeAsignatura;
     }
+
+    public function selectAsignatura_Materiales($idAsignatura){
+        $queryListasMaterialesDeAsignatura = Asignatura::select(
+            'ListasMateriales.idAsignatura','ListasMateriales.idMaterial','ListasMateriales.estado',
+            'Materiales.nombreMaterial','ListasMateriales.cantidad',
+            'ListasMateriales.observacion','Materiales.unidadMedida',
+            'ListasMateriales.fechaRegistro','ListasMateriales.fechaActualizacion')
+        ->leftjoin('ListasMateriales', 'Asignaturas.idAsignatura', '=', 'ListasMateriales.idAsignatura')
+        ->join('Materiales', 'ListasMateriales.idMaterial', '=', 'Materiales.idMaterial')
+        ->where('ListasMateriales.idAsignatura', '=', $idAsignatura)
+        ->where('ListasMateriales.estado', '=', '1')
+        ->get();
+        return $queryListasMaterialesDeAsignatura;
+    }
 }
