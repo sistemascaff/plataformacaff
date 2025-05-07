@@ -24,7 +24,7 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title font-weight-bold">LIBROS</h3>
+        <h3 class="card-title font-weight-bold">LIBROS: <span class="text-info">{{ count($tableLibro) }}</span> REGISTROS.</h3>
       </div>
       <div class="card-body">
         <a href="{{route('libros.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>

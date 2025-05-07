@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LibroValidation;
+use App\Models\Estudiante;
 use App\Models\LibroPrestamo;
 use App\Models\Persona;
 use App\Models\Libro;
 use App\Models\LibroPrestamoDetalle;
 use App\Models\Usuario;
 use App\Models\Rol;
+use App\Models\Curso;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +21,7 @@ class LibroPrestamoController extends Controller
     /**Muestra la ventana principal para gestionar los registros de la tabla 'LibrosPrestamos'.*/
     public function index(Request $request)
     {
-        if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
+        if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1])) {
             $tableLibroPrestamo = (new LibroPrestamo())->selectHistorial($request->busqueda);
             return view('LibroPrestamo.inicio', [
                 'headTitle' => 'PRÉSTAMOS DE LIBROS - INICIO',
@@ -34,7 +36,7 @@ class LibroPrestamoController extends Controller
     /**Muestra la información de un registro específico de la tabla 'LibrosPrestamos'.*/
     public function show($idLibrosPrestamo)
     {
-        if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
+        if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1])) {
             $libroprestamo = (new LibroPrestamo())->selectLibroPrestamo($idLibrosPrestamo);
             $usuario = (new Usuario())->selectUsuario($libroprestamo->idUsuario);
             $persona = (new Persona())->selectPersona($libroprestamo->idPersona);
@@ -59,7 +61,7 @@ class LibroPrestamoController extends Controller
     /**Muestra el formulario con los atributos requeridos para CREAR un nuevo registro en la tabla 'LibrosPrestamos'.*/
     public function new($idSelect = null)
     {
-        if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
+        if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1])) {
             $Personas = (new Persona())->selectDisponibles('');
             $Libros = (new Libro())->selectDisponibles('');
             if (!$idSelect) {
@@ -80,7 +82,7 @@ class LibroPrestamoController extends Controller
     /**Método que permite almacenar el registro creado de la tabla 'LibrosPrestamos' y retorna el método show() con el registro.*/
     public function store(Request $request)
     {
-        if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
+        if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1])) {
             $redireccion = null;
             $esLibroNoDisponible = false;
             foreach ($request->idLibro as $row) {
@@ -97,7 +99,17 @@ class LibroPrestamoController extends Controller
                 DB::beginTransaction();
                 try {
                     $libroprestamo = new LibroPrestamo();
+                    $persona = (new Persona())->selectPersona($request->idPersona);
+
                     $libroprestamo->idPersona = $request->idPersona;
+                    if ($persona->tipoPerfil == 'ESTUDIANTE') {
+                        $estudiante = (new Estudiante())->selectEstudianteConIDPersona($persona->idPersona);
+                        $curso = (new Curso())->selectCurso($estudiante->idCurso);
+                        $libroprestamo->nombreCurso = $curso->nombreCurso;
+                    }
+                    else{
+                        $libroprestamo->nombreCurso = '-';
+                    }
                     if(!$request->celular){
                         $libroprestamo->celular = '-';
                     }
@@ -109,7 +121,6 @@ class LibroPrestamoController extends Controller
                     $libroprestamo->ip = session('ip');
                     $libroprestamo->dispositivo  = session('dispositivo');
                     $libroprestamo->save();
-                    $persona = (new Persona())->selectPersona($request->idPersona);
                     foreach ($request->idLibro as $row) {
                         $detalle = null;
                         $detalle = new LibroPrestamoDetalle();
@@ -142,7 +153,7 @@ class LibroPrestamoController extends Controller
     /**Muestra el formulario con los atributos requeridos para ACTUALIZAR un registro existente de la tabla 'LibrosPrestamos'.*/
     public function edit(LibroPrestamo $libroprestamo)
     {
-        if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
+        if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1])) {
             $Personas = (new Persona())->selectDisponibles('');
             return view('LibroPrestamo.update', [
                 'headTitle' => 'EDITAR PRÉSTAMO DE LIBROS N° ' . $libroprestamo->idLibrosPrestamo,
@@ -158,7 +169,7 @@ class LibroPrestamoController extends Controller
     /**Método que permite almacenar los cambios actualizados del registro de la tabla 'LibrosPrestamos' y retorna el método show() con el registro actualizado.*/
     public function update(Request $request, LibroPrestamo $libroprestamo)
     {
-        if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
+        if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1])) {
             $request->validate([
                 'idPersona' => ['required', 'numeric', 'integer'],
                 'celular' => ['max:20'],
@@ -184,7 +195,7 @@ class LibroPrestamoController extends Controller
 
     public function actualizarFechaRetorno(Request $request)
     {
-        if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
+        if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1])) {
             $request->validate([
                 'idLibro' => ['required', 'numeric', 'integer']
             ]);
@@ -194,6 +205,12 @@ class LibroPrestamoController extends Controller
                     ->update(['fechaRetorno' => Carbon::now()]);
                 DB::table('libros')->where('idLibro', $request->idLibro)
                     ->update(['prestadoA' => '-','estado' => 1]);
+            }
+            else{
+                DB::table('librosprestamosdetalles')->where('idLibrosPrestamo', $request->idLibrosPrestamo)->where('idLibro', $request->idLibro)
+                    ->update(['fechaRetorno' => null]);
+                DB::table('libros')->where('idLibro', $request->idLibro)
+                    ->update(['prestadoA' => $request->nombrePersona,'estado' => 2]);
             }
             DB::table('librosprestamos')->where('idLibrosPrestamo', $request->idLibrosPrestamo)
                 ->update([
@@ -209,7 +226,7 @@ class LibroPrestamoController extends Controller
     }
 
     public function imprimirComprobante($idLibrosPrestamo){
-        if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
+        if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1])) {
             $libroprestamo = (new LibroPrestamo())->selectLibroPrestamo($idLibrosPrestamo);
             $detalles = (new LibroPrestamo())->selectLibroPrestamo_Detalles($idLibrosPrestamo);
             $persona = (new Persona())->selectPersona($libroprestamo->idPersona);

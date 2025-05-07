@@ -27,9 +27,10 @@ class Rol extends Model
             session(['rol_subdirector' => $selectRol->subdirector]);
             session(['rol_coordinador' => $selectRol->coordinador]);
             session(['rol_secretaria' => $selectRol->secretaria]);
-            session(['rol_profesor' => $selectRol->profesor]);
+            session(['rol_docente' => $selectRol->docente]);
             session(['rol_representante' => $selectRol->representante]);
             session(['rol_estudiante' => $selectRol->estudiante]);
+            session(['rol_bibliotecario' => $selectRol->bibliotecario]);
         }
         
         return $selectRol;

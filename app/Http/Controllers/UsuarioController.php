@@ -16,6 +16,7 @@ class UsuarioController extends Controller
     public function index()
     {
         if(session('tieneAcceso')){
+            (new Rol())->selectRol(session('idRol'));//Refresh de los Roles.
             return view('Usuario.inicio', [
                 'headTitle' => 'USUARIOS - INICIO'
             ]);
@@ -37,6 +38,7 @@ class UsuarioController extends Controller
                 $Ultimaconexion->ultimoDispositivo = session('dispositivo');
                 $Ultimaconexion->ultimaIP = session('ip');
                 $Ultimaconexion->save();
+                (new Rol())->selectRol(session('idRol'));
                 return redirect()->route('usuarios.index');
             }
             else{

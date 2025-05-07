@@ -55,7 +55,7 @@
                   <th>MATERIA</th>
                   <th>ASIGNATURA</th>
                   <th>ABREVIATURA</th>
-                  <th>PROFESOR</th>
+                  <th>DOCENTE</th>
                   <th>TIPO DE ASIGNATURA</th>
                   <th>TIPO DE CALIFICACIÓN</th>
                   <th>TIPO DE BLOQUE</th>
@@ -73,7 +73,7 @@
                     <td>{{$rowAsignatura->nombreMateria}}</td>
                     <td>{{$rowAsignatura->nombreAsignatura}}</td>
                     <td>{{$rowAsignatura->nombreCorto}}</td>
-                    <td>{{trim($rowAsignatura->profesor_paterno . ' ' . $rowAsignatura->profesor_materno . ' ' . $rowAsignatura->profesor_nombre)}}</td>
+                    <td>{{trim($rowAsignatura->docente_paterno . ' ' . $rowAsignatura->docente_materno . ' ' . $rowAsignatura->docente_nombre)}}</td>
                     <td>{{helper_FormatoAtributoValorATexto($rowAsignatura->tipoAsignatura, 'asignaturaTipoAsignatura')}}</td>
                     <td>{{helper_FormatoAtributoValorATexto($rowAsignatura->tipoCalificacion, 'asignaturaTipoCalificacion')}}</td>
                     <td>{{helper_FormatoAtributoValorATexto($rowAsignatura->tipoBloque, 'asignaturaTipoBloque')}}</td>

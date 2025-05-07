@@ -22,13 +22,16 @@ class Categoria extends Model
      * Búsquedas soportadas: Nombre de Áula y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
         $queryActivos = Categoria::select('Categorias.idCategoria','Categorias.nombreCategoria','Categorias.estado','Categorias.fechaRegistro','Categorias.fechaActualizacion','Categorias.idUsuario', 'Usuarios.correo')
+        ->selectraw('COUNT(Libros.idLibro) AS countLibros')
         ->leftjoin('Usuarios', 'Categorias.idUsuario', '=', 'Usuarios.idUsuario')
+        ->join('Libros', 'Categorias.idCategoria', '=', 'Libros.idCategoria')
         ->where('Categorias.estado', '=', 1)
         ->whereAny([
             'Categorias.nombreCategoria',
             'Usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Categorias.idCategoria')
+        ->orderBy('Categorias.nombreCategoria')
+        ->groupBy('Categorias.idCategoria')
         ->get();
         return $queryActivos;
     }

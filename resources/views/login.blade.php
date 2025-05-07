@@ -20,7 +20,7 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-        <img src="{{URL::to('/')}}/public/img/logo.png">
+        <img src="{{URL::to('/')}}/public/img/caff.jpeg" class="rounded mx-auto d-block w-50 h-50 border">
         <a href="" class="h1"><b>PLATAFORMA CAFF</b></a>
     </div>
     <div class="card-body">

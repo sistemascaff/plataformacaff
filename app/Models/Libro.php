@@ -46,7 +46,7 @@ class Libro extends Model
     }
 
     public function selectFormatoCodigoLibro(){
-        $formatoCodigo = Libro::selectRaw('CONCAT(RIGHT(YEAR(CURRENT_TIMESTAMP()),2),LPAD(COUNT(*) + 1, 3, "0")) AS codigo')
+        $formatoCodigo = Libro::selectRaw('CONCAT(RIGHT(YEAR(CURRENT_TIMESTAMP()),2),LPAD(COUNT(*) + 1, 4, "0")) AS codigo')
         ->whereRaw('YEAR(fechaRegistro) = ?', date("Y"))
         ->first();
         return $formatoCodigo;

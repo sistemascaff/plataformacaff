@@ -25,7 +25,7 @@ class AsignaturaValidation extends FormRequest
             'idMateria' => ['required','numeric','integer'],
             'idCoordinacion' => ['required','numeric','integer'],
             'idAula' => ['required','numeric','integer'],
-            'idProfesor' => ['required','numeric','integer'],
+            'idDocente' => ['required','numeric','integer'],
             'nombreAsignatura' => ['required','min:3','max:100'],
             'nombreCorto' => ['required','min:1','max:5'],
             'tipoCalificacion' => ['required','numeric','integer','min:1','max:2'],

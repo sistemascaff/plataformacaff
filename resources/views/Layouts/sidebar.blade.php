@@ -55,11 +55,14 @@
           </ul>
         </li>
 
-        <li class="nav-item {{ request()->is('estudiantes*') ? 'menu-open' : 
-            (request()->is('profesores*') ? 'menu-open' : '')
+        @if (session('rol_admin') || session('rol_bibliotecario'))
+          <li class="nav-item {{ request()->is('estudiantes*') ? 'menu-open' : 
+            (request()->is('docentes*') ? 'menu-open' : 
+              (request()->is('tutores*') ? 'menu-open' : ''))
           }}">
           <a href="" class="nav-link {{ request()->is('estudiantes*') ? 'active' : 
-              (request()->is('profesores*') ? 'active' : '')
+              (request()->is('docentes*') ? 'active' : 
+                (request()->is('tutores*') ? 'active' : ''))
             }}">
             <i class="nav-icon fa fa-male"></i>
             <p>
@@ -69,172 +72,184 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{route('profesores.index')}}" class="nav-link {{ request()->is('profesores*') ? 'active' : '' }}">
+              <a href="{{route('docentes.index')}}" class="nav-link {{ request()->is('docentes*') ? 'active' : '' }}">
                 <i class="fa fa-users nav-icon"></i>
-                <p>Profesores</p>
+                <p>Docentes</p>
               </a>
             </li>
           </ul>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{route('estudiantes.index')}}" class="nav-link {{ request()->is('estudiantes*') ? 'active' : '' }}">
+             <a href="{{route('estudiantes.index')}}" class="nav-link {{ request()->is('estudiantes*') ? 'active' : '' }}">
                 <i class="fa fa-users nav-icon"></i>
                 <p>Estudiantes</p>
               </a>
             </li>
           </ul>
-        </li>
-
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('tutores.index')}}" class="nav-link {{ request()->is('tutores*') ? 'active' : '' }}">
+                <i class="fa fa-users nav-icon"></i>
+                <p>Tutores</p>
+              </a>
+            </li>
+          </ul>
+          </li>
+        @endif
+        
+        @if (session('rol_admin'))
         <li class="nav-item {{ request()->is('campos*') ? 'menu-open' : 
-            (request()->is('areas*') ? 'menu-open' : 
-              (request()->is('materias*') ? 'menu-open' : 
-                (request()->is('aulas*') ? 'menu-open' : 
-                  (request()->is('gestiones*') ? 'menu-open' : 
-                    (request()->is('periodos*') ? 'menu-open' : 
-                      (request()->is('dimensiones*') ? 'menu-open' : 
-                        (request()->is('coordinaciones*') ? 'menu-open' : 
-                          (request()->is('asignaturas*') ? 'menu-open' : 
-                            (request()->is('unidades*') ? 'menu-open' : 
-                              (request()->is('silabos*') ? 'menu-open' : 
-                                (request()->is('horarios*') ? 'menu-open' : 
-                                  (request()->is('materiales*') ? 'menu-open' : 
-                                    (request()->is('listasmateriales*') ? 'menu-open' : ''))))))))))))) 
+          (request()->is('areas*') ? 'menu-open' : 
+            (request()->is('materias*') ? 'menu-open' : 
+              (request()->is('aulas*') ? 'menu-open' : 
+                (request()->is('gestiones*') ? 'menu-open' : 
+                  (request()->is('periodos*') ? 'menu-open' : 
+                    (request()->is('dimensiones*') ? 'menu-open' : 
+                      (request()->is('coordinaciones*') ? 'menu-open' : 
+                        (request()->is('asignaturas*') ? 'menu-open' : 
+                          (request()->is('unidades*') ? 'menu-open' : 
+                            (request()->is('silabos*') ? 'menu-open' : 
+                              (request()->is('horarios*') ? 'menu-open' : 
+                                (request()->is('materiales*') ? 'menu-open' : 
+                                  (request()->is('listasmateriales*') ? 'menu-open' : ''))))))))))))) 
+        }}">
+        <a href="" class="nav-link {{ request()->is('campos*') ? 'active' : 
+            (request()->is('areas*') ? 'active' : 
+              (request()->is('materias*') ? 'active' : 
+                (request()->is('aulas*') ? 'active' : 
+                  (request()->is('gestiones*') ? 'active' : 
+                    (request()->is('periodos*') ? 'active' : 
+                      (request()->is('dimensiones*') ? 'active' : 
+                        (request()->is('coordinaciones*') ? 'active' : 
+                          (request()->is('asignaturas*') ? 'active' : 
+                            (request()->is('unidades*') ? 'active' : 
+                              (request()->is('silabos*') ? 'active' : 
+                                (request()->is('horarios*') ? 'active' : 
+                                  (request()->is('materiales*') ? 'active' : 
+                                    (request()->is('listasmateriales*') ? 'active' : ''))))))))))))) 
           }}">
-          <a href="" class="nav-link {{ request()->is('campos*') ? 'active' : 
-              (request()->is('areas*') ? 'active' : 
-                (request()->is('materias*') ? 'active' : 
-                  (request()->is('aulas*') ? 'active' : 
-                    (request()->is('gestiones*') ? 'active' : 
-                      (request()->is('periodos*') ? 'active' : 
-                        (request()->is('dimensiones*') ? 'active' : 
-                          (request()->is('coordinaciones*') ? 'active' : 
-                            (request()->is('asignaturas*') ? 'active' : 
-                              (request()->is('unidades*') ? 'active' : 
-                                (request()->is('silabos*') ? 'active' : 
-                                  (request()->is('horarios*') ? 'active' : 
-                                    (request()->is('materiales*') ? 'active' : 
-                                      (request()->is('listasmateriales*') ? 'active' : ''))))))))))))) 
-            }}">
-            <i class="nav-icon fa fa-th-list"></i>
-            <p>
-              ASIGNATURAS
-              <i class="right fa fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{route('gestiones.index')}}" class="nav-link {{ request()->is('gestiones*') ? 'active' : '' }}">
-                <i class="fa fa-key nav-icon"></i>
-                <p>GESTIONES</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{route('periodos.index')}}" class="nav-link {{ request()->is('periodos*') ? 'active' : '' }}">
-                <i class="fa fa-circle-o nav-icon"></i>
-                <p>PERIODOS</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{route('dimensiones.index')}}" class="nav-link {{ request()->is('dimensiones*') ? 'active' : '' }}">
-                <i class="fa fa-circle-o nav-icon"></i>
-                <p>DIMENSIONES</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{route('campos.index')}}" class="nav-link {{ request()->is('campos*') ? 'active' : '' }}">
-                <i class="fa fa-key nav-icon"></i>
-                <p>CAMPOS SIE</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{route('areas.index')}}" class="nav-link {{ request()->is('areas*') ? 'active' : '' }}">
-                <i class="fa fa-circle-o nav-icon"></i>
-                <p>AREAS SIE</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{route('materias.index')}}" class="nav-link {{ request()->is('materias*') ? 'active' : '' }}">
-                <i class="fa fa-circle-o nav-icon"></i>
-                <p>MATERIAS SIE</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{route('asignaturas.index')}}" class="nav-link {{ request()->is('asignaturas*') ? 'active' : '' }}">
-                <i class="fa fa-circle-o nav-icon"></i>
-                <p>ASIGNATURAS</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{route('unidades.index')}}" class="nav-link {{ request()->is('unidades*') ? 'active' : '' }}">
-                <i class="fa fa-circle-o nav-icon"></i>
-                <p>UNIDADES</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{route('silabos.index')}}" class="nav-link {{ request()->is('silabos*') ? 'active' : '' }}">
-                <i class="fa fa-circle-o nav-icon"></i>
-                <p>SILABOS</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{route('horarios.index')}}" class="nav-link {{ request()->is('horarios*') ? 'active' : '' }}">
-                <i class="fa fa-circle-o nav-icon"></i>
-                <p>HORARIOS</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{route('coordinaciones.index')}}" class="nav-link {{ request()->is('coordinaciones*') ? 'active' : '' }}">
-                <i class="fa fa-key nav-icon"></i>
-                <p>COORDINACIONES</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{route('aulas.index')}}" class="nav-link {{ request()->is('aulas*') ? 'active' : '' }}">
-                <i class="fa fa-key nav-icon"></i>
-                <p>AULAS</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{route('materiales.index')}}" class="nav-link {{ request()->is('materiales*') ? 'active' : '' }}">
-                <i class="fa fa-key nav-icon"></i>
-                <p>MATERIALES</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{route('listasmateriales.index')}}" class="nav-link {{ request()->is('listasmateriales*') ? 'active' : '' }}">
-                <i class="fa fa-circle-o nav-icon"></i>
-                <p>LISTA DE MATERIALES</p>
-              </a>
-            </li>
-          </ul>
-        </li>
+          <i class="nav-icon fa fa-th-list"></i>
+          <p>
+            ASIGNATURAS
+            <i class="right fa fa-angle-left"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('gestiones.index')}}" class="nav-link {{ request()->is('gestiones*') ? 'active' : '' }}">
+              <i class="fa fa-key nav-icon"></i>
+              <p>GESTIONES</p>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('periodos.index')}}" class="nav-link {{ request()->is('periodos*') ? 'active' : '' }}">
+              <i class="fa fa-circle-o nav-icon"></i>
+              <p>PERIODOS</p>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('dimensiones.index')}}" class="nav-link {{ request()->is('dimensiones*') ? 'active' : '' }}">
+              <i class="fa fa-circle-o nav-icon"></i>
+              <p>DIMENSIONES</p>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('campos.index')}}" class="nav-link {{ request()->is('campos*') ? 'active' : '' }}">
+              <i class="fa fa-key nav-icon"></i>
+              <p>CAMPOS SIE</p>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('areas.index')}}" class="nav-link {{ request()->is('areas*') ? 'active' : '' }}">
+              <i class="fa fa-circle-o nav-icon"></i>
+              <p>AREAS SIE</p>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('materias.index')}}" class="nav-link {{ request()->is('materias*') ? 'active' : '' }}">
+              <i class="fa fa-circle-o nav-icon"></i>
+              <p>MATERIAS SIE</p>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('asignaturas.index')}}" class="nav-link {{ request()->is('asignaturas*') ? 'active' : '' }}">
+              <i class="fa fa-circle-o nav-icon"></i>
+              <p>ASIGNATURAS</p>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('unidades.index')}}" class="nav-link {{ request()->is('unidades*') ? 'active' : '' }}">
+              <i class="fa fa-circle-o nav-icon"></i>
+              <p>UNIDADES</p>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('silabos.index')}}" class="nav-link {{ request()->is('silabos*') ? 'active' : '' }}">
+              <i class="fa fa-circle-o nav-icon"></i>
+              <p>SILABOS</p>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('horarios.index')}}" class="nav-link {{ request()->is('horarios*') ? 'active' : '' }}">
+              <i class="fa fa-circle-o nav-icon"></i>
+              <p>HORARIOS</p>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('coordinaciones.index')}}" class="nav-link {{ request()->is('coordinaciones*') ? 'active' : '' }}">
+              <i class="fa fa-key nav-icon"></i>
+              <p>COORDINACIONES</p>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('aulas.index')}}" class="nav-link {{ request()->is('aulas*') ? 'active' : '' }}">
+              <i class="fa fa-key nav-icon"></i>
+              <p>AULAS</p>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('materiales.index')}}" class="nav-link {{ request()->is('materiales*') ? 'active' : '' }}">
+              <i class="fa fa-key nav-icon"></i>
+              <p>MATERIALES</p>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{route('listasmateriales.index')}}" class="nav-link {{ request()->is('listasmateriales*') ? 'active' : '' }}">
+              <i class="fa fa-circle-o nav-icon"></i>
+              <p>LISTA DE MATERIALES</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+        @endif
 
+        @if (session('rol_admin'))
         <li class="nav-item {{ request()->is('niveles*') ? 'menu-open' : 
           (request()->is('grados*') ? 'menu-open' : 
             (request()->is('cursos*') ? 'menu-open' : 
@@ -284,7 +299,9 @@
             </li>
           </ul>
         </li>
+        @endif
 
+        @if (session('rol_admin') || session('rol_bibliotecario'))
         <li class="nav-item {{ request()->is('categorias*') ? 'menu-open' : 
           (request()->is('autores*') ? 'menu-open' : 
             (request()->is('editoriales*') ? 'menu-open' : 
@@ -356,6 +373,7 @@
             </li>
           </ul>
         </li>
+        @endif
         
       </ul>
     </nav>

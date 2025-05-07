@@ -17,7 +17,7 @@ class LibroController extends Controller
     /**Muestra la ventana principal para gestionar los registros de la tabla 'Libros'.*/
     public function index(Request $request)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $tableLibro = (new Libro())->selectDisponibles($request->busqueda);
             return view('Libro.inicio', [
                 'headTitle' => 'LIBROS - INICIO',
@@ -33,7 +33,7 @@ class LibroController extends Controller
     /**Muestra la información de un registro específico de la tabla 'Libros'.*/
     public function show($idLibro)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $libro = (new Libro())->selectLibro($idLibro);
             $usuario = (new Usuario())->selectUsuario($libro->idUsuario);
             $categoria = (new Categoria())->selectCategoria($libro->idCategoria);
@@ -64,7 +64,7 @@ class LibroController extends Controller
 
     /**Muestra el formulario con los atributos requeridos para CREAR un nuevo registro en la tabla 'Libros'.*/
     public function new($idSelect = null){
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $Categorias = (new Categoria())->selectDisponibles('');
             $Autores = (new Autor())->selectDisponibles('');
             $Editoriales = (new Editorial())->selectDisponibles('');
@@ -92,7 +92,7 @@ class LibroController extends Controller
     /**Método que permite almacenar el registro creado de la tabla 'Libros' y retorna el método show() con el registro.*/
     public function store(LibroValidation $request)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $libro = new Libro();
             $libro->nombreLibro = strtoupper($request->nombreLibro);
             $libro->codigoLibro = strtoupper($request->codigoLibro);
@@ -118,7 +118,7 @@ class LibroController extends Controller
     /**Muestra el formulario con los atributos requeridos para ACTUALIZAR un registro existente de la tabla 'Libros'.*/
     public function edit(Libro $libro)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $Categorias = (new Categoria())->selectDisponibles('');
             $Autores = (new Autor())->selectDisponibles('');
             $Editoriales = (new Editorial())->selectDisponibles('');
@@ -141,7 +141,7 @@ class LibroController extends Controller
     /**Método que permite almacenar los cambios actualizados del registro de la tabla 'Libros' y retorna el método show() con el registro actualizado.*/
     public function update(LibroValidation $request, Libro $libro)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $libro->nombreLibro = strtoupper($request->nombreLibro);
             $libro->codigoLibro = strtoupper($request->codigoLibro);
             $libro->costo = $request->costo;
@@ -166,7 +166,7 @@ class LibroController extends Controller
     /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Libros' y retorna el método index().*/
     public function delete(Request $request)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $request->validate([
                 'idLibro' => ['required','numeric','integer']
             ]);

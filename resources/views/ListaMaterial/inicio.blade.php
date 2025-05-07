@@ -68,7 +68,7 @@
               <thead>
                 <tr>
                   <th>ASIGNATURA</th>
-                  <th>PROFESOR</th>
+                  <th>DOCENTE</th>
                   <th>MATERIAL</th>
                   <th>CANTIDAD</th>
                   <th>UNIDAD DE MEDIDA</th>

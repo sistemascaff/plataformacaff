@@ -94,7 +94,7 @@
             <td>{{$rowLibros->nombreLibro}}</td>
             <td>{{$rowLibros->codigoLibro}}</td>
             <td>{{$rowLibros->costo}}</td>
-            <td>{{$rowLibros->adquisicion}}</td>
+            <td>{{ helper_FormatoAtributoValorATexto($rowLibros->adquisicion,'libroAdquisicion') }}</td>
             <td>{{$rowLibros->descripcion}}</td>
             <td>{{$rowLibros->observacion}}</td>
             <td>{{$rowLibros->prestadoA}}</td>

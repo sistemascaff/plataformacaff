@@ -22,13 +22,16 @@ class Presentacion extends Model
      * Búsquedas soportadas: Nombre de Áula y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
         $queryActivos = Presentacion::select('Presentaciones.idPresentacion','Presentaciones.nombrePresentacion','Presentaciones.estado','Presentaciones.fechaRegistro','Presentaciones.fechaActualizacion','Presentaciones.idUsuario', 'Usuarios.correo')
+        ->selectraw('COUNT(Libros.idLibro) AS countLibros')
         ->leftjoin('Usuarios', 'Presentaciones.idUsuario', '=', 'Usuarios.idUsuario')
+        ->join('Libros', 'Presentaciones.idPresentacion', '=', 'Libros.idPresentacion')
         ->where('Presentaciones.estado', '=', 1)
         ->whereAny([
             'Presentaciones.nombrePresentacion',
             'Usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Presentaciones.idPresentacion')
+        ->orderBy('Presentaciones.nombrePresentacion')
+        ->groupBy('Presentaciones.idPresentacion')
         ->get();
         return $queryActivos;
     }

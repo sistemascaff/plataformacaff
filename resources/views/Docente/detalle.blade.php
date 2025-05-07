@@ -11,7 +11,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('usuarios.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item"><a href="{{route('profesores.index')}}">PROFESORES</a></li>
+            <li class="breadcrumb-item"><a href="{{route('docentes.index')}}">DOCENTES</a></li>
             <li class="breadcrumb-item active">{{$persona->apellidoPaterno . ' ' . $persona->apellidoMaterno . ' ' . $persona->nombres}}</li>
           </ol>
         </div>
@@ -27,10 +27,10 @@
         <h3 class="card-title font-weight-bold">ACCIONES</h3>
         <br>
         <div class="btn-group">
-          <a class="btn btn-info" href="{{route('profesores.index')}}">
+          <a class="btn btn-info" href="{{route('docentes.index')}}">
             {!! helper_FormatoBotonCRUD(7, 'texto') !!}
           </a>
-          <a class="btn btn-warning" href="{{route('profesores.edit',$profesor->idProfesor)}}">
+          <a class="btn btn-warning" href="{{route('docentes.edit',$docente->idDocente)}}">
             {!! helper_FormatoBotonCRUD(3, 'texto') !!}
           </a>
           <a class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
@@ -111,13 +111,13 @@
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Fecha de Registro</label>
               <div class="col-md-8">
-                <p class="form form-control">{{$profesor->fechaRegistro}}</p>
+                <p class="form form-control">{{$docente->fechaRegistro}}</p>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Fecha de Actualizacion</label>
               <div class="col-md-8">
-                <p class="form form-control">{{helper_formatoNullorEmpty($profesor->fechaActualizacion)}}</p>
+                <p class="form form-control">{{helper_formatoNullorEmpty($docente->fechaActualizacion)}}</p>
               </div>
             </div>
             <div class="form-group row">
@@ -148,7 +148,7 @@
                 <p class="form form-control">{{$persona_usuario->pinRecuperacion}}</p>
               </div>
             </div>
-            <h3 class="font-weight-bold text-info rounded">DATOS DE PROFESOR/A</h3>
+            <h3 class="font-weight-bold text-info rounded">DATOS DE DOCENTE/A</h3>
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">DIRECTOR/A</label>
               <div class="col-md-8">
@@ -172,19 +172,19 @@
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">ESPECIALIDAD</label>
               <div class="col-md-8">
-                <p class="form form-control">{{$profesor->especialidad}}</p>
+                <p class="form form-control">{{$docente->especialidad}}</p>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">GRADO DE ESTUDIOS</label>
               <div class="col-md-8">
-                <p class="form form-control">{{$profesor->gradoEstudios}}</p>
+                <p class="form form-control">{{$docente->gradoEstudios}}</p>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">DOMICILIO</label>
               <div class="col-md-8">
-                <p class="form form-control">{{$profesor->direccionDomicilio}}</p>
+                <p class="form form-control">{{$docente->direccionDomicilio}}</p>
               </div>
             </div>
           </div><!-- / Columna 2 -->
@@ -212,10 +212,10 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
-          <form action="{{route('profesores.delete')}}" method="POST">
+          <form action="{{route('docentes.delete')}}" method="POST">
             @csrf
             @method('put')
-            <input type="hidden" name="idProfesor" value="{{$profesor->idProfesor}}">
+            <input type="hidden" name="idDocente" value="{{$docente->idDocente}}">
             <button type="submit" class="btn btn-danger">{!! helper_FormatoBotonCRUD(4, 'texto') !!}</button>
           </form>
         </div>

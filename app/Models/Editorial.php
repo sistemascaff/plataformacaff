@@ -22,13 +22,16 @@ class Editorial extends Model
      * Búsquedas soportadas: Nombre de Áula y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
         $queryActivos = Editorial::select('Editoriales.idEditorial','Editoriales.nombreEditorial','Editoriales.estado','Editoriales.fechaRegistro','Editoriales.fechaActualizacion','Editoriales.idUsuario', 'Usuarios.correo')
+        ->selectraw('COUNT(Libros.idLibro) AS countLibros')
         ->leftjoin('Usuarios', 'Editoriales.idUsuario', '=', 'Usuarios.idUsuario')
+        ->join('Libros', 'Editoriales.idEditorial', '=', 'Libros.idEditorial')
         ->where('Editoriales.estado', '=', 1)
         ->whereAny([
             'Editoriales.nombreEditorial',
             'Usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Editoriales.idEditorial')
+        ->orderBy('Editoriales.nombreEditorial')
+        ->groupBy('Editoriales.idEditorial')
         ->get();
         return $queryActivos;
     }

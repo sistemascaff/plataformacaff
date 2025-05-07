@@ -24,8 +24,8 @@ class ListaMaterial extends Model
         ->leftjoin('Usuarios', 'ListasMateriales.idUsuario', '=', 'Usuarios.idUsuario')
         ->join('Asignaturas', 'ListasMateriales.idAsignatura', '=', 'Asignaturas.idAsignatura')
         ->join('Materiales', 'ListasMateriales.idMaterial', '=', 'Materiales.idMaterial')
-        ->join('Profesores', 'Asignaturas.idProfesor', '=', 'Profesores.idProfesor')
-        ->join('Personas', 'Profesores.idPersona', '=', 'Personas.idPersona')
+        ->join('Docentes', 'Asignaturas.idDocente', '=', 'Docentes.idDocente')
+        ->join('Personas', 'Docentes.idPersona', '=', 'Personas.idPersona')
         ->whereAny([
             'Asignaturas.nombreAsignatura',
             'Materiales.nombreMaterial',

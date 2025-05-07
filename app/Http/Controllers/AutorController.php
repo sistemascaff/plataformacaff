@@ -13,7 +13,7 @@ class AutorController extends Controller
     /**Muestra la ventana principal para gestionar los registros de la tabla 'Autores'.*/
     public function index(Request $request)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $tableAutor = (new Autor())->selectDisponibles($request->busqueda);
             return view('Autor.inicio', [
                 'headTitle' => 'AUTORES - INICIO',
@@ -29,7 +29,7 @@ class AutorController extends Controller
     /**Muestra la información de un registro específico de la tabla 'Autores'.*/
     public function show($idAutor)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $autor = (new Autor())->selectAutor($idAutor);
             $usuario = (new Usuario())->selectUsuario($autor->idUsuario);
             if (!$usuario) {
@@ -51,7 +51,7 @@ class AutorController extends Controller
 
     /**Muestra el formulario con los atributos requeridos para CREAR un nuevo registro en la tabla 'Autores'.*/
     public function new(){
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             return view('Autor.create', [
                 'headTitle' => 'AUTORES - NUEVO AUTOR',
                 'Titulos' => "NUEVO AUTOR"
@@ -65,7 +65,7 @@ class AutorController extends Controller
     /**Método que permite almacenar el registro creado de la tabla 'Autores' y retorna el método show() con el registro.*/
     public function store(AutorValidation $request)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $autor = new Autor();
             $autor->nombreAutor = strtoupper($request->nombreAutor);
             $autor->idUsuario = session('idUsuario');
@@ -82,7 +82,7 @@ class AutorController extends Controller
     /**Muestra el formulario con los atributos requeridos para ACTUALIZAR un registro existente de la tabla 'Autores'.*/
     public function edit(Autor $autor)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             return view('Autor.update', [
                 'headTitle' => 'EDITAR - ' . $autor->nombreAutor,
                 'autor' => $autor,
@@ -97,7 +97,7 @@ class AutorController extends Controller
     /**Método que permite almacenar los cambios actualizados del registro de la tabla 'Autores' y retorna el método show() con el registro actualizado.*/
     public function update(AutorValidation $request, Autor $autor)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $autor->nombreAutor = strtoupper($request->nombreAutor);
             $autor->idUsuario = session('idUsuario');
             $autor->ip = session('ip');
@@ -113,7 +113,7 @@ class AutorController extends Controller
     /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Autores' y retorna el método index().*/
     public function delete(Request $request)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $request->validate([
                 'idAutor' => ['required','numeric','integer']
             ]);

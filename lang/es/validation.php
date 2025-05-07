@@ -254,7 +254,7 @@ return [
         'subject'                  => 'asunto',
         'tag'                      => 'etiqueta',
         'tags'                     => 'etiquetas',
-        'teacher'                  => 'profesor',
+        'teacher'                  => 'docente',
         'terms'                    => 'términos',
         'test_description'         => 'descripción de prueba',
         'test_locale'              => 'idioma de prueba',

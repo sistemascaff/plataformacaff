@@ -6,12 +6,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="font-weight-bold">{{$profesor->apellidoPaterno}}</h1>
+          <h1 class="font-weight-bold">{{$docente->apellidoPaterno}}</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('usuarios.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item"><a href="{{route('profesores.index')}}">PROFESORES</a></li>
+            <li class="breadcrumb-item"><a href="{{route('docentes.index')}}">DOCENTES</a></li>
             <li class="breadcrumb-item active">{{$Titulos}}</li>
           </ol>
         </div>
@@ -30,7 +30,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-6">
-            <form class="form-horizontal" action="{{route('profesores.update',$profesor)}}" method="POST" enctype="multipart/form-data" id="formularioPerfil">
+            <form class="form-horizontal" action="{{route('docentes.update',$docente)}}" method="POST" enctype="multipart/form-data" id="formularioPerfil">
 
               @csrf
               @method('put')
@@ -213,28 +213,28 @@
                   <span class="text-danger">{{$message}}</span>
                   @enderror
                 </div>
-                <h3 class="font-weight-bold text-info rounded">DATOS DE PROFESOR/A</h3>
+                <h3 class="font-weight-bold text-info rounded">DATOS DE DOCENTE/A</h3>
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">ESPECIALIDAD (*)</label>
                   <div class="col-sm-10">
                     <select class="form-control @error('especialidad') is-invalid @enderror" name="especialidad" required>
                       <option disabled selected>-SELECCIONAR-</option>
-                      <option {{$profesor->especialidad == 'INICIAL - UNIDOCENTE' ? 'selected' : ''}}>INICIAL - UNIDOCENTE</option>
-                      <option {{$profesor->especialidad == 'INICIAL - ALEMÁN' ? 'selected' : ''}}>INICIAL - ALEMÁN</option>
-                      <option {{$profesor->especialidad == 'INICIAL - ARTÍSTICA' ? 'selected' : ''}}>INICIAL - ARTÍSTICA</option>
-                      <option {{$profesor->especialidad == 'INICIAL - DEPORTIVA' ? 'selected' : ''}}>INICIAL - DEPORTIVA</option>
-                      <option {{$profesor->especialidad == 'PRIMARIA - UNIDOCENTE' ? 'selected' : ''}}>PRIMARIA - UNIDOCENTE</option>
-                      <option {{$profesor->especialidad == 'PRIMARIA - ALEMÁN' ? 'selected' : ''}}>PRIMARIA - ALEMÁN</option>
-                      <option {{$profesor->especialidad == 'PRIMARIA - ARTÍSTICA' ? 'selected' : ''}}>PRIMARIA - ARTÍSTICA</option>
-                      <option {{$profesor->especialidad == 'PRIMARIA - DEPORTIVA' ? 'selected' : ''}}>PRIMARIA - DEPORTIVA</option>
-                      <option {{$profesor->especialidad == 'SECUNDARIA - EXACTAS' ? 'selected' : ''}}>SECUNDARIA - EXACTAS</option>
-                      <option {{$profesor->especialidad == 'SECUNDARIA - HUMANIDADES' ? 'selected' : ''}}>SECUNDARIA - HUMANIDADES</option>
-                      <option {{$profesor->especialidad == 'SECUNDARIA - ALEMÁN' ? 'selected' : ''}}>SECUNDARIA - ALEMÁN</option>
-                      <option {{$profesor->especialidad == 'SECUNDARIA - ARTÍSTICA' ? 'selected' : ''}}>SECUNDARIA - ARTÍSTICA</option>
-                      <option {{$profesor->especialidad == 'SECUNDARIA - DEPORTIVA' ? 'selected' : ''}}>SECUNDARIA - DEPORTIVA</option>
-                      <option {{$profesor->especialidad == 'MULTINIVEL - ALEMÁN' ? 'selected' : ''}}>MULTINIVEL - ALEMÁN</option>
-                      <option {{$profesor->especialidad == 'MULTINIVEL - ARTÍSTICA' ? 'selected' : ''}}>MULTINIVEL - ARTÍSTICA</option>
-                      <option {{$profesor->especialidad == 'MULTINIVEL - DEPORTIVA' ? 'selected' : ''}}>MULTINIVEL - DEPORTIVA</option>
+                      <option {{$docente->especialidad == 'INICIAL - UNIDOCENTE' ? 'selected' : ''}}>INICIAL - UNIDOCENTE</option>
+                      <option {{$docente->especialidad == 'INICIAL - ALEMÁN' ? 'selected' : ''}}>INICIAL - ALEMÁN</option>
+                      <option {{$docente->especialidad == 'INICIAL - ARTÍSTICA' ? 'selected' : ''}}>INICIAL - ARTÍSTICA</option>
+                      <option {{$docente->especialidad == 'INICIAL - DEPORTIVA' ? 'selected' : ''}}>INICIAL - DEPORTIVA</option>
+                      <option {{$docente->especialidad == 'PRIMARIA - UNIDOCENTE' ? 'selected' : ''}}>PRIMARIA - UNIDOCENTE</option>
+                      <option {{$docente->especialidad == 'PRIMARIA - ALEMÁN' ? 'selected' : ''}}>PRIMARIA - ALEMÁN</option>
+                      <option {{$docente->especialidad == 'PRIMARIA - ARTÍSTICA' ? 'selected' : ''}}>PRIMARIA - ARTÍSTICA</option>
+                      <option {{$docente->especialidad == 'PRIMARIA - DEPORTIVA' ? 'selected' : ''}}>PRIMARIA - DEPORTIVA</option>
+                      <option {{$docente->especialidad == 'SECUNDARIA - EXACTAS' ? 'selected' : ''}}>SECUNDARIA - EXACTAS</option>
+                      <option {{$docente->especialidad == 'SECUNDARIA - HUMANIDADES' ? 'selected' : ''}}>SECUNDARIA - HUMANIDADES</option>
+                      <option {{$docente->especialidad == 'SECUNDARIA - ALEMÁN' ? 'selected' : ''}}>SECUNDARIA - ALEMÁN</option>
+                      <option {{$docente->especialidad == 'SECUNDARIA - ARTÍSTICA' ? 'selected' : ''}}>SECUNDARIA - ARTÍSTICA</option>
+                      <option {{$docente->especialidad == 'SECUNDARIA - DEPORTIVA' ? 'selected' : ''}}>SECUNDARIA - DEPORTIVA</option>
+                      <option {{$docente->especialidad == 'MULTINIVEL - ALEMÁN' ? 'selected' : ''}}>MULTINIVEL - ALEMÁN</option>
+                      <option {{$docente->especialidad == 'MULTINIVEL - ARTÍSTICA' ? 'selected' : ''}}>MULTINIVEL - ARTÍSTICA</option>
+                      <option {{$docente->especialidad == 'MULTINIVEL - DEPORTIVA' ? 'selected' : ''}}>MULTINIVEL - DEPORTIVA</option>
                     </select>
                   </div>
                 </div>
@@ -243,9 +243,9 @@
                   <div class="col-sm-10">
                     <select class="form-control @error('gradoEstudios') is-invalid @enderror" name="gradoEstudios" required>
                       <option disabled selected>-SELECCIONAR-</option>
-                      <option {{$profesor->gradoEstudios == 'LICENCIATURA' ? 'selected' : ''}}>LICENCIATURA</option>
-                      <option {{$profesor->gradoEstudios == 'MAESTRÍA' ? 'selected' : ''}}>MAESTRÍA</option>
-                      <option {{$profesor->gradoEstudios == 'DOCTORADO' ? 'selected' : ''}}>DOCTORADO</option>
+                      <option {{$docente->gradoEstudios == 'LICENCIATURA' ? 'selected' : ''}}>LICENCIATURA</option>
+                      <option {{$docente->gradoEstudios == 'MAESTRÍA' ? 'selected' : ''}}>MAESTRÍA</option>
+                      <option {{$docente->gradoEstudios == 'DOCTORADO' ? 'selected' : ''}}>DOCTORADO</option>
                     </select>
                   </div>
                 </div>
@@ -253,7 +253,7 @@
                   <label class="col-sm-2 col-form-label">DOMICILIO</label>
                   <div class="col-sm-10">
                   <input type="text" class="form-control @error('direccionDomicilio') is-invalid @enderror"
-                    name="direccionDomicilio" value="{{old('direccionDomicilio', $profesor->direccionDomicilio)}}" placeholder="DOMICILIO" minlength="1" maxlength="50" autofocus>
+                    name="direccionDomicilio" value="{{old('direccionDomicilio', $docente->direccionDomicilio)}}" placeholder="DOMICILIO" minlength="1" maxlength="50" autofocus>
                   </div>
                   @error('direccionDomicilio')
                   <span class="text-danger">{{$message}}</span>
@@ -265,7 +265,7 @@
                     <select class="form-control" name="idNivelSubdirector" required>
                       <option value="0" selected>NO</option>
                       @foreach ($Niveles as $rowNiveles)
-                      @if ($rowNiveles->idNivel == $profesor->idNivelSubdirector)
+                      @if ($rowNiveles->idNivel == $docente->idNivelSubdirector)
                       <option value="{{$rowNiveles->idNivel}}" selected>{{$rowNiveles->nombreNivel}}</option>
                       @else
                       <option value="{{$rowNiveles->idNivel}}">{{$rowNiveles->nombreNivel}}</option>
@@ -280,7 +280,7 @@
                     <select class="form-control" name="idCoordinacionEncargado" required>
                       <option value="0" selected>NO</option>
                       @foreach ($Coordinaciones as $rowCoordinaciones)
-                      @if ($rowCoordinaciones->idCoordinacion == $profesor->idCoordinacionEncargado)
+                      @if ($rowCoordinaciones->idCoordinacion == $docente->idCoordinacionEncargado)
                       <option value="{{$rowCoordinaciones->idCoordinacion}}" selected>{{$rowCoordinaciones->nombreCoordinacion}}</option>
                       @else
                       <option value="{{$rowCoordinaciones->idCoordinacion}}">{{$rowCoordinaciones->nombreCoordinacion}}</option>
@@ -295,7 +295,7 @@
               <a class="btn btn-warning" data-toggle="modal" data-target="#modalUpdate">
                 {!! helper_FormatoBotonCRUD(3, 'texto') !!}
               </a>
-              <a href="{{route('profesores.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
+              <a href="{{route('docentes.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
 
               <div class="modal fade" id="modalUpdate">
                 <div class="modal-dialog">

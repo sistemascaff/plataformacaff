@@ -22,13 +22,16 @@ class Autor extends Model
      * Búsquedas soportadas: Nombre de Áula y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
         $queryActivos = Autor::select('Autores.idAutor','Autores.nombreAutor','Autores.estado','Autores.fechaRegistro','Autores.fechaActualizacion','Autores.idUsuario', 'Usuarios.correo')
+        ->selectraw('COUNT(Libros.idLibro) AS countLibros')
         ->leftjoin('Usuarios', 'Autores.idUsuario', '=', 'Usuarios.idUsuario')
+        ->join('Libros', 'Autores.idAutor', '=', 'Libros.idAutor')
         ->where('Autores.estado', '=', 1)
         ->whereAny([
             'Autores.nombreAutor',
             'Usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Autores.idAutor')
+        ->orderBy('Autores.nombreAutor')
+        ->groupBy('Autores.idAutor')
         ->get();
         return $queryActivos;
     }

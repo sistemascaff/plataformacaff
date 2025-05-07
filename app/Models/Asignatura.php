@@ -34,9 +34,9 @@ class Asignatura extends Model
             'Asignaturas.fechaActualizacion',
             'Asignaturas.idUsuario',
             'Usuarios.correo',
-            'Personas.nombres AS profesor_nombre',
-            'Personas.apellidoPaterno AS profesor_paterno',
-            'Personas.apellidoMaterno AS profesor_materno',
+            'Personas.nombres AS docente_nombre',
+            'Personas.apellidoPaterno AS docente_paterno',
+            'Personas.apellidoMaterno AS docente_materno',
             'Materias.nombreMateria',
             'Coordinaciones.nombreCoordinacion',
             'Aulas.nombreAula'
@@ -45,8 +45,8 @@ class Asignatura extends Model
             ->join('Materias', 'Asignaturas.idMateria', '=', 'Materias.idMateria')
             ->leftjoin('Coordinaciones', 'Asignaturas.idCoordinacion', '=', 'Coordinaciones.idCoordinacion')
             ->join('Aulas', 'Asignaturas.idAula', '=', 'Aulas.idAula')
-            ->join('Profesores', 'Asignaturas.idProfesor', '=', 'Profesores.idProfesor')
-            ->join('Personas', 'Profesores.idPersona', '=', 'Personas.idPersona')
+            ->join('Docentes', 'Asignaturas.idDocente', '=', 'Docentes.idDocente')
+            ->join('Personas', 'Docentes.idPersona', '=', 'Personas.idPersona')
             ->where('Asignaturas.estado', '=', 1)
             ->where('Materias.estado', '=', 1)
             ->where(function ($query) use ($busqueda) {

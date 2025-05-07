@@ -15,7 +15,7 @@ use App\Http\Controllers\GestionController;
 use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\DimensionController;
 use App\Http\Controllers\EstudianteController;
-use App\Http\Controllers\ProfesorController;
+use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\AsignaturaController;
 use App\Http\Controllers\AutorController;
 use App\Http\Controllers\CategoriaController;
@@ -28,6 +28,7 @@ use App\Http\Controllers\LibroPrestamoController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\PresentacionController;
 use App\Http\Controllers\ListaMaterialController;
+use App\Http\Controllers\TutorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -215,14 +216,23 @@ Route::controller(EstudianteController::class)->group(function(){
     Route::put('estudiantes/{estudiante}','update')->name('estudiantes.update');
     Route::put('estudiantes','delete')->name('estudiantes.delete');
 });
-Route::controller(ProfesorController::class)->group(function(){
-    Route::get('profesores','index')->name('profesores.index');
-    Route::get('profesores/crear','new')->name('profesores.create');
-    Route::post('profesores','store')->name('profesores.store');
-    Route::get('profesores/{profesor}','show')->name('profesores.details');
-    Route::get('profesores/{profesor}/editar','edit')->name('profesores.edit');
-    Route::put('profesores/{profesor}','update')->name('profesores.update');
-    Route::put('profesores','delete')->name('profesores.delete');
+Route::controller(DocenteController::class)->group(function(){
+    Route::get('docentes','index')->name('docentes.index');
+    Route::get('docentes/crear','new')->name('docentes.create');
+    Route::post('docentes','store')->name('docentes.store');
+    Route::get('docentes/{docente}','show')->name('docentes.details');
+    Route::get('docentes/{docente}/editar','edit')->name('docentes.edit');
+    Route::put('docentes/{docente}','update')->name('docentes.update');
+    Route::put('docentes','delete')->name('docentes.delete');
+});
+Route::controller(TutorController::class)->group(function(){
+    Route::get('tutores','index')->name('tutores.index');
+    Route::get('tutores/crear','new')->name('tutores.create');
+    Route::post('tutores','store')->name('tutores.store');
+    Route::get('tutores/{tutor}','show')->name('tutores.details');
+    Route::get('tutores/{tutor}/editar','edit')->name('tutores.edit');
+    Route::put('tutores/{tutor}','update')->name('tutores.update');
+    Route::put('tutores','delete')->name('tutores.delete');
 });
 Route::controller(CoordinacionController::class)->group(function(){
     Route::get('coordinaciones','index')->name('coordinaciones.index');

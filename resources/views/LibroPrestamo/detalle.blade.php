@@ -55,6 +55,12 @@
               </div>
             </div>
             <div class="form-group row">
+              <label for="inputEmail3" class="col-md-2 col-form-label">Curso</label>
+              <div class="col-md-10">
+                <p class="form form-control">{{ $libroprestamo->nombreCurso }}</p>
+              </div>
+            </div>
+            <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Celular</label>
               <div class="col-md-10">
                 <p class="form form-control">{{ $libroprestamo->celular }}</p>
@@ -109,18 +115,17 @@
             <td>{{helper_formatoVistaFecha($rowLibros->fechaRetorno)}}</td>
             <td>
               <div class="btn-group">
-                <a class="btn btn-info" href="{{route('libros.details', $rowLibros->idLibro)}}">
+                <a class="btn btn-info rounded" href="{{route('libros.details', $rowLibros->idLibro)}}">
                   {!! helper_FormatoBotonCRUD(2, 'icono') !!}
                 </a>
-                @if (!$rowLibros->fechaRetorno)
                 <form action="{{route('librosprestamosdetalles.dateReturnUpdate',$libroprestamo->idLibrosPrestamo)}}" method="POST">
                   @csrf
                   @method('put')
                   <input type="hidden" name="idLibrosPrestamo" value="{{ $libroprestamo->idLibrosPrestamo }}">
                   <input type="hidden" name="idLibro" value="{{ $rowLibros->idLibro }}">
-                  <button type="submit" class="btn btn-success">{!! helper_FormatoBotonCRUD(11, 'icono') !!}</button>
+                  <input type="hidden" name="nombrePersona" value="{{ trim('(' . $persona->tipoPerfil . ') ' . $persona->apellidoPaterno . ' ' . $persona->apellidoMaterno . ' ' . $persona->nombres) }}">
+                  <button type="submit" class="btn {{$rowLibros->fechaRetorno ? 'btn-warning' : 'btn-success' }}">{!! $rowLibros->fechaRetorno ? helper_FormatoBotonCRUD(13, 'icono') : helper_FormatoBotonCRUD(11, 'icono') !!}</button>
                 </form>
-                @endif
               </div>
             </td>
           </tr>

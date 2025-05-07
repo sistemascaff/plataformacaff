@@ -14,6 +14,9 @@
 
 <body>
     <style>
+        html {
+            margin: 15px;
+        }
         body {
             font-size: 11px;
         }
@@ -42,10 +45,10 @@
 
         .background-image {
             position: absolute;
-            top: 0;
-            left: 55%;
+            top: 17;
+            left: 59.9%;
             width: 40%;
-            height: 30%;
+            height: 28%;
             z-index: -1;
             opacity: 0.2;
             /* Ajusta la opacidad para simular un sello seco */
@@ -65,10 +68,10 @@
                         <td width="80%" class="font-weight-bold align-middle text-info">
                             COOPERATIVA EDUCACIONAL FEDERICO FROEBEL R.L.
                             <br>BIBLIOTECA/BIBLIOTHEK
-                            <br>Boleta de Préstamo/Ausleihquitung N°
+                            <br>Boleta de Préstamo/Ausleihquittung N°
                             {{ $libroprestamo->idLibrosPrestamo }}{{ $totalItems > 3 ? '-' . $numeroBoleta . '/' . ceil($totalItems / 3) : '' }}
                         </td>
-                        <td width="22%" class="font-weight-bold align-middle">
+                        <td width="22.5%" class="font-weight-bold align-middle p-1" style="border-left: 1px dotted black;">
                             <div class="border border-dark">
                                 Lector/Leser:<br>
                             {{ trim($persona->apellidoPaterno . ' ' . $persona->apellidoMaterno . ' ' . $persona->nombres) }}
@@ -76,14 +79,14 @@
                         </td>
                     </tr>
                 </table>
-                <table class="table table-bordered font-weight-bold">
+                <table class="table font-weight-bold">
                     <tr style="border-style: hidden;">
-                        <td style="text-align: left;border-style: hidden;" colspan="2">Titulo/Titel:</td>
-                        <td width="20%" rowspan="8" style="text-align: left;border-style: hidden;">
-                            <span class="text-info">Boleta para Lector/Quitung für den leser N° {{ $libroprestamo->idLibrosPrestamo }}{{ $totalItems > 3 ? '-' . $numeroBoleta . '/' . ceil($totalItems / 3) : '' }}</span>
+                        <td style="text-align: left;border-style: hidden; border-right: 1px dotted black;" colspan="2">Titulo/Titel:</td>
+                        <td class="p-1" width="20%" rowspan="8" style="text-align: left; border-left: 1px dotted black;">
+                            <span class="text-info">Boleta para Lector/Quittung für den Leser N° {{ $libroprestamo->idLibrosPrestamo }}{{ $totalItems > 3 ? '-' . $numeroBoleta . '/' . ceil($totalItems / 3) : '' }}</span>
                             <br>Préstamo hasta/Ausgeliehen bis:  {{ helper_formatoVistaFecha($libroprestamo->fechaDevolucion) }}
                             @for ($j = 0; $j < 3 && $i + $j < $totalItems; $j++)
-                                <br>{{ $i + $j + 1 }}. <span style="font-weight: normal">{{ $detalles[$i + $j]->codigoLibro . ' ' . $detalles[$i + $j]->nombreLibro }}</span>
+                                <br>{{ $i + $j + 1 }}. <span class="text-info">{{ $detalles[$i + $j]->codigoLibro }}</span> <span style="font-weight: normal">{{ $detalles[$i + $j]->nombreLibro }}</span>
                             @endfor
                             @if ($i + 3 > $totalItems)
                                 @for ($relleno = 0; $relleno < 3 - ($totalItems % 3); $relleno++)
@@ -97,8 +100,8 @@
                     </tr>
                     @for ($j = 0; $j < 3 && $i + $j < $totalItems; $j++)
                         <tr style="border-style: hidden;">
-                            <td style="text-align: left;" width="66%" colspan="2">{{ $i + $j + 1 }}. <span
-                                    style="font-weight: normal;">{{ $detalles[$i + $j]->codigoLibro . ' ' . $detalles[$i + $j]->nombreLibro }}</span>
+                            <td style="text-align: left;" width="66%" colspan="2">{{ $i + $j + 1 }}. <span class="text-info">{{ $detalles[$i + $j]->codigoLibro }}</span> <span
+                                    style="font-weight: normal;">{{ $detalles[$i + $j]->nombreLibro }}</span>
                             </td>
                         </tr>
                     @endfor
@@ -116,14 +119,15 @@
                         <td style="text-align: left;">Lector/Leser: <span
                                 style="font-weight: normal;">{{ trim('(' . $persona->tipoPerfil . ') ' . $persona->apellidoPaterno . ' ' . $persona->apellidoMaterno . ' ' . $persona->nombres) }}</span>
                         </td>
-                        <td style="text-align: left;border-style: hidden;">Celular/Handynummer: <span style="font-weight: normal;">{{$libroprestamo->celular}}</span></td>
+                        <td style="text-align: left;border-style: hidden; border-right: 1px dotted black;">Celular/Handynummer: <span style="font-weight: normal;">{{$libroprestamo->celular}}</span></td>
                     </tr>
                     <tr style="border-style: hidden;">
                         <td style="text-align: left;">Fecha/Datum: <span
                                 style="font-weight: normal;">{{ helper_formatoVistaFechayHora($libroprestamo->fechaRegistro) }}</span>
+                                <br>Curso/Klasse: <span style="font-weight: normal;">{{ $libroprestamo->nombreCurso }}</span>
                         </td>
-                        <td rowspan="3" style="text-align: left;border-style: hidden;">
-                            <div class="border border-dark">
+                        <td rowspan="3" class="p-1" style="text-align: left;border-style: hidden; border-right: 1px dotted black;">
+                            <div class="border border-dark p-1">
                                 @for ($j = 0; $j < 3 && $i + $j < $totalItems; $j++)
                                     {{ $i + $j + 1 }}: {{$detalles[$i + $j]->fechaRetorno ? '¡Retornado el ' . helper_formatoVistaFechayHora($detalles[$i + $j]->fechaRetorno) . '!' : ''}}<br><br>
                                 @endfor

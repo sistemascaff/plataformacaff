@@ -228,6 +228,7 @@
                 // Recupera los valores necesarios para envíar al formulario.
                 var idPersona = parseInt(document.getElementById('select2').value);
                 var celular = parseInt(document.getElementById('celular').value);
+                isNaN(celular) ? celular = 0 : celular = celular;
                 var _token = document.getElementById('_token').value;
                 var fechaDevolucion = document.getElementById('fechaDevolucion').value;
                 var idLibro = TableArrayIDs;

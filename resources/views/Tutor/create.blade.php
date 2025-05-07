@@ -11,7 +11,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('usuarios.index')}}">INICIO</a></li>
-            <li class="breadcrumb-item"><a href="{{route('profesores.index')}}">PROFESORES</a></li>
+            <li class="breadcrumb-item"><a href="{{route('docentes.index')}}">DOCENTES</a></li>
             <li class="breadcrumb-item active">{{$Titulos}}</li>
           </ol>
         </div>
@@ -30,7 +30,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-6">
-            <form class="form-horizontal" action="{{route('profesores.store')}}" method="POST" enctype="multipart/form-data" id="formularioPerfil">
+            <form class="form-horizontal" action="{{route('docentes.store')}}" method="POST" enctype="multipart/form-data" id="formularioTutor">
               
               @csrf
               
@@ -131,22 +131,6 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NIVEL I.E. (*)</label>
-                  <div class="col-sm-10">
-                    <select class="form-control @error('nivelIE') is-invalid @enderror" name="nivelIE" required>
-                      <option selected>NINGUNO</option>
-                      <option {{old('nivelIE') == 'A1' ? 'selected' : ''}}>A1</option>
-                      <option {{old('nivelIE') == 'A2' ? 'selected' : ''}}>A2</option>
-                      <option {{old('nivelIE') == 'B1' ? 'selected' : ''}}>B1</option>
-                      <option {{old('nivelIE') == 'B2' ? 'selected' : ''}}>B2</option>
-                      <option {{old('nivelIE') == 'C1' ? 'selected' : ''}}>C1</option>
-                      <option {{old('nivelIE') == 'C2' ? 'selected' : ''}}>C2</option>
-                      <option {{old('nivelIE') == 'DSD I' ? 'selected' : ''}}>DSD I</option>
-                      <option {{old('nivelIE') == 'DSD II' ? 'selected' : ''}}>DSD II</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group row">
                   <label class="col-sm-2 col-form-label">CELULAR PERSONAL</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('celularPersonal') is-invalid @enderror"
@@ -166,47 +150,7 @@
                   <span class="text-danger">{{$message}}</span>
                   @enderror
                 </div>
-                <h3 class="font-weight-bold text-info rounded">DATOS DE USUARIO</h3>
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">CORREO (*)</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control @error('correo') is-invalid @enderror"
-                      name="correo" id="correo" value="{{old('correo')}}" placeholder="correo@froebel.edu.bo" minlength="8" maxlength="80" required>
-                  </div>
-                  @error('correo')
-                  <span class="text-danger">{{$message}}</span>
-                  @enderror
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">CONTRASEÑA (*)</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control @error('contrasenha') is-invalid @enderror"
-                      name="contrasenha" id="contrasenha" value="{{old('contrasenha')}}" placeholder="CONTRASEÑA" minlength="8" maxlength="80" required>
-                  </div>
-                  @error('contrasenha')
-                  <span class="text-danger">{{$message}}</span>
-                  @enderror
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">PIN DE RECUPERACION (*)</label>
-                  <div class="col-sm-10">
-                    <input type="number" class="form-control @error('pinRecuperacion') is-invalid @enderror"
-                      name="pinRecuperacion" id="pinRecuperacion" value="{{old('pinRecuperacion')}}" placeholder="12345678" minlength="8" maxlength="8" required>
-                  </div>
-                  @error('pinRecuperacion')
-                  <span class="text-danger">{{$message}}</span>
-                  @enderror
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">FOTO DE PERFIL (OPCIONAL)</label>
-                  <div class="col-sm-10">
-                    <input type="file" name="fotoPerfilURL" class="form-control @error('fotoPerfilURL') is-invalid @enderror" >
-                  </div>
-                  @error('fotoPerfilURL')
-                  <span class="text-danger">{{$message}}</span>
-                  @enderror
-                </div>
-                <h3 class="font-weight-bold text-info rounded">DATOS DE PROFESOR/A</h3>
+                <h3 class="font-weight-bold text-info rounded">DATOS DE TUTOR/A</h3>
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">ESPECIALIDAD (*)</label>
                   <div class="col-sm-10">
@@ -284,7 +228,7 @@
                 </div>
               </div>
               <button type="submit" class="btn btn-success">{!! helper_FormatoBotonCRUD(5, 'texto') !!}</button>
-              <a href="{{route('profesores.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
+              <a href="{{route('docentes.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
               </form>
           </div>
         </div>

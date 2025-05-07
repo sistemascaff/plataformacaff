@@ -24,7 +24,7 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title font-weight-bold">PRÉSTAMOS DE LIBROS</h3>
+        <h3 class="card-title font-weight-bold">PRÉSTAMOS DE LIBROS: <span class="text-info">{{ count($tableLibroPrestamo) }}</span> REGISTROS.</h3>
       </div>
       <div class="card-body">
         <a href="{{route('librosprestamos.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
@@ -55,8 +55,9 @@
                   <th>N°</th>
                   <th>LECTOR</th>
                   <th>PERFIL</th>
+                  <th>CURSO</th>
                   <th>CELULAR</th>
-                  <th>LIBRO/S</th>
+                  <th style="width: 30%;">LIBRO/S</th>
                   <th>F. DEVOLUCION OBJETIVO</th>
                   <th>F. REGISTRO</th>
                   <th>F. ACTUALIZACION</th>
@@ -70,8 +71,9 @@
                     <td>{{$rowLibroPrestamo->idLibrosPrestamo}}</td>
                     <td>{{ trim($rowLibroPrestamo->apellidoPaterno . ' ' . $rowLibroPrestamo->apellidoMaterno . ' ' . $rowLibroPrestamo->nombres) }}</td>
                     <td>{{$rowLibroPrestamo->tipoPerfil}}</td>
+                    <td>{{$rowLibroPrestamo->nombreCurso}}</td>
                     <td>{{$rowLibroPrestamo->celular}}</td>
-                    <td>{!! $rowLibroPrestamo->groupConcatLibros !!}</td>
+                    <td style="width: 30%;">{!! $rowLibroPrestamo->groupConcatLibros !!}</td>
                     <td>{{helper_formatoVistaFecha($rowLibroPrestamo->fechaDevolucion)}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowLibroPrestamo->fechaRegistro)}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowLibroPrestamo->fechaActualizacion)}}</td>

@@ -13,7 +13,7 @@ class EditorialController extends Controller
     /**Muestra la ventana principal para gestionar los registros de la tabla 'Editoriales'.*/
     public function index(Request $request)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $tableEditorial = (new Editorial())->selectDisponibles($request->busqueda);
             return view('Editorial.inicio', [
                 'headTitle' => 'EDITORIALES - INICIO',
@@ -29,7 +29,7 @@ class EditorialController extends Controller
     /**Muestra la información de un registro específico de la tabla 'Editoriales'.*/
     public function show($idEditorial)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $editorial = (new Editorial())->selectEditorial($idEditorial);
             $usuario = (new Usuario())->selectUsuario($editorial->idUsuario);
             if (!$usuario) {
@@ -51,7 +51,7 @@ class EditorialController extends Controller
 
     /**Muestra el formulario con los atributos requeridos para CREAR un nuevo registro en la tabla 'Editoriales'.*/
     public function new(){
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             return view('Editorial.create', [
                 'headTitle' => 'EDITORIALES - NUEVA EDITORIAL',
                 'Titulos' => "NUEVA EDITORIAL"
@@ -65,7 +65,7 @@ class EditorialController extends Controller
     /**Método que permite almacenar el registro creado de la tabla 'Editoriales' y retorna el método show() con el registro.*/
     public function store(EditorialValidation $request)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $editorial = new Editorial();
             $editorial->nombreEditorial = strtoupper($request->nombreEditorial);
             $editorial->idUsuario = session('idUsuario');
@@ -82,7 +82,7 @@ class EditorialController extends Controller
     /**Muestra el formulario con los atributos requeridos para ACTUALIZAR un registro existente de la tabla 'Editoriales'.*/
     public function edit(Editorial $editorial)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             return view('Editorial.update', [
                 'headTitle' => 'EDITAR - ' . $editorial->nombreEditorial,
                 'editorial' => $editorial,
@@ -97,7 +97,7 @@ class EditorialController extends Controller
     /**Método que permite almacenar los cambios actualizados del registro de la tabla 'Editoriales' y retorna el método show() con el registro actualizado.*/
     public function update(EditorialValidation $request, Editorial $editorial)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $editorial->nombreEditorial = strtoupper($request->nombreEditorial);
             $editorial->idUsuario = session('idUsuario');
             $editorial->ip = session('ip');
@@ -113,7 +113,7 @@ class EditorialController extends Controller
     /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Editoriales' y retorna el método index().*/
     public function delete(Request $request)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $request->validate([
                 'idEditorial' => ['required','numeric','integer']
             ]);

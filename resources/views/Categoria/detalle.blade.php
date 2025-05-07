@@ -94,11 +94,11 @@
             <td>{{$rowLibros->nombreLibro}}</td>
             <td>{{$rowLibros->codigoLibro}}</td>
             <td>{{$rowLibros->costo}}</td>
-            <td>{{$rowLibros->adquisicion}}</td>
+            <td>{{ helper_FormatoAtributoValorATexto($rowLibros->adquisicion,'libroAdquisicion') }}</td>
             <td>{{$rowLibros->descripcion}}</td>
             <td>{{$rowLibros->observacion}}</td>
             <td>{{$rowLibros->prestadoA}}</td>
-            <td class="font-weight-bold {{helper_formatoClassLibroEstado($rowLibros->estado)}}">{{helper_FormatoAtributoValorATexto($rowLibros->estado,'libroEstado')}}</td>
+            <td class="font-weight-bold {{ helper_formatoClassLibroEstado($rowLibros->estado) }}">{{helper_FormatoAtributoValorATexto($rowLibros->estado,'libroEstado')}}</td>
             <td>{{helper_formatoVistaFecha($rowLibros->fechaRegistro)}}</td>
             <td>{{helper_formatoNullorEmpty($rowLibros->fechaActualizacion)}}</td>
             <td>

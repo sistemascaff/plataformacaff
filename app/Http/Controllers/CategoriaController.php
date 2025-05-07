@@ -13,7 +13,7 @@ class CategoriaController extends Controller
     /**Muestra la ventana principal para gestionar los registros de la tabla 'Categorias'.*/
     public function index(Request $request)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $tableCategoria = (new Categoria())->selectDisponibles($request->busqueda);
             return view('Categoria.inicio', [
                 'headTitle' => 'CATEGORIAS - INICIO',
@@ -29,7 +29,7 @@ class CategoriaController extends Controller
     /**Muestra la información de un registro específico de la tabla 'Categorias'.*/
     public function show($idCategoria)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $categoria = (new Categoria())->selectCategoria($idCategoria);
             $usuario = (new Usuario())->selectUsuario($categoria->idUsuario);
             if (!$usuario) {
@@ -51,7 +51,7 @@ class CategoriaController extends Controller
 
     /**Muestra el formulario con los atributos requeridos para CREAR un nuevo registro en la tabla 'Categorias'.*/
     public function new(){
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             return view('Categoria.create', [
                 'headTitle' => 'CATEGORIAS - NUEVA CATEGORIA',
                 'Titulos' => "NUEVA CATEGORIA"
@@ -65,7 +65,7 @@ class CategoriaController extends Controller
     /**Método que permite almacenar el registro creado de la tabla 'Categorias' y retorna el método show() con el registro.*/
     public function store(CategoriaValidation $request)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $categoria = new Categoria();
             $categoria->nombreCategoria = strtoupper($request->nombreCategoria);
             $categoria->idUsuario = session('idUsuario');
@@ -82,7 +82,7 @@ class CategoriaController extends Controller
     /**Muestra el formulario con los atributos requeridos para ACTUALIZAR un registro existente de la tabla 'Categorias'.*/
     public function edit(Categoria $categoria)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             return view('Categoria.update', [
                 'headTitle' => 'EDITAR - ' . $categoria->nombreCategoria,
                 'categoria' => $categoria,
@@ -97,7 +97,7 @@ class CategoriaController extends Controller
     /**Método que permite almacenar los cambios actualizados del registro de la tabla 'Categorias' y retorna el método show() con el registro actualizado.*/
     public function update(CategoriaValidation $request, Categoria $categoria)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $categoria->nombreCategoria = strtoupper($request->nombreCategoria);
             $categoria->idUsuario = session('idUsuario');
             $categoria->ip = session('ip');
@@ -113,7 +113,7 @@ class CategoriaController extends Controller
     /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Categorias' y retorna el método index().*/
     public function delete(Request $request)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $request->validate([
                 'idCategoria' => ['required','numeric','integer']
             ]);

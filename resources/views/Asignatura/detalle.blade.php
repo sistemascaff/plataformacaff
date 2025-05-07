@@ -100,9 +100,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputEmail3" class="col-md-2 col-form-label">Profesor</label>
+                            <label for="inputEmail3" class="col-md-2 col-form-label">Docente</label>
                             <div class="col-md-10">
-                                <a href="{{ route('profesores.details', $profesor->idProfesor) }}"
+                                <a href="{{ route('docentes.details', $docente->idDocente) }}"
                                     class="form form-control font-weight-bold">{{ $persona->apellidoPaterno . ' ' . $persona->apellidoMaterno . ' ' . $persona->nombres }}</a>
                             </div>
                         </div>

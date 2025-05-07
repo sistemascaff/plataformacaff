@@ -50,7 +50,7 @@
                   <label class="col-sm-2 col-form-label">CÓDIGO LIBRO (*)</label>
                   <div class="col-sm-10">
                   <input type="text" class="form-control @error('codigoLibro') is-invalid @enderror"
-                    name="codigoLibro" value="{{old('codigoLibro', $libro->codigoLibro)}}" placeholder="CÓDIGO" minlength="1" maxlength="5" required>
+                    name="codigoLibro" value="{{old('codigoLibro', $libro->codigoLibro)}}" placeholder="CÓDIGO" minlength="1" maxlength="6" required>
                   </div>
                   @error('codigoLibro')
                   <span class="text-danger">{{$message}}</span>

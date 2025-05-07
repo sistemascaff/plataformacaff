@@ -21,7 +21,7 @@ class LibroPrestamo extends Model
     /**Función que permite recuperar los registros disponibles o activos de la tabla 'LibrosPrestamos' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Área, nombre de Categoria, correo del Usuario que haya modificado algún registro.*/
     public function selectHistorial($busqueda){
-        $queryHistorial = LibroPrestamo::select('LibrosPrestamos.idLibrosPrestamo','LibrosPrestamos.idPersona','LibrosPrestamos.celular','LibrosPrestamos.fechaDevolucion','LibrosPrestamos.estado','LibrosPrestamos.fechaRegistro','LibrosPrestamos.fechaActualizacion','LibrosPrestamos.idUsuario','Usuarios.correo',
+        $queryHistorial = LibroPrestamo::select('LibrosPrestamos.idLibrosPrestamo','LibrosPrestamos.idPersona','LibrosPrestamos.nombreCurso','LibrosPrestamos.celular','LibrosPrestamos.fechaDevolucion','LibrosPrestamos.estado','LibrosPrestamos.fechaRegistro','LibrosPrestamos.fechaActualizacion','LibrosPrestamos.idUsuario','Usuarios.correo',
         'Personas.apellidoPaterno','Personas.apellidoMaterno','Personas.nombres','Personas.tipoPerfil')
         ->selectRaw('GROUP_CONCAT(" <span class=\"font-weight-bold ",
         IF(IFNULL(LibrosPrestamosDetalles.fechaRetorno, "-") = "-", "text-info", ""), "\">• (", IF(IFNULL(LibrosPrestamosDetalles.fechaRetorno, "-") = "-", "EN USO", CONCAT("DEVUELTO EL ", DATE_FORMAT(LibrosPrestamosDetalles.fechaRetorno, "%d/%m/%Y %H:%i")) ), ")</span> ",

@@ -24,7 +24,7 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title font-weight-bold">CATEGORIAS</h3>
+        <h3 class="card-title font-weight-bold">CATEGORIAS: <span class="text-info">{{ count($tableCategoria) }}</span> REGISTROS.</h3>
       </div>
       <div class="card-body">
         <a href="{{route('categorias.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
@@ -53,6 +53,7 @@
               <thead>
                 <tr>
                   <th>CATEGORIA</th>
+                  <th>LIBROS</th>
                   <th>F. REGISTRO</th>
                   <th>F. ACTUALIZACION</th>
                   <th>MODIFICADO POR</th>
@@ -63,6 +64,7 @@
                 @foreach ($tableCategoria as $rowCategoria)
                   <tr>
                     <td>{{$rowCategoria->nombreCategoria}}</td>
+                    <td>{{$rowCategoria->countLibros}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowCategoria->fechaRegistro)}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowCategoria->fechaActualizacion)}}</td>
                     <td>{{helper_formatoNullorEmpty($rowCategoria->correo)}}</td>

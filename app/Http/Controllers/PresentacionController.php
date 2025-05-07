@@ -13,7 +13,7 @@ class PresentacionController extends Controller
     /**Muestra la ventana principal para gestionar los registros de la tabla 'Presentaciones'.*/
     public function index(Request $request)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $tablePresentacion = (new Presentacion())->selectDisponibles($request->busqueda);
             return view('Presentacion.inicio', [
                 'headTitle' => 'PRESENTACIONES - INICIO',
@@ -29,7 +29,7 @@ class PresentacionController extends Controller
     /**Muestra la información de un registro específico de la tabla 'Presentaciones'.*/
     public function show($idPresentacion)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $presentacion = (new Presentacion())->selectPresentacion($idPresentacion);
             $usuario = (new Usuario())->selectUsuario($presentacion->idUsuario);
             if (!$usuario) {
@@ -51,7 +51,7 @@ class PresentacionController extends Controller
 
     /**Muestra el formulario con los atributos requeridos para CREAR un nuevo registro en la tabla 'Presentaciones'.*/
     public function new(){
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             return view('Presentacion.create', [
                 'headTitle' => 'PRESENTACIONES - NUEVA PRESENTACION',
                 'Titulos' => "NUEVA PRESENTACION"
@@ -65,7 +65,7 @@ class PresentacionController extends Controller
     /**Método que permite almacenar el registro creado de la tabla 'Presentaciones' y retorna el método show() con el registro.*/
     public function store(PresentacionValidation $request)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $presentacion = new Presentacion();
             $presentacion->nombrePresentacion = strtoupper($request->nombrePresentacion);
             $presentacion->idUsuario = session('idUsuario');
@@ -82,7 +82,7 @@ class PresentacionController extends Controller
     /**Muestra el formulario con los atributos requeridos para ACTUALIZAR un registro existente de la tabla 'Presentaciones'.*/
     public function edit(Presentacion $presentacion)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             return view('Presentacion.update', [
                 'headTitle' => 'EDITAR - ' . $presentacion->nombrePresentacion,
                 'presentacion' => $presentacion,
@@ -97,7 +97,7 @@ class PresentacionController extends Controller
     /**Método que permite almacenar los cambios actualizados del registro de la tabla 'Presentaciones' y retorna el método show() con el registro actualizado.*/
     public function update(PresentacionValidation $request, Presentacion $presentacion)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $presentacion->nombrePresentacion = strtoupper($request->nombrePresentacion);
             $presentacion->idUsuario = session('idUsuario');
             $presentacion->ip = session('ip');
@@ -113,7 +113,7 @@ class PresentacionController extends Controller
     /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Presentaciones' y retorna el método index().*/
     public function delete(Request $request)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $request->validate([
                 'idPresentacion' => ['required','numeric','integer']
             ]);

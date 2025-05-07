@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProfesorValidation extends FormRequest
+class TutorValidation extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -35,12 +35,7 @@ class ProfesorValidation extends FormRequest
             'nivelIE' => ['required','min:1','max:10'],
             'celularPersonal' => ['nullable','max:20'],
             'telefonoPersonal' => ['nullable','max:20'],
-            /*Validación para la tabla Usuarios*/
-            'correo' => ['required','max:60'],
-            'contrasenha' => ['required','min:8','max:50'],
-            'fotoPerfilURL' => ['sometimes','file','max:2048','mimes:jpg,png,jpeg'],/*Foto opcional, límite de 2 Mb.*/
-            'pinRecuperacion' => ['required','min:3','max:50'],
-            /*Validación para la tabla Profesores*/
+            /*Validación para la tabla Tutores*/
             'especialidad' => ['required','max:45'],
             'gradoEstudios' => ['required','max:45'],
             'direccionDomicilio' => ['required','max:250'],

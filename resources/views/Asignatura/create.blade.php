@@ -126,14 +126,14 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">PROFESOR (*)</label>
+                  <label class="col-sm-2 col-form-label">DOCENTE (*)</label>
                   <div class="col-sm-10">
-                    <select class="form-control form-control-lg" name="idProfesor" id="select2" required>
-                      @foreach ($Profesores as $rowProfesores)
-                      @if ($rowProfesores->idProfesor == $idSelect)
-                      <option value="{{$rowProfesores->idProfesor}}" selected>{{trim($rowProfesores->apellidoPaterno . ' ' . $rowProfesores->apellidoMaterno . ' ' . $rowProfesores->nombres)}}</option>
+                    <select class="form-control form-control-lg" name="idDocente" id="select2" required>
+                      @foreach ($Docentes as $rowDocentes)
+                      @if ($rowDocentes->idDocente == $idSelect)
+                      <option value="{{$rowDocentes->idDocente}}" selected>{{trim($rowDocentes->apellidoPaterno . ' ' . $rowDocentes->apellidoMaterno . ' ' . $rowDocentes->nombres)}}</option>
                       @else
-                      <option value="{{$rowProfesores->idProfesor}}">{{trim($rowProfesores->apellidoPaterno . ' ' . $rowProfesores->apellidoMaterno . ' ' . $rowProfesores->nombres)}}</option>
+                      <option value="{{$rowDocentes->idDocente}}">{{trim($rowDocentes->apellidoPaterno . ' ' . $rowDocentes->apellidoMaterno . ' ' . $rowDocentes->nombres)}}</option>
                       @endif
                       @endforeach
                     </select>

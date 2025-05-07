@@ -10,7 +10,7 @@ use App\Models\Curso;
 use App\Models\Estudiante;
 use App\Models\Usuario;
 use App\Models\Materia;
-use App\Models\Profesor;
+use App\Models\Docente;
 use App\Models\Persona;
 use App\Models\Rol;
 use Illuminate\Http\Request;
@@ -43,8 +43,8 @@ class AsignaturaController extends Controller
             $materia = (new Materia())->selectMateria($asignatura->idMateria);
             $coordinacion = (new Coordinacion())->selectCoordinacion($asignatura->idCoordinacion);
             $aula = (new Aula())->selectAula($asignatura->idAula);
-            $profesor = (new Profesor())->selectProfesor($asignatura->idProfesor);
-            $persona = (new Persona())->selectPersona($profesor->idPersona);
+            $docente = (new Docente())->selectDocente($asignatura->idDocente);
+            $persona = (new Persona())->selectPersona($docente->idPersona);
             if (!$coordinacion) {
                 $coordinacion = new Coordinacion();
                 $coordinacion->nombreCoordinacion = '';
@@ -68,7 +68,7 @@ class AsignaturaController extends Controller
                 'materia' => $materia,
                 'coordinacion' => $coordinacion,
                 'aula' => $aula,
-                'profesor' => $profesor,
+                'docente' => $docente,
                 'persona' => $persona,
                 'Estudiantes' => $Estudiantes,
                 'Cursos' => $Cursos,
@@ -89,7 +89,7 @@ class AsignaturaController extends Controller
             $Materias = (new Materia())->selectDisponibles('');
             $Coordinaciones = (new Coordinacion())->selectDisponibles('');
             $Aulas = (new Aula())->selectDisponibles('');
-            $Profesores = (new Profesor())->selectDisponibles('');
+            $Docentes = (new Docente())->selectDisponibles('');
             if (!$idSelect) {
                 $idSelect = 0;
             }
@@ -99,7 +99,7 @@ class AsignaturaController extends Controller
                 'Materias' => $Materias,
                 'Coordinaciones' => $Coordinaciones,
                 'Aulas' => $Aulas,
-                'Profesores' => $Profesores,
+                'Docentes' => $Docentes,
                 'idSelect' => $idSelect
             ]);
         } else {
@@ -115,7 +115,7 @@ class AsignaturaController extends Controller
             $asignatura->idMateria = $request->idMateria;
             $asignatura->idCoordinacion = $request->idCoordinacion;
             $asignatura->idAula = $request->idAula;
-            $asignatura->idProfesor = $request->idProfesor;
+            $asignatura->idDocente = $request->idDocente;
             $asignatura->nombreAsignatura = strtoupper($request->nombreAsignatura);
             $asignatura->nombreCorto = strtoupper($request->nombreCorto);
             $asignatura->tipoCalificacion = $request->tipoCalificacion;
@@ -138,14 +138,14 @@ class AsignaturaController extends Controller
             $Materias = (new Materia())->selectDisponibles('');
             $Coordinaciones = (new Coordinacion())->selectDisponibles('');
             $Aulas = (new Aula())->selectDisponibles('');
-            $Profesores = (new Profesor())->selectDisponibles('');
+            $Docentes = (new Docente())->selectDisponibles('');
             return view('Asignatura.update', [
                 'headTitle' => 'EDITAR - ' . $asignatura->nombreAsignatura,
                 'asignatura' => $asignatura,
                 'Materias' => $Materias,
                 'Coordinaciones' => $Coordinaciones,
                 'Aulas' => $Aulas,
-                'Profesores' => $Profesores,
+                'Docentes' => $Docentes,
                 'Titulos' => "MODIFICAR ASIGNATURA"
             ]);
         } else {
@@ -160,7 +160,7 @@ class AsignaturaController extends Controller
             $asignatura->idMateria = $request->idMateria;
             $asignatura->idCoordinacion = $request->idCoordinacion;
             $asignatura->idAula = $request->idAula;
-            $asignatura->idProfesor = $request->idProfesor;
+            $asignatura->idDocente = $request->idDocente;
             $asignatura->nombreAsignatura = strtoupper($request->nombreAsignatura);
             $asignatura->nombreCorto = strtoupper($request->nombreCorto);
             $asignatura->tipoCalificacion = $request->tipoCalificacion;

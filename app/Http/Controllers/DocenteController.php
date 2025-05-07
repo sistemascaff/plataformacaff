@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfesorValidation;
+use App\Http\Requests\DocenteValidation;
 use App\Http\Requests\PersonaValidation;
 use App\Models\Coordinacion;
 use App\Models\Nivel;
-use App\Models\Profesor;
+use App\Models\Docente;
 use App\Models\Persona;
 use App\Models\Usuario;
 use App\Models\Rol;
 use Illuminate\Http\Request;
 
-class ProfesorController extends Controller
+class DocenteController extends Controller
 {
-    /**Muestra la ventana principal para gestionar los registros de la tabla 'Profesores'.*/
+    /**Muestra la ventana principal para gestionar los registros de la tabla 'Docentes'.*/
     public function index(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
-            $tableProfesor = (new Profesor())->selectDisponibles($request->busqueda);
-            return view('Profesor.inicio', [
-                'headTitle' => 'PROFESORES - INICIO',
-                'tableProfesor' => $tableProfesor,
+            $tableDocente = (new Docente())->selectDisponibles($request->busqueda);
+            return view('Docente.inicio', [
+                'headTitle' => 'DOCENTES - INICIO',
+                'tableDocente' => $tableDocente,
                 'busqueda' => $request->busqueda
         ]);
         }
@@ -30,16 +30,16 @@ class ProfesorController extends Controller
         }
     }
 
-    /**Muestra la información de un registro específico de la tabla 'Profesores'.*/
-    public function show($idProfesor)
+    /**Muestra la información de un registro específico de la tabla 'Docentes'.*/
+    public function show($idDocente)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
-            $profesor = (new Profesor())->selectProfesor($idProfesor);
-            $persona = (new Persona())->selectPersona($profesor->idPersona);
-            $persona_usuario = (new Usuario())->selectUsuarioConIDPersona($profesor->idPersona);
-            $nivel = (new Nivel())->selectNivel($profesor->idNivelSubdirector);
-            $coordinacion = (new Coordinacion())->selectCoordinacion($profesor->idCoordinacionEncargado);
-            $usuario = (new Usuario())->selectUsuario($profesor->idUsuario);
+            $docente = (new Docente())->selectDocente($idDocente);
+            $persona = (new Persona())->selectPersona($docente->idPersona);
+            $persona_usuario = (new Usuario())->selectUsuarioConIDPersona($docente->idPersona);
+            $nivel = (new Nivel())->selectNivel($docente->idNivelSubdirector);
+            $coordinacion = (new Coordinacion())->selectCoordinacion($docente->idCoordinacionEncargado);
+            $usuario = (new Usuario())->selectUsuario($docente->idUsuario);
 
             if (!$nivel) {
                 $nivel = new Nivel();
@@ -55,9 +55,9 @@ class ProfesorController extends Controller
                 $usuario = new Usuario();
                 $usuario->correo = '';
             }
-            return view('Profesor.detalle', [
+            return view('Docente.detalle', [
                 'headTitle' => $persona->apellidoPaterno . " " . $persona->apellidoMaterno . " " . $persona->nombres,
-                'profesor' => $profesor,
+                'docente' => $docente,
                 'persona' => $persona,
                 'persona_usuario' => $persona_usuario,
                 'nivel' => $nivel,
@@ -70,7 +70,7 @@ class ProfesorController extends Controller
         }
     }
 
-    /**Muestra el formulario con los atributos requeridos para CREAR un nuevo registro en la tabla 'Profesores'.*/
+    /**Muestra el formulario con los atributos requeridos para CREAR un nuevo registro en la tabla 'Docentes'.*/
     public function new($idSelect = null){
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $Coordinaciones = (new Coordinacion())->selectDisponibles('');
@@ -78,9 +78,9 @@ class ProfesorController extends Controller
             if(!$idSelect){
                 $idSelect = 0;
             }
-            return view('Profesor.create', [
-                'headTitle' => 'PROFESORES - NUEVO PROFESOR',
-                'Titulos' => "NUEVO PROFESOR",
+            return view('Docente.create', [
+                'headTitle' => 'DOCENTES - NUEVO DOCENTE',
+                'Titulos' => "NUEVO DOCENTE",
                 'Coordinaciones' => $Coordinaciones,
                 'Niveles' => $Niveles,
                 'idSelect' => $idSelect
@@ -91,11 +91,11 @@ class ProfesorController extends Controller
         }
     }
 
-    /**Método que permite almacenar el registro creado de la tabla 'Profesores' y retorna el método show() con el registro.
-     * ATENCIÓN: LA CLASE REQUEST (ProfesorValidation) VALIDA MÁS DE UNA TABLA SIMULTÁNEAMENTE, 
+    /**Método que permite almacenar el registro creado de la tabla 'Docentes' y retorna el método show() con el registro.
+     * ATENCIÓN: LA CLASE REQUEST (DocenteValidation) VALIDA MÁS DE UNA TABLA SIMULTÁNEAMENTE, 
      * POR LO QUE SE RECOMIENDA TENER CUIDADO EN CASO DE MODIFICAR LA VALIDACIÓN.
     */
-    public function store(ProfesorValidation $request)
+    public function store(DocenteValidation $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             /*Mediante este método se asigna y adiciona al request el tipo de perfil según la situación.*/
@@ -112,7 +112,7 @@ class ProfesorController extends Controller
                 ]);
             }else{
                 $request->merge([
-                    'tipoPerfil' => 'PROFESOR'
+                    'tipoPerfil' => 'DOCENTE'
                 ]);
             }
             $data = $request->all();
@@ -142,41 +142,41 @@ class ProfesorController extends Controller
             /*Se almacena un nuevo registro de Rol con el ID del Usuario*/
             (new RolController)->store($request);
 
-            /*Finalmente, se almacena los datos de salud del profesor a la tabla Profesores*/
-            $profesor = new Profesor();
-            $profesor->idPersona = $persona->idPersona;
-            $profesor->especialidad = $request->especialidad;
-            $profesor->gradoEstudios = $request->gradoEstudios;
-            $profesor->direccionDomicilio = strtoupper($request->direccionDomicilio);
-            $profesor->idNivelSubdirector = $request->idNivelSubdirector;
-            $profesor->idCoordinacionEncargado = $request->idCoordinacionEncargado;
-            $profesor->idUsuario = session('idUsuario');
-            $profesor->ip = session('ip');
-            $profesor->dispositivo  = session('dispositivo');
-            $profesor->save();
-            return redirect()->route('profesores.details', $profesor);
+            /*Finalmente, se almacena los datos de salud del docente a la tabla Docentes*/
+            $docente = new Docente();
+            $docente->idPersona = $persona->idPersona;
+            $docente->especialidad = $request->especialidad;
+            $docente->gradoEstudios = $request->gradoEstudios;
+            $docente->direccionDomicilio = strtoupper($request->direccionDomicilio);
+            $docente->idNivelSubdirector = $request->idNivelSubdirector;
+            $docente->idCoordinacionEncargado = $request->idCoordinacionEncargado;
+            $docente->idUsuario = session('idUsuario');
+            $docente->ip = session('ip');
+            $docente->dispositivo  = session('dispositivo');
+            $docente->save();
+            return redirect()->route('docentes.details', $docente);
         }
         else{
             return redirect()->route('usuarios.index');
         }
     }
 
-    /**Muestra el formulario con los atributos requeridos para ACTUALIZAR un registro existente de la tabla 'Profesores'.*/
-    public function edit(Profesor $profesor)
+    /**Muestra el formulario con los atributos requeridos para ACTUALIZAR un registro existente de la tabla 'Docentes'.*/
+    public function edit(Docente $docente)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
-            $persona = (new Persona())->selectPersona($profesor->idPersona);
-            $persona_usuario = (new Usuario())->selectUsuarioConIDPersona($profesor->idPersona);
+            $persona = (new Persona())->selectPersona($docente->idPersona);
+            $persona_usuario = (new Usuario())->selectUsuarioConIDPersona($docente->idPersona);
             $Coordinaciones = (new Coordinacion())->selectDisponibles('');
             $Niveles = (new Nivel())->selectDisponibles('');
-            return view('Profesor.update', [
+            return view('Docente.update', [
                 'headTitle' => 'EDITAR - ' . $persona->apellidoPaterno . " " . $persona->apellidoMaterno . " " . $persona->nombres,
-                'profesor' => $profesor,
+                'docente' => $docente,
                 'persona' => $persona,
                 'persona_usuario' => $persona_usuario,
                 'Coordinaciones' => $Coordinaciones,
                 'Niveles' => $Niveles,
-                'Titulos' => "MODIFICAR PROFESOR: " . $persona->apellidoPaterno . " " . $persona->apellidoMaterno . " " . $persona->nombres
+                'Titulos' => "MODIFICAR DOCENTE: " . $persona->apellidoPaterno . " " . $persona->apellidoMaterno . " " . $persona->nombres
             ]);
         }
         else{
@@ -184,11 +184,11 @@ class ProfesorController extends Controller
         }
     }
     
-    /**Método que permite almacenar los cambios actualizados del registro de la tabla 'Profesores' y retorna el método show() con el registro actualizado.
-     * ATENCIÓN: LA CLASE REQUEST (ProfesorValidation) VALIDA MÁS DE UNA TABLA SIMULTÁNEAMENTE,
+    /**Método que permite almacenar los cambios actualizados del registro de la tabla 'Docentes' y retorna el método show() con el registro actualizado.
+     * ATENCIÓN: LA CLASE REQUEST (DocenteValidation) VALIDA MÁS DE UNA TABLA SIMULTÁNEAMENTE,
      * POR LO QUE SE RECOMIENDA TENER CUIDADO EN CASO DE MODIFICAR LA VALIDACIÓN.
     */
-    public function update(ProfesorValidation $request, Profesor $profesor)
+    public function update(DocenteValidation $request, Docente $docente)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             /*Mediante este método se asigna y adiciona al request el tipo de perfil según la situación.*/
@@ -205,7 +205,7 @@ class ProfesorController extends Controller
                 ]);
             }else{
                 $request->merge([
-                    'tipoPerfil' => 'PROFESOR'
+                    'tipoPerfil' => 'DOCENTE'
                 ]);
             }
             $data = $request->all();
@@ -221,7 +221,7 @@ class ProfesorController extends Controller
             $request->replace($data);
             
             /*Se modifica los datos personales en la tabla Personas*/
-            $persona = (new PersonaController)->update(new PersonaValidation($request->toArray()),$profesor->idPersona);
+            $persona = (new PersonaController)->update(new PersonaValidation($request->toArray()),$docente->idPersona);
 
             /*Se recupera el ID del Usuario mediante el ID de la Persona*/
             $usuarioFromIDPersona = (new Usuario())->selectUsuarioConIDPersona($persona->idPersona);
@@ -234,37 +234,37 @@ class ProfesorController extends Controller
             $request->merge(['idUsuario' => $rolFromIDUsuario->idUsuario]);
             (new RolController)->update($request, $rolFromIDUsuario->idRol);
 
-            /*Finalmente, se almacena los datos de salud del profesor a la tabla Profesores*/
-            $profesor->especialidad = $request->especialidad;
-            $profesor->gradoEstudios = $request->gradoEstudios;
-            $profesor->direccionDomicilio = strtoupper($request->direccionDomicilio);
-            $profesor->idNivelSubdirector = $request->idNivelSubdirector;
-            $profesor->idCoordinacionEncargado = $request->idCoordinacionEncargado;
-            $profesor->idUsuario = session('idUsuario');
-            $profesor->ip = session('ip');
-            $profesor->dispositivo  = session('dispositivo');
-            $profesor->save();
-            return redirect()->route('profesores.details', $profesor);
+            /*Finalmente, se almacena los datos de salud del docente a la tabla Docentes*/
+            $docente->especialidad = $request->especialidad;
+            $docente->gradoEstudios = $request->gradoEstudios;
+            $docente->direccionDomicilio = strtoupper($request->direccionDomicilio);
+            $docente->idNivelSubdirector = $request->idNivelSubdirector;
+            $docente->idCoordinacionEncargado = $request->idCoordinacionEncargado;
+            $docente->idUsuario = session('idUsuario');
+            $docente->ip = session('ip');
+            $docente->dispositivo  = session('dispositivo');
+            $docente->save();
+            return redirect()->route('docentes.details', $docente);
         }
         else{
             return redirect()->route('usuarios.index');
         }
     }
 
-    /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Profesores' y retorna el método index().*/
+    /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Docentes' y retorna el método index().*/
     public function delete(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $request->validate([
-                'idProfesor' => ['required','numeric','integer']
+                'idDocente' => ['required','numeric','integer']
             ]);
-            $profesor = (new Profesor())->selectProfesor($request->idProfesor);
-            $profesor->estado = '0';
-            $profesor->idUsuario = session('idUsuario');
-            $profesor->ip = session('ip');
-            $profesor->dispositivo  = session('dispositivo');
-            $profesor->save();
-            return redirect()->route('profesores.index');
+            $docente = (new Docente())->selectDocente($request->idDocente);
+            $docente->estado = '0';
+            $docente->idUsuario = session('idUsuario');
+            $docente->ip = session('ip');
+            $docente->dispositivo  = session('dispositivo');
+            $docente->save();
+            return redirect()->route('docentes.index');
         }
         else{
             return redirect()->route('usuarios.index');
