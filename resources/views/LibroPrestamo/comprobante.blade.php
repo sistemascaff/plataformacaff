@@ -15,7 +15,7 @@
 <body>
     <style>
         html {
-            margin: 15px;
+            margin: 10px;
         }
         body {
             font-size: 11px;
@@ -50,7 +50,7 @@
             width: 40%;
             height: 28%;
             z-index: -1;
-            opacity: 0.2;
+            opacity: 0.15;
             /* Ajusta la opacidad para simular un sello seco */
         }
     </style>
@@ -73,8 +73,9 @@
                         </td>
                         <td width="22.5%" class="font-weight-bold align-middle p-1" style="border-left: 1px dotted black;">
                             <div class="border border-dark">
-                                Lector/Leser:<br>
-                            {{ trim($persona->apellidoPaterno . ' ' . $persona->apellidoMaterno . ' ' . $persona->nombres) }}
+                                Lector/Leser: <span class="text-info">{{ abreviarCurso($libroprestamo->nombreCurso) }}</span><br>
+                            {{ trim($persona->apellidoPaterno . ' ' . $persona->apellidoMaterno . ' ' . $persona->nombres) }}<br>
+                            
                             </div>
                         </td>
                     </tr>
@@ -86,7 +87,7 @@
                             <span class="text-info">Boleta para Lector/Quittung für den Leser N° {{ $libroprestamo->idLibrosPrestamo }}{{ $totalItems > 3 ? '-' . $numeroBoleta . '/' . ceil($totalItems / 3) : '' }}</span>
                             <br>Préstamo hasta/Ausgeliehen bis:  {{ helper_formatoVistaFecha($libroprestamo->fechaDevolucion) }}
                             @for ($j = 0; $j < 3 && $i + $j < $totalItems; $j++)
-                                <br>{{ $i + $j + 1 }}. <span class="text-info">{{ $detalles[$i + $j]->codigoLibro }}</span> <span style="font-weight: normal">{{ $detalles[$i + $j]->nombreLibro }}</span>
+                                <br>{{ $i + $j + 1 }}. <span class="text-info">{{ $detalles[$i + $j]->codigoLibro }}</span> <span style="font-weight: normal">{{ recortarTexto($detalles[$i + $j]->nombreLibro, 70) }}</span>
                             @endfor
                             @if ($i + 3 > $totalItems)
                                 @for ($relleno = 0; $relleno < 3 - ($totalItems % 3); $relleno++)

@@ -16,7 +16,7 @@ class EstudianteController extends Controller
     /**Muestra la ventana principal para gestionar los registros de la tabla 'Estudiantes'.*/
     public function index(Request $request)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $tableEstudiante = (new Estudiante())->selectDisponibles($request->busqueda);
             return view('Estudiante.inicio', [
                 'headTitle' => 'ESTUDIANTES - INICIO',

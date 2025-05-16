@@ -286,3 +286,60 @@ function helper_reemplazarOrdinal($cadena)
 
     return $cadena;
 }
+
+function abreviarCurso($cadena) {
+    if(helper_formatoNullorEmpty($cadena) == '-'){
+        return '';
+    }
+    
+    $cadena = strtoupper(trim($cadena));
+    $partes = explode(' ', $cadena);
+
+    // Casos especiales
+    $especiales = [
+        'TALLER INICIAL ROT' => 'TIR',
+        'TALLER INICIAL WEISS' => 'TIW',
+        'PRE KINDER ROT' => 'PKR',
+        'PRE KINDER WEISS' => 'PKW',
+        'KINDER ROT' => 'KR',
+        'KINDER WEISS' => 'KW',
+    ];
+
+    if (isset($especiales[$cadena])) {
+        return $especiales[$cadena];
+    }
+
+    // Tablas para los casos regulares
+    $numeros = [
+        'PRIMERO' => '1',
+        'SEGUNDO' => '2',
+        'TERCERO' => '3',
+        'CUARTO' => '4',
+        'QUINTO' => '5',
+        'SEXTO' => '6',
+    ];
+
+    $niveles = [
+        'PRIMARIA' => 'P',
+        'SECUNDARIA' => 'S',
+    ];
+
+    $colores = [
+        'ROT' => 'R',
+        'WEISS' => 'W',
+    ];
+
+    // Búsqueda y armado del resultado
+    $numero = $numeros[$partes[0]] ?? '';
+    $nivel = $niveles[$partes[2] ?? ''] ?? '';
+    $color = $colores[$partes[3] ?? $partes[2] ?? ''] ?? '';
+
+    return $numero . $nivel . $color;
+}
+
+function recortarTexto($texto, $longitudMaxima) {
+    if (strlen($texto) > $longitudMaxima) {
+        return substr($texto, 0, $longitudMaxima - 3) . '...';
+    }
+    return $texto;
+}

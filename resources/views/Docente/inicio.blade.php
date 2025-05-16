@@ -27,9 +27,10 @@
         <h3 class="card-title font-weight-bold">DOCENTES: <span class="text-info">{{ count($tableDocente) }}</span> REGISTROS.</h3>
       </div>
       <div class="card-body">
-        <a href="{{route('docentes.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
-        <br><br>
-        <!-- Formulario de búsqueda -->
+        @if (session('rol_admin'))
+          <a href="{{route('docentes.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
+          <br><br>
+          <!-- Formulario de búsqueda -->
         <form action="{{route('docentes.index')}}" method="GET">
           <div class="input-group input-group-sm col-md-3">
             <input type="text" name="busqueda" class="form-control" placeholder="Filtrar tabla..." value="{{$busqueda}}" autofocus>
@@ -39,6 +40,8 @@
           </div>
         </form>
         <br>
+        @endif
+        
         @if ($busqueda)
           <h3 class="font-weight-bold">
             Resultados de la búsqueda: "{{$busqueda}}" 
@@ -55,16 +58,20 @@
                   <th>AP. PATERNO</th>
                   <th>AP. MATERNO</th>
                   <th>NOMBRES</th>
-                  <th>C.I.</th>
-                  <th>C.I. COMP.</th>
-                  <th>C.I. EXP.</th>
-                  <th>F. NACIMIENTO</th>
+                  @if (session('rol_admin'))                    
+                    <th>C.I.</th>
+                    <th>C.I. COMP.</th>
+                    <th>C.I. EXP.</th>
+                    <th>F. NACIMIENTO</th>
+                  @endif
                   <th>SEXO</th>
                   <th>IDIOMA</th>
                   <th>NIVEL I.E.</th>
                   <th>ESPECIALIDAD</th>
                   <th>GRADO DE ESTUDIOS</th>
-                  <th>DOMICILIO</th>
+                  @if (session('rol_admin'))
+                    <th>DOMICILIO</th>
+                  @endif
                   <th>CORREO</th>
                   @if (session('rol_admin'))
                     <th>CONTRASEÑA</th>
@@ -73,8 +80,8 @@
                     <th>MODIFICADO POR</th>
                     <th>IP</th>
                     <th>DISPOSITIVO</th>
+                    <th>Acciones</th>
                   @endif
-                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -83,16 +90,20 @@
                     <td>{{$rowDocente->apellidoPaterno}}</td>
                     <td>{{$rowDocente->apellidoMaterno}}</td>
                     <td>{{$rowDocente->nombres}}</td>
+                    @if (session('rol_admin'))
                     <td>{{$rowDocente->documentoIdentificacion}}</td>
                     <td>{{$rowDocente->documentoComplemento}}</td>
                     <td>{{$rowDocente->documentoExpedido}}</td>
                     <td>{{helper_formatoVistaFecha($rowDocente->fechaNacimiento)}}</td>
+                    @endif
                     <td>{{$rowDocente->sexo}}</td>
                     <td>{{$rowDocente->idioma}}</td>
                     <td>{{$rowDocente->nivelIE}}</td>
                     <td>{{$rowDocente->especialidad}}</td>
                     <td>{{$rowDocente->gradoEstudios}}</td>
-                    <td>{{$rowDocente->direccionDomicilio}}</td>
+                    @if (session('rol_admin'))
+                      <td>{{$rowDocente->direccionDomicilio}}</td>
+                    @endif
                     <td>{{$rowDocente->correoPersonal}}</td>
                     @if (session('rol_admin'))
                       <td>{{helper_decrypt($rowDocente->contrasenha)}}</td>
@@ -101,7 +112,6 @@
                       <td>{{helper_formatoNullorEmpty($rowDocente->correo)}}</td>
                       <td>{{helper_formatoNullorEmpty($rowDocente->ip)}}</td>
                       <td>{{helper_formatoNullorEmpty($rowDocente->dispositivo)}}</td>
-                    @endif
                     <td>
                       <div class="btn-group">
                         <a class="btn btn-info" href="{{route('docentes.details', $rowDocente->idDocente)}}">
@@ -115,6 +125,7 @@
                         </a>                      
                       </div>
                     </td>
+                    @endif
                   </tr>
                 @endforeach
               </tbody>        

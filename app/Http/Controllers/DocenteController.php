@@ -17,7 +17,7 @@ class DocenteController extends Controller
     /**Muestra la ventana principal para gestionar los registros de la tabla 'Docentes'.*/
     public function index(Request $request)
     {
-        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $tableDocente = (new Docente())->selectDisponibles($request->busqueda);
             return view('Docente.inicio', [
                 'headTitle' => 'DOCENTES - INICIO',

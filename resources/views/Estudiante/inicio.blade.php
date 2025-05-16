@@ -27,6 +27,7 @@
         <h3 class="card-title font-weight-bold">ESTUDIANTES: <span class="text-info">{{ count($tableEstudiante) }}</span> REGISTROS.</h3>
       </div>
       <div class="card-body">
+        @if (session('rol_admin'))
         <a href="{{route('estudiantes.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
         <br><br>
         <!-- Formulario de búsqueda -->
@@ -39,6 +40,8 @@
           </div>
         </form>
         <br>
+        @endif
+        
         @if ($busqueda)
           <h3 class="font-weight-bold">
             Resultados de la búsqueda: "{{$busqueda}}" 
@@ -56,16 +59,20 @@
                   <th>AP. PATERNO</th>
                   <th>AP. MATERNO</th>
                   <th>NOMBRES</th>
+                  @if (session('rol_admin'))
                   <th>C.I.</th>
                   <th>C.I. COMP.</th>
                   <th>C.I. EXP.</th>
                   <th>F. NACIMIENTO</th>
+                  @endif
                   <th>SEXO</th>
                   <th>IDIOMA</th>
                   <th>NIVEL I.E.</th>
+                  @if (session('rol_admin'))
                   <th>TIPO SANGRE</th>
                   <th>ALERGIAS</th>
                   <th>DATOS MÉDICOS</th>
+                  @endif
                   <th>CORREO</th>
                   @if (session('rol_admin'))
                     <th>CONTRASEÑA</th>
@@ -74,8 +81,8 @@
                     <th>MODIFICADO POR</th>
                     <th>IP</th>
                     <th>DISPOSITIVO</th>
+                    <th>Acciones</th>
                   @endif
-                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -85,16 +92,20 @@
                     <td>{{$rowEstudiante->apellidoPaterno}}</td>
                     <td>{{$rowEstudiante->apellidoMaterno}}</td>
                     <td>{{$rowEstudiante->nombres}}</td>
+                    @if (session('rol_admin'))
                     <td>{{$rowEstudiante->documentoIdentificacion}}</td>
                     <td>{{$rowEstudiante->documentoComplemento}}</td>
                     <td>{{$rowEstudiante->documentoExpedido}}</td>
                     <td>{{helper_formatoVistaFecha($rowEstudiante->fechaNacimiento)}}</td>
+                    @endif
                     <td>{{$rowEstudiante->sexo}}</td>
                     <td>{{$rowEstudiante->idioma}}</td>
                     <td>{{$rowEstudiante->nivelIE}}</td>
+                    @if (session('rol_admin'))
                     <td>{{$rowEstudiante->saludTipoSangre}}</td>
                     <td>{{$rowEstudiante->saludAlergias}}</td>
                     <td>{{$rowEstudiante->saludDatos}}</td>
+                    @endif
                     <td>{{$rowEstudiante->correoPersonal}}</td>
                     @if (session('rol_admin'))
                       <td>{{helper_decrypt($rowEstudiante->contrasenha)}}</td>
@@ -103,7 +114,6 @@
                       <td>{{helper_formatoNullorEmpty($rowEstudiante->correo)}}</td>
                       <td>{{helper_formatoNullorEmpty($rowEstudiante->ip)}}</td>
                       <td>{{helper_formatoNullorEmpty($rowEstudiante->dispositivo)}}</td>
-                    @endif
                     <td>
                       <div class="btn-group">
                         <a class="btn btn-info" href="{{route('estudiantes.details', $rowEstudiante->idEstudiante)}}">
@@ -117,6 +127,7 @@
                         </a>                      
                       </div>
                     </td>
+                    @endif
                   </tr>
                 @endforeach
               </tbody>        

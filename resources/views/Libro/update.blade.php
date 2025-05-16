@@ -60,7 +60,7 @@
                   <label class="col-sm-2 col-form-label">COSTO (*)</label>
                   <div class="col-sm-10">
                   <input type="number" class="form-control @error('costo') is-invalid @enderror"
-                    name="costo" value="{{old('costo', $libro->costo)}}" placeholder="1,00" step="0.50" min="0" required>
+                    name="costo" value="{{old('costo', $libro->costo)}}" placeholder="1.00" step="0.01" min="0" required>
                   </div>
                   @error('costo')
                   <span class="text-danger">{{$message}}</span>

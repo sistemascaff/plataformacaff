@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LibroValidation;
 use App\Models\Estudiante;
 use App\Models\LibroPrestamo;
 use App\Models\Persona;
@@ -176,6 +175,15 @@ class LibroPrestamoController extends Controller
                 'fechaDevolucion' => ['date']
             ]);
             $libroprestamo->idPersona = $request->idPersona;
+            $persona = (new Persona())->selectPersona($request->idPersona);
+            if ($persona->tipoPerfil == 'ESTUDIANTE') {
+                $estudiante = (new Estudiante())->selectEstudianteConIDPersona($persona->idPersona);
+                $curso = (new Curso())->selectCurso($estudiante->idCurso);
+                $libroprestamo->nombreCurso = $curso->nombreCurso;
+            }
+            else{
+                $libroprestamo->nombreCurso = '-';
+            }
             if(!$request->celular){
                 $libroprestamo->celular = '-';
             }
