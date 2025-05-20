@@ -21,7 +21,7 @@ class Libro extends Model
     /**Función que permite recuperar los registros disponibles o activos de la tabla 'Libros' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Área, nombre de Categoria, correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Libro::select('Libros.idLibro','Libros.nombreLibro','Libros.codigoLibro','Libros.nombreAutor','Libros.nombreEditorial','Libros.costo','Libros.observacion','Libros.descripcion','Libros.adquisicion','Libros.prestadoA','Libros.estado','Libros.fechaRegistro','Libros.fechaActualizacion','Libros.idUsuario','Usuarios.correo',
+        $queryActivos = Libro::select('Libros.idLibro','Libros.nombreLibro','Libros.codigoLibro','Libros.nombreAutor','Libros.nombreEditorial','Libros.costo','Libros.observacion','Libros.descripcion','Libros.adquisicion','Libros.prestadoA','Libros.fechaIngresoCooperativa','Libros.estado','Libros.fechaRegistro','Libros.fechaActualizacion','Libros.idUsuario','Usuarios.correo',
         'Categorias.nombreCategoria','Presentaciones.nombrePresentacion')
         ->leftjoin('Usuarios', 'Libros.idUsuario', '=', 'Usuarios.idUsuario')
         ->join('Categorias', 'Libros.idCategoria', '=', 'Categorias.idCategoria')

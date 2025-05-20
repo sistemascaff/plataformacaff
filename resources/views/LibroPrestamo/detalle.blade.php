@@ -102,6 +102,7 @@
                 <th>CÓDIGO</th>
                 <th>TÍTULO</th>
                 <th>AUTOR</th>
+                <th>EDITORIAL</th>
                 <th>FECHA DE RETORNO</th>
                 <th>Acciones</th>
               </tr>
@@ -112,6 +113,7 @@
             <td>{{$rowLibros->codigoLibro}}</td>
             <td>{{$rowLibros->nombreLibro}}</td>
             <td>{{$rowLibros->nombreAutor}}</td>
+            <td>{{$rowLibros->nombreEditorial}}</td>
             <td>{{helper_formatoVistaFecha($rowLibros->fechaRetorno)}}</td>
             <td>
               <div class="btn-group">

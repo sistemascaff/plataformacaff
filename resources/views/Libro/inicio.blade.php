@@ -63,6 +63,7 @@
                   <th>PRESENTACIÓN</th>
                   <th>OBSERVACIÓN</th>
                   <th>PRESTADO A</th>
+                  <th>F. INGRESO COOPERATIVA</th>
                   <th>ESTADO</th>
                   <th>F. REGISTRO</th>
                   <th>F. ACTUALIZACION</th>
@@ -84,6 +85,7 @@
                     <td>{{$rowLibro->nombrePresentacion}}</td>
                     <td>{{$rowLibro->observacion}}</td>
                     <td>{{$rowLibro->prestadoA}}</td>
+                    <td>{{helper_formatoVistaFecha($rowLibro->fechaIngresoCooperativa)}}</td>
                     <td class="font-weight-bold"><div class="{{helper_formatoClassLibroEstado($rowLibro->estado)}}">{{helper_FormatoAtributoValorATexto($rowLibro->estado, 'libroEstado')}}</div></td>
                     <td>{{helper_formatoVistaFechayHora($rowLibro->fechaRegistro)}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowLibro->fechaActualizacion)}}</td>

@@ -130,7 +130,7 @@
                   <h3 class="font-weight-bold text-info rounded">FECHA DE DEVOLUCIÓN</h3>
                   <div class="col-sm-12">
                     <input type="date" class="form-control @error('fechaDevolucion') is-invalid @enderror"
-                      name="fechaDevolucion" id="fechaDevolucion" value="{{old('fechaDevolucion',date("Y-m-d"))}}" required>
+                      name="fechaDevolucion" id="fechaDevolucion" value="{{old('fechaDevolucion',date("Y-m-d", strtotime("+1 week")))}}" required>
                   </div>
                 </div>
                 <div class="form-group row">

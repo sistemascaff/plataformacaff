@@ -58,10 +58,9 @@ class LibroPrestamo extends Model
 
     /**Función que permite recuperar los registros disponibles o activos de la tabla 'Libros' pertenecientes a un registro de la tabla 'Areas'.*/
     public function selectLibroPrestamo_Detalles($idLibrosPrestamo){
-        $queryDetallesLibroPrestamo = LibroPrestamo::select('Libros.idLibro','Libros.nombreLibro','Libros.codigoLibro','Autores.nombreAutor','LibrosPrestamosDetalles.fechaRetorno')
+        $queryDetallesLibroPrestamo = LibroPrestamo::select('Libros.idLibro','Libros.nombreLibro','Libros.codigoLibro','Libros.nombreAutor','Libros.nombreEditorial','LibrosPrestamosDetalles.fechaRetorno')
         ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')
         ->join('Libros', 'LibrosPrestamosDetalles.idLibro', '=', 'Libros.idLibro')
-        ->join('Autores', 'Libros.idAutor', '=', 'Autores.idAutor')
         ->where('LibrosPrestamos.idLibrosPrestamo', '=', $idLibrosPrestamo)
         ->orderBy('Libros.codigoLibro')
         ->get();
