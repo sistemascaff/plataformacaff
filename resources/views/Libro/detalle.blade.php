@@ -87,13 +87,13 @@
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Autor</label>
               <div class="col-md-10">
-                <a href="{{route('autores.details', $autor->idAutor)}}" class="form form-control font-weight-bold" target="_blank" rel="noopener noreferrer">{{$autor->nombreAutor}}</a>
+                <a href="{{route('autores.details', $libro->nombreAutor)}}" class="form form-control font-weight-bold" target="_blank" rel="noopener noreferrer">{{$libro->nombreAutor}}</a>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">Editorial</label>
               <div class="col-md-10">
-                <a href="{{route('editoriales.details', $editorial->idEditorial)}}" class="form form-control font-weight-bold" target="_blank" rel="noopener noreferrer">{{$editorial->nombreEditorial}}</a>
+                <a href="{{route('editoriales.details', $libro->nombreEditorial)}}" class="form form-control font-weight-bold" target="_blank" rel="noopener noreferrer">{{$libro->nombreEditorial}}</a>
               </div>
             </div>
             <div class="form-group row">

@@ -24,7 +24,7 @@ class Categoria extends Model
         $queryActivos = Categoria::select('Categorias.idCategoria','Categorias.nombreCategoria','Categorias.estado','Categorias.fechaRegistro','Categorias.fechaActualizacion','Categorias.idUsuario', 'Usuarios.correo')
         ->selectraw('COUNT(Libros.idLibro) AS countLibros')
         ->leftjoin('Usuarios', 'Categorias.idUsuario', '=', 'Usuarios.idUsuario')
-        ->join('Libros', 'Categorias.idCategoria', '=', 'Libros.idCategoria')
+        ->leftjoin('Libros', 'Categorias.idCategoria', '=', 'Libros.idCategoria')
         ->where('Categorias.estado', '=', 1)
         ->whereAny([
             'Categorias.nombreCategoria',

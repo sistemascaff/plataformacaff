@@ -23,15 +23,15 @@ class LibroValidation extends FormRequest
     {
         return [
             'nombreLibro' => ['required','min:1','max:200'],
+            'nombreAutor' => ['required','min:1','max:200'],
+            'nombreEditorial' => ['required','min:1','max:200'],
             'codigoLibro' => ['required','min:1','max:5'],
             'costo' => ['required','numeric','min:0','max:99999'],
             'observacion' => ['required'],
             'descripcion' => ['required'],
             'adquisicion' => ['required','numeric','integer','min:1','max:2'],
             'idCategoria' => ['required','numeric','integer'],
-            'idAutor' => ['required','numeric','integer'],
-            'idPresentacion' => ['required','numeric','integer'],
-            'idEditorial' => ['required','numeric','integer'],
+            'idPresentacion' => ['required','numeric','integer']
         ];
     }
 }

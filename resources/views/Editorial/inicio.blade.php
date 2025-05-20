@@ -27,8 +27,6 @@
         <h3 class="card-title font-weight-bold">EDITORIALES: <span class="text-info">{{ count($tableEditorial) }}</span> REGISTROS.</h3>
       </div>
       <div class="card-body">
-        <a href="{{route('editoriales.create')}}" class="btn btn-success">{!! helper_FormatoBotonCRUD(1, 'texto') !!}</a>
-        <br><br>
         <!-- Formulario de búsqueda -->
         <form action="{{route('editoriales.index')}}" method="GET">
           <div class="input-group input-group-sm col-md-3">
@@ -70,15 +68,9 @@
                     <td>{{helper_formatoNullorEmpty($rowEditorial->correo)}}</td>
                     <td>
                       <div class="btn-group">
-                        <a class="btn btn-info" href="{{route('editoriales.details', $rowEditorial->idEditorial)}}">
+                        <a class="btn btn-info" href="{{route('editoriales.details', $rowEditorial->nombreEditorial)}}">
                           {!! helper_FormatoBotonCRUD(2, 'icono') !!}
-                        </a>
-                        <a class="btn btn-warning" href="{{route('editoriales.edit',$rowEditorial->idEditorial)}}">
-                          {!! helper_FormatoBotonCRUD(3, 'icono') !!}
-                        </a>
-                        <a class="btn btn-danger eliminar-registro" data-toggle="modal" data-target="#modalDelete" data-id="{{$rowEditorial->idEditorial}}" data-nombre="{{$rowEditorial->nombreEditorial}}">
-                          {!! helper_FormatoBotonCRUD(4, 'icono') !!}
-                        </a>                      
+                        </a>                   
                       </div>
                     </td>
                   </tr>
@@ -93,35 +85,6 @@
     <!-- /.card -->
 
   </section>
-
-  <div class="modal fade" id="modalDelete">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title font-weight-bold text-danger">ELIMINAR REGISTRO</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>¿Está segur@ de eliminar el registro seleccionado?</p>
-          <p class="font-weight-bold" id="nombre">NOMBRE</p>
-        </div>
-        <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
-          <form action="{{route('editoriales.delete')}}" method="POST">
-            @csrf
-            @method('put')
-            <input type="hidden" id="id" name="idEditorial" value="0">
-            <button type="submit" class="btn btn-danger">{!! helper_FormatoBotonCRUD(4, 'texto') !!}</button>
-          </form>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
 
   <!-- /.content -->
   @include('layouts.footer')

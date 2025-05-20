@@ -6,8 +6,6 @@ use App\Http\Requests\LibroValidation;
 use App\Models\Libro;
 use App\Models\Usuario;
 use App\Models\Categoria;
-use App\Models\Autor;
-use App\Models\Editorial;
 use App\Models\Presentacion;
 use App\Models\Rol;
 use Illuminate\Http\Request;
@@ -30,6 +28,36 @@ class LibroController extends Controller
         }        
     }
 
+    public function indexAutores(Request $request)
+    {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
+            $tableAutor = (new Libro())->selectAutores($request->busqueda);
+            return view('Autor.inicio', [
+                'headTitle' => 'AUTORES - INICIO',
+                'tableAutor' => $tableAutor,
+                'busqueda' => $request->busqueda
+        ]);
+        }
+        else{
+            return redirect()->route('usuarios.index');
+        }        
+    }
+
+    public function indexEditoriales(Request $request)
+    {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
+            $tableEditorial = (new Libro())->selectEditoriales($request->busqueda);
+            return view('Editorial.inicio', [
+                'headTitle' => 'EDITORIALES - INICIO',
+                'tableEditorial' => $tableEditorial,
+                'busqueda' => $request->busqueda
+        ]);
+        }
+        else{
+            return redirect()->route('usuarios.index');
+        }        
+    }
+
     /**Muestra la información de un registro específico de la tabla 'Libros'.*/
     public function show($idLibro)
     {
@@ -37,8 +65,6 @@ class LibroController extends Controller
             $libro = (new Libro())->selectLibro($idLibro);
             $usuario = (new Usuario())->selectUsuario($libro->idUsuario);
             $categoria = (new Categoria())->selectCategoria($libro->idCategoria);
-            $autor = (new Autor())->selectAutor($libro->idAutor);
-            $editorial = (new Editorial())->selectEditorial($libro->idEditorial);
             $presentacion = (new Presentacion())->selectPresentacion($libro->idPresentacion);
             $Prestamos = (new Libro())->selectLibro_Prestamos($idLibro);
 
@@ -51,10 +77,40 @@ class LibroController extends Controller
                 'libro' => $libro,
                 'usuario' => $usuario,
                 'categoria' => $categoria,
-                'autor' => $autor,
-                'editorial' => $editorial,
                 'presentacion' => $presentacion,
                 'Prestamos' => $Prestamos
+            ]);
+        }
+        else{
+            return redirect()->route('usuarios.index');
+        }
+    }
+
+    public function showAutorLibros($nombreAutor)
+    {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
+            $Libros = (new Libro())->selectAutor_Libros($nombreAutor);
+            return view('Autor.detalle', [
+                'headTitle' => $nombreAutor,
+                'nombreAutor' => $nombreAutor,
+                'usuario' => '-',
+                'Libros' => $Libros
+            ]);
+        }
+        else{
+            return redirect()->route('usuarios.index');
+        }
+    }
+
+    public function showEditorialLibros($nombreEditorial)
+    {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
+            $Libros = (new Libro())->selectEditorial_Libros($nombreEditorial);
+            return view('Editorial.detalle', [
+                'headTitle' => $nombreEditorial,
+                'nombreEditorial' => $nombreEditorial,
+                'usuario' => '-',
+                'Libros' => $Libros
             ]);
         }
         else{
@@ -66,8 +122,8 @@ class LibroController extends Controller
     public function new($idSelect = null){
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $Categorias = (new Categoria())->selectDisponibles('');
-            $Autores = (new Autor())->selectDisponibles('');
-            $Editoriales = (new Editorial())->selectDisponibles('');
+            $Autores = (new Libro())->selectAutores('');
+            $Editoriales = (new Libro())->selectEditoriales('');
             $Presentaciones = (new Presentacion())->selectDisponibles('');
             $formatoCodigo = (new Libro())->selectFormatoCodigoLibro();
             if(!$idSelect){
@@ -101,9 +157,9 @@ class LibroController extends Controller
             $libro->descripcion = strtoupper($request->descripcion);
             $libro->adquisicion = $request->adquisicion;
             $libro->idCategoria = $request->idCategoria;
-            $libro->idAutor = $request->idAutor;
+            $libro->nombreAutor = strtoupper($request->nombreAutor);
+            $libro->nombreEditorial = strtoupper($request->nombreEditorial);
             $libro->idPresentacion = $request->idPresentacion;
-            $libro->idEditorial = $request->idEditorial;
             $libro->idUsuario = session('idUsuario');
             $libro->ip = session('ip');
             $libro->dispositivo  = session('dispositivo');
@@ -120,8 +176,8 @@ class LibroController extends Controller
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
             $Categorias = (new Categoria())->selectDisponibles('');
-            $Autores = (new Autor())->selectDisponibles('');
-            $Editoriales = (new Editorial())->selectDisponibles('');
+            $Autores = (new Libro())->selectAutores('');
+            $Editoriales = (new Libro())->selectEditoriales('');
             $Presentaciones = (new Presentacion())->selectDisponibles('');
             return view('Libro.update', [
                 'headTitle' => 'EDITAR - ' . $libro->nombreLibro,
@@ -149,9 +205,9 @@ class LibroController extends Controller
             $libro->descripcion = strtoupper($request->descripcion);
             $libro->adquisicion = $request->adquisicion;
             $libro->idCategoria = $request->idCategoria;
-            $libro->idAutor = $request->idAutor;
+            $libro->nombreAutor = strtoupper($request->nombreAutor);
+            $libro->nombreEditorial = strtoupper($request->nombreEditorial);
             $libro->idPresentacion = $request->idPresentacion;
-            $libro->idEditorial = $request->idEditorial;
             $libro->idUsuario = session('idUsuario');
             $libro->ip = session('ip');
             $libro->dispositivo  = session('dispositivo');

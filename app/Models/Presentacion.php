@@ -24,7 +24,7 @@ class Presentacion extends Model
         $queryActivos = Presentacion::select('Presentaciones.idPresentacion','Presentaciones.nombrePresentacion','Presentaciones.estado','Presentaciones.fechaRegistro','Presentaciones.fechaActualizacion','Presentaciones.idUsuario', 'Usuarios.correo')
         ->selectraw('COUNT(Libros.idLibro) AS countLibros')
         ->leftjoin('Usuarios', 'Presentaciones.idUsuario', '=', 'Usuarios.idUsuario')
-        ->join('Libros', 'Presentaciones.idPresentacion', '=', 'Libros.idPresentacion')
+        ->leftjoin('Libros', 'Presentaciones.idPresentacion', '=', 'Libros.idPresentacion')
         ->where('Presentaciones.estado', '=', 1)
         ->whereAny([
             'Presentaciones.nombrePresentacion',

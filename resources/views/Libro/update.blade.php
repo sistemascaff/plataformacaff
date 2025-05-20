@@ -50,7 +50,7 @@
                   <label class="col-sm-2 col-form-label">CÓDIGO LIBRO (*)</label>
                   <div class="col-sm-10">
                   <input type="text" class="form-control @error('codigoLibro') is-invalid @enderror"
-                    name="codigoLibro" value="{{old('codigoLibro', $libro->codigoLibro)}}" placeholder="CÓDIGO" minlength="1" maxlength="6" required>
+                    name="codigoLibro" value="{{old('codigoLibro', $libro->codigoLibro)}}" placeholder="CÓDIGO" minlength="1" maxlength="5" required>
                   </div>
                   @error('codigoLibro')
                   <span class="text-danger">{{$message}}</span>
@@ -104,30 +104,32 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">AUTOR (*)</label>
                   <div class="col-sm-10">
-                    <select class="form-control" name="idAutor" id="select2" required>
-                      @foreach ($Autores as $rowAutores)
-                      @if ($rowAutores->idAutor == $libro->idAutor)
-                      <option value="{{$rowAutores->idAutor}}" selected>{{$rowAutores->nombreAutor}}</option>
-                      @else
-                      <option value="{{$rowAutores->idAutor}}">{{$rowAutores->nombreAutor}}</option>
-                      @endif
-                      @endforeach
-                    </select>
+                  <input type="text" class="form-control @error('nombreAutor') is-invalid @enderror"
+                    name="nombreAutor" value="{{old('nombreAutor', $libro->nombreAutor)}}" placeholder="AUTOR" minlength="1" maxlength="200" list="autores" required>
                   </div>
+                  <datalist id="autores">
+                    @foreach ($Autores as $rowAutores)
+                    <option value="{{$rowAutores->nombreAutor}}">{{$rowAutores->nombreAutor}}</option>
+                    @endforeach
+                  </datalist>
+                  @error('nombreAutor')
+                  <span class="text-danger">{{$message}}</span>
+                  @enderror
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">EDITORIAL (*)</label>
                   <div class="col-sm-10">
-                    <select class="form-control" name="idEditorial" id="selectTwo" required>
-                      @foreach ($Editoriales as $rowEditoriales)
-                      @if ($rowEditoriales->idEditorial == $libro->idEditorial)
-                      <option value="{{$rowEditoriales->idEditorial}}" selected>{{$rowEditoriales->nombreEditorial}}</option>
-                      @else
-                      <option value="{{$rowEditoriales->idEditorial}}">{{$rowEditoriales->nombreEditorial}}</option>
-                      @endif
-                      @endforeach
-                    </select>
+                  <input type="text" class="form-control @error('nombreEditorial') is-invalid @enderror"
+                    name="nombreEditorial" value="{{old('nombreEditorial', $libro->nombreEditorial)}}" placeholder="AUTOR" minlength="1" maxlength="200" list="editoriales" required>
                   </div>
+                  <datalist id="editoriales">
+                    @foreach ($Editoriales as $rowEditoriales)
+                    <option value="{{$rowEditoriales->nombreEditorial}}">{{$rowEditoriales->nombreEditorial}}</option>
+                    @endforeach
+                  </datalist>
+                  @error('nombreEditorial')
+                  <span class="text-danger">{{$message}}</span>
+                  @enderror
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">PRESENTACION (*)</label>
