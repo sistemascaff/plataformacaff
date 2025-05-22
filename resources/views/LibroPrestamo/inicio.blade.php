@@ -59,6 +59,7 @@
                   <th>CELULAR</th>
                   <th style="width: 30%;">LIBRO/S</th>
                   <th>F. DEVOLUCION OBJETIVO</th>
+                  <th>DIAS DE RETRASO</th>
                   <th>F. REGISTRO</th>
                   <th>F. ACTUALIZACION</th>
                   <th>MODIFICADO POR</th>
@@ -75,6 +76,7 @@
                     <td>{{$rowLibroPrestamo->celular}}</td>
                     <td style="width: 30%;">{!! $rowLibroPrestamo->groupConcatLibros !!}</td>
                     <td>{{helper_formatoVistaFecha($rowLibroPrestamo->fechaDevolucion)}}</td>
+                    <td>{!!$rowLibroPrestamo->diasRetraso!!}</td>
                     <td>{{helper_formatoVistaFechayHora($rowLibroPrestamo->fechaRegistro)}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowLibroPrestamo->fechaActualizacion)}}</td>
                     <td>{{helper_formatoNullorEmpty($rowLibroPrestamo->correo)}}</td>

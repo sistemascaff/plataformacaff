@@ -154,10 +154,12 @@ class LibroPrestamoController extends Controller
     {
         if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1])) {
             $Personas = (new Persona())->selectDisponibles('');
+            $Libros = (new Libro())->selectDisponibles('');
             return view('LibroPrestamo.update', [
                 'headTitle' => 'EDITAR PRÉSTAMO DE LIBROS N° ' . $libroprestamo->idLibrosPrestamo,
                 'libroprestamo' => $libroprestamo,
                 'Personas' => $Personas,
+                'Libros' => $Libros,
                 'Titulos' => "MODIFICAR PRÉSTAMO DE LIBRO/S"
             ]);
         } else {
@@ -172,7 +174,8 @@ class LibroPrestamoController extends Controller
             $request->validate([
                 'idPersona' => ['required', 'numeric', 'integer'],
                 'celular' => ['max:20'],
-                'fechaDevolucion' => ['date']
+                'fechaDevolucion' => ['date'],
+                'idLibro' => ['required', 'numeric', 'integer']
             ]);
             $libroprestamo->idPersona = $request->idPersona;
             $persona = (new Persona())->selectPersona($request->idPersona);
@@ -195,6 +198,44 @@ class LibroPrestamoController extends Controller
             $libroprestamo->ip = session('ip');
             $libroprestamo->dispositivo  = session('dispositivo');
             $libroprestamo->save();
+
+            //Primero se verifica si el usuario ha seleccionado un libro para agregarlo al préstamo.
+            if($request->idLibro > 0)
+            {
+                $libro = (new Libro())->selectLibro($request->idLibro);
+                //Si el libro está disponible para préstamo, se procede a revisar si ya existe en la lista de libros prestados.
+                if($libro->estado == 1)
+                {
+                    $Libros = (new LibroPrestamo())->selectLibroPrestamo_Detalles($libroprestamo->idLibrosPrestamo);
+                    $libroNoExisteEnElDetalle = true;
+                    foreach ($Libros as $row) {
+                        if ($row->idLibro == $request->idLibro) {
+                            $libroNoExisteEnElDetalle = false;
+                            break;
+                        }
+                    }
+                    //Si el libro no existe en la lista de libros prestados, se procede a agregarlo.
+                    if ($libroNoExisteEnElDetalle) {
+                        $detalle = new LibroPrestamoDetalle();
+                        $detalle->idLibrosPrestamo = $libroprestamo->idLibrosPrestamo;
+                        $detalle->idLibro = $request->idLibro;
+                        $detalle->save();
+                        $libro->estado = 2;
+                        $libro->prestadoA = trim("(" . $persona->tipoPerfil . ") " . $persona->apellidoPaterno . " " . $persona->apellidoMaterno . " " . $persona->nombres);
+                        $libro->save();
+                    }
+                    else{
+                        return redirect()->route('librosprestamos.edit', $libroprestamo)->with([
+                            'mensaje' => 'EL LIBRO SELECCIONADO (' . $libro->codigoLibro . ' - ' . $libro->nombreLibro .') YA EXISTE EN ÉSTE PRÉSTAMO.',
+                        ]);
+                    }
+                }
+                else{
+                        return redirect()->route('librosprestamos.edit', $libroprestamo)->with([
+                        'mensaje' => 'EL LIBRO SELECCIONADO (' . $libro->codigoLibro . ' - ' . $libro->nombreLibro .') NO ESTÁ DISPONIBLE PARA SU PRÉSTAMO PORQUE ESTÁ EN USO O ELIMINADO, POR FAVOR VUELVA A CARGAR LA PÁGINA.',
+                    ]);
+                }
+            }
             return redirect()->route('librosprestamos.details', $libroprestamo);
         } else {
             return redirect()->route('usuarios.index');

@@ -68,12 +68,14 @@
                           <th>TÍTULO</th>
                           <th>AUTOR</th>
                           <th>EDITORIAL</th>
+                          <th>AÑO</th>
                           <th>DESCRIPCIÓN</th>
                           <th>COSTO</th>
                           <th>ADQUISICIÓN</th>
                           <th>PRESENTACIÓN</th>
                           <th>OBSERVACIÓN</th>
                           <th>PRESTADO A</th>
+                          <th>F. INGRESO COOPERATIVA</th>
                           <th>ESTADO</th>
                           <th>MODIFICADO POR</th>
                           <th>Acciones</th>
@@ -87,12 +89,14 @@
                             <td>{{$rowLibro->nombreLibro}}</td>
                             <td>{{$rowLibro->nombreAutor}}</td>
                             <td>{{$rowLibro->nombreEditorial}}</td>
+                            <td>{{$rowLibro->anhoLibro}}</td>
                             <td>{{$rowLibro->descripcion}}</td>
                             <td>{{$rowLibro->costo}}</td>
                             <td>{{helper_FormatoAtributoValorATexto($rowLibro->adquisicion, 'libroAdquisicion')}}</td>
                             <td>{{$rowLibro->nombrePresentacion}}</td>
                             <td>{{$rowLibro->observacion}}</td>
                             <td>{{$rowLibro->prestadoA}}</td>
+                            <td>{{helper_formatoVistaFecha($rowLibro->fechaIngresoCooperativa)}}</td>
                             <td class="font-weight-bold"><div class="{{helper_formatoClassLibroEstado($rowLibro->estado)}}">{{helper_FormatoAtributoValorATexto($rowLibro->estado, 'libroEstado')}}</div></td>
                             <td>{{helper_formatoNullorEmpty($rowLibro->correo)}}</td>
                             <td>

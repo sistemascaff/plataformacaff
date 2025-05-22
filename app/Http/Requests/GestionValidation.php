@@ -22,7 +22,7 @@ class GestionValidation extends FormRequest
     public function rules(): array
     {
         return [
-            'anhoGestion' => ['required','numeric','min:2000','max:2040','integer']
+            'anhoGestion' => ['required','numeric','min:2000','max:2050','integer']
         ];
     }
 }

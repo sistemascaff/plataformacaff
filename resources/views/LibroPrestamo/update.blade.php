@@ -70,6 +70,24 @@
                   <span class="text-danger">{{$message}}</span>
                   @enderror
                 </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label bg-success rounded">AÑADIR UN NUEVO LIBRO:</label>
+                  <div class="col-sm-10 align-self-center">
+                    <select class="form-control" name="idLibro" id="selectTwo" required>
+                      <option value="0" selected>-- NO AGREGAR NINGÚN LIBRO --</option>
+                      @foreach ($Libros as $rowLibros)
+                        <option value="{{$rowLibros->idLibro}}" {{ ($rowLibros->estado != '1') ? 'disabled' : '' }}>{{helper_FormatoAtributoValorATexto($rowLibros->estado, 'libroEstado') . ' - ' . $rowLibros->codigoLibro . ' - ' . $rowLibros->nombreLibro}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+                @if (session('mensaje'))
+                <br>
+                <div class="alert alert-warning">
+                  <h5 class="font font-weight-bold"><i class="icon fa fa-warning"></i> ¡ATENCIÓN!</h5>
+                  <a>{{session('mensaje')}}</a>
+                </div>
+                @endif
               </div>
               
               <a class="btn btn-warning" data-toggle="modal" data-target="#modalUpdate">

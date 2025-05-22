@@ -21,9 +21,11 @@ class Libro extends Model
     /**Función que permite recuperar los registros disponibles o activos de la tabla 'Libros' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Área, nombre de Categoria, correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Libro::select('Libros.idLibro','Libros.nombreLibro','Libros.codigoLibro','Libros.nombreAutor','Libros.nombreEditorial','Libros.costo','Libros.observacion','Libros.descripcion','Libros.adquisicion','Libros.prestadoA','Libros.fechaIngresoCooperativa','Libros.estado','Libros.fechaRegistro','Libros.fechaActualizacion','Libros.idUsuario','Usuarios.correo',
+        $queryActivos = Libro::select('Libros.idLibro','Libros.nombreLibro','Libros.codigoLibro','Libros.nombreAutor','Libros.nombreEditorial','Libros.anhoLibro','Libros.costo','Libros.observacion','Libros.descripcion','Libros.adquisicion','Libros.prestadoA','Libros.fechaIngresoCooperativa','Libros.estado','Libros.fechaRegistro','Libros.fechaActualizacion','Libros.idUsuario','Usuarios.correo',
         'Categorias.nombreCategoria','Presentaciones.nombrePresentacion')
+        ->selectraw('COUNT(LibrosprestamosDetalles.idLibro) AS countLibrosPrestamos')
         ->leftjoin('Usuarios', 'Libros.idUsuario', '=', 'Usuarios.idUsuario')
+        ->leftjoin('LibrosPrestamosDetalles', 'Libros.idLibro', '=', 'LibrosPrestamosDetalles.idLibro')
         ->join('Categorias', 'Libros.idCategoria', '=', 'Categorias.idCategoria')
         ->join('Presentaciones', 'Libros.idPresentacion', '=', 'Presentaciones.idPresentacion')
         /*->where('Libros.estado', '=', 1)*/
@@ -35,6 +37,7 @@ class Libro extends Model
             'Libros.nombreEditorial',
             'Usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
+        ->groupBy('Libros.idLibro')
         ->orderBy('Categorias.nombreCategoria')
         ->orderBy('Libros.codigoLibro')
         ->orderBy('Libros.nombreAutor')

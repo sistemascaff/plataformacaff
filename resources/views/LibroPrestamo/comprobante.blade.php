@@ -45,8 +45,8 @@
 
         .background-image {
             position: absolute;
-            top: 17;
-            left: 59.9%;
+            top: 25;
+            left: 57.95%;
             width: 40%;
             height: 28%;
             z-index: -1;
@@ -65,13 +65,13 @@
                 <table class="table inicio">
                     <tr style="text-align: center; border-style: hidden;">
                         <td width="10%"><img src="{{ URL::to('/') }}/public/img/caff.jpeg" width="100%"></td>
-                        <td width="80%" class="font-weight-bold align-middle text-info">
+                        <td width="68%" class="font-weight-bold align-middle text-info">
                             COOPERATIVA EDUCACIONAL FEDERICO FROEBEL R.L.
                             <br>BIBLIOTECA/BIBLIOTHEK
                             <br>Boleta de Préstamo/Ausleihquittung N°
                             {{ $libroprestamo->idLibrosPrestamo }}{{ $totalItems > 3 ? '-' . $numeroBoleta . '/' . ceil($totalItems / 3) : '' }}
                         </td>
-                        <td width="22.5%" class="font-weight-bold align-middle p-1" style="border-left: 1px dotted black;">
+                        <td width="22%" class="font-weight-bold align-middle p-1" style="border-left: 1px dotted black;">
                             <div class="border border-dark">
                                 Lector/Leser: <span class="text-info">{{ abreviarCurso($libroprestamo->nombreCurso) }}</span><br>
                             {{ trim($persona->apellidoPaterno . ' ' . $persona->apellidoMaterno . ' ' . $persona->nombres) }}<br>
@@ -83,7 +83,7 @@
                 <table class="table font-weight-bold">
                     <tr style="border-style: hidden;">
                         <td style="text-align: left;border-style: hidden; border-right: 1px dotted black;" colspan="2">Titulo/Titel:</td>
-                        <td class="p-1" width="20%" rowspan="8" style="text-align: left; border-left: 1px dotted black;">
+                        <td class="p-1" width="22%" rowspan="8" style="text-align: left; border-left: 1px dotted black;">
                             <span class="text-info">Boleta para Lector/Quittung für den Leser N° {{ $libroprestamo->idLibrosPrestamo }}{{ $totalItems > 3 ? '-' . $numeroBoleta . '/' . ceil($totalItems / 3) : '' }}</span>
                             <br>Préstamo hasta/Ausgeliehen bis:  {{ helper_formatoVistaFecha($libroprestamo->fechaDevolucion) }}
                             @for ($j = 0; $j < 3 && $i + $j < $totalItems; $j++)

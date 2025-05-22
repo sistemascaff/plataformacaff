@@ -25,7 +25,8 @@ class LibroPrestamo extends Model
         'Personas.apellidoPaterno','Personas.apellidoMaterno','Personas.nombres','Personas.tipoPerfil')
         ->selectRaw('GROUP_CONCAT(" <span class=\"font-weight-bold ",
         IF(IFNULL(LibrosPrestamosDetalles.fechaRetorno, "-") = "-", "text-info", ""), "\">• (", IF(IFNULL(LibrosPrestamosDetalles.fechaRetorno, "-") = "-", "EN USO", CONCAT("DEVUELTO EL ", DATE_FORMAT(LibrosPrestamosDetalles.fechaRetorno, "%d/%m/%Y %H:%i")) ), ")</span> ",
-        Libros.codigoLibro, " - ", Libros.nombreLibro ORDER BY Libros.codigoLibro ASC SEPARATOR "<br>") AS groupConcatLibros')
+        Libros.codigoLibro, " - ", Libros.nombreLibro ORDER BY Libros.codigoLibro ASC SEPARATOR "<br>") AS groupConcatLibros,
+        GROUP_CONCAT("• ", DATEDIFF(IFNULL(LibrosPrestamosDetalles.fechaRetorno,CURRENT_TIMESTAMP()), LibrosPrestamos.fechaDevolucion), IF(IFNULL(LibrosPrestamosDetalles.fechaRetorno, "-") = "-"," y contando...", "") ORDER BY Libros.codigoLibro ASC SEPARATOR "<br>") AS diasRetraso')
         ->leftjoin('Usuarios', 'LibrosPrestamos.idUsuario', '=', 'Usuarios.idUsuario')
         ->join('Personas', 'LibrosPrestamos.idPersona', '=', 'Personas.idPersona')
         ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')

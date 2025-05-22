@@ -52,9 +52,6 @@
                 <tr>
                   <th>EDITORIAL</th>
                   <th>LIBROS</th>
-                  <th>F. REGISTRO</th>
-                  <th>F. ACTUALIZACION</th>
-                  <th>MODIFICADO POR</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -63,9 +60,6 @@
                   <tr>
                     <td>{{$rowEditorial->nombreEditorial}}</td>
                     <td>{{$rowEditorial->countLibros}}</td>
-                    <td>{{helper_formatoVistaFechayHora($rowEditorial->fechaRegistro)}}</td>
-                    <td>{{helper_formatoVistaFechayHora($rowEditorial->fechaActualizacion)}}</td>
-                    <td>{{helper_formatoNullorEmpty($rowEditorial->correo)}}</td>
                     <td>
                       <div class="btn-group">
                         <a class="btn btn-info" href="{{route('editoriales.details', $rowEditorial->nombreEditorial)}}">

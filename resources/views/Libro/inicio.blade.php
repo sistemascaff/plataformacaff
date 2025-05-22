@@ -57,6 +57,7 @@
                   <th>TÍTULO</th>
                   <th>AUTOR</th>
                   <th>EDITORIAL</th>
+                  <th>AÑO</th>
                   <th>DESCRIPCIÓN</th>
                   <th>COSTO</th>
                   <th>ADQUISICIÓN</th>
@@ -64,6 +65,7 @@
                   <th>OBSERVACIÓN</th>
                   <th>PRESTADO A</th>
                   <th>F. INGRESO COOPERATIVA</th>
+                  <th>CANT. PRÉSTAMOS</th>
                   <th>ESTADO</th>
                   <th>F. REGISTRO</th>
                   <th>F. ACTUALIZACION</th>
@@ -79,6 +81,7 @@
                     <td>{{$rowLibro->nombreLibro}}</td>
                     <td>{{$rowLibro->nombreAutor}}</td>
                     <td>{{$rowLibro->nombreEditorial}}</td>
+                    <td>{{$rowLibro->anhoLibro}}</td>
                     <td>{{$rowLibro->descripcion}}</td>
                     <td>{{$rowLibro->costo}}</td>
                     <td>{{helper_FormatoAtributoValorATexto($rowLibro->adquisicion, 'libroAdquisicion')}}</td>
@@ -86,6 +89,7 @@
                     <td>{{$rowLibro->observacion}}</td>
                     <td>{{$rowLibro->prestadoA}}</td>
                     <td>{{helper_formatoVistaFecha($rowLibro->fechaIngresoCooperativa)}}</td>
+                    <td>{{$rowLibro->countLibrosPrestamos}}</td>
                     <td class="font-weight-bold"><div class="{{helper_formatoClassLibroEstado($rowLibro->estado)}}">{{helper_FormatoAtributoValorATexto($rowLibro->estado, 'libroEstado')}}</div></td>
                     <td>{{helper_formatoVistaFechayHora($rowLibro->fechaRegistro)}}</td>
                     <td>{{helper_formatoVistaFechayHora($rowLibro->fechaActualizacion)}}</td>

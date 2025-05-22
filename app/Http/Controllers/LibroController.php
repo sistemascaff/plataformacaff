@@ -159,7 +159,9 @@ class LibroController extends Controller
             $libro->idCategoria = $request->idCategoria;
             $libro->nombreAutor = strtoupper($request->nombreAutor);
             $libro->nombreEditorial = strtoupper($request->nombreEditorial);
+            $libro->anhoLibro = $request->anhoLibro;
             $libro->idPresentacion = $request->idPresentacion;
+            $libro->fechaIngresoCooperativa = $request->fechaIngresoCooperativa;
             $libro->idUsuario = session('idUsuario');
             $libro->ip = session('ip');
             $libro->dispositivo  = session('dispositivo');
@@ -207,7 +209,9 @@ class LibroController extends Controller
             $libro->idCategoria = $request->idCategoria;
             $libro->nombreAutor = strtoupper($request->nombreAutor);
             $libro->nombreEditorial = strtoupper($request->nombreEditorial);
+            $libro->anhoLibro = $request->anhoLibro;
             $libro->idPresentacion = $request->idPresentacion;
+            $libro->fechaIngresoCooperativa = $request->fechaIngresoCooperativa;
             $libro->idUsuario = session('idUsuario');
             $libro->ip = session('ip');
             $libro->dispositivo  = session('dispositivo');

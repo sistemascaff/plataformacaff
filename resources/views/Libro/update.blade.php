@@ -67,6 +67,16 @@
                   @enderror
                 </div>
                 <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">COSTO (*)</label>
+                  <div class="col-sm-10">
+                  <input type="number" class="form-control @error('anhoLibro') is-invalid @enderror"
+                    name="anhoLibro" value="{{old('anhoLibro', $libro->anhoLibro)}}" placeholder="1.00" step="1" min="0" required>
+                  </div>
+                  @error('anhoLibro')
+                  <span class="text-danger">{{$message}}</span>
+                  @enderror
+                </div>
+                <div class="form-group row">
                   <label class="col-sm-2 col-form-label">OBSERVACIÓN/ES (*)</label>
                   <div class="col-sm-10">
                     <textarea class="form-control" name="observacion" required>{{old('observacion', $libro->observacion)}}</textarea>
@@ -90,7 +100,7 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">CATEGORIA (*)</label>
                   <div class="col-sm-10">
-                    <select class="form-control" name="idCategoria" required>
+                    <select class="form-control" name="idCategoria" id="select2" required>
                       @foreach ($Categorias as $rowCategorias)
                       @if ($rowCategorias->idCategoria == $libro->idCategoria)
                       <option value="{{$rowCategorias->idCategoria}}" selected>{{$rowCategorias->nombreCategoria}}</option>
@@ -105,7 +115,7 @@
                   <label class="col-sm-2 col-form-label">AUTOR (*)</label>
                   <div class="col-sm-10">
                   <input type="text" class="form-control @error('nombreAutor') is-invalid @enderror"
-                    name="nombreAutor" value="{{old('nombreAutor', $libro->nombreAutor)}}" placeholder="AUTOR" minlength="1" maxlength="200" list="autores" required>
+                    name="nombreAutor" value="{{old('nombreAutor', $libro->nombreAutor)}}" placeholder="AUTOR" minlength="1" maxlength="100" list="autores" required>
                   </div>
                   <datalist id="autores">
                     @foreach ($Autores as $rowAutores)
@@ -120,7 +130,7 @@
                   <label class="col-sm-2 col-form-label">EDITORIAL (*)</label>
                   <div class="col-sm-10">
                   <input type="text" class="form-control @error('nombreEditorial') is-invalid @enderror"
-                    name="nombreEditorial" value="{{old('nombreEditorial', $libro->nombreEditorial)}}" placeholder="AUTOR" minlength="1" maxlength="200" list="editoriales" required>
+                    name="nombreEditorial" value="{{old('nombreEditorial', $libro->nombreEditorial)}}" placeholder="AUTOR" minlength="1" maxlength="100" list="editoriales" required>
                   </div>
                   <datalist id="editoriales">
                     @foreach ($Editoriales as $rowEditoriales)
@@ -144,6 +154,16 @@
                       @endforeach
                     </select>
                   </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">FECHA DE INGRESO COOPERATIVA (*)</label>
+                  <div class="col-sm-10">
+                  <input type="date" class="form-control @error('fechaIngresoCooperativa') is-invalid @enderror"
+                    name="fechaIngresoCooperativa" value="{{old('fechaIngresoCooperativa',  date("Y-m-d", strtotime($libro->fechaIngresoCooperativa)))}}" required>
+                  </div>
+                  @error('fechaIngresoCooperativa')
+                  <span class="text-danger">{{$message}}</span>
+                  @enderror
                 </div>
               </div>
               
