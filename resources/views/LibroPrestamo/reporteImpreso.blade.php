@@ -48,7 +48,7 @@
 
         .watermark {
             position: fixed;
-            top: 30%;
+            top: 34.5%;
             left: 28%;
             width: 300px;
             opacity: 0.15;
@@ -70,7 +70,8 @@
                 <td width="25%"><img src="{{ URL::to('/') }}/public/img/caff.jpeg" width="30%"></td>
                 <td width="50%" class="align-middle text-center font-weight-bold">
                     <p class="inicio" style="font-size: 25px">REPORTE DE BIBLIOTECA</p>
-                    <p>Préstamos de libros efectuados en fechas: <span class="text-info">{{ date('d/m/Y', strtotime($fechaInicio)) }}</span> a <span
+                    <p>Préstamos de libros efectuados en fechas: <span
+                            class="text-info">{{ date('d/m/Y', strtotime($fechaInicio)) }}</span> a <span
                             class="text-info">{{ date('d/m/Y', strtotime($fechaFin)) }}</span>
                 </td>
                 <td width="25%"></td>
@@ -85,16 +86,20 @@
         <ul class="subtitulo">
             <li><u><a class="text-dark" href="#detalle">1. DETALLE</a></u></li>
             <li><u><a class="text-dark" href="#cantidad-general">2. CANTIDAD DE LIBROS PRESTADOS EN GENERAL</a></u></li>
-            <li><u><a class="text-dark" href="#cantidad-primaria">3. CANTIDAD DE LIBROS PRESTADOS POR NIVEL (PRIMARIA)</a></u></li>
-            <li><u><a class="text-dark" href="#cantidad-secundaria">4. CANTIDAD DE LIBROS PRESTADOS POR NIVEL (SECUNDARIA)</a></u></li>
+            <li><u><a class="text-dark" href="#cantidad-primaria">3. CANTIDAD DE LIBROS PRESTADOS POR NIVEL
+                        (PRIMARIA)</a></u></li>
+            <li><u><a class="text-dark" href="#cantidad-secundaria">4. CANTIDAD DE LIBROS PRESTADOS POR NIVEL
+                        (SECUNDARIA)</a></u></li>
             <li><u><a class="text-dark" href="#cantidad-otros">5. CANTIDAD DE LIBROS PRESTADOS A OTROS</a></u></li>
-            <li><u><a class="text-dark" href="#cantidad-persona">6. CANTIDAD DE LIBROS PRESTADOS POR PERSONA</a></u></li>
-            <li><u><a class="text-dark" href="#cantidad-libro">7. CANTIDAD LIBROS PRESTADOS, AGRUPADOS POR LIBRO</a></u></li>
+            <li><u><a class="text-dark" href="#cantidad-persona">6. CANTIDAD DE LIBROS PRESTADOS POR PERSONA</a></u>
+            </li>
+            <li><u><a class="text-dark" href="#cantidad-libro">7. CANTIDAD LIBROS PRESTADOS, AGRUPADOS POR LIBRO</a></u>
+            </li>
         </ul>
     </div>
-    
+
     <div class="page-break"></div>
-    
+
 
     <p class="subtitulo text-info" id="detalle"><u>1. DETALLE</u></p>
     @if (count($LibrosPrestadosDetalle) > 0)
@@ -169,7 +174,8 @@
 
     <div class="page-break"></div>
 
-    <p class="subtitulo text-info" id="cantidad-primaria"><u>3. CANTIDAD DE LIBROS PRESTADOS POR NIVEL (PRIMARIA)</u></p>
+    <p class="subtitulo text-info" id="cantidad-primaria"><u>3. CANTIDAD DE LIBROS PRESTADOS POR NIVEL (PRIMARIA)</u>
+    </p>
     @if (count($LibrosPrestadosCantidadNivelPrimaria) > 0)
         <table class="table table-bordered table-striped col-md-6">
             <thead class="bg-secondary text-light">
@@ -203,7 +209,8 @@
 
     <div class="page-break"></div>
 
-    <p class="subtitulo text-info" id="cantidad-secundaria"><u>4. CANTIDAD DE LIBROS PRESTADOS POR NIVEL (SECUNDARIA)</u></p>
+    <p class="subtitulo text-info" id="cantidad-secundaria"><u>4. CANTIDAD DE LIBROS PRESTADOS POR NIVEL
+            (SECUNDARIA)</u></p>
     @if (count($LibrosPrestadosCantidadNivelSecundaria) > 0)
         <table class="table table-bordered table-striped col-md-6">
             <thead class="bg-secondary text-light">
@@ -330,6 +337,29 @@
     @else
         <p class="font-weight-bold">No se encontraron registros :(</p>
     @endif
+    <script type="text/php">
+        if (isset($pdf)) {
+        $pdf->page_script('
+            $text = sprintf(_("- Página %d de %d -"),  $PAGE_NUM, $PAGE_COUNT);
+            // Descomentar la siguiente línea si se desea usar un texto personalizado
+            //$text = __("Page :pageNum/:pageCount", ["pageNum" => $PAGE_NUM, "pageCount" => $PAGE_COUNT]);
+            $font = null;
+            $size = 9;
+            $color = array(0,0,0);
+            $word_space = 0.0;  //default
+            $char_space = 0.0;  //default
+            $angle = 0.0;   //default
+
+            // Obtener las métricas de la fuente para calcular el ancho del texto
+            $textWidth = $fontMetrics->getTextWidth($text, $font, $size);
+
+            $x = ($pdf->get_width() - $textWidth) / 2;
+            $y = $pdf->get_height() - 25;
+
+            $pdf->text($x, $y, $text, $font, $size, $color, $word_space, $char_space, $angle);
+        ');
+    }
+    </script>
 </body>
 
 </html>

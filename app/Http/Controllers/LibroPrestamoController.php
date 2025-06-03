@@ -339,7 +339,9 @@ class LibroPrestamoController extends Controller
             $LibrosPrestadosAgrupadosPorPersona = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorPersonaEntreFechas($fechaInicio, $fechaFin);
             $LibrosPrestadosAgrupadosPorLibro = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorLibroEntreFechas($fechaInicio, $fechaFin);
 
+
             $pdf = Pdf::loadView('LibroPrestamo.reporteImpreso', compact('LibrosPrestadosDetalle', 'fechaInicio', 'fechaFin', 'countLibrosPrestados', 'LibrosPrestadosCantidadGeneral', 'LibrosPrestadosCantidadNivelPrimaria', 'LibrosPrestadosCantidadNivelSecundaria', 'LibrosPrestadosCantidadPorOtros', 'LibrosPrestadosAgrupadosPorPersona', 'LibrosPrestadosAgrupadosPorLibro'));
+            $pdf->setOption("isPhpEnabled", true);
             return $pdf->stream('REPORTE DE PRÉSTAMOS DE LIBROS ENTRE ' . date('d/m/Y', strtotime($fechaInicio)) . ' Y ' . date('d/m/Y', strtotime($fechaFin)) . '.pdf');
         } else {
             return redirect()->route('usuarios.index');
