@@ -15,7 +15,7 @@
 <body>
     <style>
         html {
-            margin: 10px;
+            margin: 20px;
         }
         body {
             font-size: 11px;

@@ -351,7 +351,7 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="{{route('autores.index')}}" class="nav-link {{ request()->is('autores*') ? 'active' : '' }}">
-                <i class="fa fa-key nav-icon"></i>
+                <i class="fa fa-book nav-icon"></i>
                 <p>AUTORES</p>
               </a>
             </li>
@@ -359,7 +359,7 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="{{route('editoriales.index')}}" class="nav-link {{ request()->is('editoriales*') ? 'active' : '' }}">
-                <i class="fa fa-key nav-icon"></i>
+                <i class="fa fa-book nav-icon"></i>
                 <p>EDITORIALES</p>
               </a>
             </li>
@@ -369,6 +369,14 @@
               <a href="{{route('presentaciones.index')}}" class="nav-link {{ request()->is('presentaciones*') ? 'active' : '' }}">
                 <i class="fa fa-key nav-icon"></i>
                 <p>PRESENTACIONES</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('librosprestamos.reports')}}" class="nav-link {{ request()->is('prestamoslibros/reportes*') ? 'active' : '' }}">
+                <i class="fa fa-bar-chart nav-icon"></i>
+                <p>REPORTES</p>
               </a>
             </li>
           </ul>

@@ -264,12 +264,14 @@ Route::controller(LibroPrestamoController::class)->group(function(){
     Route::get('prestamoslibros','index')->name('librosprestamos.index');
     Route::get('prestamoslibros/crear/{campo?}','new')->name('librosprestamos.create');
     Route::post('prestamoslibros','store')->name('librosprestamos.store');
+    Route::get('prestamoslibros/reportes','reports')->name('librosprestamos.reports');
+    Route::get('prestamoslibros/reportes/pdf','imprimirReporte')->name('librosprestamos.reports.pdf');
     Route::get('prestamoslibros/{prestamolibro}','show')->name('librosprestamos.details');
     Route::get('prestamoslibros/{libroprestamo}/editar','edit')->name('librosprestamos.edit');
     Route::put('prestamoslibros/{libroprestamo}','update')->name('librosprestamos.update');
     Route::put('prestamoslibros','delete')->name('librosprestamos.delete');
     Route::put('prestamoslibros/{prestamolibro}/actualizarFechaRetorno','actualizarFechaRetorno')->name('librosprestamosdetalles.dateReturnUpdate');
-    Route::get('prestamoslibros/{prestamolibro}/comprobante','imprimirComprobante')->name('librosprestamos.imprimirPDF');
+    Route::get('prestamoslibros/{prestamolibro}/comprobante','imprimirComprobante')->name('librosprestamos.imprimirComprobantePDF');
 });
 Route::controller(CategoriaController::class)->group(function(){
     Route::get('categorias','index')->name('categorias.index');

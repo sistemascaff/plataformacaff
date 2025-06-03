@@ -67,4 +67,66 @@ class LibroPrestamo extends Model
         ->get();
         return $queryDetallesLibroPrestamo;
     }
+
+    public function selectCountTotalLibrosPrestadosEntreFechas($fechaInicio, $fechaFin)
+    {
+        $queryCountLibrosPrestados = LibroPrestamo::selectRaw('COUNT(LibrosPrestamosDetalles.idLibro) AS totalLibrosPrestados')
+            ->whereBetween('LibrosPrestamos.fechaRegistro', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59'])
+            ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')
+            ->count();
+        return $queryCountLibrosPrestados;
+    }
+
+    public function selectDetalleLibrosPrestadosEntreFechas($fechaInicio, $fechaFin, $orden)
+    {
+        $queryDetalleLibrosPrestados = LibroPrestamo::select('LibrosPrestamos.idLibrosPrestamo', 'LibrosPrestamosDetalles.idLibro', 'Libros.codigoLibro', 'Libros.nombreLibro', 'Libros.nombreAutor', 'Libros.nombreEditorial', 'LibrosPrestamos.nombreCurso', 'Personas.nombres', 'Personas.apellidoPaterno', 'Personas.apellidoMaterno', 'Personas.tipoPerfil','LibrosPrestamos.fechaRegistro')
+            ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')
+            ->join('Libros', 'LibrosPrestamosDetalles.idLibro', '=', 'Libros.idLibro')
+            ->join('Personas', 'LibrosPrestamos.idPersona', '=', 'Personas.idPersona')
+            ->whereBetween('LibrosPrestamos.fechaRegistro', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59'])
+            ->orderBy('LibrosPrestamos.idLibrosPrestamo', $orden)
+            ->orderBy('Libros.codigoLibro', 'ASC')
+            ->get();
+        return $queryDetalleLibrosPrestados;
+    }
+
+    public function selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, $curso)
+    {
+        $queryLibrosPrestados = LibroPrestamo::select('LibrosPrestamos.nombreCurso')
+            ->selectRaw('COUNT(LibrosPrestamosDetalles.idLibro) AS totalLibrosPrestados')
+            ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')
+            ->join('Libros', 'LibrosPrestamosDetalles.idLibro', '=', 'Libros.idLibro')
+            ->whereBetween('LibrosPrestamos.fechaRegistro', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59'])
+            ->where('LibrosPrestamos.nombreCurso', 'LIKE', '%' . $curso . '%')
+            ->groupBy('LibrosPrestamos.nombreCurso')
+            ->orderByRaw('2 DESC, 1 ASC')
+            ->get();
+        return $queryLibrosPrestados;
+    }
+
+    public function selectLibrosPrestadosAgrupadosPorPersonaEntreFechas($fechaInicio, $fechaFin){
+        $queryLibrosPrestados = LibroPrestamo::select('Personas.nombres', 'Personas.apellidoPaterno', 'Personas.apellidoMaterno', 'Personas.tipoPerfil', 'LibrosPrestamos.nombreCurso')
+            ->selectRaw('COUNT(LibrosPrestamosDetalles.idLibro) AS totalLibrosPrestados')
+            ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')
+            ->join('Libros', 'LibrosPrestamosDetalles.idLibro', '=', 'Libros.idLibro')
+            ->join('Personas', 'LibrosPrestamos.idPersona', '=', 'Personas.idPersona')
+            ->whereBetween('LibrosPrestamos.fechaRegistro', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59'])
+            ->groupBy('Personas.idPersona')
+            ->orderByRaw('totalLibrosPrestados DESC, Personas.apellidoPaterno ASC, Personas.apellidoMaterno ASC, Personas.nombres ASC')
+            ->get();
+        return $queryLibrosPrestados;
+    }
+
+    public function selectLibrosPrestadosAgrupadosPorLibroEntreFechas($fechaInicio, $fechaFin)
+    {
+        $queryLibrosPrestados = LibroPrestamo::select('Libros.codigoLibro', 'Libros.nombreLibro', 'Libros.nombreAutor', 'Libros.nombreEditorial')
+            ->selectRaw('COUNT(LibrosPrestamosDetalles.idLibro) AS totalLibrosPrestados')
+            ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')
+            ->join('Libros', 'LibrosPrestamosDetalles.idLibro', '=', 'Libros.idLibro')
+            ->whereBetween('LibrosPrestamos.fechaRegistro', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59'])
+            ->groupBy('Libros.idLibro')
+            ->orderByRaw('totalLibrosPrestados DESC, Libros.codigoLibro ASC')
+            ->get();
+        return $queryLibrosPrestados;
+    }
 }

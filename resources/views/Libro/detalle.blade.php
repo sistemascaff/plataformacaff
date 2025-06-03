@@ -177,7 +177,7 @@
                 <a class="btn btn-warning" href="{{route('librosprestamos.edit', $rowPrestamos->idLibrosPrestamo)}}">
                   {!! helper_FormatoBotonCRUD(3, 'icono') !!}
                 </a>
-                <a class="btn btn-dark" href="{{route('librosprestamos.imprimirPDF', $rowPrestamos->idLibrosPrestamo)}}" target="_blank" rel="noopener noreferrer">
+                <a class="btn btn-dark" href="{{route('librosprestamos.imprimirComprobantePDF', $rowPrestamos->idLibrosPrestamo)}}" target="_blank" rel="noopener noreferrer">
                   {!! helper_FormatoBotonCRUD(12, 'icono') !!}
                 </a>
               </div>

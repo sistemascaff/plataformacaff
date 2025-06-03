@@ -285,4 +285,64 @@ class LibroPrestamoController extends Controller
             return redirect()->route('usuarios.index');
         }
     }
+
+    public function reports(Request $request)
+    {
+        if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {
+            $fechaInicio = $request->fechaInicio ? $request->fechaInicio : date('Y-m-d', strtotime('-3 months'));
+            $fechaFin = $request->fechaFin ? $request->fechaFin : date('Y-m-d');
+            if ($fechaInicio > $fechaFin) {
+                return redirect()->route('librosprestamos.reports')->withErrors(['error' => 'La fecha de inicio ingresada (' . date('d/m/Y', strtotime($fechaInicio)) . ') no puede ser mayor a la fecha de fin (' . date('d/m/Y', strtotime($fechaFin)) . ').']);
+            }
+            $countLibrosPrestados = (new LibroPrestamo())->selectCountTotalLibrosPrestadosEntreFechas($fechaInicio, $fechaFin);
+            $LibrosPrestadosDetalle = (new LibroPrestamo())->selectDetalleLibrosPrestadosEntreFechas($fechaInicio, $fechaFin, 'DESC');
+            $LibrosPrestadosCantidadGeneral = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, '');
+            $LibrosPrestadosCantidadNivelPrimaria = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, 'PRIMARIA');
+            $LibrosPrestadosCantidadNivelSecundaria = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, 'SECUNDARIA');
+            $LibrosPrestadosCantidadPorOtros = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, '-');
+            $LibrosPrestadosAgrupadosPorPersona = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorPersonaEntreFechas($fechaInicio, $fechaFin);
+            $LibrosPrestadosAgrupadosPorLibro = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorLibroEntreFechas($fechaInicio, $fechaFin);
+            return view('LibroPrestamo.reporte', [
+                'headTitle' => 'REPORTES (BIBLIOTECA) - INICIO',
+                'fechaInicio' => $fechaInicio,
+                'fechaFin' => $fechaFin,
+                'countLibrosPrestados' => $countLibrosPrestados,
+                'LibrosPrestadosDetalle' => $LibrosPrestadosDetalle,
+                'LibrosPrestadosCantidadGeneral' => $LibrosPrestadosCantidadGeneral,
+                'LibrosPrestadosCantidadNivelPrimaria' => $LibrosPrestadosCantidadNivelPrimaria,
+                'LibrosPrestadosCantidadNivelSecundaria' => $LibrosPrestadosCantidadNivelSecundaria,
+                'LibrosPrestadosCantidadPorOtros' => $LibrosPrestadosCantidadPorOtros,
+                'LibrosPrestadosAgrupadosPorPersona' => $LibrosPrestadosAgrupadosPorPersona,
+                'LibrosPrestadosAgrupadosPorLibro' => $LibrosPrestadosAgrupadosPorLibro
+        ]);
+        }
+        else{
+            return redirect()->route('usuarios.index');
+        }        
+    }
+
+    public function imprimirReporte(Request $request)
+    {
+        if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1])) {
+            $fechaInicio = $request->fechaInicio ? $request->fechaInicio : date('Y-m-d', strtotime('-3 months'));
+            $fechaFin = $request->fechaFin ? $request->fechaFin : date('Y-m-d');
+            if ($fechaInicio > $fechaFin) {
+                return redirect()->route('librosprestamos.reports')->withErrors(['error' => 'La fecha de inicio ingresada (' . date('d/m/Y', strtotime($fechaInicio)) . ') no puede ser mayor a la fecha de fin (' . date('d/m/Y', strtotime($fechaFin)) . ').']);
+            }
+            
+            $countLibrosPrestados = (new LibroPrestamo())->selectCountTotalLibrosPrestadosEntreFechas($fechaInicio, $fechaFin);
+            $LibrosPrestadosDetalle = (new LibroPrestamo())->selectDetalleLibrosPrestadosEntreFechas($fechaInicio, $fechaFin, 'ASC');
+            $LibrosPrestadosCantidadGeneral = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, '');
+            $LibrosPrestadosCantidadNivelPrimaria = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, 'PRIMARIA');
+            $LibrosPrestadosCantidadNivelSecundaria = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, 'SECUNDARIA');
+            $LibrosPrestadosCantidadPorOtros = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, '-');
+            $LibrosPrestadosAgrupadosPorPersona = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorPersonaEntreFechas($fechaInicio, $fechaFin);
+            $LibrosPrestadosAgrupadosPorLibro = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorLibroEntreFechas($fechaInicio, $fechaFin);
+
+            $pdf = Pdf::loadView('LibroPrestamo.reporteImpreso', compact('LibrosPrestadosDetalle', 'fechaInicio', 'fechaFin', 'countLibrosPrestados', 'LibrosPrestadosCantidadGeneral', 'LibrosPrestadosCantidadNivelPrimaria', 'LibrosPrestadosCantidadNivelSecundaria', 'LibrosPrestadosCantidadPorOtros', 'LibrosPrestadosAgrupadosPorPersona', 'LibrosPrestadosAgrupadosPorLibro'));
+            return $pdf->stream('REPORTE DE PRÉSTAMOS DE LIBROS ENTRE ' . date('d/m/Y', strtotime($fechaInicio)) . ' Y ' . date('d/m/Y', strtotime($fechaFin)) . '.pdf');
+        } else {
+            return redirect()->route('usuarios.index');
+        }
+    }
 }
