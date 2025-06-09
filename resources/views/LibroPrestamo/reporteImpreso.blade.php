@@ -41,6 +41,13 @@
             padding: 0;
         }
 
+        .tabla-relleno-corto {
+            margin-bottom: 1rem;
+        }
+        .tabla-relleno-corto table td {
+            padding: 0;
+        }
+
         .inicio {
             margin: 0;
             padding: 0;
@@ -70,7 +77,7 @@
                 <td width="25%"><img src="{{ URL::to('/') }}/public/img/caff.jpeg" width="30%"></td>
                 <td width="50%" class="align-middle text-center font-weight-bold">
                     <p class="inicio" style="font-size: 25px">REPORTE DE BIBLIOTECA</p>
-                    <p>Préstamos de libros efectuados en fechas: <span
+                    <p>Préstamos de libros efectuados entre fechas: <span
                             class="text-info">{{ date('d/m/Y', strtotime($fechaInicio)) }}</span> a <span
                             class="text-info">{{ date('d/m/Y', strtotime($fechaFin)) }}</span>
                 </td>
@@ -78,7 +85,10 @@
             </tr>
         </table>
     </div>
-    <p class="subtitulo bg-info text-white p-1 text-center rounded">CANTIDAD TOTAL DE LIBROS PRESTADOS:
+
+    <p class="align-middle border border-info rounded p-1 font-weight-bold">Fecha de creación: <span class="text-info align-middle">{{ date('d/m/Y h:i:s') }}</span> , generado por: <span class="text-info align-middle">{{ session('correo') }}</span></p>
+
+    <p class="subtitulo bg-info text-white p-1 text-center rounded align-middle">CANTIDAD TOTAL DE LIBROS PRESTADOS:
         {{ $countLibrosPrestados }}</p>
 
     <div class="border border-info rounded p-1">
@@ -93,8 +103,12 @@
             <li><u><a class="text-dark" href="#cantidad-otros">5. CANTIDAD DE LIBROS PRESTADOS A OTROS</a></u></li>
             <li><u><a class="text-dark" href="#cantidad-persona">6. CANTIDAD DE LIBROS PRESTADOS POR PERSONA</a></u>
             </li>
-            <li><u><a class="text-dark" href="#cantidad-libro">7. CANTIDAD LIBROS PRESTADOS, AGRUPADOS POR LIBRO</a></u>
-            </li>
+            <li><u><a class="text-dark" href="#cantidad-libro">7. CANTIDAD DE LIBROS PRESTADOS, AGRUPADOS POR
+                        LIBRO</a></u></li>
+            <li><u><a class="text-dark" href="#cantidad-categoria">8. CANTIDAD DE LIBROS PRESTADOS, AGRUPADOS POR
+                        CATEGORIA</a></u></li>
+            <li><u><a class="text-dark" href="#cantidad-deuda-persona">9. CANTIDAD DE LIBROS ADEUDADOS, AGRUPADOS POR
+                        PERSONA</a></u></li>
         </ul>
     </div>
 
@@ -106,7 +120,8 @@
         <table class="table table-bordered table-striped table-sm">
             <thead class="bg-secondary text-light font-weight-bold text-center">
                 <tr>
-                    <th class="align-middle">N° PRESTAMO</th>
+                    <th class="align-middle">N° L</th>
+                    <th class="align-middle">N° P</th>
                     <th class="align-middle">CODIGO LIBRO</th>
                     <th class="align-middle">TITULO</th>
                     <th class="align-middle">AUTOR</th>
@@ -119,6 +134,7 @@
             <tbody>
                 @foreach ($LibrosPrestadosDetalle as $rowLibro)
                     <tr>
+                        <td class="text-center font-weight-bold text-info">{{ $index }}</td>
                         <td class="text-center font-weight-bold">{{ $rowLibro->idLibrosPrestamo }}</td>
                         <td>{{ $rowLibro->codigoLibro }}</td>
                         <td>{{ $rowLibro->nombreLibro }}</td>
@@ -127,9 +143,15 @@
                         <td>{{ trim($rowLibro->apellidoPaterno . ' ' . $rowLibro->apellidoMaterno . ' ' . $rowLibro->nombres) }}
                         </td>
                         <td>{{ $rowLibro->nombreCurso }}</td>
-                        <td>{{ helper_formatoVistaFecha($rowLibro->fechaRegistro) }}</td>
+                        <td>{{ helper_formatoVistaFechayHora($rowLibro->fechaRegistro) }}</td>
                     </tr>
+                    @php
+                        $index++;
+                    @endphp
                 @endforeach
+                @php
+                    $index = 1;
+                @endphp
             </tbody>
         </table>
         <p class="font-weight-bold">Cant. Total de libros prestados (General): <span
@@ -142,7 +164,7 @@
 
     <p class="subtitulo text-info" id="cantidad-general"><u>2. CANTIDAD DE LIBROS PRESTADOS EN GENERAL</u></p>
     @if (count($LibrosPrestadosCantidadGeneral) > 0)
-        <table class="table table-bordered table-striped col-md-6">
+        <table class="table-bordered table-striped tabla-relleno-corto col-12">
             <thead class="bg-secondary text-light">
                 <tr class="text-center">
                     <th>N°</th>
@@ -172,12 +194,14 @@
         <p class="font-weight-bold">No se encontraron registros :(</p>
     @endif
 
-    <div class="page-break"></div>
+    @if (count($LibrosPrestadosCantidadNivelPrimaria) > 0)
+        <div class="page-break"></div>
+    @endif
 
     <p class="subtitulo text-info" id="cantidad-primaria"><u>3. CANTIDAD DE LIBROS PRESTADOS POR NIVEL (PRIMARIA)</u>
     </p>
     @if (count($LibrosPrestadosCantidadNivelPrimaria) > 0)
-        <table class="table table-bordered table-striped col-md-6">
+        <table class="table table-bordered table-striped">
             <thead class="bg-secondary text-light">
                 <tr class="text-center">
                     <th>N°</th>
@@ -207,12 +231,14 @@
         <p class="font-weight-bold">No se encontraron registros :(</p>
     @endif
 
-    <div class="page-break"></div>
+    @if (count($LibrosPrestadosCantidadNivelSecundaria) > 0)
+        <div class="page-break"></div>
+    @endif
 
     <p class="subtitulo text-info" id="cantidad-secundaria"><u>4. CANTIDAD DE LIBROS PRESTADOS POR NIVEL
             (SECUNDARIA)</u></p>
     @if (count($LibrosPrestadosCantidadNivelSecundaria) > 0)
-        <table class="table table-bordered table-striped col-md-6">
+        <table class="table table-bordered table-striped">
             <thead class="bg-secondary text-light">
                 <tr class="text-center">
                     <th>N°</th>
@@ -242,11 +268,13 @@
         <p class="font-weight-bold">No se encontraron registros :(</p>
     @endif
 
-    <div class="page-break"></div>
+    @if (count($LibrosPrestadosCantidadPorOtros) > 0)
+        <div class="page-break"></div>
+    @endif
 
     <p class="subtitulo text-info" id="cantidad-otros"><u>5. CANTIDAD DE LIBROS PRESTADOS A OTROS</u></p>
     @if (count($LibrosPrestadosCantidadPorOtros) > 0)
-        <table class="table table-bordered table-striped col-md-6">
+        <table class="table table-bordered table-striped">
             <thead class="bg-secondary text-light">
                 <tr class="text-center">
                     <th>OTROS</th>
@@ -272,14 +300,14 @@
 
     <p class="subtitulo text-info" id="cantidad-persona"><u>6. CANTIDAD DE LIBROS PRESTADOS POR PERSONA</u></p>
     @if (count($LibrosPrestadosAgrupadosPorPersona) > 0)
-        <table class="table table-bordered table-striped col-md-6">
+        <table class="table-bordered table-striped tabla-relleno-corto col-12">
             <thead class="bg-secondary text-light">
                 <tr class="text-center">
                     <th>N°</th>
                     <th>PERFIL</th>
                     <th>CURSO</th>
                     <th>NOMBRE</th>
-                    <th>CANT. LIBROS PRESTADOS</th>
+                    <th>CANT.</th>
                 </tr>
             </thead>
             <tbody>
@@ -309,9 +337,9 @@
 
     <div class="page-break"></div>
 
-    <p class="subtitulo text-info" id="cantidad-libro"><u>7. CANTIDAD LIBROS PRESTADOS, AGRUPADOS POR LIBRO</u></p>
+    <p class="subtitulo text-info" id="cantidad-libro"><u>7. CANTIDAD DE LIBROS PRESTADOS, AGRUPADOS POR LIBRO</u></p>
     @if (count($LibrosPrestadosAgrupadosPorLibro) > 0)
-        <table class="table table-bordered table-striped col-md-6">
+        <table class="table-bordered table-striped tabla-relleno-corto col-12">
             <thead class="bg-secondary text-light">
                 <tr class="text-center">
                     <th>N°</th>
@@ -330,6 +358,9 @@
                         $index++;
                     @endphp
                 @endforeach
+                @php
+                    $index = 1;
+                @endphp
             </tbody>
         </table>
         <p class="font-weight-bold">Cant. Total de libros prestados (Agrupados por libro): <span
@@ -337,6 +368,87 @@
     @else
         <p class="font-weight-bold">No se encontraron registros :(</p>
     @endif
+
+    <div class="page-break"></div>
+
+    <p class="subtitulo text-info" id="cantidad-categoria"><u>8. CANTIDAD DE LIBROS PRESTADOS, AGRUPADOS POR
+            CATEGORIA</u></p>
+    @if (count($LibrosPrestadosAgrupadosPorCategoria) > 0)
+        <table class="table table-bordered table-striped">
+            <thead class="bg-secondary text-light">
+                <tr class="text-center">
+                    <th>N°</th>
+                    <th>CATEGORIA</th>
+                    <th>CANTIDAD</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($LibrosPrestadosAgrupadosPorCategoria as $rowCategoria)
+                    <tr>
+                        <td class="font-weight-bold text-center">{{ $index }}</td>
+                        <td>{{ $rowCategoria->nombreCategoria }}</td>
+                        <td class="text-center">{{ $rowCategoria->totalLibrosPrestados }}</td>
+                    </tr>
+                    @php
+                        $index++;
+                    @endphp
+                @endforeach
+                @php
+                    $index = 1;
+                @endphp
+            </tbody>
+        </table>
+        <p class="font-weight-bold">Cant. Total de libros prestados (Agrupados por categoria): <span
+                class="text-info">{{ $LibrosPrestadosAgrupadosPorCategoria->sum('totalLibrosPrestados') }}</span></p>
+    @else
+        <p class="font-weight-bold">No se encontraron registros :(</p>
+    @endif
+
+    <div class="page-break"></div>
+
+    <p class="subtitulo text-info" id="cantidad-deuda-persona"><u>9. CANTIDAD DE LIBROS ADEUDADOS, AGRUPADOS POR PERSONA</u></p>
+    @if (count($LibrosAdeudadosAgrupadosPorPersona) > 0)
+        <table class="table-bordered table-striped tabla-relleno-corto col-12">
+            <thead class="bg-secondary text-light">
+                <tr class="text-center">
+                    <th>N°</th>
+                    <th>PERFIL</th>
+                    <th>CURSO</th>
+                    <th>PERSONA</th>
+                    <th>CANT.</th>
+                    <th>LIBROS ADEUDADOS</th>
+                    <th>F. PRESTAMOS</th>
+                    <th>DIAS DE RETRASO</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($LibrosAdeudadosAgrupadosPorPersona as $rowDeudaPersona)
+                    <tr>
+                        <td class="font-weight-bold text-center">{{ $index }}</td>
+                        <td>{{ $rowDeudaPersona->tipoPerfil }}</td>
+                        <td class="text-center">{{ helper_abreviarCurso($rowDeudaPersona->nombreCurso) }}</td>
+                        <td>{{ trim($rowDeudaPersona->apellidoPaterno . ' ' . $rowDeudaPersona->apellidoMaterno . ' ' . $rowDeudaPersona->nombres) }}
+                        </td>
+                        <td class="text-center">{{ $rowDeudaPersona->totalLibrosAdeudados }}</td>
+                        <td>{!! $rowDeudaPersona->librosAdeudados !!}</td>
+                        <td class="text-center">{!! $rowDeudaPersona->fechasPrestamos !!}</td>
+                        <td class="text-center">{!! $rowDeudaPersona->diasRetraso !!}</td>
+                    </tr>
+                    @php
+                        $index++;
+                    @endphp
+                @endforeach
+                @php
+                    $index = 1;
+                @endphp
+            </tbody>
+        </table>
+        <p class="font-weight-bold">Cant. Total de libros adeudados hasta el presente (Agrupados por persona): <span
+                class="text-info">{{ $LibrosAdeudadosAgrupadosPorPersona->sum('totalLibrosAdeudados') }}</span></p>
+    @else
+        <p class="font-weight-bold">No se encontraron registros :(</p>
+    @endif
+
     <script type="text/php">
         if (isset($pdf)) {
         $pdf->page_script('

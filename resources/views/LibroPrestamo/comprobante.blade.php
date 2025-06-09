@@ -73,7 +73,7 @@
                         </td>
                         <td width="22%" class="font-weight-bold align-middle p-1" style="border-left: 1px dotted black;">
                             <div class="border border-dark">
-                                Lector/Leser: <span class="text-info">{{ abreviarCurso($libroprestamo->nombreCurso) }}</span><br>
+                                Lector/Leser: <span class="text-info">{{ helper_abreviarCurso($libroprestamo->nombreCurso) }}</span><br>
                             {{ trim($persona->apellidoPaterno . ' ' . $persona->apellidoMaterno . ' ' . $persona->nombres) }}<br>
                             
                             </div>

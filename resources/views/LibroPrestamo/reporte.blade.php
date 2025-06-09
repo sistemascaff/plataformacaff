@@ -75,7 +75,9 @@
             <li><u><a class="text-dark" href="#cantidad-secundaria">4. CANTIDAD DE LIBROS PRESTADOS POR NIVEL (SECUNDARIA)</a></u></li>
             <li><u><a class="text-dark" href="#cantidad-otros">5. CANTIDAD DE LIBROS PRESTADOS A OTROS</a></u></li>
             <li><u><a class="text-dark" href="#cantidad-persona">6. CANTIDAD DE LIBROS PRESTADOS POR PERSONA</a></u></li>
-            <li><u><a class="text-dark" href="#cantidad-libro">7. CANTIDAD LIBROS PRESTADOS, AGRUPADOS POR LIBRO</a></u></li>
+            <li><u><a class="text-dark" href="#cantidad-libro">7. CANTIDAD DE LIBROS PRESTADOS, AGRUPADOS POR LIBRO</a></u></li>
+            <li><u><a class="text-dark" href="#cantidad-categoria">8. CANTIDAD DE LIBROS PRESTADOS, AGRUPADOS POR CATEGORIA</a></u></li>
+            <li><u><a class="text-dark" href="#cantidad-deuda-persona">9. CANTIDAD DE LIBROS ADEUDADOS, AGRUPADOS POR PERSONA</a></u></li>
         </ul>
     </div>
           <div class="col-md-12">
@@ -278,7 +280,7 @@
             @endif
 
             <br><br>
-            <h3 class="font-weight-bold text-info" id="cantidad-libro"><u>7. CANTIDAD LIBROS PRESTADOS, AGRUPADOS POR LIBRO</u></h3>
+            <h3 class="font-weight-bold text-info" id="cantidad-libro"><u>7. CANTIDAD DE LIBROS PRESTADOS, AGRUPADOS POR LIBRO</u></h3>
             @if (!$LibrosPrestadosAgrupadosPorLibro->isEmpty())
             
             <table class="table table-bordered table-striped col-md-6">
@@ -300,6 +302,9 @@
                     $index++;
                   @endphp
                 @endforeach
+                @php
+                  $index = 1;
+                @endphp
               </tbody>
             </table>
             <p class="font-weight-bold">Cant. Total de libros prestados (Agrupados por libro): <span class="text-info">{{ $LibrosPrestadosAgrupadosPorLibro->sum('totalLibrosPrestados') }}</span></p>
@@ -307,6 +312,81 @@
             <p class="font-weight-bold">No se encontraron registros :(</p>
             @endif
 
+            <br><br>
+            <h3 class="font-weight-bold text-info" id="cantidad-categoria"><u>8. CANTIDAD DE LIBROS PRESTADOS, AGRUPADOS POR CATEGORIA</u></h3>
+            @if (!$LibrosPrestadosAgrupadosPorCategoria->isEmpty())
+            
+            <table class="table table-bordered table-striped col-md-6">
+              <thead>
+                <tr class="text-center">
+                  <th>N°</th>
+                  <th>CATEGORIA</th>
+                  <th>CANTIDAD</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($LibrosPrestadosAgrupadosPorCategoria as $rowCategoria)
+                  <tr>
+                    <td class="font-weight-bold text-center">{{$index}}</td>
+                    <td>{{$rowCategoria->nombreCategoria}}</td>
+                    <td class="text-center">{{$rowCategoria->totalLibrosPrestados}}</td>
+                  </tr>
+                  @php
+                    $index++;
+                  @endphp
+                @endforeach
+                @php
+                  $index = 1;
+                @endphp
+              </tbody>
+            </table>
+            <p class="font-weight-bold">Cant. Total de libros prestados (Agrupados por categoria): <span class="text-info">{{ $LibrosPrestadosAgrupadosPorCategoria->sum('totalLibrosPrestados') }}</span></p>
+            @else
+            <p class="font-weight-bold">No se encontraron registros :(</p>
+            @endif
+
+            <br><br>
+            <h3 class="font-weight-bold text-info" id="cantidad-deuda-persona"><u>9. CANTIDAD DE LIBROS ADEUDADOS, AGRUPADOS POR PERSONA</u></h3>
+            @if (!$LibrosAdeudadosAgrupadosPorPersona->isEmpty())
+            
+            <table class="table table-bordered table-striped col-md-12">
+              <thead>
+                <tr class="text-center">
+                  <th>N°</th>
+                  <th>PERFIL</th>
+                  <th>CURSO</th>
+                  <th>PERSONA</th>
+                  <th>CANT.</th>
+                  <th>LIBROS ADEUDADOS</th>
+                  <th>F. PRESTAMOS</th>
+                  <th>DIAS DE RETRASO</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($LibrosAdeudadosAgrupadosPorPersona as $rowDeudaPersona)
+                  <tr>
+                    <td class="font-weight-bold text-center">{{$index}}</td>
+                    <td>{{$rowDeudaPersona->tipoPerfil}}</td>
+                    <td>{{helper_abreviarCurso($rowDeudaPersona->nombreCurso)}}</td>
+                    <td>{{trim($rowDeudaPersona->apellidoPaterno . ' ' . $rowDeudaPersona->apellidoMaterno . ' ' . $rowDeudaPersona->nombres)}}</td>
+                    <td class="text-center">{{$rowDeudaPersona->totalLibrosAdeudados}}</td>
+                    <td>{!! $rowDeudaPersona->librosAdeudados !!}</td>
+                    <td>{!! $rowDeudaPersona->fechasPrestamos !!}</td>
+                    <td>{!! $rowDeudaPersona->diasRetraso !!}</td>
+                  </tr>
+                  @php
+                    $index++;
+                  @endphp
+                @endforeach
+                @php
+                  $index = 1;
+                @endphp
+              </tbody>
+            </table>
+            <p class="font-weight-bold">Cant. Total de libros adeudados hasta el presente (Agrupados por persona): <span class="text-info">{{ $LibrosAdeudadosAgrupadosPorPersona->sum('totalLibrosAdeudados') }}</span></p>
+            @else
+            <p class="font-weight-bold">No se encontraron registros :(</p>
+            @endif
           </div>
         </div>
       </div>

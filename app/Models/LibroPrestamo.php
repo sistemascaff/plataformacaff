@@ -129,4 +129,35 @@ class LibroPrestamo extends Model
             ->get();
         return $queryLibrosPrestados;
     }
+
+    public function selectLibrosPrestadosAgrupadosPorCategoriaEntreFechas($fechaInicio, $fechaFin)
+    {
+        $queryLibrosPrestados = LibroPrestamo::select('Categorias.nombreCategoria')
+            ->selectRaw('COUNT(LibrosPrestamosDetalles.idLibro) AS totalLibrosPrestados')
+            ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')
+            ->join('Libros', 'LibrosPrestamosDetalles.idLibro', '=', 'Libros.idLibro')
+            ->join('Categorias', 'Libros.idCategoria', '=', 'Categorias.idCategoria')
+            ->whereBetween('LibrosPrestamos.fechaRegistro', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59'])
+            ->groupBy('Categorias.nombreCategoria')
+            ->orderByRaw('totalLibrosPrestados DESC, Categorias.nombreCategoria ASC')
+            ->get();
+        return $queryLibrosPrestados;
+    }
+
+    public function selectLibrosAdeudadosAgrupadosPorPersona()
+    {
+        $queryLibrosAdeudados = LibroPrestamo::select('Personas.nombres', 'Personas.apellidoPaterno', 'Personas.apellidoMaterno', 'Personas.tipoPerfil', 'LibrosPrestamos.nombreCurso')
+            ->selectRaw('COUNT(LibrosPrestamosDetalles.idLibro) AS totalLibrosAdeudados,
+            GROUP_CONCAT("• ", Libros.codigoLibro, " - ", Libros.nombreLibro ORDER BY Librosprestamos.fechaRegistro ASC SEPARATOR "<br>") AS librosAdeudados,
+            GROUP_CONCAT("• ", DATE_FORMAT(Librosprestamos.fechaRegistro, "%d/%m/%Y") ORDER BY Librosprestamos.fechaRegistro ASC SEPARATOR "<br>") AS fechasPrestamos,
+            GROUP_CONCAT("• ", DATEDIFF(CURRENT_TIMESTAMP(), LibrosPrestamos.fechaDevolucion) ORDER BY Librosprestamos.fechaRegistro ASC SEPARATOR "<br>") AS diasRetraso')
+            ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')
+            ->join('Libros', 'LibrosPrestamosDetalles.idLibro', '=', 'Libros.idLibro')
+            ->join('Personas', 'LibrosPrestamos.idPersona', '=', 'Personas.idPersona')
+            ->whereNull('LibrosPrestamosDetalles.fechaRetorno')
+            ->groupBy('Personas.idPersona')
+            ->orderByRaw('totalLibrosAdeudados DESC, LibrosPrestamos.nombreCurso, Personas.apellidoPaterno ASC, Personas.apellidoMaterno ASC, Personas.nombres ASC')
+            ->get();
+        return $queryLibrosAdeudados;
+    }
 }

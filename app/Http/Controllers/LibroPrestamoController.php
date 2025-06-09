@@ -302,6 +302,8 @@ class LibroPrestamoController extends Controller
             $LibrosPrestadosCantidadPorOtros = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, '-');
             $LibrosPrestadosAgrupadosPorPersona = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorPersonaEntreFechas($fechaInicio, $fechaFin);
             $LibrosPrestadosAgrupadosPorLibro = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorLibroEntreFechas($fechaInicio, $fechaFin);
+            $LibrosPrestadosAgrupadosPorCategoria = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCategoriaEntreFechas($fechaInicio, $fechaFin);
+            $LibrosAdeudadosAgrupadosPorPersona = (new LibroPrestamo())->selectLibrosAdeudadosAgrupadosPorPersona();
             return view('LibroPrestamo.reporte', [
                 'headTitle' => 'REPORTES (BIBLIOTECA) - INICIO',
                 'fechaInicio' => $fechaInicio,
@@ -313,7 +315,9 @@ class LibroPrestamoController extends Controller
                 'LibrosPrestadosCantidadNivelSecundaria' => $LibrosPrestadosCantidadNivelSecundaria,
                 'LibrosPrestadosCantidadPorOtros' => $LibrosPrestadosCantidadPorOtros,
                 'LibrosPrestadosAgrupadosPorPersona' => $LibrosPrestadosAgrupadosPorPersona,
-                'LibrosPrestadosAgrupadosPorLibro' => $LibrosPrestadosAgrupadosPorLibro
+                'LibrosPrestadosAgrupadosPorLibro' => $LibrosPrestadosAgrupadosPorLibro,
+                'LibrosPrestadosAgrupadosPorCategoria' => $LibrosPrestadosAgrupadosPorCategoria,
+                'LibrosAdeudadosAgrupadosPorPersona' => $LibrosAdeudadosAgrupadosPorPersona
         ]);
         }
         else{
@@ -338,9 +342,10 @@ class LibroPrestamoController extends Controller
             $LibrosPrestadosCantidadPorOtros = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, '-');
             $LibrosPrestadosAgrupadosPorPersona = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorPersonaEntreFechas($fechaInicio, $fechaFin);
             $LibrosPrestadosAgrupadosPorLibro = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorLibroEntreFechas($fechaInicio, $fechaFin);
+            $LibrosPrestadosAgrupadosPorCategoria = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCategoriaEntreFechas($fechaInicio, $fechaFin);
+            $LibrosAdeudadosAgrupadosPorPersona = (new LibroPrestamo())->selectLibrosAdeudadosAgrupadosPorPersona();
 
-
-            $pdf = Pdf::loadView('LibroPrestamo.reporteImpreso', compact('LibrosPrestadosDetalle', 'fechaInicio', 'fechaFin', 'countLibrosPrestados', 'LibrosPrestadosCantidadGeneral', 'LibrosPrestadosCantidadNivelPrimaria', 'LibrosPrestadosCantidadNivelSecundaria', 'LibrosPrestadosCantidadPorOtros', 'LibrosPrestadosAgrupadosPorPersona', 'LibrosPrestadosAgrupadosPorLibro'));
+            $pdf = Pdf::loadView('LibroPrestamo.reporteImpreso', compact('LibrosPrestadosDetalle', 'fechaInicio', 'fechaFin', 'countLibrosPrestados', 'LibrosPrestadosCantidadGeneral', 'LibrosPrestadosCantidadNivelPrimaria', 'LibrosPrestadosCantidadNivelSecundaria', 'LibrosPrestadosCantidadPorOtros', 'LibrosPrestadosAgrupadosPorPersona', 'LibrosPrestadosAgrupadosPorLibro', 'LibrosPrestadosAgrupadosPorCategoria', 'LibrosAdeudadosAgrupadosPorPersona'));
             $pdf->setOption("isPhpEnabled", true);
             return $pdf->stream('REPORTE DE PRÉSTAMOS DE LIBROS ENTRE ' . date('d/m/Y', strtotime($fechaInicio)) . ' Y ' . date('d/m/Y', strtotime($fechaFin)) . '.pdf');
         } else {

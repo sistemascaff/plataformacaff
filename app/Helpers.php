@@ -287,7 +287,7 @@ function helper_reemplazarOrdinal($cadena)
     return $cadena;
 }
 
-function abreviarCurso($cadena) {
+function helper_abreviarCurso($cadena) {
     if(helper_formatoNullorEmpty($cadena) == '-'){
         return '';
     }
