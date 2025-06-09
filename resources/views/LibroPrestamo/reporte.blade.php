@@ -83,7 +83,7 @@
           <div class="col-md-12">
             <br><br>
             <h3 class="font-weight-bold text-info" id="detalle"><u>1. DETALLE:</u></h3>
-            <table id="dataTable" class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped" id="dataTable-detalle">
               <thead>
                 <tr>
                   <th>N° PRESTAMO</th>
@@ -123,7 +123,7 @@
             <br><br>
             <h3 class="font-weight-bold text-info" id="cantidad-general"><u>2. CANTIDAD DE LIBROS PRESTADOS EN GENERAL</u></h3>
             @if (!$LibrosPrestadosCantidadGeneral->isEmpty())
-            <table class="table table-bordered table-striped col-md-6">
+            <table class="table table-bordered table-striped" id="dataTable-cantidad-general">
               <thead>
                 <tr class="text-center">
                   <th>N°</th>
@@ -155,7 +155,7 @@
             <br><br>
             <h3 class="font-weight-bold text-info" id="cantidad-primaria"><u>3. CANTIDAD DE LIBROS PRESTADOS POR NIVEL (PRIMARIA)</u></h3>
             @if (!$LibrosPrestadosCantidadNivelPrimaria->isEmpty())
-            <table class="table table-bordered table-striped col-md-6">
+            <table class="table table-bordered table-striped" id="dataTable-cantidad-primaria">
               <thead>
                 <tr class="text-center">
                   <th>N°</th>
@@ -188,7 +188,7 @@
             <h3 class="font-weight-bold text-info" id="cantidad-secundaria"><u>4. CANTIDAD DE LIBROS PRESTADOS POR NIVEL (SECUNDARIA)</u></h3>
             @if (!$LibrosPrestadosCantidadNivelSecundaria->isEmpty())
             
-            <table class="table table-bordered table-striped col-md-6">
+            <table class="table table-bordered table-striped" id="dataTable-cantidad-secundaria">
               <thead>
                 <tr class="text-center">
                   <th>N°</th>
@@ -221,7 +221,7 @@
             <h3 class="font-weight-bold text-info" id="cantidad-otros"><u>5. CANTIDAD DE LIBROS PRESTADOS A OTROS</u></h3>
             @if (!$LibrosPrestadosCantidadPorOtros->isEmpty())
             
-            <table class="table table-bordered table-striped col-md-6">
+            <table class="table table-bordered table-striped" id="dataTable-cantidad-otros">
               <thead>
                 <tr class="text-center">
                   <th>OTROS</th>
@@ -246,7 +246,7 @@
             <h3 class="font-weight-bold text-info" id="cantidad-persona"><u>6. CANTIDAD DE LIBROS PRESTADOS POR PERSONA</u></h3>
             @if (!$LibrosPrestadosAgrupadosPorPersona->isEmpty())
             
-            <table class="table table-bordered table-striped col-md-8">
+            <table class="table table-bordered table-striped" id="dataTable-cantidad-persona">
               <thead>
                 <tr class="text-center">
                   <th>N°</th>
@@ -283,7 +283,7 @@
             <h3 class="font-weight-bold text-info" id="cantidad-libro"><u>7. CANTIDAD DE LIBROS PRESTADOS, AGRUPADOS POR LIBRO</u></h3>
             @if (!$LibrosPrestadosAgrupadosPorLibro->isEmpty())
             
-            <table class="table table-bordered table-striped col-md-8">
+            <table class="table table-bordered table-striped" id="dataTable-cantidad-libro">
               <thead>
                 <tr class="text-center">
                   <th>N°</th>
@@ -316,7 +316,7 @@
             <h3 class="font-weight-bold text-info" id="cantidad-categoria"><u>8. CANTIDAD DE LIBROS PRESTADOS, AGRUPADOS POR CATEGORIA</u></h3>
             @if (!$LibrosPrestadosAgrupadosPorCategoria->isEmpty())
             
-            <table class="table table-bordered table-striped col-md-6">
+            <table class="table table-bordered table-striped" id="dataTable-cantidad-categoria">
               <thead>
                 <tr class="text-center">
                   <th>N°</th>
@@ -349,7 +349,7 @@
             <h3 class="font-weight-bold text-info" id="cantidad-deuda-persona"><u>9. CANTIDAD DE LIBROS ADEUDADOS, AGRUPADOS POR PERSONA</u></h3>
             @if (!$LibrosAdeudadosAgrupadosPorPersona->isEmpty())
             
-            <table class="table table-bordered table-striped col-md-12">
+            <table class="table table-bordered table-striped" id="dataTable-cantidad-deuda-persona">
               <thead>
                 <tr class="text-center">
                   <th>N°</th>
@@ -395,4 +395,6 @@
     <!-- /.card -->
   </section>
   <!-- /.content -->
-  @include('layouts.footer')
+@include('layouts.footerStart')
+@include('LibroPrestamo.reporteScripts')
+@include('layouts.footerEnd')

@@ -124,4 +124,5 @@
   <!-- /.modal -->
 
   <!-- /.content -->
-  @include('layouts.footer')
+  @include('layouts.footerStart')
+@include('layouts.footerEnd')

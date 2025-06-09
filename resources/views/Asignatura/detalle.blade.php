@@ -512,4 +512,6 @@
     </div>
     <!-- /.modal -->
 
-    @include('layouts.footer')
+@include('layouts.footerStart')
+@include('asignatura.detalleScripts')
+@include('layouts.footerEnd')
