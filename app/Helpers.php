@@ -310,7 +310,7 @@ function helper_abreviarCurso($cadena) {
     }
 
     // Tablas para los casos regulares
-    $numeros = [
+    $cursos = [
         'PRIMERO' => '1',
         'SEGUNDO' => '2',
         'TERCERO' => '3',
@@ -324,17 +324,17 @@ function helper_abreviarCurso($cadena) {
         'SECUNDARIA' => 'S',
     ];
 
-    $colores = [
+    $paralelos = [
         'ROT' => 'R',
         'WEISS' => 'W',
     ];
 
     // Búsqueda y armado del resultado
-    $numero = $numeros[$partes[0]] ?? '';
+    $curso = $cursos[$partes[0]] ?? '';
     $nivel = $niveles[$partes[2] ?? ''] ?? '';
-    $color = $colores[$partes[3] ?? $partes[2] ?? ''] ?? '';
+    $paralelo = $paralelos[$partes[3] ?? $partes[2] ?? ''] ?? '';
 
-    return $numero . $nivel . $color;
+    return $curso . $nivel . $paralelo;
 }
 
 function recortarTexto($texto, $longitudMaxima) {

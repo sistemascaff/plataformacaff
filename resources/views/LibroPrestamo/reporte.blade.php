@@ -246,7 +246,7 @@
             <h3 class="font-weight-bold text-info" id="cantidad-persona"><u>6. CANTIDAD DE LIBROS PRESTADOS POR PERSONA</u></h3>
             @if (!$LibrosPrestadosAgrupadosPorPersona->isEmpty())
             
-            <table class="table table-bordered table-striped col-md-6">
+            <table class="table table-bordered table-striped col-md-8">
               <thead>
                 <tr class="text-center">
                   <th>N°</th>
@@ -283,7 +283,7 @@
             <h3 class="font-weight-bold text-info" id="cantidad-libro"><u>7. CANTIDAD DE LIBROS PRESTADOS, AGRUPADOS POR LIBRO</u></h3>
             @if (!$LibrosPrestadosAgrupadosPorLibro->isEmpty())
             
-            <table class="table table-bordered table-striped col-md-6">
+            <table class="table table-bordered table-striped col-md-8">
               <thead>
                 <tr class="text-center">
                   <th>N°</th>
@@ -295,7 +295,7 @@
                 @foreach ($LibrosPrestadosAgrupadosPorLibro as $rowLibro)
                   <tr>
                     <td class="font-weight-bold text-center">{{$index}}</td>
-                    <td>{{$rowLibro->codigoLibro . ' ' . $rowLibro->nombreLibro}}</td>
+                    <td>{{$rowLibro->codigoLibro . ' - ' . $rowLibro->nombreLibro}}</td>
                     <td class="text-center">{{$rowLibro->totalLibrosPrestados}}</td>
                   </tr>
                   @php

@@ -351,7 +351,7 @@
                 @foreach ($LibrosPrestadosAgrupadosPorLibro as $rowLibro)
                     <tr>
                         <td class="font-weight-bold text-center">{{ $index }}</td>
-                        <td>{{ $rowLibro->codigoLibro . ' ' . $rowLibro->nombreLibro }}</td>
+                        <td>{{ $rowLibro->codigoLibro . ' - ' . $rowLibro->nombreLibro }}</td>
                         <td class="text-center">{{ $rowLibro->totalLibrosPrestados }}</td>
                     </tr>
                     @php
