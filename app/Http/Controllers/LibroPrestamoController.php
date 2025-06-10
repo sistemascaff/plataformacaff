@@ -61,7 +61,7 @@ class LibroPrestamoController extends Controller
     public function new($idSelect = null)
     {
         if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1])) {
-            $Personas = (new Persona())->selectDisponibles('');
+            $Personas = (new LibroPrestamo())->selectCountLibrosPrestadosAgrupadosPorPersona();
             $Libros = (new Libro())->selectDisponibles('');
             if (!$idSelect) {
                 $idSelect = 0;

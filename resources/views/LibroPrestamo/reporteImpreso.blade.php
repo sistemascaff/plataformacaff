@@ -5,7 +5,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ URL::to('/') }}/public/bootstrapdompdf.css">
 
@@ -86,7 +85,7 @@
         </table>
     </div>
 
-    <p class="align-middle border border-info rounded p-1 font-weight-bold">Fecha de creación: <span class="text-info align-middle">{{ date('d/m/Y h:i:s') }}</span> , generado por: <span class="text-info align-middle">{{ session('correo') }}</span></p>
+    <p class="align-middle border border-info rounded p-1 font-weight-bold">Fecha de creación: <span class="text-info align-middle">{{ date('d/m/Y h:i:s') }}</span>, generado por: <span class="text-info align-middle">{{ session('correo') }}</span></p>
 
     <p class="subtitulo bg-info text-white p-1 text-center rounded align-middle">CANTIDAD TOTAL DE LIBROS PRESTADOS:
         {{ $countLibrosPrestados }}</p>

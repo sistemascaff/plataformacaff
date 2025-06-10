@@ -160,4 +160,19 @@ class LibroPrestamo extends Model
             ->get();
         return $queryLibrosAdeudados;
     }
+
+    /**Función que permite recuperar los registros activos de la tabla 'Personas' y la cantidad de libros prestados por persona.*/
+    public function selectCountLibrosPrestadosAgrupadosPorPersona(){
+        $queryPersonasActivasYCantidadDeLibrosPrestados = LibroPrestamo::select('Personas.idPersona', 'Personas.nombres', 'Personas.apellidoPaterno', 'Personas.apellidoMaterno', 'Personas.tipoPerfil', 'LibrosPrestamos.nombreCurso')
+            ->selectRaw('COUNT(LibrosPrestamosDetalles.idLibro) AS totalLibrosPrestados')
+            ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')
+            ->join('Libros', 'LibrosPrestamosDetalles.idLibro', '=', 'Libros.idLibro')
+            ->rightjoin('Personas', 'LibrosPrestamos.idPersona', '=', 'Personas.idPersona')
+            ->where('Personas.estado', '=', '1')
+            ->whereNull('LibrosPrestamosDetalles.fechaRetorno')
+            ->groupBy('Personas.idPersona')
+            ->orderByRaw('Personas.apellidoPaterno ASC, Personas.apellidoMaterno ASC, Personas.nombres ASC')
+            ->get();
+        return $queryPersonasActivasYCantidadDeLibrosPrestados;
+    }
 }
