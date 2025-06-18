@@ -106,8 +106,9 @@
                         LIBRO</a></u></li>
             <li><u><a class="text-dark" href="#cantidad-categoria">8. CANTIDAD DE LIBROS PRESTADOS, AGRUPADOS POR
                         CATEGORIA</a></u></li>
-            <li><u><a class="text-dark" href="#cantidad-deuda-persona">9. CANTIDAD DE LIBROS ADEUDADOS, AGRUPADOS POR
+            <li><u><a class="text-dark" href="#cantidad-general-deuda-persona">9. CANTIDAD GENERAL DE LIBROS ADEUDADOS, AGRUPADOS POR
                         PERSONA</a></u></li>
+            <li><u><a class="text-dark" href="#cantidad-total-general-persona">10. CANTIDAD TOTAL GENERAL DE LIBROS PRESTADOS Y ADEUDADOS, AGRUPADOS POR PERSONA</a></u></li>
         </ul>
     </div>
 
@@ -405,7 +406,7 @@
 
     <div class="page-break"></div>
 
-    <p class="subtitulo text-info" id="cantidad-deuda-persona"><u>9. CANTIDAD DE LIBROS ADEUDADOS, AGRUPADOS POR PERSONA</u></p>
+    <p class="subtitulo text-info" id="cantidad-general-deuda-persona"><u>9. CANTIDAD GENERAL DE LIBROS ADEUDADOS, AGRUPADOS POR PERSONA</u></p>
     @if (count($LibrosAdeudadosAgrupadosPorPersona) > 0)
         <table class="table-bordered table-striped tabla-relleno-corto col-12">
             <thead class="bg-secondary text-light">
@@ -442,8 +443,47 @@
                 @endphp
             </tbody>
         </table>
-        <p class="font-weight-bold">Cant. Total de libros adeudados hasta el presente (Agrupados por persona): <span
+        <p class="font-weight-bold">Cant. Total general de libros adeudados hasta el presente (Agrupados por persona): <span
                 class="text-info">{{ $LibrosAdeudadosAgrupadosPorPersona->sum('totalLibrosAdeudados') }}</span></p>
+    @else
+        <p class="font-weight-bold">No se encontraron registros :(</p>
+    @endif
+
+    <div class="page-break"></div>
+
+    <p class="subtitulo text-info" id="cantidad-total-general-persona"><u>10. CANTIDAD TOTAL GENERAL DE LIBROS PRESTADOS Y ADEUDADOS, AGRUPADOS POR PERSONA</u></p>
+    @if (count($TotalGeneralLibrosPrestadosAgrupadosPorPersona) > 0)
+        <table class="table-bordered table-striped tabla-relleno-corto col-12">
+            <thead class="bg-secondary text-light">
+                <tr class="text-center">
+                    <th>N°</th>
+                    <th>PERFIL</th>
+                    <th>CURSO</th>
+                    <th>PERSONA</th>
+                    <th>T. G. LIBROS PRESTADOS</th>
+                    <th>T. G. LIBROS ADEUDADOS</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($TotalGeneralLibrosPrestadosAgrupadosPorPersona as $rowTotalGeneralLibrosPrestados)
+                    <tr>
+                        <td class="font-weight-bold text-center">{{$index}}</td>
+                        <td>{{$rowTotalGeneralLibrosPrestados->tipoPerfil}}</td>
+                        <td>{{helper_abreviarCurso($rowTotalGeneralLibrosPrestados->nombreCurso)}}</td>
+                        <td>{{trim($rowTotalGeneralLibrosPrestados->apellidoPaterno . ' ' . $rowTotalGeneralLibrosPrestados->apellidoMaterno . ' ' . $rowTotalGeneralLibrosPrestados->nombres)}}</td>
+                        <td class="text-center">{{$rowTotalGeneralLibrosPrestados->totalLibrosPrestados}}</td>
+                        <td class="text-center">{{$rowTotalGeneralLibrosPrestados->totalLibrosAdeudados}}</td>
+                    </tr>
+                    @php
+                        $index++;
+                    @endphp
+                @endforeach
+                @php
+                    $index = 1;
+                @endphp
+            </tbody>
+        </table>
+        <p class="font-weight-bold">Cant. Total general de libros prestados y adeudados hasta el presente (Agrupados por personas ACTIVAS): <span class="text-info">{{ $TotalGeneralLibrosPrestadosAgrupadosPorPersona->sum('totalLibrosPrestados') }}</span> y <span class="text-info">{{ $TotalGeneralLibrosPrestadosAgrupadosPorPersona->sum('totalLibrosAdeudados') }}</span></p>
     @else
         <p class="font-weight-bold">No se encontraron registros :(</p>
     @endif

@@ -97,3 +97,10 @@ $(document).ready(function () {
         }
     });
 });
+
+//Script para deshabilitar el botón de envío del formulario de creación
+if (document.getElementById('createForm')) {
+    document.getElementById('createForm').onsubmit = function () {
+        document.getElementById('createSubmitButton').disabled = true;
+    };
+}

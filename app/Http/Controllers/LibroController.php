@@ -223,7 +223,7 @@ class LibroController extends Controller
         }
     }
 
-    /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Libros' y retorna el método index().*/
+    /**Método que permite ELIMINAR (soft delete) un registro de la tabla 'Libros' y redirecciona al método index().*/
     public function delete(Request $request)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1] )) {

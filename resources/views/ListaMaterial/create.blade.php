@@ -30,7 +30,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-6">
-            <form class="form-horizontal" action="{{route('listasmateriales.store')}}" method="POST">
+            <form class="form-horizontal" action="{{route('listasmateriales.store')}}" method="POST" id="createForm">
 
               @csrf
 
@@ -89,7 +89,7 @@
                   <form action="{{route('listasmateriales.edit')}}" method="GET">
                     <input type="hidden" name="idAsignatura" value="{{ session('existenciaIdAsignatura') }}">
                     <input type="hidden" name="idMaterial" value="{{ session('existenciaIdMaterial') }}">
-                    <button type="submit" class="btn btn-light border-dark font-weight-bold">{!! helper_FormatoBotonCRUD(3, 'texto') !!}</button>
+                    <button type="submit" class="btn btn-light border-dark font-weight-bold" id="createSubmitButton">{!! helper_FormatoBotonCRUD(3, 'texto') !!}</button>
                   </form>
                 </div>
               @endif

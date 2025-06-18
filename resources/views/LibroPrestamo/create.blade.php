@@ -42,9 +42,9 @@
                       <option value="0" disabled selected>--SELECCIONE UNA PERSONA--</option>
                       @foreach ($Personas as $rowPersonas)
                       @if ($rowPersonas->idPersona == $idSelect)
-                      <option value="{{$rowPersonas->idPersona}}" selected>{{trim($rowPersonas->apellidoPaterno . ' ' . $rowPersonas->apellidoMaterno . ' ' . $rowPersonas->nombres) . ' (' . $rowPersonas->tipoPerfil . ')'}} {{ $rowPersonas->totalLibrosPrestados > 0 ? ' - ADEUDA ' . $rowPersonas->totalLibrosPrestados . ' LIBROS PRESTADOS' : ''}}</option>
+                      <option value="{{$rowPersonas->idPersona}}" selected>{{trim($rowPersonas->apellidoPaterno . ' ' . $rowPersonas->apellidoMaterno . ' ' . $rowPersonas->nombres) . ' (' . $rowPersonas->tipoPerfil . ')'}} {{$rowPersonas->nombreCurso ? helper_abreviarCurso($rowPersonas->nombreCurso) : ''}} {{ $rowPersonas->totalLibrosPrestados > 0 ? ' - ' . $rowPersonas->totalLibrosPrestados . ' LIBROS PRESTADOS EN TOTAL.' : '' }} {{ $rowPersonas->totalLibrosAdeudados > 0 ? ' - ' . $rowPersonas->totalLibrosAdeudados . ' LIBROS ADEUDADOS.' : '' }}</option>
                       @else
-                      <option value="{{$rowPersonas->idPersona}}">{{trim($rowPersonas->apellidoPaterno . ' ' . $rowPersonas->apellidoMaterno . ' ' . $rowPersonas->nombres) . ' (' . $rowPersonas->tipoPerfil . ')'}} {{ $rowPersonas->totalLibrosPrestados > 0 ? ' - ADEUDA ' . $rowPersonas->totalLibrosPrestados . ' LIBROS PRESTADOS' : ''}}</option>
+                      <option value="{{$rowPersonas->idPersona}}">{{trim($rowPersonas->apellidoPaterno . ' ' . $rowPersonas->apellidoMaterno . ' ' . $rowPersonas->nombres) . ' (' . $rowPersonas->tipoPerfil . ')'}} {{$rowPersonas->nombreCurso ? helper_abreviarCurso($rowPersonas->nombreCurso) : ''}} {{ $rowPersonas->totalLibrosPrestados > 0 ? ' - ' . $rowPersonas->totalLibrosPrestados . ' LIBROS PRESTADOS EN TOTAL.' : '' }} {{ $rowPersonas->totalLibrosAdeudados > 0 ? ' - ' . $rowPersonas->totalLibrosAdeudados . ' LIBROS ADEUDADOS.' : '' }}</option>
                       @endif
                       @endforeach
                     </select>

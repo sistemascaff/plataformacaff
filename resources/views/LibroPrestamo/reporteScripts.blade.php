@@ -80,7 +80,7 @@
             "buttons": ["copy", "csv", "excel", "pdf", "colvis", "searchBuilder"]
         }).buttons().container().appendTo('#dataTable-cantidad-categoria_wrapper .row:eq(0)');
         
-        $("#dataTable-cantidad-deuda-persona").DataTable({
+        $("#dataTable-cantidad-general-deuda-persona").DataTable({
             "responsive": true,
             "lengthChange": true,
             "autoWidth": true,
@@ -88,6 +88,16 @@
             "order": [],
             "pageLength": 10,
             "buttons": ["copy", "csv", "excel", "pdf", "colvis", "searchBuilder"]
-        }).buttons().container().appendTo('#dataTable-cantidad-deuda-persona_wrapper .row:eq(0)');
+        }).buttons().container().appendTo('#dataTable-cantidad-general-deuda-persona_wrapper .row:eq(0)');
+
+        $("#dataTable-cantidad-total-general-persona").DataTable({
+            "responsive": true,
+            "lengthChange": true,
+            "autoWidth": true,
+            "colReorder": true,
+            "order": [],
+            "pageLength": 10,
+            "buttons": ["copy", "csv", "excel", "pdf", "colvis", "searchBuilder"]
+        }).buttons().container().appendTo('#dataTable-cantidad-total-general-persona_wrapper .row:eq(0)');
     });
 </script>

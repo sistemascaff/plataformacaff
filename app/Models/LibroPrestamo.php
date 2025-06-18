@@ -20,51 +20,68 @@ class LibroPrestamo extends Model
 
     /**Función que permite recuperar los registros disponibles o activos de la tabla 'LibrosPrestamos' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Área, nombre de Categoria, correo del Usuario que haya modificado algún registro.*/
-    public function selectHistorial($busqueda){
-        $queryHistorial = LibroPrestamo::select('LibrosPrestamos.idLibrosPrestamo','LibrosPrestamos.idPersona','LibrosPrestamos.nombreCurso','LibrosPrestamos.celular','LibrosPrestamos.fechaDevolucion','LibrosPrestamos.estado','LibrosPrestamos.fechaRegistro','LibrosPrestamos.fechaActualizacion','LibrosPrestamos.idUsuario','Usuarios.correo',
-        'Personas.apellidoPaterno','Personas.apellidoMaterno','Personas.nombres','Personas.tipoPerfil')
-        ->selectRaw('GROUP_CONCAT(" <span class=\"font-weight-bold ",
+    public function selectHistorial($busqueda)
+    {
+        $queryHistorial = LibroPrestamo::select(
+            'LibrosPrestamos.idLibrosPrestamo',
+            'LibrosPrestamos.idPersona',
+            'LibrosPrestamos.nombreCurso',
+            'LibrosPrestamos.celular',
+            'LibrosPrestamos.fechaDevolucion',
+            'LibrosPrestamos.estado',
+            'LibrosPrestamos.fechaRegistro',
+            'LibrosPrestamos.fechaActualizacion',
+            'LibrosPrestamos.idUsuario',
+            'Usuarios.correo',
+            'Personas.apellidoPaterno',
+            'Personas.apellidoMaterno',
+            'Personas.nombres',
+            'Personas.tipoPerfil'
+        )
+            ->selectRaw('GROUP_CONCAT(" <span class=\"font-weight-bold ",
         IF(IFNULL(LibrosPrestamosDetalles.fechaRetorno, "-") = "-", "text-info", ""), "\">• (", IF(IFNULL(LibrosPrestamosDetalles.fechaRetorno, "-") = "-", "EN USO", CONCAT("DEVUELTO EL ", DATE_FORMAT(LibrosPrestamosDetalles.fechaRetorno, "%d/%m/%Y %H:%i")) ), ")</span> ",
         Libros.codigoLibro, " - ", Libros.nombreLibro ORDER BY Libros.codigoLibro ASC SEPARATOR "<br>") AS groupConcatLibros,
         GROUP_CONCAT("• ", DATEDIFF(IFNULL(LibrosPrestamosDetalles.fechaRetorno,CURRENT_TIMESTAMP()), LibrosPrestamos.fechaDevolucion), IF(IFNULL(LibrosPrestamosDetalles.fechaRetorno, "-") = "-"," y contando...", "") ORDER BY Libros.codigoLibro ASC SEPARATOR "<br>") AS diasRetraso')
-        ->leftjoin('Usuarios', 'LibrosPrestamos.idUsuario', '=', 'Usuarios.idUsuario')
-        ->join('Personas', 'LibrosPrestamos.idPersona', '=', 'Personas.idPersona')
-        ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')
-        ->join('Libros', 'LibrosPrestamosDetalles.idLibro', '=', 'Libros.idLibro')
+            ->leftjoin('Usuarios', 'LibrosPrestamos.idUsuario', '=', 'Usuarios.idUsuario')
+            ->join('Personas', 'LibrosPrestamos.idPersona', '=', 'Personas.idPersona')
+            ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')
+            ->join('Libros', 'LibrosPrestamosDetalles.idLibro', '=', 'Libros.idLibro')
 
-        ->where(function($query) use ($busqueda) {
-            $query->where('Personas.nombres', 'LIKE', '%'.$busqueda.'%')
-                  ->orWhere('Personas.apellidoPaterno', 'LIKE', '%'.$busqueda.'%')
-                  ->orWhere('Personas.apellidoMaterno', 'LIKE', '%'.$busqueda.'%')
-                  ->orWhereRaw("CONCAT(Personas.nombres, ' ', Personas.apellidoPaterno) LIKE ?", ['%'.$busqueda.'%'])
-                  ->orWhereRaw("CONCAT(Personas.nombres, ' ', Personas.apellidoMaterno) LIKE ?", ['%'.$busqueda.'%'])
-                  ->orWhereRaw("CONCAT(Personas.apellidoPaterno, ' ', Personas.nombres) LIKE ?", ['%'.$busqueda.'%'])
-                  ->orWhereRaw("CONCAT(Personas.apellidoMaterno, ' ', Personas.nombres) LIKE ?", ['%'.$busqueda.'%'])
-                  ->orWhereRaw("CONCAT(Personas.apellidoPaterno, ' ', Personas.apellidoMaterno) LIKE ?", ['%'.$busqueda.'%'])
-                  ->orWhereRaw("CONCAT(Personas.apellidoMaterno, ' ', Personas.apellidoPaterno) LIKE ?", ['%'.$busqueda.'%'])
-                  ->orWhereRaw("CONCAT(Personas.nombres, ' ', Personas.apellidoPaterno, ' ', Personas.apellidoMaterno) LIKE ?", ['%'.$busqueda.'%'])
-                  ->orWhereRaw("CONCAT(Personas.apellidoPaterno, ' ', Personas.apellidoMaterno, ' ', Personas.nombres) LIKE ?", ['%'.$busqueda.'%']);
-        })
-        ->orderBy('LibrosPrestamos.idLibrosPrestamo', 'DESC')
-        ->groupBy('LibrosPrestamos.idLibrosPrestamo')
-        ->get();
+            ->where(function ($query) use ($busqueda) {
+                $query->where('Personas.nombres', 'LIKE', '%' . $busqueda . '%')
+                    ->orWhere('Personas.apellidoPaterno', 'LIKE', '%' . $busqueda . '%')
+                    ->orWhere('Personas.apellidoMaterno', 'LIKE', '%' . $busqueda . '%')
+                    ->orWhereRaw("CONCAT(Personas.nombres, ' ', Personas.apellidoPaterno) LIKE ?", ['%' . $busqueda . '%'])
+                    ->orWhereRaw("CONCAT(Personas.nombres, ' ', Personas.apellidoMaterno) LIKE ?", ['%' . $busqueda . '%'])
+                    ->orWhereRaw("CONCAT(Personas.apellidoPaterno, ' ', Personas.nombres) LIKE ?", ['%' . $busqueda . '%'])
+                    ->orWhereRaw("CONCAT(Personas.apellidoMaterno, ' ', Personas.nombres) LIKE ?", ['%' . $busqueda . '%'])
+                    ->orWhereRaw("CONCAT(Personas.apellidoPaterno, ' ', Personas.apellidoMaterno) LIKE ?", ['%' . $busqueda . '%'])
+                    ->orWhereRaw("CONCAT(Personas.apellidoMaterno, ' ', Personas.apellidoPaterno) LIKE ?", ['%' . $busqueda . '%'])
+                    ->orWhereRaw("CONCAT(Personas.nombres, ' ', Personas.apellidoPaterno, ' ', Personas.apellidoMaterno) LIKE ?", ['%' . $busqueda . '%'])
+                    ->orWhereRaw("CONCAT(Personas.apellidoPaterno, ' ', Personas.apellidoMaterno, ' ', Personas.nombres) LIKE ?", ['%' . $busqueda . '%']);
+            })
+            ->orderBy('LibrosPrestamos.idLibrosPrestamo', 'DESC')
+            ->groupBy('LibrosPrestamos.idLibrosPrestamo')
+            ->get();
         return $queryHistorial;
     }
 
     /**Función que retorna un objeto del modelo LibroPrestamo.*/
-    public function selectLibroPrestamo($idLibrosPrestamo){
+    public function selectLibroPrestamo($idLibrosPrestamo)
+    {
         $libro = LibroPrestamo::find($idLibrosPrestamo);
         return $libro;
     }
 
     /**Función que permite recuperar los registros disponibles o activos de la tabla 'Libros' pertenecientes a un registro de la tabla 'Areas'.*/
-    public function selectLibroPrestamo_Detalles($idLibrosPrestamo){
-        $queryDetallesLibroPrestamo = LibroPrestamo::select('Libros.idLibro','Libros.nombreLibro','Libros.codigoLibro','Libros.nombreAutor','Libros.nombreEditorial','LibrosPrestamosDetalles.fechaRetorno')
-        ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')
-        ->join('Libros', 'LibrosPrestamosDetalles.idLibro', '=', 'Libros.idLibro')
-        ->where('LibrosPrestamos.idLibrosPrestamo', '=', $idLibrosPrestamo)
-        ->orderBy('Libros.codigoLibro')
-        ->get();
+    public function selectLibroPrestamo_Detalles($idLibrosPrestamo)
+    {
+        $queryDetallesLibroPrestamo = LibroPrestamo::select('Libros.idLibro', 'Libros.nombreLibro', 'Libros.codigoLibro', 'Libros.nombreAutor', 'Libros.nombreEditorial', 'LibrosPrestamosDetalles.fechaRetorno')
+            ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')
+            ->join('Libros', 'LibrosPrestamosDetalles.idLibro', '=', 'Libros.idLibro')
+            ->where('LibrosPrestamos.idLibrosPrestamo', '=', $idLibrosPrestamo)
+            ->orderBy('Libros.codigoLibro')
+            ->get();
         return $queryDetallesLibroPrestamo;
     }
 
@@ -79,7 +96,7 @@ class LibroPrestamo extends Model
 
     public function selectDetalleLibrosPrestadosEntreFechas($fechaInicio, $fechaFin, $orden)
     {
-        $queryDetalleLibrosPrestados = LibroPrestamo::select('LibrosPrestamos.idLibrosPrestamo', 'LibrosPrestamosDetalles.idLibro', 'Libros.codigoLibro', 'Libros.nombreLibro', 'Libros.nombreAutor', 'Libros.nombreEditorial', 'LibrosPrestamos.nombreCurso', 'Personas.nombres', 'Personas.apellidoPaterno', 'Personas.apellidoMaterno', 'Personas.tipoPerfil','LibrosPrestamos.fechaRegistro')
+        $queryDetalleLibrosPrestados = LibroPrestamo::select('LibrosPrestamos.idLibrosPrestamo', 'LibrosPrestamosDetalles.idLibro', 'Libros.codigoLibro', 'Libros.nombreLibro', 'Libros.nombreAutor', 'Libros.nombreEditorial', 'LibrosPrestamos.nombreCurso', 'Personas.nombres', 'Personas.apellidoPaterno', 'Personas.apellidoMaterno', 'Personas.tipoPerfil', 'LibrosPrestamos.fechaRegistro')
             ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')
             ->join('Libros', 'LibrosPrestamosDetalles.idLibro', '=', 'Libros.idLibro')
             ->join('Personas', 'LibrosPrestamos.idPersona', '=', 'Personas.idPersona')
@@ -104,7 +121,8 @@ class LibroPrestamo extends Model
         return $queryLibrosPrestados;
     }
 
-    public function selectLibrosPrestadosAgrupadosPorPersonaEntreFechas($fechaInicio, $fechaFin){
+    public function selectLibrosPrestadosAgrupadosPorPersonaEntreFechas($fechaInicio, $fechaFin)
+    {
         $queryLibrosPrestados = LibroPrestamo::select('Personas.nombres', 'Personas.apellidoPaterno', 'Personas.apellidoMaterno', 'Personas.tipoPerfil', 'LibrosPrestamos.nombreCurso')
             ->selectRaw('COUNT(LibrosPrestamosDetalles.idLibro) AS totalLibrosPrestados')
             ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')
@@ -161,18 +179,35 @@ class LibroPrestamo extends Model
         return $queryLibrosAdeudados;
     }
 
-    /**Función que permite recuperar los registros activos de la tabla 'Personas' y la cantidad de libros prestados por persona.*/
-    public function selectCountLibrosPrestadosAgrupadosPorPersona(){
-        $queryPersonasActivasYCantidadDeLibrosPrestados = LibroPrestamo::select('Personas.idPersona', 'Personas.nombres', 'Personas.apellidoPaterno', 'Personas.apellidoMaterno', 'Personas.tipoPerfil', 'LibrosPrestamos.nombreCurso')
-            ->selectRaw('COUNT(LibrosPrestamosDetalles.idLibro) AS totalLibrosPrestados')
-            ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')
-            ->join('Libros', 'LibrosPrestamosDetalles.idLibro', '=', 'Libros.idLibro')
-            ->rightjoin('Personas', 'LibrosPrestamos.idPersona', '=', 'Personas.idPersona')
-            ->where('Personas.estado', '=', '1')
-            ->whereNull('LibrosPrestamosDetalles.fechaRetorno')
-            ->groupBy('Personas.idPersona')
-            ->orderByRaw('Personas.apellidoPaterno ASC, Personas.apellidoMaterno ASC, Personas.nombres ASC')
+    /**
+     * Función que permite recuperar los registros activos de la tabla 'Personas' y la cantidad de libros prestados por persona.
+     */
+    public function selectEstadisticasPrestamosPorPersona($minimoLibrosPrestados  = null)
+    {
+        $query = Persona::select(
+            'personas.idPersona',
+            'personas.apellidoPaterno',
+            'personas.apellidoMaterno',
+            'personas.nombres',
+            'personas.tipoPerfil',
+            'librosPrestamos.nombreCurso'
+        )
+            ->selectRaw('COUNT(CASE WHEN lpdAdeudados.fechaRetorno IS NULL THEN lpdAdeudados.idLibro END) AS totalLibrosAdeudados, COUNT(lpdTodos.idLibro) AS totalLibrosPrestados')
+            ->leftJoin('librosprestamos', 'librosprestamos.idPersona', '=', 'personas.idPersona')
+            ->leftJoin('librosprestamosdetalles AS lpdAdeudados', function ($join) {
+                $join->on('lpdAdeudados.idLibrosPrestamo', '=', 'librosprestamos.idLibrosPrestamo')
+                    ->whereNull('lpdAdeudados.fechaRetorno');
+            })
+            ->leftJoin('librosprestamosdetalles AS lpdTodos', 'lpdTodos.idLibrosPrestamo', '=', 'librosprestamos.idLibrosPrestamo')
+            ->where('personas.estado', 1)
+            ->groupBy('personas.idPersona', 'personas.apellidoPaterno', 'personas.apellidoMaterno', 'personas.nombres', 'personas.tipoPerfil');
+
+        // Aplicar HAVING si se proporciona el parámetro
+        if ($minimoLibrosPrestados  !== null) {
+            $query->havingRaw('COUNT(lpdTodos.idLibro) >= ?', [$minimoLibrosPrestados ]);
+        }
+
+        return $query->orderByRaw('totalLibrosPrestados DESC, totalLibrosAdeudados DESC, personas.apellidoPaterno ASC, personas.apellidoMaterno ASC, personas.nombres ASC')
             ->get();
-        return $queryPersonasActivasYCantidadDeLibrosPrestados;
     }
 }

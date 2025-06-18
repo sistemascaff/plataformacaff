@@ -30,7 +30,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-6">
-            <form class="form-horizontal" action="{{route('dimensiones.store')}}" method="POST">
+            <form class="form-horizontal" action="{{route('dimensiones.store')}}" method="POST" id="createForm">
 
               @csrf
 
@@ -79,7 +79,7 @@
                   </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-success">{!! helper_FormatoBotonCRUD(5, 'texto') !!}</button>
+              <button type="submit" class="btn btn-success" id="createSubmitButton">{!! helper_FormatoBotonCRUD(5, 'texto') !!}</button>
               <a href="{{route('dimensiones.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
               </form>
           </div>
