@@ -1,4 +1,4 @@
-@include('layouts.header')
+@include('Layouts.header')
 <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -435,6 +435,6 @@
     <!-- /.card -->
   </section>
   <!-- /.content -->
-@include('layouts.footerStart')
+@include('Layouts.footerStart')
 @include('LibroPrestamo.reporteScripts')
-@include('layouts.footerEnd')
+@include('Layouts.footerEnd')

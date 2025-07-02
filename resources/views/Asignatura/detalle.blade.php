@@ -1,4 +1,4 @@
-@include('layouts.header')
+@include('Layouts.header')
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -512,6 +512,6 @@
     </div>
     <!-- /.modal -->
 
-@include('layouts.footerStart')
+@include('Layouts.footerStart')
 @include('asignatura.detalleScripts')
-@include('layouts.footerEnd')
+@include('Layouts.footerEnd')

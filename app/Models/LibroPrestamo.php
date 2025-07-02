@@ -166,9 +166,9 @@ class LibroPrestamo extends Model
     {
         $queryLibrosAdeudados = LibroPrestamo::select('Personas.nombres', 'Personas.apellidoPaterno', 'Personas.apellidoMaterno', 'Personas.tipoPerfil', 'LibrosPrestamos.nombreCurso')
             ->selectRaw('COUNT(LibrosPrestamosDetalles.idLibro) AS totalLibrosAdeudados,
-            GROUP_CONCAT("• ", Libros.codigoLibro, " - ", Libros.nombreLibro ORDER BY Librosprestamos.fechaRegistro ASC SEPARATOR "<br>") AS librosAdeudados,
-            GROUP_CONCAT("• ", DATE_FORMAT(Librosprestamos.fechaRegistro, "%d/%m/%Y") ORDER BY Librosprestamos.fechaRegistro ASC SEPARATOR "<br>") AS fechasPrestamos,
-            GROUP_CONCAT("• ", DATEDIFF(CURRENT_TIMESTAMP(), LibrosPrestamos.fechaDevolucion) ORDER BY Librosprestamos.fechaRegistro ASC SEPARATOR "<br>") AS diasRetraso')
+            GROUP_CONCAT("• ", Libros.codigoLibro, " - ", Libros.nombreLibro ORDER BY LibrosPrestamos.fechaRegistro ASC SEPARATOR "<br>") AS librosAdeudados,
+            GROUP_CONCAT("• ", DATE_FORMAT(LibrosPrestamos.fechaRegistro, "%d/%m/%Y") ORDER BY LibrosPrestamos.fechaRegistro ASC SEPARATOR "<br>") AS fechasPrestamos,
+            GROUP_CONCAT("• ", DATEDIFF(CURRENT_TIMESTAMP(), LibrosPrestamos.fechaDevolucion) ORDER BY LibrosPrestamos.fechaRegistro ASC SEPARATOR "<br>") AS diasRetraso')
             ->join('LibrosPrestamosDetalles', 'LibrosPrestamos.idLibrosPrestamo', '=', 'LibrosPrestamosDetalles.idLibrosPrestamo')
             ->join('Libros', 'LibrosPrestamosDetalles.idLibro', '=', 'Libros.idLibro')
             ->join('Personas', 'LibrosPrestamos.idPersona', '=', 'Personas.idPersona')
@@ -185,29 +185,29 @@ class LibroPrestamo extends Model
     public function selectEstadisticasPrestamosPorPersona($minimoLibrosPrestados  = null)
     {
         $query = Persona::select(
-            'personas.idPersona',
-            'personas.apellidoPaterno',
-            'personas.apellidoMaterno',
-            'personas.nombres',
-            'personas.tipoPerfil',
-            'librosPrestamos.nombreCurso'
+            'Personas.idPersona',
+            'Personas.apellidoPaterno',
+            'Personas.apellidoMaterno',
+            'Personas.nombres',
+            'Personas.tipoPerfil',
+            'LibrosPrestamos.nombreCurso'
         )
             ->selectRaw('COUNT(CASE WHEN lpdAdeudados.fechaRetorno IS NULL THEN lpdAdeudados.idLibro END) AS totalLibrosAdeudados, COUNT(lpdTodos.idLibro) AS totalLibrosPrestados')
-            ->leftJoin('librosprestamos', 'librosprestamos.idPersona', '=', 'personas.idPersona')
-            ->leftJoin('librosprestamosdetalles AS lpdAdeudados', function ($join) {
-                $join->on('lpdAdeudados.idLibrosPrestamo', '=', 'librosprestamos.idLibrosPrestamo')
+            ->leftJoin('LibrosPrestamos', 'LibrosPrestamos.idPersona', '=', 'Personas.idPersona')
+            ->leftJoin('LibrosPrestamosDetalles AS lpdAdeudados', function ($join) {
+                $join->on('lpdAdeudados.idLibrosPrestamo', '=', 'LibrosPrestamos.idLibrosPrestamo')
                     ->whereNull('lpdAdeudados.fechaRetorno');
             })
-            ->leftJoin('librosprestamosdetalles AS lpdTodos', 'lpdTodos.idLibrosPrestamo', '=', 'librosprestamos.idLibrosPrestamo')
-            ->where('personas.estado', 1)
-            ->groupBy('personas.idPersona', 'personas.apellidoPaterno', 'personas.apellidoMaterno', 'personas.nombres', 'personas.tipoPerfil');
+            ->leftJoin('LibrosPrestamosDetalles AS lpdTodos', 'lpdTodos.idLibrosPrestamo', '=', 'LibrosPrestamos.idLibrosPrestamo')
+            ->where('Personas.estado', 1)
+            ->groupBy('Personas.idPersona', 'Personas.apellidoPaterno', 'Personas.apellidoMaterno', 'Personas.nombres', 'Personas.tipoPerfil');
 
         // Aplicar HAVING si se proporciona el parámetro
         if ($minimoLibrosPrestados  !== null) {
             $query->havingRaw('COUNT(lpdTodos.idLibro) >= ?', [$minimoLibrosPrestados ]);
         }
 
-        return $query->orderByRaw('totalLibrosPrestados DESC, totalLibrosAdeudados DESC, personas.apellidoPaterno ASC, personas.apellidoMaterno ASC, personas.nombres ASC')
+        return $query->orderByRaw('totalLibrosPrestados DESC, totalLibrosAdeudados DESC, Personas.apellidoPaterno ASC, Personas.apellidoMaterno ASC, Personas.nombres ASC')
             ->get();
     }
 }

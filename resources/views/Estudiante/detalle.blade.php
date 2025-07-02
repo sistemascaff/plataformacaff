@@ -1,4 +1,4 @@
-@include('layouts.header')
+@include('Layouts.header')
 <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -212,5 +212,5 @@
   </div>
   <!-- /.modal -->
 
-  @include('layouts.footerStart')
-@include('layouts.footerEnd')
+  @include('Layouts.footerStart')
+@include('Layouts.footerEnd')

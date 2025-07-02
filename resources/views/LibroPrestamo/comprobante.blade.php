@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ URL::to('/') }}/public/bootstrapdompdf.css">
+    <link rel="stylesheet" href="{{public_path('bootstrapdompdf.css')}}">
 
     <title>COMPROBANTE PRÉSTAMO DE LIBROS N° {{ $libroprestamo->idLibrosPrestamo }}</title>
 </head>
@@ -61,10 +61,10 @@
     @for ($i = 0; $i < $totalItems; $i += 3)
         <div class="border border-info p-1">
             <div class="table-container">
-                <img src="{{ URL::to('/') }}/public/img/caff.jpeg" class="background-image">
+                <img src="{{public_path('img/caff.jpeg')}}" class="background-image">
                 <table class="table inicio">
                     <tr style="text-align: center; border-style: hidden;">
-                        <td width="10%"><img src="{{ URL::to('/') }}/public/img/caff.jpeg" width="100%"></td>
+                        <td width="10%"><img src="{{public_path('img/caff.jpeg')}}" width="100%"></td>
                         <td width="68%" class="font-weight-bold align-middle text-info">
                             COOPERATIVA EDUCACIONAL FEDERICO FROEBEL R.L.
                             <br>BIBLIOTECA/BIBLIOTHEK

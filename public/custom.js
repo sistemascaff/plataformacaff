@@ -36,8 +36,7 @@ if (document.getElementById('formularioPerfil')) {
         const apellidoMaterno = apellidoMaternoInput.value.trim().replace(/\s+/g, "");
         const cedulaIdentidad = documentoIdentificacionInput.value.trim();
         const apellido = apellidoPaterno || apellidoMaterno;
-        const correo = nombres.slice(0, 1).toLowerCase() + '.' + apellido.toLowerCase() + '.' + cedulaIdentidad
-            .slice(-3) + '@froebel.edu.bo';
+        const correo = nombres.slice(0, 1).toLowerCase() + '.' + apellido.toLowerCase() + '@froebel.edu.bo';
         correoInput.value = correo;
     }
 

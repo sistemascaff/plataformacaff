@@ -40,6 +40,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Ruta por defecto
+Route::get('/', function () {
+    return redirect('/usuarios');
+});
+
 Route::controller(UsuarioController::class)->group(function(){
     /*get(URL web, método de controlador)->name(nombre para referenciar ruta)*/
     Route::get('login','signIn')->name('login');

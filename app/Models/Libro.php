@@ -23,7 +23,7 @@ class Libro extends Model
     public function selectDisponibles($busqueda){
         $queryActivos = Libro::select('Libros.idLibro','Libros.nombreLibro','Libros.codigoLibro','Libros.nombreAutor','Libros.nombreEditorial','Libros.anhoLibro','Libros.costo','Libros.observacion','Libros.descripcion','Libros.adquisicion','Libros.prestadoA','Libros.fechaIngresoCooperativa','Libros.estado','Libros.fechaRegistro','Libros.fechaActualizacion','Libros.idUsuario','Usuarios.correo',
         'Categorias.nombreCategoria','Presentaciones.nombrePresentacion')
-        ->selectraw('COUNT(LibrosprestamosDetalles.idLibro) AS countLibrosPrestamos')
+        ->selectraw('COUNT(LibrosPrestamosDetalles.idLibro) AS countLibrosPrestamos')
         ->leftjoin('Usuarios', 'Libros.idUsuario', '=', 'Usuarios.idUsuario')
         ->leftjoin('LibrosPrestamosDetalles', 'Libros.idLibro', '=', 'LibrosPrestamosDetalles.idLibro')
         ->join('Categorias', 'Libros.idCategoria', '=', 'Categorias.idCategoria')

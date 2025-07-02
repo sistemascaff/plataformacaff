@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ URL::to('/') }}/public/bootstrapdompdf.css">
+    <link rel="stylesheet" href="{{public_path('bootstrapdompdf.css')}}">
 
     <title>REPORTE DE PRÉSTAMOS DE LIBROS ENTRE {{ date('d/m/Y', strtotime($fechaInicio)) }} Y
         {{ date('d/m/Y', strtotime($fechaFin)) }}</title>
@@ -66,14 +66,14 @@
             font-weight: bold;
         }
     </style>
-    <img src="{{ URL::to('/') }}/public/img/caff.jpeg" class="watermark">
+    <img src="{{public_path('img/caff.jpeg')}}" class="watermark">
     @php
         $index = 1;
     @endphp
     <div class="d-flex justify-content-center">
         <table class="tabla-inicio">
             <tr>
-                <td width="25%"><img src="{{ URL::to('/') }}/public/img/caff.jpeg" width="30%"></td>
+                <td width="25%"><img src="{{public_path('img/caff.jpeg')}}" width="30%"></td>
                 <td width="50%" class="align-middle text-center font-weight-bold">
                     <p class="inicio" style="font-size: 25px">REPORTE DE BIBLIOTECA</p>
                     <p>Préstamos de libros efectuados entre fechas: <span
@@ -494,7 +494,7 @@
             $text = sprintf(_("- Página %d de %d -"),  $PAGE_NUM, $PAGE_COUNT);
             // Descomentar la siguiente línea si se desea usar un texto personalizado
             //$text = __("Page :pageNum/:pageCount", ["pageNum" => $PAGE_NUM, "pageCount" => $PAGE_COUNT]);
-            $font = null;
+            $font = $fontMetrics->get_font("helvetica", "normal");
             $size = 9;
             $color = array(0,0,0);
             $word_space = 0.0;  //default
