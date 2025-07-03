@@ -26,7 +26,7 @@ class TutorController extends Controller
         ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -66,7 +66,7 @@ class TutorController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -87,7 +87,7 @@ class TutorController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -157,7 +157,7 @@ class TutorController extends Controller
             return redirect()->route('tutores.details', $tutor);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -180,7 +180,7 @@ class TutorController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
     
@@ -247,7 +247,7 @@ class TutorController extends Controller
             return redirect()->route('tutores.details', $tutor);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -267,7 +267,7 @@ class TutorController extends Controller
             return redirect()->route('tutores.index');
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

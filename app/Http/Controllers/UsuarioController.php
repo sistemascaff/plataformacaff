@@ -10,6 +10,21 @@ use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
+    /**Método que redirige al usuario a la vista del panel de administración,
+     * en caso de que el usuario tenga acceso al sistema, 
+     * de lo contrario, se le redirigirá a la vista para iniciar sesión.
+     */
+    public function dashboard()
+    {
+        if(session('tieneAcceso')){
+            return view('Panel.admin', [
+                'headTitle' => 'PANEL DE INICIO'
+            ]);
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
     /**Método que redirige al usuario en caso de que el rol requerido para acceder a una vista o realizar una operación, 
      * además, en caso de que no haya iniciado sesión o directamente no tenga acceso al sistema se le redirigirá a la vista para iniciar sesión.
     */
@@ -39,7 +54,7 @@ class UsuarioController extends Controller
                 $Ultimaconexion->ultimaIP = session('ip');
                 $Ultimaconexion->save();
                 (new Rol())->selectRol(session('idRol'));
-                return redirect()->route('usuarios.index');
+                return redirect()->route('dashboard');
             }
             else{
                 return redirect()->route('login')->with([
@@ -100,7 +115,7 @@ class UsuarioController extends Controller
             return $usuario;
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -128,7 +143,7 @@ class UsuarioController extends Controller
             $usuario->save();
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -149,7 +164,7 @@ class UsuarioController extends Controller
             return $usuario;
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

@@ -10,7 +10,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('usuarios.index')}}">INICIO</a></li>
+            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">INICIO</a></li>
             <li class="breadcrumb-item active">{{$persona->apellidoPaterno . ' ' . $persona->apellidoMaterno . ' ' . $persona->nombres}}</li>
           </ol>
         </div>
@@ -24,7 +24,7 @@
     <div class="card">
       <div class="card-header">
         <div class="btn-group">
-          <a class="btn btn-info" href="{{route('usuarios.index')}}">
+          <a class="btn btn-info" href="{{route('dashboard')}}">
             {!! helper_FormatoBotonCRUD(7, 'texto') !!}
           </a>
         </div>

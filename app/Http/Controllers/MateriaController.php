@@ -23,7 +23,7 @@ class MateriaController extends Controller
         ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }        
     }
 
@@ -47,7 +47,7 @@ class MateriaController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -66,7 +66,7 @@ class MateriaController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -86,7 +86,7 @@ class MateriaController extends Controller
             return redirect()->route('materias.details', $materia);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -103,7 +103,7 @@ class MateriaController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
     
@@ -122,7 +122,7 @@ class MateriaController extends Controller
             return redirect()->route('materias.details', $materia);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -142,7 +142,7 @@ class MateriaController extends Controller
             return redirect()->route('materias.index');
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

@@ -23,7 +23,7 @@ class GradoController extends Controller
         ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }        
     }
 
@@ -50,7 +50,7 @@ class GradoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -69,7 +69,7 @@ class GradoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -88,7 +88,7 @@ class GradoController extends Controller
             return redirect()->route('grados.details', $grado);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -105,7 +105,7 @@ class GradoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
     
@@ -123,7 +123,7 @@ class GradoController extends Controller
             return redirect()->route('grados.details', $grado);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -143,7 +143,7 @@ class GradoController extends Controller
             return redirect()->route('grados.index');
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

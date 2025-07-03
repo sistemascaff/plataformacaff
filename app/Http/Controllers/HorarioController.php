@@ -23,7 +23,7 @@ class HorarioController extends Controller
         ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }        
     }
 
@@ -46,7 +46,7 @@ class HorarioController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -65,7 +65,7 @@ class HorarioController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -85,7 +85,7 @@ class HorarioController extends Controller
             return redirect()->route('horarios.details', $horario);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -102,7 +102,7 @@ class HorarioController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -121,7 +121,7 @@ class HorarioController extends Controller
             return redirect()->route('horarios.details', $horario);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -141,7 +141,7 @@ class HorarioController extends Controller
             return redirect()->route('horarios.index');
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

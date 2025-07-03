@@ -27,7 +27,7 @@ class ListaMaterialController extends Controller
                 'busqueda' => $request->busqueda
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -51,7 +51,7 @@ class ListaMaterialController extends Controller
                 'material' => $material
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -74,7 +74,7 @@ class ListaMaterialController extends Controller
                 'idSelect' => $idSelect
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -117,7 +117,7 @@ class ListaMaterialController extends Controller
                 ]);
             }
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -140,7 +140,7 @@ class ListaMaterialController extends Controller
                 return redirect()->back();
             }
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -162,7 +162,7 @@ class ListaMaterialController extends Controller
             }
             return redirect()->route('listasmateriales.index');
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -198,7 +198,7 @@ class ListaMaterialController extends Controller
             }
             return redirect()->route('listasmateriales.index');
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

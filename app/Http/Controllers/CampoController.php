@@ -22,7 +22,7 @@ class CampoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -45,7 +45,7 @@ class CampoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -58,7 +58,7 @@ class CampoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -76,7 +76,7 @@ class CampoController extends Controller
             return redirect()->route('campos.details', $campo);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -91,7 +91,7 @@ class CampoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
     
@@ -108,7 +108,7 @@ class CampoController extends Controller
             return redirect()->route('campos.details', $campo);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -128,7 +128,7 @@ class CampoController extends Controller
             return redirect()->route('campos.index');
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

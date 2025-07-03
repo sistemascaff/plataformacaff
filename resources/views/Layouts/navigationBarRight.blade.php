@@ -87,15 +87,8 @@
   </li>
 
   <li class="nav-item dropdown">
-    <a class="nav-link" data-toggle="dropdown" href="#">
+    <a class="nav-link" data-toggle="modal" data-target="#modalLogout" href="#">
       <i class="fa fa-sign-out"></i>
     </a>
-    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-      <span class="dropdown-header">{{session('correo')}}</span>
-      <div class="dropdown-divider"></div>
-      <a href="{{route('logout')}}" class="dropdown-item text-center">
-        <i class="fa fa-sign-out"></i> CERRAR SESIÓN
-      </a>
-    </div>
   </li>
 </ul>

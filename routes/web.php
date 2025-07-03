@@ -42,14 +42,15 @@ use Illuminate\Support\Facades\Route;
 
 // Ruta por defecto
 Route::get('/', function () {
-    return redirect('/usuarios');
+    return redirect('/panel');
 });
 
 Route::controller(UsuarioController::class)->group(function(){
     /*get(URL web, método de controlador)->name(nombre para referenciar ruta)*/
-    Route::get('login','signIn')->name('login');
+    Route::get('panel','dashboard')->name('dashboard');
+    Route::get('iniciar-sesion','signIn')->name('login');
     Route::post('verify','verify')->name('login.verify');
-    Route::get('logout','signOut')->name('logout');
+    Route::get('cerrar-sesion','signOut')->name('logout');
     Route::get('usuarios','index')->name('usuarios.index');
     Route::post('usuarios/save','store')->name('usuarios.store');
 });

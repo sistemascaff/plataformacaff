@@ -23,7 +23,7 @@ class PeriodoController extends Controller
         ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }        
     }
 
@@ -47,7 +47,7 @@ class PeriodoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -65,7 +65,7 @@ class PeriodoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -83,7 +83,7 @@ class PeriodoController extends Controller
             return redirect()->route('periodos.details', $periodo);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -99,7 +99,7 @@ class PeriodoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
     
@@ -116,7 +116,7 @@ class PeriodoController extends Controller
             return redirect()->route('periodos.details', $periodo);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -135,7 +135,7 @@ class PeriodoController extends Controller
             return redirect()->route('periodos.index');
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

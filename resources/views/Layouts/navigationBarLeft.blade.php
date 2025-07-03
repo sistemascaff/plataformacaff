@@ -4,6 +4,6 @@
     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
   </li>
   <li class="nav-item d-none d-sm-inline-block">
-    <a href="{{route('usuarios.index')}}" class="nav-link">INICIO</a>
+    <a href="{{route('dashboard')}}" class="nav-link">INICIO</a>
   </li>
 </ul>

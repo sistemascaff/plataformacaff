@@ -15,14 +15,14 @@ class CoordinacionController extends Controller
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
             $tableCoordinacion = (new Coordinacion())->selectDisponibles($request->busqueda);
-            return view('coordinacion.inicio', [
+            return view('Coordinacion.inicio', [
                 'headTitle' => 'COORDINACIONES - INICIO',
                 'tableCoordinacion' => $tableCoordinacion,
                 'busqueda' => $request->busqueda
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -37,7 +37,7 @@ class CoordinacionController extends Controller
                 $usuario->correo = '';
             }
             $Asignaturas = (new Coordinacion())->selectCoordinacion_Asignaturas($idCoordinacion);
-            return view('coordinacion.detalle', [
+            return view('Coordinacion.detalle', [
                 'headTitle' => $coordinacion->nombreCoordinacion,
                 'coordinacion' => $coordinacion,
                 'usuario' => $usuario,
@@ -45,20 +45,20 @@ class CoordinacionController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
     /**Muestra el formulario con los atributos requeridos para CREAR un nuevo registro en la tabla 'Coordinaciones'.*/
     public function new(){
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
-            return view('coordinacion.create', [
+            return view('Coordinacion.create', [
                 'headTitle' => 'COORDINACIONES - NUEVO COORDINACION',
                 'Titulos' => "NUEVO COORDINACION"
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -75,7 +75,7 @@ class CoordinacionController extends Controller
             return redirect()->route('coordinaciones.details', $coordinacion);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -83,14 +83,14 @@ class CoordinacionController extends Controller
     public function edit(Coordinacion $coordinacion)
     {
         if ((new Rol())->verificarRoles( (new Rol())->selectRol(session('idRol')), ['admin' => 1] )) {
-            return view('coordinacion.update', [
+            return view('Coordinacion.update', [
                 'headTitle' => 'EDITAR - ' . $coordinacion->nombreCoordinacion,
                 'coordinacion' => $coordinacion,
                 'Titulos' => "EDITAR COORDINACION"
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
     
@@ -106,7 +106,7 @@ class CoordinacionController extends Controller
             return redirect()->route('coordinaciones.details', $coordinacion);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -126,7 +126,7 @@ class CoordinacionController extends Controller
             return redirect()->route('coordinaciones.index');
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

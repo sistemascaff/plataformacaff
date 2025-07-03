@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('usuarios.index') }}">INICIO</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">INICIO</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('asignaturas.index') }}">ASIGNATURAS</a></li>
                         <li class="breadcrumb-item active">{{ $asignatura->nombreAsignatura }}</li>
                     </ol>
@@ -513,5 +513,5 @@
     <!-- /.modal -->
 
 @include('Layouts.footerStart')
-@include('asignatura.detalleScripts')
+@include('Asignatura.detalleScripts')
 @include('Layouts.footerEnd')

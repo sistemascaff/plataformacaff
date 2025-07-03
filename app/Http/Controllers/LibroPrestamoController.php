@@ -28,7 +28,7 @@ class LibroPrestamoController extends Controller
                 'busqueda' => $request->busqueda
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -53,7 +53,7 @@ class LibroPrestamoController extends Controller
                 'Libros' => $Libros
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -74,7 +74,7 @@ class LibroPrestamoController extends Controller
                 'idSelect' => $idSelect
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -145,7 +145,7 @@ class LibroPrestamoController extends Controller
                 'redireccion' => $redireccion
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -163,7 +163,7 @@ class LibroPrestamoController extends Controller
                 'Titulos' => "MODIFICAR PRÉSTAMO DE LIBRO/S"
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -238,7 +238,7 @@ class LibroPrestamoController extends Controller
             }
             return redirect()->route('librosprestamos.details', $libroprestamo);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -270,7 +270,7 @@ class LibroPrestamoController extends Controller
                 ]);
             return redirect()->back()->with('mensaje', 'OK.');
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -282,7 +282,7 @@ class LibroPrestamoController extends Controller
             $pdf = Pdf::loadView('LibroPrestamo.comprobante', compact('libroprestamo','detalles','persona'));
             return $pdf->stream('COMPROBANTE PRÉSTAMO DE LIBROS N°' . $idLibrosPrestamo . '.pdf');
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -323,7 +323,7 @@ class LibroPrestamoController extends Controller
         ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }        
     }
 
@@ -352,7 +352,7 @@ class LibroPrestamoController extends Controller
             $pdf->setOption("isPhpEnabled", true);
             return $pdf->stream('REPORTE DE PRÉSTAMOS DE LIBROS ENTRE ' . date('d/m/Y', strtotime($fechaInicio)) . ' Y ' . date('d/m/Y', strtotime($fechaFin)) . '.pdf');
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

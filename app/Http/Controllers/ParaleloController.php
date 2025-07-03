@@ -23,7 +23,7 @@ class ParaleloController extends Controller
         ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }        
     }
 
@@ -48,7 +48,7 @@ class ParaleloController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -61,7 +61,7 @@ class ParaleloController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -78,7 +78,7 @@ class ParaleloController extends Controller
             return redirect()->route('paralelos.details', $paralelo);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -93,7 +93,7 @@ class ParaleloController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
     
@@ -109,7 +109,7 @@ class ParaleloController extends Controller
             return redirect()->route('paralelos.details', $paralelo);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -129,7 +129,7 @@ class ParaleloController extends Controller
             return redirect()->route('paralelos.index');
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

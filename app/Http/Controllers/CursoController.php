@@ -24,7 +24,7 @@ class CursoController extends Controller
         ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -51,7 +51,7 @@ class CursoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -70,7 +70,7 @@ class CursoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -89,7 +89,7 @@ class CursoController extends Controller
             return redirect()->route('cursos.details', $curso);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -108,7 +108,7 @@ class CursoController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
     
@@ -126,7 +126,7 @@ class CursoController extends Controller
             return redirect()->route('cursos.details', $curso);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -146,7 +146,7 @@ class CursoController extends Controller
             return redirect()->route('cursos.index');
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

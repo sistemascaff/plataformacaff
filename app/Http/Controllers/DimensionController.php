@@ -23,7 +23,7 @@ class DimensionController extends Controller
                 'busqueda' => $request->busqueda
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -47,7 +47,7 @@ class DimensionController extends Controller
                 'gestion' => $gestion
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -66,7 +66,7 @@ class DimensionController extends Controller
                 'idSelect' => $idSelect
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -85,7 +85,7 @@ class DimensionController extends Controller
             $dimension->save();
             return redirect()->route('dimensiones.details', $dimension);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -101,7 +101,7 @@ class DimensionController extends Controller
                 'Titulos' => "MODIFICAR AREA"
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -119,7 +119,7 @@ class DimensionController extends Controller
             $dimension->save();
             return redirect()->route('dimensiones.details', $dimension);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -138,7 +138,7 @@ class DimensionController extends Controller
             $dimension->save();
             return redirect()->route('dimensiones.index');
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

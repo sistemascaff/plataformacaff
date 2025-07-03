@@ -37,7 +37,7 @@ class PersonaController extends Controller
             return $persona;
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -66,7 +66,7 @@ class PersonaController extends Controller
             return $persona;
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -86,7 +86,7 @@ class PersonaController extends Controller
             return $persona;
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 

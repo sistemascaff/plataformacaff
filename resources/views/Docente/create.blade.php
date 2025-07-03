@@ -10,7 +10,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('usuarios.index')}}">INICIO</a></li>
+            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">INICIO</a></li>
             <li class="breadcrumb-item"><a href="{{route('docentes.index')}}">DOCENTES</a></li>
             <li class="breadcrumb-item active">{{$Titulos}}</li>
           </ol>
@@ -206,7 +206,7 @@
                   <span class="text-danger">{{$message}}</span>
                   @enderror
                 </div>
-                <h3 class="font-weight-bold text-info rounded">DATOS DE DOCENTE/A</h3>
+                <h3 class="font-weight-bold text-info rounded">DATOS DE DOCENTE</h3>
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">ESPECIALIDAD (*)</label>
                   <div class="col-sm-10">

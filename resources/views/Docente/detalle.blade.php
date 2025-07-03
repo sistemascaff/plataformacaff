@@ -10,7 +10,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('usuarios.index')}}">INICIO</a></li>
+            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">INICIO</a></li>
             <li class="breadcrumb-item"><a href="{{route('docentes.index')}}">DOCENTES</a></li>
             <li class="breadcrumb-item active">{{$persona->apellidoPaterno . ' ' . $persona->apellidoMaterno . ' ' . $persona->nombres}}</li>
           </ol>
@@ -148,7 +148,7 @@
                 <p class="form form-control">{{$persona_usuario->pinRecuperacion}}</p>
               </div>
             </div>
-            <h3 class="font-weight-bold text-info rounded">DATOS DE DOCENTE/A</h3>
+            <h3 class="font-weight-bold text-info rounded">DATOS DE DOCENTE</h3>
             <div class="form-group row">
               <label for="inputEmail3" class="col-md-2 col-form-label">DIRECTOR/A</label>
               <div class="col-md-8">

@@ -22,7 +22,7 @@ class AulaController extends Controller
         ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }        
     }
 
@@ -45,7 +45,7 @@ class AulaController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -58,7 +58,7 @@ class AulaController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -75,7 +75,7 @@ class AulaController extends Controller
             return redirect()->route('aulas.details', $aula);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -90,7 +90,7 @@ class AulaController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
     
@@ -106,7 +106,7 @@ class AulaController extends Controller
             return redirect()->route('aulas.details', $aula);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -126,7 +126,7 @@ class AulaController extends Controller
             return redirect()->route('aulas.index');
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

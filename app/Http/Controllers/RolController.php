@@ -36,7 +36,7 @@ class RolController extends Controller
             return $rol;
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -69,7 +69,7 @@ class RolController extends Controller
             return $rol;
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -89,7 +89,7 @@ class RolController extends Controller
             return $rol;
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

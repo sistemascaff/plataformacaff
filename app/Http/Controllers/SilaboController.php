@@ -25,7 +25,7 @@ class SilaboController extends Controller
         ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }        
     }
 
@@ -53,7 +53,7 @@ class SilaboController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -72,7 +72,7 @@ class SilaboController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -90,7 +90,7 @@ class SilaboController extends Controller
             return redirect()->route('silabos.details', $silabo);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -107,7 +107,7 @@ class SilaboController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -124,7 +124,7 @@ class SilaboController extends Controller
             return redirect()->route('silabos.details', $silabo);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -144,7 +144,7 @@ class SilaboController extends Controller
             return redirect()->route('silabos.index');
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
     /**Método que permite ACTUALIZAR el atributo estado de un registro de la tabla 'Silabos' y retorna el método index().*/
@@ -179,7 +179,7 @@ class SilaboController extends Controller
             return redirect()->back()->with('mensaje','OK.');
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

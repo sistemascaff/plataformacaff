@@ -1,11 +1,35 @@
 </div>
 <!-- /.content-wrapper -->
 
+<!-- Modal Logout -->
+<div class="modal fade" id="modalLogout">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title font-weight-bold text-info">CERRAR SESIÓN</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{session('correo')}}, <span class="font-weight-bold">¿Está seguro/a de que desea cerrar sesión?</span></p>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancelar</button>
+        <a href="{{route('logout')}}" class="btn btn-info">
+          <i class="fa fa-sign-out"></i> Si, cerrar sesión
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <footer class="main-footer">
   <div class="float-right d-none d-sm-block">
     <b>Versión</b> {{helper_versionApp()}}
   </div>
-  <strong>Copyright &copy; {{date("Y")}} CAFF. Todos los derechos reservados.
+  <strong>Copyright &copy; {{date("Y")}} COLEGIO ALEMÁN FEDERICO FROEBEL. Todos los derechos reservados.
 </footer>
 
 <!-- Control Sidebar -->

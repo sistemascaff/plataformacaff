@@ -22,7 +22,7 @@ class MaterialController extends Controller
         ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }        
     }
 
@@ -43,7 +43,7 @@ class MaterialController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -56,7 +56,7 @@ class MaterialController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -74,7 +74,7 @@ class MaterialController extends Controller
             return redirect()->route('materiales.details', $material);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -89,7 +89,7 @@ class MaterialController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
     
@@ -106,7 +106,7 @@ class MaterialController extends Controller
             return redirect()->route('materiales.details', $material);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -126,7 +126,7 @@ class MaterialController extends Controller
             return redirect()->route('materiales.index');
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

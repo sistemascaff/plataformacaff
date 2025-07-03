@@ -24,7 +24,7 @@ class UnidadController extends Controller
         ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }        
     }
 
@@ -53,7 +53,7 @@ class UnidadController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -74,7 +74,7 @@ class UnidadController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -94,7 +94,7 @@ class UnidadController extends Controller
             return redirect()->route('unidades.details', $unidad);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -113,7 +113,7 @@ class UnidadController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -132,7 +132,7 @@ class UnidadController extends Controller
             return redirect()->route('unidades.details', $unidad);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -152,7 +152,7 @@ class UnidadController extends Controller
             return redirect()->route('unidades.index');
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

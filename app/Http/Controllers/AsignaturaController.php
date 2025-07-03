@@ -30,7 +30,7 @@ class AsignaturaController extends Controller
                 'busqueda' => $request->busqueda
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -78,7 +78,7 @@ class AsignaturaController extends Controller
                 'Materiales' => $Materiales
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -103,7 +103,7 @@ class AsignaturaController extends Controller
                 'idSelect' => $idSelect
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -127,7 +127,7 @@ class AsignaturaController extends Controller
             $asignatura->save();
             return redirect()->route('asignaturas.details', $asignatura);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -149,7 +149,7 @@ class AsignaturaController extends Controller
                 'Titulos' => "MODIFICAR ASIGNATURA"
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -172,7 +172,7 @@ class AsignaturaController extends Controller
             $asignatura->save();
             return redirect()->route('asignaturas.details', $asignatura);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -191,14 +191,14 @@ class AsignaturaController extends Controller
             $asignatura->save();
             return redirect()->route('asignaturas.index');
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
     //Función de AJAX que permite agregar un Integrante (Estudiante) a la Asignatura
     public function ajaxAgregarEstudiante(Request $request)
     {
         if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
-            DB::table('integrantes')->insert([
+            DB::table('Integrantes')->insert([
                 'idAsignatura' => $request->idAsignatura,
                 'idEstudiante' => $request->idEstudiante
             ]);
@@ -211,14 +211,14 @@ class AsignaturaController extends Controller
                 'nombreEstudiante' => trim($persona->apellidoPaterno . ' ' . $persona->apellidoMaterno . ' ' . $persona->nombres)
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
     //Función de AJAX que permite eliminar un Integrante (Estudiante) de la Asignatura
     public function ajaxEliminarEstudiante(Request $request)
     {
         if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
-            $registrosAfectados = DB::table('integrantes')
+            $registrosAfectados = DB::table('Integrantes')
                 ->where('idAsignatura', $request->idAsignatura)
                 ->where('idEstudiante', $request->idEstudiante)
                 ->delete();
@@ -226,18 +226,18 @@ class AsignaturaController extends Controller
                 'registrosAfectados' => $registrosAfectados
             ]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
     //Método que elimina todos los Integrantes de la Asignatura y añade a un conjunto de 'Estudiantes' que pertenecen a un 'Curso'
     public function refrescarIntegrantes(Request $request)
     {
         if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
-            // Primero elimina a todos los integrantes de la Asignatura
-            DB::table('integrantes')->where('idAsignatura', $request->idAsignatura)->delete();
+            // Primero elimina a todos los Integrantes de la Asignatura
+            DB::table('Integrantes')->where('idAsignatura', $request->idAsignatura)->delete();
             $curso = (new Curso())->selectCurso_Estudiantes($request->idCurso);
             foreach ($curso as $row) {
-                DB::table('integrantes')->insert([
+                DB::table('Integrantes')->insert([
                     'idAsignatura' => $request->idAsignatura,
                     'idEstudiante' => $row->idEstudiante
                 ]);
@@ -245,7 +245,7 @@ class AsignaturaController extends Controller
             $asignatura = (new Asignatura())->selectAsignatura($request->idAsignatura);
             return redirect()->route('asignaturas.details', $asignatura);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }

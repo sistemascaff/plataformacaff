@@ -25,7 +25,7 @@ class EstudianteController extends Controller
         ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -53,7 +53,7 @@ class EstudianteController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -72,7 +72,7 @@ class EstudianteController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -130,7 +130,7 @@ class EstudianteController extends Controller
             return redirect()->route('estudiantes.details', $estudiante);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -151,7 +151,7 @@ class EstudianteController extends Controller
             ]);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
     
@@ -201,7 +201,7 @@ class EstudianteController extends Controller
             return redirect()->route('estudiantes.details', $estudiante);
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -221,7 +221,7 @@ class EstudianteController extends Controller
             return redirect()->route('estudiantes.index');
         }
         else{
-            return redirect()->route('usuarios.index');
+            return redirect()->route('dashboard');
         }
     }
 }
