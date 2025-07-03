@@ -42,7 +42,7 @@ use Illuminate\Support\Facades\Route;
 
 // Ruta por defecto
 Route::get('/', function () {
-    return redirect('/panel');
+    return redirect()->route('dashboard');
 });
 
 Route::controller(UsuarioController::class)->group(function(){
