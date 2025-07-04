@@ -9,7 +9,7 @@ class Dimension extends Model
 {
     use HasFactory;
     /*Nombre de la tabla*/
-    protected $table = 'Dimensiones';
+    protected $table = 'dimensiones';
 
     /*ID de la tabla*/
     protected $primaryKey = 'idDimension';
@@ -18,24 +18,24 @@ class Dimension extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Dimensiones' y también permite búsquedas.
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'dimensiones' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Dimensión, nombre de Periodo, año de gestión y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Dimension::select('Dimensiones.idDimension','Dimensiones.idPeriodo','Periodos.nombrePeriodo','Gestiones.anhoGestion','Dimensiones.nombreDimension','Dimensiones.puntajeMaximo','Dimensiones.tipoCalculo','Dimensiones.estado','Dimensiones.fechaRegistro','Dimensiones.fechaActualizacion','Dimensiones.idUsuario','Usuarios.correo')
-        ->leftjoin('Usuarios', 'Dimensiones.idUsuario', '=', 'Usuarios.idUsuario')
-        ->join('Periodos', 'Dimensiones.idPeriodo', '=', 'Periodos.idPeriodo')
-        ->join('Gestiones', 'Periodos.idGestion', '=', 'Gestiones.idGestion')
-        ->where('Dimensiones.estado', '=', 1)
-        ->where('Periodos.estado', '=', 1)
+        $queryActivos = Dimension::select('dimensiones.idDimension','dimensiones.idPeriodo','periodos.nombrePeriodo','gestiones.anhoGestion','dimensiones.nombreDimension','dimensiones.puntajeMaximo','dimensiones.tipoCalculo','dimensiones.estado','dimensiones.fechaRegistro','dimensiones.fechaActualizacion','dimensiones.idUsuario','usuarios.correo')
+        ->leftjoin('usuarios', 'dimensiones.idUsuario', '=', 'usuarios.idUsuario')
+        ->join('periodos', 'dimensiones.idPeriodo', '=', 'periodos.idPeriodo')
+        ->join('gestiones', 'periodos.idGestion', '=', 'gestiones.idGestion')
+        ->where('dimensiones.estado', '=', 1)
+        ->where('periodos.estado', '=', 1)
         ->whereAny([
-            'Dimensiones.nombreDimension',
-            'Periodos.nombrePeriodo',
-            'Gestiones.anhoGestion',
-            'Usuarios.correo',
+            'dimensiones.nombreDimension',
+            'periodos.nombrePeriodo',
+            'gestiones.anhoGestion',
+            'usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Gestiones.anhoGestion')
-        ->orderBy('Periodos.posicionOrdinal')
-        ->orderBy('Dimensiones.idDimension')
+        ->orderBy('gestiones.anhoGestion')
+        ->orderBy('periodos.posicionOrdinal')
+        ->orderBy('dimensiones.idDimension')
         ->get();
         return $queryActivos;
     }

@@ -10,7 +10,7 @@ class Persona extends Model
     use HasFactory;
 
     /*Nombre de la tabla*/
-    protected $table = 'Personas';
+    protected $table = 'personas';
 
     /*ID de la tabla*/
     protected $primaryKey = 'idPersona';

@@ -9,35 +9,35 @@ class ListaMaterial extends Model
 {
     use HasFactory;
 
-    protected $table = 'ListasMateriales';
+    protected $table = 'listasmateriales';
     protected $primaryKey = ['idAsignatura', 'idMaterial']; // Clave compuesta
     public $incrementing = false;
     public $timestamps = false;
     
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'ListasMateriales' y también permite búsquedas.
-     * Búsquedas soportadas: Nombre de ListasMateriales y correo del Usuario que haya modificado algún registro.*/
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'listasmateriales' y también permite búsquedas.
+     * Búsquedas soportadas: Nombre de listasmateriales y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $query = ListaMaterial::select('Asignaturas.nombreAsignatura','Materiales.nombreMaterial','Materiales.unidadMedida','ListasMateriales.idAsignatura','ListasMateriales.idMaterial',
-            'ListasMateriales.cantidad','ListasMateriales.observacion','ListasMateriales.fechaRegistro','ListasMateriales.fechaActualizacion',
-            'ListasMateriales.idUsuario','ListasMateriales.estado', 'Usuarios.correo',
-            'Personas.nombres','Personas.apellidoPaterno','Personas.apellidoMaterno')
-        ->leftjoin('Usuarios', 'ListasMateriales.idUsuario', '=', 'Usuarios.idUsuario')
-        ->join('Asignaturas', 'ListasMateriales.idAsignatura', '=', 'Asignaturas.idAsignatura')
-        ->join('Materiales', 'ListasMateriales.idMaterial', '=', 'Materiales.idMaterial')
-        ->join('Docentes', 'Asignaturas.idDocente', '=', 'Docentes.idDocente')
-        ->join('Personas', 'Docentes.idPersona', '=', 'Personas.idPersona')
+        $query = ListaMaterial::select('asignaturas.nombreAsignatura','materiales.nombreMaterial','materiales.unidadMedida','listasmateriales.idAsignatura','listasmateriales.idMaterial',
+            'listasmateriales.cantidad','listasmateriales.observacion','listasmateriales.fechaRegistro','listasmateriales.fechaActualizacion',
+            'listasmateriales.idUsuario','listasmateriales.estado', 'usuarios.correo',
+            'personas.nombres','personas.apellidoPaterno','personas.apellidoMaterno')
+        ->leftjoin('usuarios', 'listasmateriales.idUsuario', '=', 'usuarios.idUsuario')
+        ->join('asignaturas', 'listasmateriales.idAsignatura', '=', 'asignaturas.idAsignatura')
+        ->join('materiales', 'listasmateriales.idMaterial', '=', 'materiales.idMaterial')
+        ->join('docentes', 'asignaturas.idDocente', '=', 'docentes.idDocente')
+        ->join('personas', 'docentes.idPersona', '=', 'personas.idPersona')
         ->whereAny([
-            'Asignaturas.nombreAsignatura',
-            'Materiales.nombreMaterial',
-            'Usuarios.correo',
+            'asignaturas.nombreAsignatura',
+            'materiales.nombreMaterial',
+            'usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Asignaturas.nombreAsignatura')
+        ->orderBy('asignaturas.nombreAsignatura')
         ->get();
         return $query;
     }
 
-    /**Función que retorna un objeto del modelo ListasMateriales.*/
-    public function selectListasMateriales($idAsignatura,$idMaterial){
+    /**Función que retorna un objeto del modelo listasmateriales.*/
+    public function selectlistasmateriales($idAsignatura,$idMaterial){
         return ListaMaterial::where('idAsignatura', $idAsignatura)->where('idMaterial', $idMaterial)->first();
     }
 }

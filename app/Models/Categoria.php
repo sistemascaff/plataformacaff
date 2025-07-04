@@ -9,7 +9,7 @@ class Categoria extends Model
 {
     use HasFactory;
     /*Nombre de la tabla*/
-    protected $table = 'Categorias';
+    protected $table = 'categorias';
 
     /*ID de la tabla*/
     protected $primaryKey = 'idCategoria';
@@ -18,20 +18,20 @@ class Categoria extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Categorias' y también permite búsquedas.
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'categorias' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Áula y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Categoria::select('Categorias.idCategoria','Categorias.nombreCategoria','Categorias.estado','Categorias.fechaRegistro','Categorias.fechaActualizacion','Categorias.idUsuario', 'Usuarios.correo')
-        ->selectraw('COUNT(Libros.idLibro) AS countLibros')
-        ->leftjoin('Usuarios', 'Categorias.idUsuario', '=', 'Usuarios.idUsuario')
-        ->leftjoin('Libros', 'Categorias.idCategoria', '=', 'Libros.idCategoria')
-        ->where('Categorias.estado', '=', 1)
+        $queryActivos = Categoria::select('categorias.idCategoria','categorias.nombreCategoria','categorias.estado','categorias.fechaRegistro','categorias.fechaActualizacion','categorias.idUsuario', 'usuarios.correo')
+        ->selectraw('COUNT(libros.idLibro) AS countLibros')
+        ->leftjoin('usuarios', 'categorias.idUsuario', '=', 'usuarios.idUsuario')
+        ->leftjoin('libros', 'categorias.idCategoria', '=', 'libros.idCategoria')
+        ->where('categorias.estado', '=', 1)
         ->whereAny([
-            'Categorias.nombreCategoria',
-            'Usuarios.correo',
+            'categorias.nombreCategoria',
+            'usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Categorias.nombreCategoria')
-        ->groupBy('Categorias.idCategoria')
+        ->orderBy('categorias.nombreCategoria')
+        ->groupBy('categorias.idCategoria')
         ->get();
         return $queryActivos;
     }
@@ -42,12 +42,12 @@ class Categoria extends Model
         return $categoria;
     }
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Libros' pertenecientes a un registro de la tabla 'Categorias'.*/
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'libros' pertenecientes a un registro de la tabla 'categorias'.*/
     public function selectCategoria_Libros($idCategoria){
-        $queryLibrosPertenecientesDeCategoria = Categoria::select('Libros.idLibro','Libros.nombreLibro','Libros.codigoLibro','Libros.costo','Libros.observacion','Libros.descripcion','Libros.adquisicion','Libros.prestadoA','Libros.estado','Libros.fechaRegistro','Libros.fechaActualizacion')
-        ->leftjoin('Libros', 'Categorias.idCategoria', '=', 'Libros.idCategoria')
-        ->where('Libros.idCategoria', '=', $idCategoria)
-        ->orderBy('Libros.nombreLibro')
+        $queryLibrosPertenecientesDeCategoria = Categoria::select('libros.idLibro','libros.nombreLibro','libros.codigoLibro','libros.costo','libros.observacion','libros.descripcion','libros.adquisicion','libros.prestadoA','libros.estado','libros.fechaRegistro','libros.fechaActualizacion')
+        ->leftjoin('libros', 'categorias.idCategoria', '=', 'libros.idCategoria')
+        ->where('libros.idCategoria', '=', $idCategoria)
+        ->orderBy('libros.nombreLibro')
         ->get();
         return $queryLibrosPertenecientesDeCategoria;
     }

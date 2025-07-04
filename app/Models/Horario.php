@@ -9,7 +9,7 @@ class Horario extends Model
 {
     use HasFactory;
     /*Nombre de la tabla*/
-    protected $table = 'Horarios';
+    protected $table = 'horarios';
 
     /*ID de la tabla*/
     protected $primaryKey = 'idHorario';
@@ -18,20 +18,20 @@ class Horario extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Horarios' y también permite búsquedas.
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'horarios' y también permite búsquedas.
      * Búsquedas soportadas: Nombre Asignatura y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Horario::select('Horarios.idHorario','Horarios.dia','Horarios.horaInicio','Horarios.horaFin','Asignaturas.nombreAsignatura','Horarios.estado','Horarios.fechaRegistro','Horarios.fechaActualizacion','Horarios.idUsuario','Usuarios.correo')
-        ->leftjoin('Usuarios', 'Horarios.idUsuario', '=', 'Usuarios.idUsuario')
-        ->join('Asignaturas', 'Horarios.idAsignatura', '=', 'Asignaturas.idAsignatura')
-        ->where('Horarios.estado', '=', 1)
-        ->where('Asignaturas.estado', '=', 1)
+        $queryActivos = Horario::select('horarios.idHorario','horarios.dia','horarios.horaInicio','horarios.horaFin','asignaturas.nombreAsignatura','horarios.estado','horarios.fechaRegistro','horarios.fechaActualizacion','horarios.idUsuario','usuarios.correo')
+        ->leftjoin('usuarios', 'horarios.idUsuario', '=', 'usuarios.idUsuario')
+        ->join('asignaturas', 'horarios.idAsignatura', '=', 'asignaturas.idAsignatura')
+        ->where('horarios.estado', '=', 1)
+        ->where('asignaturas.estado', '=', 1)
         ->whereAny([
-            'Asignaturas.nombreAsignatura',
-            'Usuarios.correo',
+            'asignaturas.nombreAsignatura',
+            'usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Horarios.dia')
-        ->orderBy('Horarios.horaInicio')
+        ->orderBy('horarios.dia')
+        ->orderBy('horarios.horaInicio')
         ->get();
         return $queryActivos;
     }

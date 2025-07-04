@@ -9,7 +9,7 @@ class Rol extends Model
 {
     use HasFactory;
     /*Nombre de la tabla*/
-    protected $table = 'Roles';
+    protected $table = 'roles';
 
     /*ID de la tabla*/
     protected $primaryKey = 'idRol';
@@ -36,7 +36,7 @@ class Rol extends Model
         return $selectRol;
     }
 
-    /**Método para obtener un objeto Rol mediante un ID de la tabla 'Usuarios'*/
+    /**Método para obtener un objeto Rol mediante un ID de la tabla 'usuarios'*/
     public function selectRolConIDUsuario($idUsuario){ 
         return Rol::where('idUsuario', $idUsuario)->first(); 
     }

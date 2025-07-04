@@ -19,12 +19,12 @@ class Coordinacion extends Model
     /**Función que permite recuperar los registros disponibles o activos de la tabla 'Coordinaciones' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Coordinación y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Coordinacion::select('Coordinaciones.idCoordinacion','Coordinaciones.nombreCoordinacion','Coordinaciones.fechaRegistro','Coordinaciones.fechaActualizacion','Coordinaciones.idUsuario','Coordinaciones.estado', 'Usuarios.correo')
-        ->leftjoin('Usuarios', 'Coordinaciones.idUsuario', '=', 'Usuarios.idUsuario')
+        $queryActivos = Coordinacion::select('Coordinaciones.idCoordinacion','Coordinaciones.nombreCoordinacion','Coordinaciones.fechaRegistro','Coordinaciones.fechaActualizacion','Coordinaciones.idUsuario','Coordinaciones.estado', 'usuarios.correo')
+        ->leftjoin('usuarios', 'Coordinaciones.idUsuario', '=', 'usuarios.idUsuario')
         ->where('Coordinaciones.estado', '=', 1)
         ->whereAny([
             'Coordinaciones.nombreCoordinacion',
-            'Usuarios.correo',
+            'usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
         ->orderBy('Coordinaciones.idCoordinacion')
         ->get();
@@ -37,13 +37,13 @@ class Coordinacion extends Model
         return $coordinacion;
     }
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Asignaturas' pertenecientes a un registro de la tabla 'Coordinaciones'.*/
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'asignaturas' pertenecientes a un registro de la tabla 'Coordinaciones'.*/
     public function selectCoordinacion_Asignaturas($idCoordinacion){
-        $queryAsignaturasPertenecientesDeCoordinacion = Coordinacion::select('Asignaturas.idAsignatura','Asignaturas.nombreAsignatura','Asignaturas.nombreCorto','Asignaturas.fechaRegistro','Asignaturas.fechaActualizacion')
-        ->leftjoin('Asignaturas', 'Coordinaciones.idCoordinacion', '=', 'Asignaturas.idCoordinacion')
-        ->where('Asignaturas.idCoordinacion', '=', $idCoordinacion)
-        ->where('Asignaturas.estado', '=', '1')
-        ->orderBy('Asignaturas.idAsignatura')
+        $queryAsignaturasPertenecientesDeCoordinacion = Coordinacion::select('asignaturas.idAsignatura','asignaturas.nombreAsignatura','asignaturas.nombreCorto','asignaturas.fechaRegistro','asignaturas.fechaActualizacion')
+        ->leftjoin('asignaturas', 'Coordinaciones.idCoordinacion', '=', 'asignaturas.idCoordinacion')
+        ->where('asignaturas.idCoordinacion', '=', $idCoordinacion)
+        ->where('asignaturas.estado', '=', '1')
+        ->orderBy('asignaturas.idAsignatura')
         ->get();
         return $queryAsignaturasPertenecientesDeCoordinacion;
     }

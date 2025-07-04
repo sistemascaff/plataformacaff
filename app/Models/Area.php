@@ -9,7 +9,7 @@ class Area extends Model
 {
     use HasFactory;
     /*Nombre de la tabla*/
-    protected $table = 'Areas';
+    protected $table = 'areas';
 
     /*ID de la tabla*/
     protected $primaryKey = 'idArea';
@@ -18,20 +18,20 @@ class Area extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Areas' y también permite búsquedas.
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'areas' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Área, nombre de Campo, correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Area::select('Areas.idArea','Areas.nombreCorto','Campos.nombreCampo','Areas.nombreArea','Areas.estado','Areas.fechaRegistro','Areas.fechaActualizacion','Areas.idUsuario','Usuarios.correo')
-        ->leftjoin('Usuarios', 'Areas.idUsuario', '=', 'Usuarios.idUsuario')
-        ->join('Campos', 'Areas.idCampo', '=', 'Campos.idCampo')
-        ->where('Areas.estado', '=', 1)
-        ->where('Campos.estado', '=', 1)
+        $queryActivos = Area::select('areas.idArea','areas.nombreCorto','campos.nombreCampo','areas.nombreArea','areas.estado','areas.fechaRegistro','areas.fechaActualizacion','areas.idUsuario','usuarios.correo')
+        ->leftjoin('usuarios', 'areas.idUsuario', '=', 'usuarios.idUsuario')
+        ->join('campos', 'areas.idCampo', '=', 'campos.idCampo')
+        ->where('areas.estado', '=', 1)
+        ->where('campos.estado', '=', 1)
         ->whereAny([
-            'Areas.nombreArea',
-            'Campos.nombreCampo',
-            'Usuarios.correo',
+            'areas.nombreArea',
+            'campos.nombreCampo',
+            'usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Areas.idArea')
+        ->orderBy('areas.idArea')
         ->get();
         return $queryActivos;
     }
@@ -42,13 +42,13 @@ class Area extends Model
         return $area;
     }
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Materias' pertenecientes a un registro de la tabla 'Areas'.*/
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'materias' pertenecientes a un registro de la tabla 'areas'.*/
     public function selectArea_Materias($idArea){
-        $queryMateriasPertenecientesDeArea = Area::select('Materias.idMateria','Materias.nombreMateria','Materias.nombreCorto','Materias.fechaRegistro','Materias.fechaActualizacion')
-        ->join('Materias', 'Areas.idArea', '=', 'Materias.idArea')
-        ->where('Materias.idArea', '=', $idArea)
-        ->where('Materias.estado', '=', '1')
-        ->orderBy('Materias.nombreMateria', 'ASC')
+        $queryMateriasPertenecientesDeArea = Area::select('materias.idMateria','materias.nombreMateria','materias.nombreCorto','materias.fechaRegistro','materias.fechaActualizacion')
+        ->join('materias', 'areas.idArea', '=', 'materias.idArea')
+        ->where('materias.idArea', '=', $idArea)
+        ->where('materias.estado', '=', '1')
+        ->orderBy('materias.nombreMateria', 'ASC')
         ->get();
         return $queryMateriasPertenecientesDeArea;
     }

@@ -9,7 +9,7 @@ class Unidad extends Model
 {
     use HasFactory;
     /*Nombre de la tabla*/
-    protected $table = 'Unidades';
+    protected $table = 'unidades';
 
     /*ID de la tabla*/
     protected $primaryKey = 'idUnidad';
@@ -18,32 +18,32 @@ class Unidad extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Unidades' y también permite búsquedas.
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'unidades' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Área, nombre de Asignatura, correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Unidad::select('Unidades.idUnidad','Unidades.nombreUnidad','Unidades.posicionOrdinal','Asignaturas.nombreAsignatura','Periodos.nombrePeriodo','Unidades.estado','Unidades.fechaRegistro','Unidades.fechaActualizacion','Unidades.idUsuario','Usuarios.correo')
+        $queryActivos = Unidad::select('unidades.idUnidad','unidades.nombreUnidad','unidades.posicionOrdinal','asignaturas.nombreAsignatura','periodos.nombrePeriodo','unidades.estado','unidades.fechaRegistro','unidades.fechaActualizacion','unidades.idUsuario','usuarios.correo')
         ->selectRaw('
-            (SUM(Silabos.estado) / (COUNT(Silabos.idSilabo) * 2)) * 100 AS porcentajeAvance
+            (SUM(silabos.estado) / (COUNT(silabos.idSilabo) * 2)) * 100 AS porcentajeAvance
         ')
-        ->leftjoin('Usuarios', 'Unidades.idUsuario', '=', 'Usuarios.idUsuario')
-        ->join('Asignaturas', 'Unidades.idAsignatura', '=', 'Asignaturas.idAsignatura')
-        ->join('Periodos', 'Unidades.idPeriodo', '=', 'Periodos.idPeriodo')
-        ->leftJoin('Silabos', function($join) {
-            $join->on('Unidades.idUnidad', '=', 'Silabos.idUnidad')
-            ->where('Silabos.estado', '>=', '0');
+        ->leftjoin('usuarios', 'unidades.idUsuario', '=', 'usuarios.idUsuario')
+        ->join('asignaturas', 'unidades.idAsignatura', '=', 'asignaturas.idAsignatura')
+        ->join('periodos', 'unidades.idPeriodo', '=', 'periodos.idPeriodo')
+        ->leftJoin('silabos', function($join) {
+            $join->on('unidades.idUnidad', '=', 'silabos.idUnidad')
+            ->where('silabos.estado', '>=', '0');
         })
-        ->where('Unidades.estado', '=', 1)
-        ->where('Asignaturas.estado', '=', 1)
+        ->where('unidades.estado', '=', 1)
+        ->where('asignaturas.estado', '=', 1)
         ->whereAny([
-            'Unidades.nombreUnidad',
-            'Periodos.nombrePeriodo',
-            'Asignaturas.nombreAsignatura',
-            'Usuarios.correo',
+            'unidades.nombreUnidad',
+            'periodos.nombrePeriodo',
+            'asignaturas.nombreAsignatura',
+            'usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->groupBy('Unidades.idUnidad', 'Unidades.nombreUnidad', 'Periodos.nombrePeriodo') 
-        ->orderBy('Asignaturas.nombreAsignatura')
-        ->orderBy('Periodos.posicionOrdinal')
-        ->orderBy('Unidades.posicionOrdinal')
+        ->groupBy('unidades.idUnidad', 'unidades.nombreUnidad', 'periodos.nombrePeriodo') 
+        ->orderBy('asignaturas.nombreAsignatura')
+        ->orderBy('periodos.posicionOrdinal')
+        ->orderBy('unidades.posicionOrdinal')
         ->get();
         return $queryActivos;
     }
@@ -54,13 +54,13 @@ class Unidad extends Model
         return $unidad;
     }
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Silabos' pertenecientes a un registro de la tabla 'Unidades'.*/
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'silabos' pertenecientes a un registro de la tabla 'unidades'.*/
     public function selectUnidad_Silabos($idUnidad){
-        $querySilabosPertenecientesDeUnidad = Unidad::select('Silabos.idSilabo','Silabos.nombreSilabo','Silabos.estado','Silabos.fechaInicio','Silabos.fechaFin')
-        ->join('Silabos', 'Unidades.idUnidad', '=', 'Silabos.idUnidad')
-        ->where('Silabos.idUnidad', '=', $idUnidad)
-        ->where('Silabos.estado', '>=', '0')
-        ->orderBy('Silabos.nombreSilabo', 'ASC')
+        $querySilabosPertenecientesDeUnidad = Unidad::select('silabos.idSilabo','silabos.nombreSilabo','silabos.estado','silabos.fechaInicio','silabos.fechaFin')
+        ->join('silabos', 'unidades.idUnidad', '=', 'silabos.idUnidad')
+        ->where('silabos.idUnidad', '=', $idUnidad)
+        ->where('silabos.estado', '>=', '0')
+        ->orderBy('silabos.nombreSilabo', 'ASC')
         ->get();
         return $querySilabosPertenecientesDeUnidad;
     }

@@ -12,7 +12,7 @@ class Usuario extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /*Nombre de la tabla*/
-    protected $table = 'Usuarios';
+    protected $table = 'usuarios';
 
     /*ID de la tabla*/
     protected $primaryKey = 'idUsuario';
@@ -47,17 +47,17 @@ class Usuario extends Authenticatable
         return $usuario;
     }
 
-    /**Función que retorna un Usuario mediante un ID de la tabla 'Personas'.*/
+    /**Función que retorna un Usuario mediante un ID de la tabla 'personas'.*/
     public function selectUsuarioConIDPersona($idPersona){ 
         return Usuario::where('idPersona', $idPersona)->first(); 
     }
 
     /**Función utilizada para verificar y crear la sesión del Usuario.*/
     public function login($correo, $contrasenha, $ip, $dispositivo){
-        $sessionRow = Usuario::select('Usuarios.idUsuario','Usuarios.idPersona','Usuarios.correo','Usuarios.tieneAcceso','Usuarios.estado','Roles.idRol')
-        ->where('Usuarios.correo', '=', $correo)
-        ->where('Usuarios.contrasenha', '=', helper_encrypt($contrasenha))
-        ->join('Roles', 'Usuarios.idUsuario', '=', 'Roles.idUsuario')
+        $sessionRow = Usuario::select('usuarios.idUsuario','usuarios.idPersona','usuarios.correo','usuarios.tieneAcceso','usuarios.estado','roles.idRol')
+        ->where('usuarios.correo', '=', $correo)
+        ->where('usuarios.contrasenha', '=', helper_encrypt($contrasenha))
+        ->join('roles', 'usuarios.idUsuario', '=', 'roles.idUsuario')
         ->limit(1)
         ->get();
         if($sessionRow) {

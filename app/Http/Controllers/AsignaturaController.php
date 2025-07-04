@@ -56,7 +56,7 @@ class AsignaturaController extends Controller
 
             $Estudiantes = (new Estudiante())->selectDisponibles('');
             $Cursos = (new Curso())->selectDisponibles('');
-            $Integrantes = (new Asignatura())->selectAsignatura_Estudiantes($idAsignatura);
+            $integrantes = (new Asignatura())->selectAsignatura_Estudiantes($idAsignatura);
             $Unidades = (new Asignatura())->selectAsignatura_UnidadesySilabos($idAsignatura);
             $Horarios = (new Asignatura())->selectAsignatura_Horarios($idAsignatura);
             $Materiales = (new Asignatura())->selectAsignatura_Materiales($idAsignatura);
@@ -72,7 +72,7 @@ class AsignaturaController extends Controller
                 'persona' => $persona,
                 'Estudiantes' => $Estudiantes,
                 'Cursos' => $Cursos,
-                'Integrantes' => $Integrantes,
+                'integrantes' => $integrantes,
                 'Unidades' => $Unidades,
                 'Horarios' => $Horarios,
                 'Materiales' => $Materiales
@@ -198,7 +198,7 @@ class AsignaturaController extends Controller
     public function ajaxAgregarEstudiante(Request $request)
     {
         if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
-            DB::table('Integrantes')->insert([
+            DB::table('integrantes')->insert([
                 'idAsignatura' => $request->idAsignatura,
                 'idEstudiante' => $request->idEstudiante
             ]);
@@ -218,7 +218,7 @@ class AsignaturaController extends Controller
     public function ajaxEliminarEstudiante(Request $request)
     {
         if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
-            $registrosAfectados = DB::table('Integrantes')
+            $registrosAfectados = DB::table('integrantes')
                 ->where('idAsignatura', $request->idAsignatura)
                 ->where('idEstudiante', $request->idEstudiante)
                 ->delete();
@@ -229,15 +229,15 @@ class AsignaturaController extends Controller
             return redirect()->route('dashboard');
         }
     }
-    //Método que elimina todos los Integrantes de la Asignatura y añade a un conjunto de 'Estudiantes' que pertenecen a un 'Curso'
+    //Método que elimina todos los integrantes de la Asignatura y añade a un conjunto de 'Estudiantes' que pertenecen a un 'Curso'
     public function refrescarIntegrantes(Request $request)
     {
         if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1])) {
-            // Primero elimina a todos los Integrantes de la Asignatura
-            DB::table('Integrantes')->where('idAsignatura', $request->idAsignatura)->delete();
+            // Primero elimina a todos los integrantes de la Asignatura
+            DB::table('integrantes')->where('idAsignatura', $request->idAsignatura)->delete();
             $curso = (new Curso())->selectCurso_Estudiantes($request->idCurso);
             foreach ($curso as $row) {
-                DB::table('Integrantes')->insert([
+                DB::table('integrantes')->insert([
                     'idAsignatura' => $request->idAsignatura,
                     'idEstudiante' => $row->idEstudiante
                 ]);

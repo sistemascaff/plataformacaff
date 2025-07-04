@@ -9,24 +9,24 @@ class Gestion extends Model
 {
     use HasFactory;
     /*Nombre de la tabla*/
-    protected $table = 'Gestiones';
+    protected $table = 'gestiones';
     /*ID de la tabla*/
     protected $primaryKey = 'idGestion';
     /*Modifica los Timestamps por defecto de Eloquent*/
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Gestiones' y también permite búsquedas.
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'gestiones' y también permite búsquedas.
      * Búsquedas soportadas: Año de la gestión y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Gestion::select('Gestiones.idGestion','Gestiones.anhoGestion','Gestiones.estado','Gestiones.fechaRegistro','Gestiones.fechaActualizacion','Gestiones.idUsuario', 'Usuarios.correo')
-        ->leftjoin('Usuarios', 'Gestiones.idUsuario', '=', 'Usuarios.idUsuario')
-        ->where('Gestiones.estado', '=', 1)
+        $queryActivos = Gestion::select('gestiones.idGestion','gestiones.anhoGestion','gestiones.estado','gestiones.fechaRegistro','gestiones.fechaActualizacion','gestiones.idUsuario', 'usuarios.correo')
+        ->leftjoin('usuarios', 'gestiones.idUsuario', '=', 'usuarios.idUsuario')
+        ->where('gestiones.estado', '=', 1)
         ->whereAny([
-            'Gestiones.anhoGestion',
-            'Usuarios.correo',
+            'gestiones.anhoGestion',
+            'usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Gestiones.idGestion')
+        ->orderBy('gestiones.idGestion')
         ->get();
         return $queryActivos;
     }
@@ -37,13 +37,13 @@ class Gestion extends Model
         return $gestion;
     }
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Periodos' pertenecientes a un registro de la tabla 'Gestiones'.*/
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'periodos' pertenecientes a un registro de la tabla 'gestiones'.*/
     public function selectGestion_Periodos($idGestion){
-        $queryPeriodosPertenecientesDeGestion = Gestion::select('Periodos.idPeriodo','Periodos.nombrePeriodo','Periodos.posicionOrdinal','Periodos.fechaRegistro','Periodos.fechaActualizacion')
-        ->leftjoin('Periodos', 'Gestiones.idGestion', '=', 'Periodos.idGestion')
-        ->where('Periodos.idGestion', '=', $idGestion)
-        ->where('Periodos.estado', '=', '1')
-        ->orderBy('Periodos.posicionOrdinal')
+        $queryPeriodosPertenecientesDeGestion = Gestion::select('periodos.idPeriodo','periodos.nombrePeriodo','periodos.posicionOrdinal','periodos.fechaRegistro','periodos.fechaActualizacion')
+        ->leftjoin('periodos', 'gestiones.idGestion', '=', 'periodos.idGestion')
+        ->where('periodos.idGestion', '=', $idGestion)
+        ->where('periodos.estado', '=', '1')
+        ->orderBy('periodos.posicionOrdinal')
         ->get();
         return $queryPeriodosPertenecientesDeGestion;
     }

@@ -6,13 +6,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title font-weight-bold text-info">CERRAR SESIÓN</h4>
+        <h4 class="modal-title font-weight-bold text-info">ATENCIÓN</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p class="font-weight-bold"><span class="text-info">{{session('correo')}}</span>, ¿Está seguro/a de que desea cerrar sesión?</p>
+        <p class="font-weight-bold"><span class="text-info">{{session('correo')}}</span>, ¿Desea cerrar sesión?</p>
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancelar</button>

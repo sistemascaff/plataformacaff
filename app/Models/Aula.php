@@ -9,7 +9,7 @@ class Aula extends Model
 {
     use HasFactory;
     /*Nombre de la tabla*/
-    protected $table = 'Aulas';
+    protected $table = 'aulas';
 
     /*ID de la tabla*/
     protected $primaryKey = 'idAula';
@@ -18,17 +18,17 @@ class Aula extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Aulas' y también permite búsquedas.
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'aulas' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Áula y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Aula::select('Aulas.idAula','Aulas.nombreAula','Aulas.estado','Aulas.fechaRegistro','Aulas.fechaActualizacion','Aulas.idUsuario', 'Usuarios.correo')
-        ->leftjoin('Usuarios', 'Aulas.idUsuario', '=', 'Usuarios.idUsuario')
-        ->where('Aulas.estado', '=', 1)
+        $queryActivos = Aula::select('aulas.idAula','aulas.nombreAula','aulas.estado','aulas.fechaRegistro','aulas.fechaActualizacion','aulas.idUsuario', 'usuarios.correo')
+        ->leftjoin('usuarios', 'aulas.idUsuario', '=', 'usuarios.idUsuario')
+        ->where('aulas.estado', '=', 1)
         ->whereAny([
-            'Aulas.nombreAula',
-            'Usuarios.correo',
+            'aulas.nombreAula',
+            'usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Aulas.idAula')
+        ->orderBy('aulas.idAula')
         ->get();
         return $queryActivos;
     }
@@ -39,13 +39,13 @@ class Aula extends Model
         return $aula;
     }
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Asignaturas' pertenecientes a un registro de la tabla 'Aulas'.*/
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'asignaturas' pertenecientes a un registro de la tabla 'aulas'.*/
     public function selectAula_Asignaturas($idAula){
-        $queryAsignaturasPertenecientesDeAula = Aula::select('Asignaturas.idAsignatura','Asignaturas.nombreAsignatura','Asignaturas.nombreCorto','Asignaturas.tipoCalificacion','Asignaturas.tipoBloque','Asignaturas.tipoAsignatura','Asignaturas.fechaRegistro','Asignaturas.fechaActualizacion')
-        ->leftjoin('Asignaturas', 'Aulas.idAula', '=', 'Asignaturas.idAula')
-        ->where('Asignaturas.idAula', '=', $idAula)
-        ->where('Asignaturas.estado', '=', '1')
-        ->orderBy('Asignaturas.idAsignatura')
+        $queryAsignaturasPertenecientesDeAula = Aula::select('asignaturas.idAsignatura','asignaturas.nombreAsignatura','asignaturas.nombreCorto','asignaturas.tipoCalificacion','asignaturas.tipoBloque','asignaturas.tipoAsignatura','asignaturas.fechaRegistro','asignaturas.fechaActualizacion')
+        ->leftjoin('asignaturas', 'aulas.idAula', '=', 'asignaturas.idAula')
+        ->where('asignaturas.idAula', '=', $idAula)
+        ->where('asignaturas.estado', '=', '1')
+        ->orderBy('asignaturas.idAsignatura')
         ->get();
         return $queryAsignaturasPertenecientesDeAula;
     }

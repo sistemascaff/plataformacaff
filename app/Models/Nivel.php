@@ -9,7 +9,7 @@ class Nivel extends Model
 {
     use HasFactory;
     /*Nombre de la tabla*/
-    protected $table = 'Niveles';
+    protected $table = 'niveles';
 
     /*ID de la tabla*/
     protected $primaryKey = 'idNivel';
@@ -18,18 +18,18 @@ class Nivel extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Niveles' y también permite búsquedas.
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'niveles' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Nivel, posición ordinal de Nivel y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Nivel::select('Niveles.idNivel','Niveles.nombreNivel','Niveles.posicionOrdinal','Niveles.fechaRegistro','Niveles.fechaActualizacion','Niveles.idUsuario','Niveles.estado', 'Usuarios.correo')
-        ->leftjoin('Usuarios', 'Niveles.idUsuario', '=', 'Usuarios.idUsuario')
-        ->where('Niveles.estado', '=', 1)
+        $queryActivos = Nivel::select('niveles.idNivel','niveles.nombreNivel','niveles.posicionOrdinal','niveles.fechaRegistro','niveles.fechaActualizacion','niveles.idUsuario','niveles.estado', 'usuarios.correo')
+        ->leftjoin('usuarios', 'niveles.idUsuario', '=', 'usuarios.idUsuario')
+        ->where('niveles.estado', '=', 1)
         ->whereAny([
-            'Niveles.nombreNivel',
-            'Niveles.posicionOrdinal',
-            'Usuarios.correo',
+            'niveles.nombreNivel',
+            'niveles.posicionOrdinal',
+            'usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Niveles.idNivel')
+        ->orderBy('niveles.idNivel')
         ->get();
         return $queryActivos;
     }
@@ -40,13 +40,13 @@ class Nivel extends Model
         return $nivel;
     }
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Grados' pertenecientes a un registro de la tabla 'Niveles'.*/
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'grados' pertenecientes a un registro de la tabla 'niveles'.*/
     public function selectNivel_Grados($idNivel){
-        $queryGradosPertenecientesDeNivel = Nivel::select('Grados.idGrado','Grados.nombreGrado','Grados.posicionOrdinal','Grados.fechaRegistro','Grados.fechaActualizacion')
-        ->leftjoin('Grados', 'Niveles.idNivel', '=', 'Grados.idNivel')
-        ->where('Grados.idNivel', '=', $idNivel)
-        ->where('Grados.estado', '=', '1')
-        ->orderBy('Grados.idGrado')
+        $queryGradosPertenecientesDeNivel = Nivel::select('grados.idGrado','grados.nombreGrado','grados.posicionOrdinal','grados.fechaRegistro','grados.fechaActualizacion')
+        ->leftjoin('grados', 'niveles.idNivel', '=', 'grados.idNivel')
+        ->where('grados.idNivel', '=', $idNivel)
+        ->where('grados.estado', '=', '1')
+        ->orderBy('grados.idGrado')
         ->get();
         return $queryGradosPertenecientesDeNivel;
     }

@@ -10,7 +10,7 @@ class Silabo extends Model
 {
     use HasFactory;
     /*Nombre de la tabla*/
-    protected $table = 'Silabos';
+    protected $table = 'silabos';
 
     /*ID de la tabla*/
     protected $primaryKey = 'idSilabo';
@@ -18,28 +18,28 @@ class Silabo extends Model
     /*Modifica los Timestamps por defecto de Eloquent*/
     public $timestamps = false;
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Silabos' y también permite búsquedas.
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'silabos' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Área, nombre de Unidad, correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Silabo::select('Silabos.idSilabo','Unidades.nombreUnidad','Asignaturas.nombreAsignatura','Periodos.nombrePeriodo','Silabos.nombreSilabo','Silabos.estado','Silabos.fechaInicio','Silabos.fechaFin','Silabos.idUsuario','Usuarios.correo')
-        ->leftjoin('Usuarios', 'Silabos.idUsuario', '=', 'Usuarios.idUsuario')
-        ->join('Unidades', 'Silabos.idUnidad', '=', 'Unidades.idUnidad')
-        ->join('Asignaturas', 'Unidades.idAsignatura', '=', 'Asignaturas.idAsignatura')
-        ->join('Periodos', 'Unidades.idPeriodo', '=', 'Periodos.idPeriodo')
-        ->where('Silabos.estado', '>=', 0)
-        ->where('Unidades.estado', '=', 1)
-        ->where('Asignaturas.estado', '=', 1)
-        ->where('Periodos.estado', '=', 1)
+        $queryActivos = Silabo::select('silabos.idSilabo','unidades.nombreUnidad','asignaturas.nombreAsignatura','periodos.nombrePeriodo','silabos.nombreSilabo','silabos.estado','silabos.fechaInicio','silabos.fechaFin','silabos.idUsuario','usuarios.correo')
+        ->leftjoin('usuarios', 'silabos.idUsuario', '=', 'usuarios.idUsuario')
+        ->join('unidades', 'silabos.idUnidad', '=', 'unidades.idUnidad')
+        ->join('asignaturas', 'unidades.idAsignatura', '=', 'asignaturas.idAsignatura')
+        ->join('periodos', 'unidades.idPeriodo', '=', 'periodos.idPeriodo')
+        ->where('silabos.estado', '>=', 0)
+        ->where('unidades.estado', '=', 1)
+        ->where('asignaturas.estado', '=', 1)
+        ->where('periodos.estado', '=', 1)
         ->whereAny([
-            'Silabos.nombreSilabo',
-            'Silabos.estado',
-            'Unidades.nombreUnidad',
-            'Usuarios.correo',
+            'silabos.nombreSilabo',
+            'silabos.estado',
+            'unidades.nombreUnidad',
+            'usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Asignaturas.nombreAsignatura')
-        ->orderBy('Periodos.posicionOrdinal')
-        ->orderBy('Unidades.posicionOrdinal')
-        ->orderBy('Silabos.nombreSilabo')
+        ->orderBy('asignaturas.nombreAsignatura')
+        ->orderBy('periodos.posicionOrdinal')
+        ->orderBy('unidades.posicionOrdinal')
+        ->orderBy('silabos.nombreSilabo')
         ->get();
         return $queryActivos;
     }

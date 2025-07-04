@@ -9,7 +9,7 @@ class Material extends Model
 {
     use HasFactory;
     /*Nombre de la tabla*/
-    protected $table = 'Materiales';
+    protected $table = 'materiales';
 
     /*ID de la tabla*/
     protected $primaryKey = 'idMaterial';
@@ -18,17 +18,17 @@ class Material extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Materiales' y también permite búsquedas.
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'materiales' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Áula y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Material::select('Materiales.idMaterial','Materiales.nombreMaterial','Materiales.unidadMedida','Materiales.estado','Materiales.fechaRegistro','Materiales.fechaActualizacion','Materiales.idUsuario', 'Usuarios.correo')
-        ->leftjoin('Usuarios', 'Materiales.idUsuario', '=', 'Usuarios.idUsuario')
-        ->where('Materiales.estado', '=', 1)
+        $queryActivos = Material::select('materiales.idMaterial','materiales.nombreMaterial','materiales.unidadMedida','materiales.estado','materiales.fechaRegistro','materiales.fechaActualizacion','materiales.idUsuario', 'usuarios.correo')
+        ->leftjoin('usuarios', 'materiales.idUsuario', '=', 'usuarios.idUsuario')
+        ->where('materiales.estado', '=', 1)
         ->whereAny([
-            'Materiales.nombreMaterial',
-            'Usuarios.correo',
+            'materiales.nombreMaterial',
+            'usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Materiales.idMaterial')
+        ->orderBy('materiales.idMaterial')
         ->get();
         return $queryActivos;
     }

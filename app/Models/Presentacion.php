@@ -9,7 +9,7 @@ class Presentacion extends Model
 {
     use HasFactory;
     /*Nombre de la tabla*/
-    protected $table = 'Presentaciones';
+    protected $table = 'presentaciones';
 
     /*ID de la tabla*/
     protected $primaryKey = 'idPresentacion';
@@ -18,20 +18,20 @@ class Presentacion extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Presentaciones' y también permite búsquedas.
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'presentaciones' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Áula y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Presentacion::select('Presentaciones.idPresentacion','Presentaciones.nombrePresentacion','Presentaciones.estado','Presentaciones.fechaRegistro','Presentaciones.fechaActualizacion','Presentaciones.idUsuario', 'Usuarios.correo')
-        ->selectraw('COUNT(Libros.idLibro) AS countLibros')
-        ->leftjoin('Usuarios', 'Presentaciones.idUsuario', '=', 'Usuarios.idUsuario')
-        ->leftjoin('Libros', 'Presentaciones.idPresentacion', '=', 'Libros.idPresentacion')
-        ->where('Presentaciones.estado', '=', 1)
+        $queryActivos = Presentacion::select('presentaciones.idPresentacion','presentaciones.nombrePresentacion','presentaciones.estado','presentaciones.fechaRegistro','presentaciones.fechaActualizacion','presentaciones.idUsuario', 'usuarios.correo')
+        ->selectraw('COUNT(libros.idLibro) AS countLibros')
+        ->leftjoin('usuarios', 'presentaciones.idUsuario', '=', 'usuarios.idUsuario')
+        ->leftjoin('libros', 'presentaciones.idPresentacion', '=', 'libros.idPresentacion')
+        ->where('presentaciones.estado', '=', 1)
         ->whereAny([
-            'Presentaciones.nombrePresentacion',
-            'Usuarios.correo',
+            'presentaciones.nombrePresentacion',
+            'usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Presentaciones.nombrePresentacion')
-        ->groupBy('Presentaciones.idPresentacion')
+        ->orderBy('presentaciones.nombrePresentacion')
+        ->groupBy('presentaciones.idPresentacion')
         ->get();
         return $queryActivos;
     }
@@ -42,12 +42,12 @@ class Presentacion extends Model
         return $presentacion;
     }
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Libros' pertenecientes a un registro de la tabla 'Presentaciones'.*/
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'libros' pertenecientes a un registro de la tabla 'presentaciones'.*/
     public function selectPresentacion_Libros($idPresentacion){
-        $queryLibrosPertenecientesDePresentacion = Presentacion::select('Libros.idLibro','Libros.nombreLibro','Libros.codigoLibro','Libros.costo','Libros.observacion','Libros.descripcion','Libros.adquisicion','Libros.prestadoA','Libros.estado','Libros.fechaRegistro','Libros.fechaActualizacion')
-        ->leftjoin('Libros', 'Presentaciones.idPresentacion', '=', 'Libros.idPresentacion')
-        ->where('Libros.idPresentacion', '=', $idPresentacion)
-        ->orderBy('Libros.nombreLibro')
+        $queryLibrosPertenecientesDePresentacion = Presentacion::select('libros.idLibro','libros.nombreLibro','libros.codigoLibro','libros.costo','libros.observacion','libros.descripcion','libros.adquisicion','libros.prestadoA','libros.estado','libros.fechaRegistro','libros.fechaActualizacion')
+        ->leftjoin('libros', 'presentaciones.idPresentacion', '=', 'libros.idPresentacion')
+        ->where('libros.idPresentacion', '=', $idPresentacion)
+        ->orderBy('libros.nombreLibro')
         ->get();
         return $queryLibrosPertenecientesDePresentacion;
     }

@@ -9,7 +9,7 @@ class Libro extends Model
 {
     use HasFactory;
     /*Nombre de la tabla*/
-    protected $table = 'Libros';
+    protected $table = 'libros';
 
     /*ID de la tabla*/
     protected $primaryKey = 'idLibro';
@@ -18,30 +18,30 @@ class Libro extends Model
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Libros' y también permite búsquedas.
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'libros' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Área, nombre de Categoria, correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Libro::select('Libros.idLibro','Libros.nombreLibro','Libros.codigoLibro','Libros.nombreAutor','Libros.nombreEditorial','Libros.anhoLibro','Libros.costo','Libros.observacion','Libros.descripcion','Libros.adquisicion','Libros.prestadoA','Libros.fechaIngresoCooperativa','Libros.estado','Libros.fechaRegistro','Libros.fechaActualizacion','Libros.idUsuario','Usuarios.correo',
-        'Categorias.nombreCategoria','Presentaciones.nombrePresentacion')
-        ->selectraw('COUNT(LibrosPrestamosDetalles.idLibro) AS countLibrosPrestamos')
-        ->leftjoin('Usuarios', 'Libros.idUsuario', '=', 'Usuarios.idUsuario')
-        ->leftjoin('LibrosPrestamosDetalles', 'Libros.idLibro', '=', 'LibrosPrestamosDetalles.idLibro')
-        ->join('Categorias', 'Libros.idCategoria', '=', 'Categorias.idCategoria')
-        ->join('Presentaciones', 'Libros.idPresentacion', '=', 'Presentaciones.idPresentacion')
-        /*->where('Libros.estado', '=', 1)*/
+        $queryActivos = Libro::select('libros.idLibro','libros.nombreLibro','libros.codigoLibro','libros.nombreAutor','libros.nombreEditorial','libros.anhoLibro','libros.costo','libros.observacion','libros.descripcion','libros.adquisicion','libros.prestadoA','libros.fechaIngresoCooperativa','libros.estado','libros.fechaRegistro','libros.fechaActualizacion','libros.idUsuario','usuarios.correo',
+        'categorias.nombreCategoria','presentaciones.nombrePresentacion')
+        ->selectraw('COUNT(librosprestamosdetalles.idLibro) AS countLibrosPrestamos')
+        ->leftjoin('usuarios', 'libros.idUsuario', '=', 'usuarios.idUsuario')
+        ->leftjoin('librosprestamosdetalles', 'libros.idLibro', '=', 'librosprestamosdetalles.idLibro')
+        ->join('categorias', 'libros.idCategoria', '=', 'categorias.idCategoria')
+        ->join('presentaciones', 'libros.idPresentacion', '=', 'presentaciones.idPresentacion')
+        /*->where('libros.estado', '=', 1)*/
         ->whereAny([
-            'Libros.nombreLibro',
-            'Categorias.nombreCategoria',
-            'Libros.nombreAutor',
-            'Presentaciones.nombrePresentacion',
-            'Libros.nombreEditorial',
-            'Usuarios.correo',
+            'libros.nombreLibro',
+            'categorias.nombreCategoria',
+            'libros.nombreAutor',
+            'presentaciones.nombrePresentacion',
+            'libros.nombreEditorial',
+            'usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->groupBy('Libros.idLibro')
-        ->orderBy('Categorias.nombreCategoria')
-        ->orderBy('Libros.codigoLibro')
-        ->orderBy('Libros.nombreAutor')
-        ->orderBy('Libros.nombreEditorial')
+        ->groupBy('libros.idLibro')
+        ->orderBy('categorias.nombreCategoria')
+        ->orderBy('libros.codigoLibro')
+        ->orderBy('libros.nombreAutor')
+        ->orderBy('libros.nombreEditorial')
         ->get();
         return $queryActivos;
     }
@@ -59,56 +59,56 @@ class Libro extends Model
         return $libro;
     }
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Personas' pertenecientes a un registro de la tabla 'Libros'.*/
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'personas' pertenecientes a un registro de la tabla 'libros'.*/
     public function selectLibro_Prestamos($idLibro){
-        $queryPersonasPertenecientesDeLibro = Libro::select('LibrosPrestamos.idLibrosPrestamo','Personas.nombres','Personas.apellidoPaterno','Personas.apellidoMaterno','Personas.tipoPerfil','LibrosPrestamos.fechaRegistro','LibrosPrestamosDetalles.fechaRetorno')
-        ->join('LibrosPrestamosDetalles', 'Libros.idLibro', '=', 'LibrosPrestamosDetalles.idLibro')
-        ->join('LibrosPrestamos', 'LibrosPrestamosDetalles.idLibrosPrestamo', '=', 'LibrosPrestamos.idLibrosPrestamo')
-        ->join('Personas', 'LibrosPrestamos.idPersona', '=', 'Personas.idPersona')
-        ->where('LibrosPrestamosDetalles.idLibro', '=', $idLibro)
-        ->orderBy('LibrosPrestamos.idLibrosPrestamo', 'DESC')
+        $queryPersonasPertenecientesDeLibro = Libro::select('librosprestamos.idLibrosPrestamo','personas.nombres','personas.apellidoPaterno','personas.apellidoMaterno','personas.tipoPerfil','librosprestamos.fechaRegistro','librosprestamosdetalles.fechaRetorno')
+        ->join('librosprestamosdetalles', 'libros.idLibro', '=', 'librosprestamosdetalles.idLibro')
+        ->join('librosprestamos', 'librosprestamosdetalles.idLibrosPrestamo', '=', 'librosprestamos.idLibrosPrestamo')
+        ->join('personas', 'librosprestamos.idPersona', '=', 'personas.idPersona')
+        ->where('librosprestamosdetalles.idLibro', '=', $idLibro)
+        ->orderBy('librosprestamos.idLibrosPrestamo', 'DESC')
         ->get();
         return $queryPersonasPertenecientesDeLibro;
     }
 
     public function selectAutores($busqueda){
         $queryActivos = Libro::select('nombreAutor')
-        ->selectraw('COUNT(Libros.idLibro) AS countLibros')
+        ->selectraw('COUNT(libros.idLibro) AS countLibros')
         ->whereAny([
-            'Libros.nombreAutor',
+            'libros.nombreAutor',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Libros.nombreAutor')
+        ->orderBy('libros.nombreAutor')
         ->distinct()
-        ->groupBy('Libros.nombreAutor')
+        ->groupBy('libros.nombreAutor')
         ->get();
         return $queryActivos;
     }
 
     public function selectAutor_Libros($nombreAutor){
-        $queryLibrosPertenecientesDeAutor = Libro::select('Libros.idLibro','Libros.nombreLibro','Libros.codigoLibro','Libros.costo','Libros.observacion','Libros.descripcion','Libros.adquisicion','Libros.prestadoA','Libros.estado','Libros.fechaRegistro','Libros.fechaActualizacion')
-        ->where('Libros.nombreAutor', '=', $nombreAutor)
-        ->orderBy('Libros.codigoLibro')
+        $queryLibrosPertenecientesDeAutor = Libro::select('libros.idLibro','libros.nombreLibro','libros.codigoLibro','libros.costo','libros.observacion','libros.descripcion','libros.adquisicion','libros.prestadoA','libros.estado','libros.fechaRegistro','libros.fechaActualizacion')
+        ->where('libros.nombreAutor', '=', $nombreAutor)
+        ->orderBy('libros.codigoLibro')
         ->get();
         return $queryLibrosPertenecientesDeAutor;
     }
 
     public function selectEditoriales($busqueda){
         $queryActivos = Libro::select('nombreEditorial')
-        ->selectraw('COUNT(Libros.idLibro) AS countLibros')
+        ->selectraw('COUNT(libros.idLibro) AS countLibros')
         ->whereAny([
-            'Libros.nombreEditorial',
+            'libros.nombreEditorial',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Libros.nombreEditorial')
+        ->orderBy('libros.nombreEditorial')
         ->distinct()
-        ->groupBy('Libros.nombreEditorial')
+        ->groupBy('libros.nombreEditorial')
         ->get();
         return $queryActivos;
     }
 
     public function selectEditorial_Libros($nombreEditorial){
-        $queryLibrosPertenecientesDeEditorial = Libro::select('Libros.idLibro','Libros.nombreLibro','Libros.codigoLibro','Libros.costo','Libros.observacion','Libros.descripcion','Libros.adquisicion','Libros.prestadoA','Libros.estado','Libros.fechaRegistro','Libros.fechaActualizacion')
-        ->where('Libros.nombreEditorial', '=', $nombreEditorial)
-        ->orderBy('Libros.codigoLibro')
+        $queryLibrosPertenecientesDeEditorial = Libro::select('libros.idLibro','libros.nombreLibro','libros.codigoLibro','libros.costo','libros.observacion','libros.descripcion','libros.adquisicion','libros.prestadoA','libros.estado','libros.fechaRegistro','libros.fechaActualizacion')
+        ->where('libros.nombreEditorial', '=', $nombreEditorial)
+        ->orderBy('libros.codigoLibro')
         ->get();
         return $queryLibrosPertenecientesDeEditorial;
     }

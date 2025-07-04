@@ -9,24 +9,24 @@ class Campo extends Model
 {
     use HasFactory;
     /*Nombre de la tabla*/
-    protected $table = 'Campos';
+    protected $table = 'campos';
     /*ID de la tabla*/
     protected $primaryKey = 'idCampo';
     /*Modifica los Timestamps por defecto de Eloquent*/
     const CREATED_AT = 'fechaRegistro';
     const UPDATED_AT = 'fechaActualizacion';
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Campos' y también permite búsquedas.
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'campos' y también permite búsquedas.
      * Búsquedas soportadas: Nombre de Campo y correo del Usuario que haya modificado algún registro.*/
     public function selectDisponibles($busqueda){
-        $queryActivos = Campo::select('Campos.idCampo','Campos.nombreCampo','Campos.ordenBoletines','Campos.fechaRegistro','Campos.fechaActualizacion','Campos.idUsuario','Campos.estado', 'Usuarios.correo')
-        ->leftjoin('Usuarios', 'Campos.idUsuario', '=', 'Usuarios.idUsuario')
-        ->where('Campos.estado', '=', 1)
+        $queryActivos = Campo::select('campos.idCampo','campos.nombreCampo','campos.ordenBoletines','campos.fechaRegistro','campos.fechaActualizacion','campos.idUsuario','campos.estado', 'usuarios.correo')
+        ->leftjoin('usuarios', 'campos.idUsuario', '=', 'usuarios.idUsuario')
+        ->where('campos.estado', '=', 1)
         ->whereAny([
-            'Campos.nombreCampo',
-            'Usuarios.correo',
+            'campos.nombreCampo',
+            'usuarios.correo',
         ], 'LIKE', '%'.$busqueda.'%')
-        ->orderBy('Campos.ordenBoletines')
+        ->orderBy('campos.ordenBoletines')
         ->get();
         return $queryActivos;
     }
@@ -37,13 +37,13 @@ class Campo extends Model
         return $campo;
     }
 
-    /**Función que permite recuperar los registros disponibles o activos de la tabla 'Areas' pertenecientes a un registro de la tabla 'Campos'.*/
+    /**Función que permite recuperar los registros disponibles o activos de la tabla 'areas' pertenecientes a un registro de la tabla 'campos'.*/
     public function selectCampo_Areas($idCampo){
-        $queryAreasPertenecientesDeCampo = Campo::select('Areas.idArea','Areas.nombreArea','Areas.fechaRegistro','Areas.fechaActualizacion')
-        ->leftjoin('Areas', 'Campos.idCampo', '=', 'Areas.idCampo')
-        ->where('Areas.idCampo', '=', $idCampo)
-        ->where('Areas.estado', '=', '1')
-        ->orderBy('Areas.idArea')
+        $queryAreasPertenecientesDeCampo = Campo::select('areas.idArea','areas.nombreArea','areas.fechaRegistro','areas.fechaActualizacion')
+        ->leftjoin('areas', 'campos.idCampo', '=', 'areas.idCampo')
+        ->where('areas.idCampo', '=', $idCampo)
+        ->where('areas.estado', '=', '1')
+        ->orderBy('areas.idArea')
         ->get();
         return $queryAreasPertenecientesDeCampo;
     }
