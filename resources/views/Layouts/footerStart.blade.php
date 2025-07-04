@@ -12,7 +12,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>{{session('correo')}}, <span class="font-weight-bold">¿Está seguro/a de que desea cerrar sesión?</span></p>
+        <p class="font-weight-bold"><span class="text-info">{{session('correo')}}</span>, ¿Está seguro/a de que desea cerrar sesión?</p>
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancelar</button>

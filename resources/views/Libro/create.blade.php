@@ -36,7 +36,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">TÍTULO (*)</label>
+                  <label class="col-sm-2 col-form-label">TÍTULO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('nombreLibro') is-invalid @enderror"
                       name="nombreLibro" value="{{old('nombreLibro')}}" placeholder="TÍTULO" minlength="1" maxlength="200" required autofocus>
@@ -46,7 +46,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">CÓDIGO LIBRO (*)</label>
+                  <label class="col-sm-2 col-form-label">CÓDIGO LIBRO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('codigoLibro') is-invalid @enderror"
                       name="codigoLibro" value="{{old('codigoLibro',$formatoCodigo->codigo)}}" placeholder="CÓDIGO" minlength="1" maxlength="5" required>
@@ -56,7 +56,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">COSTO (*)</label>
+                  <label class="col-sm-2 col-form-label">COSTO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="number" class="form-control @error('costo') is-invalid @enderror"
                       name="costo" value="{{old('costo')}}" placeholder="1.00" step="0.01" min="0" required>
@@ -66,7 +66,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">AÑO DE PUBLICACIÓN (*)</label>
+                  <label class="col-sm-2 col-form-label">AÑO DE PUBLICACIÓN <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="number" class="form-control @error('anhoLibro') is-invalid @enderror"
                     name="anhoLibro" value="{{old('anhoLibro', 0)}}" placeholder="{{ date('Y') }}" min="0" max="{{ date('Y') }}" step="1" required>
@@ -76,19 +76,19 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">OBSERVACIÓN/ES (*)</label>
+                  <label class="col-sm-2 col-form-label">OBSERVACIÓN/ES <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <textarea class="form-control" name="observacion" required>{{old('observacion','-')}}</textarea>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">DESCRIPCIÓN (*)</label>
+                  <label class="col-sm-2 col-form-label">DESCRIPCIÓN <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <textarea class="form-control" name="descripcion" required>{{old('descripcion','-')}}</textarea>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">ADQUISICIÓN (*)</label>
+                  <label class="col-sm-2 col-form-label">ADQUISICIÓN <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control @error('adquisicion') is-invalid @enderror" name="adquisicion" required>
                       <option value="1" {{old('adquisicion') == '1' ? 'selected' : ''}}>{{helper_FormatoAtributoValorATexto(1, 'libroAdquisicion')}}</option>
@@ -100,7 +100,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">CATEGORIA (*)</label>
+                  <label class="col-sm-2 col-form-label">CATEGORIA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idCategoria" id="select2" required>
                       @foreach ($Categorias as $rowCategorias)
@@ -114,7 +114,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">AUTOR (*)</label>
+                  <label class="col-sm-2 col-form-label">AUTOR <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('nombreAutor') is-invalid @enderror"
                       name="nombreAutor" value="{{old('nombreAutor')}}" placeholder="AUTOR" minlength="1" maxlength="100" list="autores" required>
@@ -129,7 +129,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">EDITORIAL (*)</label>
+                  <label class="col-sm-2 col-form-label">EDITORIAL <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('nombreEditorial') is-invalid @enderror"
                       name="nombreEditorial" value="{{old('nombreEditorial')}}" placeholder="EDITORIAL" minlength="1" maxlength="100" list="editoriales" required>
@@ -144,7 +144,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">PRESENTACIÓN (*)</label>
+                  <label class="col-sm-2 col-form-label">PRESENTACIÓN <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idPresentacion" required>
                       @foreach ($Presentaciones as $rowPresentaciones)
@@ -158,7 +158,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">FECHA DE INGRESO COOPERATIVA (*)</label>
+                  <label class="col-sm-2 col-form-label">FECHA DE INGRESO COOPERATIVA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="date" class="form-control @error('fechaIngresoCooperativa') is-invalid @enderror"
                       name="fechaIngresoCooperativa" id="fechaIngresoCooperativa" value="{{old('fechaIngresoCooperativa',date("Y-m-d"))}}" required>

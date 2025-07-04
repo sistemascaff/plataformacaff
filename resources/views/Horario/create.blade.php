@@ -36,7 +36,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">ASIGNATURA (*)</label>
+                  <label class="col-sm-2 col-form-label">ASIGNATURA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idAsignatura" id="select2" required>
                       @foreach ($Asignaturas as $rowAsignaturas)
@@ -50,7 +50,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">DIA (*)</label>
+                  <label class="col-sm-2 col-form-label">DIA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="dia" required>
                       <option value="1" selected>{{ helper_FormatoAtributoValorATexto(1, 'horarioDia') }}</option>
@@ -64,14 +64,14 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">HORA INICIO (*)</label>
+                  <label class="col-sm-2 col-form-label">HORA INICIO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="time" class="form-control @error('horaInicio') is-invalid @enderror"
                     name="horaInicio" value="{{old('horaInicio','08:00')}}" required>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">HORA FIN (*)</label>
+                  <label class="col-sm-2 col-form-label">HORA FIN <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="time" class="form-control @error('horaFin') is-invalid @enderror"
                     name="horaFin" value="{{old('horaFin','08:00')}}" required>

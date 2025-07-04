@@ -57,7 +57,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRES (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRES <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('nombres') is-invalid @enderror"
                       name="nombres" id="nombres" value="{{old('nombres')}}" placeholder="NOMBRES" minlength="1" maxlength="50" required>
@@ -67,7 +67,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">CÉDULA IDENTIDAD (*)</label>
+                  <label class="col-sm-2 col-form-label">CÉDULA IDENTIDAD <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('documentoIdentificacion') is-invalid @enderror"
                       name="documentoIdentificacion" id="documentoIdentificacion" id="documentoIdentificacion" value="{{old('documentoIdentificacion')}}" placeholder="C.I." minlength="1" maxlength="15" required>
@@ -87,7 +87,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">C.I. EXPEDIDO (*)</label>
+                  <label class="col-sm-2 col-form-label">C.I. EXPEDIDO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="documentoExpedido" required>
                       <option {{old('documentoExpedido') == 'COCHABAMBA' ? 'selected' : ''}}>COCHABAMBA</option>
@@ -103,14 +103,14 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">FECHA DE NACIMIENTO (*)</label>
+                  <label class="col-sm-2 col-form-label">FECHA DE NACIMIENTO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="date" class="form-control @error('fechaNacimiento') is-invalid @enderror"
                       name="fechaNacimiento" id="fechaNacimiento" value="{{old('fechaNacimiento',date("Y-m-d"))}}" required>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">SEXO (*)</label>
+                  <label class="col-sm-2 col-form-label">SEXO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control @error('sexo') is-invalid @enderror" name="sexo" required>
                       <option {{old('sexo') == 'MASCULINO' ? 'selected' : ''}}>MASCULINO</option>
@@ -119,7 +119,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">IDIOMA (*)</label>
+                  <label class="col-sm-2 col-form-label">IDIOMA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control @error('idioma') is-invalid @enderror" name="idioma" required>
                       <option selected>ESPAÑOL</option>
@@ -131,7 +131,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NIVEL I.E. (*)</label>
+                  <label class="col-sm-2 col-form-label">NIVEL I.E. <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control @error('nivelIE') is-invalid @enderror" name="nivelIE" required>
                       <option selected>NINGUNO</option>
@@ -168,7 +168,7 @@
                 </div>
                 <h3 class="font-weight-bold text-info rounded">DATOS DE USUARIO</h3>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">CORREO (*)</label>
+                  <label class="col-sm-2 col-form-label">CORREO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('correo') is-invalid @enderror"
                       name="correo" id="correo" value="{{old('correo')}}" placeholder="correo@froebel.edu.bo" minlength="8" maxlength="80" required>
@@ -178,7 +178,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">CONTRASEÑA (*)</label>
+                  <label class="col-sm-2 col-form-label">CONTRASEÑA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('contrasenha') is-invalid @enderror"
                       name="contrasenha" id="contrasenha" value="{{old('contrasenha')}}" placeholder="CONTRASEÑA" minlength="8" maxlength="80" required>
@@ -188,7 +188,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">PIN DE RECUPERACION (*)</label>
+                  <label class="col-sm-2 col-form-label">PIN DE RECUPERACION <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="number" class="form-control @error('pinRecuperacion') is-invalid @enderror"
                       name="pinRecuperacion" id="pinRecuperacion" value="{{old('pinRecuperacion')}}" placeholder="12345678" minlength="8" maxlength="8" required>
@@ -208,7 +208,7 @@
                 </div>
                 <h3 class="font-weight-bold text-info rounded">DATOS DE DOCENTE</h3>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">ESPECIALIDAD (*)</label>
+                  <label class="col-sm-2 col-form-label">ESPECIALIDAD <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control @error('especialidad') is-invalid @enderror" name="especialidad" required>
                       <option disabled selected>-SELECCIONAR-</option>
@@ -232,7 +232,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">GRADO DE ESTUDIOS (*)</label>
+                  <label class="col-sm-2 col-form-label">GRADO DE ESTUDIOS <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control @error('gradoEstudios') is-invalid @enderror" name="gradoEstudios" required>
                       <option disabled selected>-SELECCIONAR-</option>
@@ -243,7 +243,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">DOMICILIO (*)</label>
+                  <label class="col-sm-2 col-form-label">DOMICILIO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('direccionDomicilio') is-invalid @enderror"
                       name="direccionDomicilio" value="{{old('direccionDomicilio')}}" placeholder="DOMICILIO" minlength="1" maxlength="250">
@@ -253,7 +253,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">SUBDIRECTOR (*)</label>
+                  <label class="col-sm-2 col-form-label">SUBDIRECTOR <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idNivelSubdirector" required>
                       <option value="0" selected>NO</option>
@@ -268,7 +268,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">COORDINADOR (*)</label>
+                  <label class="col-sm-2 col-form-label">COORDINADOR <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idCoordinacionEncargado" required>
                       <option value="0" selected>NO</option>

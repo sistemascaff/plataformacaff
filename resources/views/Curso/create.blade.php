@@ -36,7 +36,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE CURSO (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE CURSO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('nombreCurso') is-invalid @enderror"
                       name="nombreCurso" value="{{old('nombreCurso')}}" placeholder="CURSO" minlength="3" maxlength="45" required autofocus>
@@ -46,7 +46,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">GRADO (*)</label>
+                  <label class="col-sm-2 col-form-label">GRADO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idGrado" required>
                       @foreach ($Grados as $rowGrados)
@@ -60,7 +60,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">PARALELO (*)</label>
+                  <label class="col-sm-2 col-form-label">PARALELO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idParalelo" required>
                       @foreach ($Paralelos as $rowParalelos)

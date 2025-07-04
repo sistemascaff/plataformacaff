@@ -37,7 +37,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE AREA (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE AREA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="text" class="form-control @error('nombreArea') is-invalid @enderror"
                     name="nombreArea" value="{{old('nombreArea', $area->nombreArea)}}" placeholder="AREA" minlength="3" maxlength="45" required autofocus>
@@ -47,7 +47,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">ABREVIATURA (*)</label>
+                  <label class="col-sm-2 col-form-label">ABREVIATURA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="text" class="form-control @error('nombreCorto') is-invalid @enderror"
                     name="nombreCorto" value="{{old('nombreCorto', $area->nombreCorto)}}" placeholder="AREA" minlength="1" maxlength="5" required>
@@ -57,7 +57,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">CAMPO (*)</label>
+                  <label class="col-sm-2 col-form-label">CAMPO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idCampo" required>
                       @foreach ($Campos as $rowCampos)
@@ -73,7 +73,7 @@
               </div>
               
               <a class="btn btn-warning" data-toggle="modal" data-target="#modalUpdate">
-                {!! helper_FormatoBotonCRUD(3, 'texto') !!}
+                {!! helper_FormatoBotonCRUD(14, 'texto') !!}
               </a>
               <a href="{{route('areas.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
 
@@ -87,11 +87,11 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      <p class="font-weight-bold">¿Está segur@ de haber ingresado los datos correctamente? Presione EDITAR para confirmar.</p>
+                      <p class="font-weight-bold">¿Confirmar los cambios realizados? Esta acción actualizará el registro seleccionado.</p>
                     </div>
                     <div class="modal-footer justify-content-between">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
-                      <button type="submit" class="btn btn-warning">{!! helper_FormatoBotonCRUD(3, 'texto') !!}</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">No, seguir editando</button>
+                      <button type="submit" class="btn btn-warning">{!! helper_FormatoBotonCRUD(14, 'texto') !!}</button>
                     </div>
                   </div>
                   <!-- /.modal-content -->

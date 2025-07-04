@@ -36,7 +36,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE MATERIAL (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE MATERIAL <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="text" class="form-control @error('nombreMaterial') is-invalid @enderror"
                     name="nombreMaterial" value="{{old('nombreMaterial')}}" placeholder="MATERIAL" minlength="1" maxlength="100" required autofocus>
@@ -46,7 +46,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">UNIDAD DE MEDIDA (*)</label>
+                  <label class="col-sm-2 col-form-label">UNIDAD DE MEDIDA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="unidadMedida" required>
                       <option selected>UNIDAD</option>

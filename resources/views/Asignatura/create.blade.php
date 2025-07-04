@@ -36,7 +36,7 @@
               
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE ASIGNATURA (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE ASIGNATURA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('nombreAsignatura') is-invalid @enderror"
                       name="nombreAsignatura" value="{{old('nombreAsignatura')}}" placeholder="ASIGNATURA" minlength="3" maxlength="100" required autofocus>
@@ -46,7 +46,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">ABREVIATURA (*)</label>
+                  <label class="col-sm-2 col-form-label">ABREVIATURA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('nombreCorto') is-invalid @enderror"
                       name="nombreCorto" value="{{old('nombreCorto')}}" placeholder="ABV." minlength="1" maxlength="5" required>
@@ -56,7 +56,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">TIPO DE CALIFICACIÓN (*)</label>
+                  <label class="col-sm-2 col-form-label">TIPO DE CALIFICACIÓN <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="tipoCalificacion" required>
                       <option value="1" {{old('tipoCalificacion') == '1' ? 'selected' : ''}}>{{helper_FormatoAtributoValorATexto(1,'asignaturaTipoCalificacion')}}</option>
@@ -65,7 +65,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">TIPO DE BLOQUE (*)</label>
+                  <label class="col-sm-2 col-form-label">TIPO DE BLOQUE <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="tipoBloque" required>
                       <option value="1" {{old('tipoBloque') == '1' ? 'selected' : ''}}>{{helper_FormatoAtributoValorATexto(1,'asignaturaTipoBloque')}}</option>
@@ -74,7 +74,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">TIPO DE ASIGNATURA (*)</label>
+                  <label class="col-sm-2 col-form-label">TIPO DE ASIGNATURA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="tipoAsignatura" required>
                       <option value="1" {{old('tipoAsignatura') == '1' ? 'selected' : ''}}>{{helper_FormatoAtributoValorATexto(1,'asignaturaTipoAsignatura')}}</option>
@@ -83,7 +83,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="idMateria" class="col-sm-2 col-form-label">MATERIA (*)</label>
+                  <label for="idMateria" class="col-sm-2 col-form-label">MATERIA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idMateria" id="idMateria" required>
                       @foreach ($Materias as $rowMaterias)
@@ -112,7 +112,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">AULA (*)</label>
+                  <label class="col-sm-2 col-form-label">AULA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idAula" required>
                       @foreach ($Aulas as $rowAulas)
@@ -126,7 +126,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">DOCENTE (*)</label>
+                  <label class="col-sm-2 col-form-label">DOCENTE <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control form-control-lg" name="idDocente" id="select2" required>
                       @foreach ($Docentes as $rowDocentes)

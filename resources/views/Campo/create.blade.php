@@ -36,7 +36,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE CAMPO (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE CAMPO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="text" class="form-control @error('nombreCampo') is-invalid @enderror"
                     name="nombreCampo" value="{{old('nombreCampo')}}" placeholder="CAMPO" minlength="3" maxlength="45" required autofocus>
@@ -46,7 +46,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">ORDEN EN BOLETINES (*)</label>
+                  <label class="col-sm-2 col-form-label">ORDEN EN BOLETINES <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="number" class="form-control @error('ordenBoletines') is-invalid @enderror"
                     name="ordenBoletines" value="{{old('ordenBoletines',1)}}" min="0" max="100" required>

@@ -434,7 +434,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Está segur@ de eliminar el registro seleccionado?</p>
+                    <p>¿Está seguro/a de eliminar el registro seleccionado?</p>
                     <p class="font-weight-bold">{{ $asignatura->nombreAsignatura }}</p>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -463,7 +463,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Está segur@ de eliminar el estudiante seleccionado de la lista?</p>
+                    <p>¿Está seguro/a de eliminar el estudiante seleccionado de la lista?</p>
                     <p class="font-weight-bold" id="nombreEstudiante">NOMBRE</p>
                 </div>
                 <div class="modal-footer justify-content-between">

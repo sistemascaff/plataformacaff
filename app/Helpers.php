@@ -53,55 +53,59 @@ function helper_FormatoBotonCRUD($valor, $tipo)
     switch ($valor) {
         case '1':/*CREATE*/
             $icono = 'fa fa-plus';
-            $texto = 'CREAR';
+            $texto = 'Crear';
             break;
         case '2':/*READ*/
             $icono = 'fa fa-eye';
-            $texto = 'VER';
+            $texto = 'Ver';
             break;
         case '3':/*UPDATE*/
             $icono = 'fa fa-pencil';
-            $texto = 'EDITAR';
+            $texto = 'Editar';
             break;
         case '4':/*DELETE*/
             $icono = 'fa fa-trash';
-            $texto = 'ELIMINAR';
+            $texto = 'Eliminar';
             break;
         case '5':/*SAVE*/
             $icono = 'fa fa-save';
-            $texto = 'GUARDAR';
+            $texto = 'Guardar';
             break;
         case '6':/*CANCEL*/
             $icono = 'fa fa-times-circle';
-            $texto = 'CANCELAR';
+            $texto = 'Cancelar';
             break;
         case '7':/*RETURN*/
             $icono = 'fa fa-arrow-left';
-            $texto = 'VOLVER';
+            $texto = 'Volver';
             break;
         case '8':/*SEARCH*/
             $icono = 'fa fa-search';
-            $texto = 'BUSCAR';
+            $texto = 'Buscar';
             break;
         case '9':/*ADD*/
             $icono = 'fa fa-plus';
-            $texto = 'AÑADIR';
+            $texto = 'Añadir';
             break;
         case '10':/*REFRESH*/
             $icono = 'fa fa-refresh';
-            $texto = 'REFRESCAR';
+            $texto = 'Refrescar';
             break;
         case '11':/*CHECK*/
             $icono = 'fa fa-check';
-            $texto = 'MARCAR';
+            $texto = 'Marcar';
             break;
         case '12':/*PRINT*/
                 $icono = 'fa fa-print';
-                $texto = 'IMPRIMIR';
+                $texto = 'Imprimir';
                 break;
         case '13':/*RESTORE*/
                 $icono = 'fa fa-rotate-left';
-                $texto = 'RESTAURAR';
+                $texto = 'Restaurar';
+                break;
+        case '14':/*CONFIRM*/
+                $icono = 'fa fa-check';
+                $texto = 'Confirmar';
                 break;
         default:
             return 'HELPER ERROR: VALOR EXCEDIDO';

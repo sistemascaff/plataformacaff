@@ -37,7 +37,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE ASIGNATURA (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE ASIGNATURA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="text" class="form-control @error('nombreAsignatura') is-invalid @enderror"
                     name="nombreAsignatura" value="{{old('nombreAsignatura', $asignatura->nombreAsignatura)}}" placeholder="ASIGNATURA" minlength="3" maxlength="100" required autofocus>
@@ -47,7 +47,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">ABREVIATURA (*)</label>
+                  <label class="col-sm-2 col-form-label">ABREVIATURA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="text" class="form-control @error('nombreCorto') is-invalid @enderror"
                     name="nombreCorto" value="{{old('nombreCorto', $asignatura->nombreCorto)}}" placeholder="ABV." minlength="1" maxlength="5" required>
@@ -57,7 +57,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">TIPO DE CALIFICACIÓN (*)</label>
+                  <label class="col-sm-2 col-form-label">TIPO DE CALIFICACIÓN <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="tipoCalificacion" required>
                       <option value="1" {{$asignatura->tipoCalificacion == '1' ? 'selected' : ''}}>{{helper_FormatoAtributoValorATexto(1, 'asignaturaTipoCalificacion')}}</option>
@@ -66,7 +66,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">TIPO DE BLOQUE (*)</label>
+                  <label class="col-sm-2 col-form-label">TIPO DE BLOQUE <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="tipoBloque" required>
                       <option value="1" {{$asignatura->tipoBloque == '1' ? 'selected' : ''}}>{{helper_FormatoAtributoValorATexto(1, 'asignaturaTipoBloque')}}</option>
@@ -75,7 +75,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">TIPO DE ASIGNATURA (*)</label>
+                  <label class="col-sm-2 col-form-label">TIPO DE ASIGNATURA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="tipoAsignatura" required>
                       <option value="1" {{$asignatura->tipoAsignatura == '1' ? 'selected' : ''}}>{{helper_FormatoAtributoValorATexto(1, 'asignaturaTipoAsignatura')}}</option>
@@ -84,7 +84,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">MATERIA (*)</label>
+                  <label class="col-sm-2 col-form-label">MATERIA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idMateria" required>
                       @foreach ($Materias as $rowMaterias)
@@ -113,7 +113,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">AULA (*)</label>
+                  <label class="col-sm-2 col-form-label">AULA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idAula" required>
                       @foreach ($Aulas as $rowAulas)
@@ -127,7 +127,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">DOCENTE (*)</label>
+                  <label class="col-sm-2 col-form-label">DOCENTE <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idDocente" id="select2" required>
                       @foreach ($Docentes as $rowDocentes)
@@ -143,7 +143,7 @@
               </div>
               
               <a class="btn btn-warning" data-toggle="modal" data-target="#modalUpdate">
-                {!! helper_FormatoBotonCRUD(3, 'texto') !!}
+                {!! helper_FormatoBotonCRUD(14, 'texto') !!}
               </a>
               <a href="{{route('asignaturas.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
 
@@ -157,11 +157,11 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      <p class="font-weight-bold">¿Está segur@ de haber ingresado los datos correctamente? Presione EDITAR para confirmar.</p>
+                      <p class="font-weight-bold">¿Confirmar los cambios realizados? Esta acción actualizará el registro seleccionado.</p>
                     </div>
                     <div class="modal-footer justify-content-between">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
-                      <button type="submit" class="btn btn-warning">{!! helper_FormatoBotonCRUD(3, 'texto') !!}</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">No, seguir editando</button>
+                      <button type="submit" class="btn btn-warning">{!! helper_FormatoBotonCRUD(14, 'texto') !!}</button>
                     </div>
                   </div>
                   <!-- /.modal-content -->

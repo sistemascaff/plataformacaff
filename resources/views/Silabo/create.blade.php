@@ -36,7 +36,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">UNIDAD (*)</label>
+                  <label class="col-sm-2 col-form-label">UNIDAD <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idUnidad" required>
                       @foreach ($Unidades as $rowUnidades)
@@ -50,7 +50,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE SILABO (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE SILABO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('nombreSilabo') is-invalid @enderror"
                       name="nombreSilabo" value="{{old('nombreSilabo')}}" placeholder="SILABO" minlength="1" maxlength="250" required autofocus>

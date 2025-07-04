@@ -36,7 +36,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">ASIGNATURA (*)</label>
+                  <label class="col-sm-2 col-form-label">ASIGNATURA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idAsignatura" required>
                       @foreach ($Asignaturas as $rowAsignaturas)
@@ -50,7 +50,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">PERIODO (*)</label>
+                  <label class="col-sm-2 col-form-label">PERIODO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idPeriodo" required>
                       @foreach ($Periodos as $rowPeriodos)
@@ -60,7 +60,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE UNIDAD (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE UNIDAD <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('nombreUnidad') is-invalid @enderror"
                       name="nombreUnidad" value="{{old('nombreUnidad')}}" placeholder="UNIDAD" minlength="1" maxlength="250" required autofocus>
@@ -70,7 +70,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">POSICIÓN ORDINAL (*)</label>
+                  <label class="col-sm-2 col-form-label">POSICIÓN ORDINAL <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="number" class="form-control @error('posicionOrdinal') is-invalid @enderror"
                     name="posicionOrdinal" value="{{old('posicionOrdinal',1)}}" min="1" max="100" required>

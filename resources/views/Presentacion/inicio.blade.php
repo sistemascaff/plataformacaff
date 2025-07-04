@@ -104,11 +104,11 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>¿Está segur@ de eliminar el registro seleccionado?</p>
-          <p class="font-weight-bold" id="nombre">NOMBRE</p>
+          <p class="font-weight-bold">¿Está seguro/a de eliminar el registro seleccionado?</p>
+          <p class="font-weight-bold text-info" id="nombre">NOMBRE</p>
         </div>
         <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</button>
           <form action="{{route('presentaciones.delete')}}" method="POST">
             @csrf
             @method('put')

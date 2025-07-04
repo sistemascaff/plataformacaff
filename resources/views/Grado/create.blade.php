@@ -36,7 +36,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE GRADO (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE GRADO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('nombreGrado') is-invalid @enderror"
                       name="nombreGrado" value="{{old('nombreGrado')}}" placeholder="GRADO" minlength="5" maxlength="45" required autofocus>
@@ -46,7 +46,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">POSICIÓN ORDINAL (*)</label>
+                  <label class="col-sm-2 col-form-label">POSICIÓN ORDINAL <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="number" class="form-control @error('posicionOrdinal') is-invalid @enderror"
                     name="posicionOrdinal" value="{{old('posicionOrdinal',1)}}" min="0" max="100" required>
@@ -56,7 +56,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NIVEL (*)</label>
+                  <label class="col-sm-2 col-form-label">NIVEL <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idNivel" required>
                       @foreach ($Niveles as $rowNiveles)

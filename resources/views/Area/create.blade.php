@@ -36,7 +36,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE AREA (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE AREA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('nombreArea') is-invalid @enderror"
                       name="nombreArea" value="{{old('nombreArea')}}" placeholder="AREA" minlength="3" maxlength="45" required autofocus>
@@ -46,7 +46,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">ABREVIATURA (*)</label>
+                  <label class="col-sm-2 col-form-label">ABREVIATURA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('nombreCorto') is-invalid @enderror"
                       name="nombreCorto" value="{{old('nombreCorto')}}" placeholder="ABV." minlength="1" maxlength="5" required>
@@ -56,7 +56,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">CAMPO (*)</label>
+                  <label class="col-sm-2 col-form-label">CAMPO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idCampo" required>
                       @foreach ($Campos as $rowCampos)

@@ -36,7 +36,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE CATEGORIA (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE CATEGORIA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="text" class="form-control @error('nombreCategoria') is-invalid @enderror"
                     name="nombreCategoria" value="{{old('nombreCategoria')}}" placeholder="CATEGORIA" minlength="1" maxlength="100" required autofocus>

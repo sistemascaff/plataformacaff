@@ -37,7 +37,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">ASIGNATURA (*)</label>
+                  <label class="col-sm-2 col-form-label">ASIGNATURA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idAsignatura" id="select2" required>
                       @foreach ($Asignaturas as $rowAsignaturas)
@@ -51,7 +51,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">DIA (*)</label>
+                  <label class="col-sm-2 col-form-label">DIA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="dia" required>
                       <option value="1" {{ $horario->dia == '1' ? 'selected' : '' }}>{{ helper_FormatoAtributoValorATexto(1, 'horarioDia') }}</option>
@@ -65,7 +65,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">HORA INICIO (*)</label>
+                  <label class="col-sm-2 col-form-label">HORA INICIO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="time" class="form-control @error('horaInicio') is-invalid @enderror"
                     name="horaInicio" value="{{old('horaInicio', substr($horario->horaInicio, 0, -3))}}" required>
@@ -75,7 +75,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">HORA FIN (*)</label>
+                  <label class="col-sm-2 col-form-label">HORA FIN <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="time" class="form-control @error('horaFin') is-invalid @enderror"
                     name="horaFin" value="{{old('horaFin', substr($horario->horaFin, 0, -3))}}" required>
@@ -87,7 +87,7 @@
               </div>
               
               <a class="btn btn-warning" data-toggle="modal" data-target="#modalUpdate">
-                {!! helper_FormatoBotonCRUD(3, 'texto') !!}
+                {!! helper_FormatoBotonCRUD(14, 'texto') !!}
               </a>
               <a href="{{route('horarios.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
 
@@ -101,11 +101,11 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      <p class="font-weight-bold">¿Está segur@ de haber ingresado los datos correctamente? Presione EDITAR para confirmar.</p>
+                      <p class="font-weight-bold">¿Confirmar los cambios realizados? Esta acción actualizará el registro seleccionado.</p>
                     </div>
                     <div class="modal-footer justify-content-between">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
-                      <button type="submit" class="btn btn-warning">{!! helper_FormatoBotonCRUD(3, 'texto') !!}</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">No, seguir editando</button>
+                      <button type="submit" class="btn btn-warning">{!! helper_FormatoBotonCRUD(14, 'texto') !!}</button>
                     </div>
                   </div>
                   <!-- /.modal-content -->

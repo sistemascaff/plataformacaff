@@ -37,7 +37,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE NIVEL (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE NIVEL <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="text" class="form-control @error('nombreNivel') is-invalid @enderror"
                     name="nombreNivel" value="{{old('nombreNivel',$nivel->nombreNivel)}}" placeholder="NIVEL" minlength="5" maxlength="45" required autofocus>
@@ -47,7 +47,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                <label class="col-sm-2 col-form-label">POSICIÓN ORDINAL (*)</label>
+                <label class="col-sm-2 col-form-label">POSICIÓN ORDINAL <span class="text-danger">(*)</span></label>
                 <div class="col-sm-10">
                 <input type="number" class="form-control @error('posicionOrdinal') is-invalid @enderror"
                   name="posicionOrdinal" value="{{old('posicionOrdinal',$nivel->posicionOrdinal)}}" min="0" max="100" required>
@@ -59,7 +59,7 @@
               </div>
               
               <a class="btn btn-warning" data-toggle="modal" data-target="#modalUpdate">
-                {!! helper_FormatoBotonCRUD(3, 'texto') !!}
+                {!! helper_FormatoBotonCRUD(14, 'texto') !!}
               </a>
               <a href="{{route('niveles.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
 
@@ -73,11 +73,11 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      <p class="font-weight-bold">¿Está segur@ de haber ingresado los datos correctamente? Presione EDITAR para confirmar.</p>
+                      <p class="font-weight-bold">¿Confirmar los cambios realizados? Esta acción actualizará el registro seleccionado.</p>
                     </div>
                     <div class="modal-footer justify-content-between">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
-                      <button type="submit" class="btn btn-warning">{!! helper_FormatoBotonCRUD(3, 'texto') !!}</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">No, seguir editando</button>
+                      <button type="submit" class="btn btn-warning">{!! helper_FormatoBotonCRUD(14, 'texto') !!}</button>
                     </div>
                   </div>
                   <!-- /.modal-content -->

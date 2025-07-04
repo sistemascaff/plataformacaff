@@ -36,7 +36,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">ASIGNATURA (*)</label>
+                  <label class="col-sm-2 col-form-label">ASIGNATURA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idAsignatura" id="select2" required>
                       @foreach ($Asignaturas as $rowAsignaturas)
@@ -50,7 +50,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">MATERIAL (*)</label>
+                  <label class="col-sm-2 col-form-label">MATERIAL <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idMaterial" id="selectTwo" required>
                       @foreach ($Materiales as $rowMateriales)
@@ -60,7 +60,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">CANTIDAD (*)</label>
+                  <label class="col-sm-2 col-form-label">CANTIDAD <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="number" class="form-control @error('cantidad') is-invalid @enderror"
                       name="cantidad" value="{{old('cantidad', '1')}}" placeholder="1" step="1" min="1" required>
@@ -70,7 +70,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">OBSERVACION (*)</label>
+                  <label class="col-sm-2 col-form-label">OBSERVACION <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <textarea class="form-control" name="observacion" required>{{old('observacion','-')}}</textarea>
                   </div>

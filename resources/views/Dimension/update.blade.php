@@ -37,7 +37,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE DIMENSION (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE DIMENSION <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="text" class="form-control @error('nombreDimension') is-invalid @enderror"
                     name="nombreDimension" value="{{old('nombreDimension',$dimension->nombreDimension)}}" placeholder="DIMENSION" minlength="5" maxlength="45" required autofocus>
@@ -47,7 +47,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">PUNTAJE MÁXIMO (*)</label>
+                  <label class="col-sm-2 col-form-label">PUNTAJE MÁXIMO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="number" class="form-control @error('puntajeMaximo') is-invalid @enderror"
                     name="puntajeMaximo" value="{{old('puntajeMaximo',$dimension->puntajeMaximo)}}" min="0" max="100" required>
@@ -57,7 +57,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">TIPO DE CÁLCULO (*)</label>
+                  <label class="col-sm-2 col-form-label">TIPO DE CÁLCULO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="tipoCalculo" required>
                       <option value="1" {{$dimension->tipoCalculo == '1' ? 'selected' : ''}}>{{helper_FormatoAtributoValorATexto(1, 'dimensionTipoCalculo')}}</option>
@@ -66,7 +66,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">PERIODO (*)</label>
+                  <label class="col-sm-2 col-form-label">PERIODO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idPeriodo" required>
                       @foreach ($Periodos as $rowPeriodos)
@@ -82,7 +82,7 @@
               </div>
               
               <a class="btn btn-warning" data-toggle="modal" data-target="#modalUpdate">
-                {!! helper_FormatoBotonCRUD(3, 'texto') !!}
+                {!! helper_FormatoBotonCRUD(14, 'texto') !!}
               </a>
               <a href="{{route('dimensiones.index')}}" class="btn btn-secondary">{!! helper_FormatoBotonCRUD(6, 'texto') !!}</a>
 
@@ -96,11 +96,11 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      <p class="font-weight-bold">¿Está segur@ de haber ingresado los datos correctamente? Presione EDITAR para confirmar.</p>
+                      <p class="font-weight-bold">¿Confirmar los cambios realizados? Esta acción actualizará el registro seleccionado.</p>
                     </div>
                     <div class="modal-footer justify-content-between">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
-                      <button type="submit" class="btn btn-warning">{!! helper_FormatoBotonCRUD(3, 'texto') !!}</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">No, seguir editando</button>
+                      <button type="submit" class="btn btn-warning">{!! helper_FormatoBotonCRUD(14, 'texto') !!}</button>
                     </div>
                   </div>
                   <!-- /.modal-content -->

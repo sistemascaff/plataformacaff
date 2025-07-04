@@ -110,7 +110,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>¿Está segur@ de eliminar el registro seleccionado?</p>
+          <p>¿Está seguro/a de eliminar el registro seleccionado?</p>
           <p class="font-weight-bold">{{$dimension->nombreDimension}}</p>
         </div>
         <div class="modal-footer justify-content-between">

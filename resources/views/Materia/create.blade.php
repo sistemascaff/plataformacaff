@@ -36,7 +36,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE MATERIA (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE MATERIA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('nombreMateria') is-invalid @enderror"
                       name="nombreMateria" value="{{old('nombreMateria')}}" placeholder="MATERIA" minlength="3" maxlength="45" required autofocus>
@@ -46,7 +46,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">ABREVIATURA (*)</label>
+                  <label class="col-sm-2 col-form-label">ABREVIATURA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('nombreCorto') is-invalid @enderror"
                       name="nombreCorto" value="{{old('nombreCorto')}}" placeholder="ABV." minlength="1" maxlength="5" required>
@@ -56,7 +56,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">POSICION ORDINAL (*)</label>
+                  <label class="col-sm-2 col-form-label">POSICION ORDINAL <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="number" class="form-control @error('posicionOrdinal') is-invalid @enderror"
                     name="posicionOrdinal" value="{{old('posicionOrdinal',1)}}" min="0" max="100" required>
@@ -66,7 +66,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">AREA (*)</label>
+                  <label class="col-sm-2 col-form-label">AREA <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idArea" required>
                       @foreach ($Areas as $rowAreas)

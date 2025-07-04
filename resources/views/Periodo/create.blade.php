@@ -36,7 +36,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE PERIODO (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE PERIODO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('nombrePeriodo') is-invalid @enderror"
                       name="nombrePeriodo" value="{{old('nombrePeriodo')}}" placeholder="PERIODO" minlength="5" maxlength="45" required autofocus>
@@ -46,7 +46,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">POSICIÓN ORDINAL (*)</label>
+                  <label class="col-sm-2 col-form-label">POSICIÓN ORDINAL <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="number" class="form-control @error('posicionOrdinal') is-invalid @enderror"
                     name="posicionOrdinal" value="{{old('posicionOrdinal',1)}}" min="0" max="100" required>
@@ -56,7 +56,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">GESTION (*)</label>
+                  <label class="col-sm-2 col-form-label">GESTION <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idGestion" required>
                       @foreach ($Gestiones as $rowGestiones)

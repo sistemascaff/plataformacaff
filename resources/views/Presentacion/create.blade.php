@@ -36,7 +36,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE PRESENTACION (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE PRESENTACION <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="text" class="form-control @error('nombrePresentacion') is-invalid @enderror"
                     name="nombrePresentacion" value="{{old('nombrePresentacion')}}" placeholder="PRESENTACION" minlength="1" maxlength="100" required autofocus>

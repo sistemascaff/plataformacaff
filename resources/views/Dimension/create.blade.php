@@ -36,7 +36,7 @@
 
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">NOMBRE DIMENSION (*)</label>
+                  <label class="col-sm-2 col-form-label">NOMBRE DIMENSION <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control @error('nombreDimension') is-invalid @enderror"
                       name="nombreDimension" value="{{old('nombreDimension')}}" placeholder="DIMENSION" minlength="1" maxlength="45" required autofocus>
@@ -46,7 +46,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">PUNTAJE MÁXIMO (*)</label>
+                  <label class="col-sm-2 col-form-label">PUNTAJE MÁXIMO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                   <input type="number" class="form-control @error('puntajeMaximo') is-invalid @enderror"
                     name="puntajeMaximo" value="{{old('puntajeMaximo',1)}}" min="0" max="100" required>
@@ -56,7 +56,7 @@
                   @enderror
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">TIPO DE CÁLCULO (*)</label>
+                  <label class="col-sm-2 col-form-label">TIPO DE CÁLCULO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="tipoCalculo" required>
                       <option value="1">{{helper_FormatoAtributoValorATexto(1, 'dimensionTipoCalculo')}}</option>
@@ -65,7 +65,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">PERIODO (*)</label>
+                  <label class="col-sm-2 col-form-label">PERIODO <span class="text-danger">(*)</span></label>
                   <div class="col-sm-10">
                     <select class="form-control" name="idPeriodo" required>
                       @foreach ($Periodos as $rowPeriodos)
