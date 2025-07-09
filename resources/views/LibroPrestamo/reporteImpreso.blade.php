@@ -66,14 +66,14 @@
             font-weight: bold;
         }
     </style>
-    <img src="{{public_path('img/caff.jpeg')}}" class="watermark">
+    <img src="{{public_path('img/ceff.jpg')}}" class="watermark">
     @php
         $index = 1;
     @endphp
     <div class="d-flex justify-content-center">
         <table class="tabla-inicio">
             <tr>
-                <td width="25%"><img src="{{public_path('img/caff.jpeg')}}" width="30%"></td>
+                <td width="25%"><img src="{{public_path('img/ceff.jpg')}}" width="30%"></td>
                 <td width="50%" class="align-middle text-center font-weight-bold">
                     <p class="inicio" style="font-size: 25px">REPORTE DE BIBLIOTECA</p>
                     <p>Préstamos de libros efectuados entre fechas: <span

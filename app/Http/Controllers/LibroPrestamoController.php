@@ -299,7 +299,7 @@ class LibroPrestamoController extends Controller
             $LibrosPrestadosCantidadGeneral = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, '');
             $LibrosPrestadosCantidadNivelPrimaria = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, 'PRIMARIA');
             $LibrosPrestadosCantidadNivelSecundaria = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, 'SECUNDARIA');
-            $LibrosPrestadosCantidadPorOtros = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, '-');
+            $LibrosPrestadosCantidadPorOtros = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoYOtrosEntreFechas($fechaInicio, $fechaFin);
             $LibrosPrestadosAgrupadosPorPersona = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorPersonaEntreFechas($fechaInicio, $fechaFin);
             $LibrosPrestadosAgrupadosPorLibro = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorLibroEntreFechas($fechaInicio, $fechaFin);
             $LibrosPrestadosAgrupadosPorCategoria = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCategoriaEntreFechas($fechaInicio, $fechaFin);
@@ -330,6 +330,12 @@ class LibroPrestamoController extends Controller
     public function imprimirReporte(Request $request)
     {
         if ((new Rol())->verificarRoles((new Rol())->selectRol(session('idRol')), ['admin' => 1,'bibliotecario' => 1])) {
+            //Para evitar problemas de memoria y tiempo de ejecución al generar el reporte, se incrementan los límites.
+            //Esto es necesario porque el reporte puede contener una gran cantidad de datos.
+            //Se recomienda ajustar estos valores según las necesidades del servidor y la cantidad de datos a procesar.
+            ini_set('memory_limit', '512M');
+            set_time_limit(300);
+            
             $fechaInicio = $request->fechaInicio ? $request->fechaInicio : date('Y-m-d', strtotime('-3 months'));
             $fechaFin = $request->fechaFin ? $request->fechaFin : date('Y-m-d');
             if ($fechaInicio > $fechaFin) {
@@ -341,7 +347,7 @@ class LibroPrestamoController extends Controller
             $LibrosPrestadosCantidadGeneral = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, '');
             $LibrosPrestadosCantidadNivelPrimaria = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, 'PRIMARIA');
             $LibrosPrestadosCantidadNivelSecundaria = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, 'SECUNDARIA');
-            $LibrosPrestadosCantidadPorOtros = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoEntreFechas($fechaInicio, $fechaFin, '-');
+            $LibrosPrestadosCantidadPorOtros = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCursoYOtrosEntreFechas($fechaInicio, $fechaFin);
             $LibrosPrestadosAgrupadosPorPersona = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorPersonaEntreFechas($fechaInicio, $fechaFin);
             $LibrosPrestadosAgrupadosPorLibro = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorLibroEntreFechas($fechaInicio, $fechaFin);
             $LibrosPrestadosAgrupadosPorCategoria = (new LibroPrestamo())->selectLibrosPrestadosAgrupadosPorCategoriaEntreFechas($fechaInicio, $fechaFin);

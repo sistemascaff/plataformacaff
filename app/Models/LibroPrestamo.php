@@ -121,6 +121,24 @@ class LibroPrestamo extends Model
         return $queryLibrosPrestados;
     }
 
+    public function selectLibrosPrestadosAgrupadosPorCursoYOtrosEntreFechas($fechaInicio, $fechaFin)
+    {
+        $queryLibrosPrestados = LibroPrestamo::select('librosprestamos.nombreCurso')
+            ->selectRaw('COUNT(librosprestamosdetalles.idLibro) AS totalLibrosPrestados')
+            ->join('librosprestamosdetalles', 'librosprestamos.idLibrosPrestamo', '=', 'librosprestamosdetalles.idLibrosPrestamo')
+            ->join('libros', 'librosprestamosdetalles.idLibro', '=', 'libros.idLibro')
+            ->whereBetween('librosprestamos.fechaRegistro', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59'])
+            ->where(function ($query) {
+                $query->where('librosprestamos.nombreCurso', 'LIKE', '%TALLER INICIAL%')
+                    ->orWhere('librosprestamos.nombreCurso', 'LIKE', '%PRE KINDER%')
+                    ->orWhere('librosprestamos.nombreCurso', 'LIKE', '%KINDER%')
+                    ->orWhere('librosprestamos.nombreCurso', 'LIKE', '%-%');})
+            ->groupBy('librosprestamos.nombreCurso')
+            ->orderByRaw('2 DESC, 1 ASC')
+            ->get();
+        return $queryLibrosPrestados;
+    }
+
     public function selectLibrosPrestadosAgrupadosPorPersonaEntreFechas($fechaInicio, $fechaFin)
     {
         $queryLibrosPrestados = LibroPrestamo::select('personas.nombres', 'personas.apellidoPaterno', 'personas.apellidoMaterno', 'personas.tipoPerfil', 'librosprestamos.nombreCurso')
